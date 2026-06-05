@@ -2,25 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Geotectura GT · Estudio de Arquitectura</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geotectura · Construcción con excelencia</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.2s ease, border-color 0.2s ease;
+            transition: background-color 0.3s ease, color 0.2s ease;
         }
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.5;
-            scroll-behavior: smooth;
-        }
-
-        /* ========== VARIABLES MODO CLARO / OSCURO ========== */
         :root {
             --bg-primary: #ffffff;
             --bg-secondary: #f8f8f8;
@@ -29,8 +20,8 @@
             --text-secondary: #4a4a4a;
             --border-light: #e8e8e8;
             --accent: #2c2c2c;
-            --hero-overlay: rgba(0, 0, 0, 0.3);
-            --header-bg: rgba(255, 255, 255, 0.92);
+            --hero-overlay: rgba(0, 0, 0, 0.35);
+            --header-bg: rgba(255, 255, 255, 0.95);
         }
 
         body.dark {
@@ -41,8 +32,16 @@
             --text-secondary: #b0b0b0;
             --border-light: #2a2a2a;
             --accent: #3a3a3a;
-            --hero-overlay: rgba(0, 0, 0, 0.55);
-            --header-bg: rgba(18, 18, 18, 0.92);
+            --hero-overlay: rgba(0, 0, 0, 0.6);
+            --header-bg: rgba(18, 18, 18, 0.95);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            scroll-behavior: smooth;
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
@@ -53,7 +52,7 @@
             padding: 0 24px;
         }
 
-        /* ========== HEADER FIJO CON NUEVO MENÚ ========== */
+        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -75,7 +74,7 @@
         }
 
         .logo a {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 600;
             letter-spacing: -0.02em;
             text-decoration: none;
@@ -84,7 +83,7 @@
 
         .nav-links {
             display: flex;
-            gap: 24px;
+            gap: 20px;
             list-style: none;
             flex-wrap: wrap;
             align-items: center;
@@ -102,19 +101,16 @@
             opacity: 0.7;
         }
 
-        .lang-btn {
-            background: none;
+        .lang-select {
+            background: var(--bg-card);
             border: 1px solid var(--border-light);
-            padding: 4px 12px;
+            padding: 6px 12px;
             border-radius: 30px;
             font-size: 0.8rem;
-            font-weight: 500;
             cursor: pointer;
             color: var(--text-primary);
-            background: var(--bg-card);
         }
 
-        /* Botón modo oscuro */
         .darkmode-toggle {
             background: var(--accent);
             border: none;
@@ -127,43 +123,41 @@
             justify-content: center;
             font-size: 1.2rem;
             color: white;
-            transition: transform 0.2s;
-        }
-        .darkmode-toggle:hover {
-            transform: scale(1.05);
         }
 
-        /* ========== HERO ========== */
+        /* Hero */
         .hero {
             min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-image: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('https://placehold.co/1920x1080/d4d4d4/888888?text=Geotectura+Studio');
+            background-image: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('https://placehold.co/1920x1080/d4d4d4/888888?text=Geotectura+Construccion');
             background-size: cover;
             background-position: center;
             margin-top: 70px;
         }
 
         .hero-content h1 {
-            font-size: 4rem;
+            font-size: 3.8rem;
             font-weight: 600;
             letter-spacing: -0.02em;
             margin-bottom: 16px;
             color: white;
         }
+
         .hero-content p {
             font-size: 1.2rem;
             color: white;
             font-weight: 300;
         }
 
-        /* ========== SECCIONES ========== */
+        /* Secciones */
         section {
             padding: 80px 0;
             border-bottom: 1px solid var(--border-light);
         }
+
         .section-title {
             font-size: 2.2rem;
             font-weight: 500;
@@ -171,34 +165,63 @@
             text-align: center;
             letter-spacing: -0.01em;
         }
-        .grid-2cols, .grid-3cols {
+
+        .grid-2cols, .grid-3cols, .grid-4cols {
             display: grid;
-            gap: 40px;
+            gap: 32px;
         }
+
         .grid-2cols { grid-template-columns: repeat(2, 1fr); }
         .grid-3cols { grid-template-columns: repeat(3, 1fr); }
+        .grid-4cols { grid-template-columns: repeat(4, 1fr); }
 
-        .service-card, .project-card {
+        .service-card, .value-card {
             background: var(--bg-card);
             padding: 28px;
             border-radius: 20px;
             border: 1px solid var(--border-light);
             transition: transform 0.25s, box-shadow 0.25s;
+            text-decoration: none;
+            display: block;
+            color: inherit;
         }
-        .service-card:hover, .project-card:hover {
+
+        .service-card:hover, .value-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 30px -15px rgba(0,0,0,0.1);
         }
 
-        .btn-portafolio {
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .btn-servicio {
             display: inline-block;
-            margin-top: 30px;
-            background: var(--accent);
-            color: white;
-            padding: 12px 28px;
-            border-radius: 40px;
-            text-decoration: none;
+            margin-top: 16px;
             font-weight: 500;
+            color: var(--accent);
+        }
+
+        .valores-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .valor-badge {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.85rem;
         }
 
         footer {
@@ -209,9 +232,9 @@
         }
 
         @media (max-width: 800px) {
-            .grid-2cols, .grid-3cols { grid-template-columns: 1fr; }
+            .grid-2cols, .grid-3cols, .grid-4cols { grid-template-columns: 1fr; }
             .hero-content h1 { font-size: 2.2rem; }
-            .nav-links { justify-content: center; gap: 14px; }
+            .nav-links { justify-content: center; }
             .nav-bar { flex-direction: column; }
         }
     </style>
@@ -220,92 +243,236 @@
 
 <header>
     <div class="container nav-bar">
-        <div class="logo"><a href="index.html">◈ GEOTECTURA GT</a></div>
+        <div class="logo"><a href="index.html">◈ GEOTECTURA</a></div>
         <ul class="nav-links">
-            <li><a href="index.html#servicios">Servicios</a></li>
-            <li><a href="portafolio.html">Proyectos</a></li>
-            <li><a href="#">GP inside</a></li>
-            <li><a href="#">Noticias</a></li>
-            <li><a href="equipo.html">Quiénes somos</a></li>
-            <li><a href="#">Trabaja con nosotros</a></li>
-            <li><a href="index.html#contacto">Contacto</a></li>
-            <li><button class="lang-btn">EN</button></li>
+            <li><a href="#inicio" data-key="nav_inicio">Inicio</a></li>
+            <li><a href="#servicios" data-key="nav_servicios">Servicios</a></li>
+            <li><a href="portafolio.html" data-key="nav_proyectos">Proyectos</a></li>
+            <li><a href="#nosotros" data-key="nav_nosotros">Nosotros</a></li>
+            <li><a href="#contacto" data-key="nav_contacto">Contacto</a></li>
+            <li><a href="equipo.html" data-key="nav_equipo">Equipo</a></li>
+            <li>
+                <select class="lang-select" id="langSelect">
+                    <option value="es">🇪🇸 ES</option>
+                    <option value="en">🇬🇧 EN</option>
+                    <option value="pt">🇵🇹 PT</option>
+                </select>
+            </li>
             <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
         </ul>
     </div>
 </header>
 
 <main>
-    <section class="hero">
+    <section id="inicio" class="hero">
         <div class="hero-content">
-            <h1>Geotectura GT</h1>
-            <p>Arquitectura del territorio · Espacios que transforman</p>
+            <h1 data-key="hero_title">Geotectura</h1>
+            <p data-key="hero_subtitle">Construimos espacios que transforman vidas</p>
         </div>
     </section>
 
-    <section id="vision-mision">
+    <!-- Descripción de la empresa -->
+    <section id="empresa">
         <div class="container">
-            <h2 class="section-title">Visión & Misión</h2>
+            <h2 class="section-title" data-key="empresa_title">¿Quiénes somos?</h2>
+            <div style="max-width: 900px; margin: 0 auto; text-align: center; background: var(--bg-card); padding: 48px; border-radius: 32px;">
+                <p style="color: var(--text-secondary); font-size: 1.1rem;" data-key="empresa_desc">
+                    Geotectura es una empresa de proyectos de construcción fundada en 2025. Ofrecemos servicios de construcción de viviendas, edificios, locales comerciales y obras de infraestructura, garantizando calidad, seguridad y cumplimiento de los plazos establecidos. Contamos con un equipo de profesionales capacitados utilizando materiales de alta calidad para satisfacer las necesidades de nuestros clientes. Nuestro compromiso es brindar soluciones innovadoras y eficientes, contribuyendo al desarrollo de las comunidades y al crecimiento del sector de la construcción.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Misión y Visión -->
+    <section id="mision-vision">
+        <div class="container">
             <div class="grid-2cols">
-                <div class="service-card"><h3>🌿 Visión</h3><p style="color:var(--text-secondary)">[ESPACIO: Redacta tu visión aquí] Ser referentes en diseño territorial sostenible.</p></div>
-                <div class="service-card"><h3>⚙️ Misión</h3><p style="color:var(--text-secondary)">[ESPACIO: Redacta tu misión] Desarrollar proyectos que respeten el entorno y mejoren la calidad de vida.</p></div>
+                <div class="service-card">
+                    <h3>🎯 <span data-key="mision_title">Misión</span></h3>
+                    <p style="color: var(--text-secondary);" data-key="mision_text">Brindar servicios de construcción de alta calidad, desarrollando proyectos seguros, innovadores y sostenibles que satisfagan las necesidades de nuestros clientes, mediante el trabajo de un equipo profesional comprometido con la excelencia y la responsabilidad.</p>
+                </div>
+                <div class="service-card">
+                    <h3>👁️ <span data-key="vision_title">Visión</span></h3>
+                    <p style="color: var(--text-secondary);" data-key="vision_text">Ser una empresa líder en el sector de la construcción, reconocida por la calidad de sus obras, la innovación en sus procesos y el compromiso con el desarrollo de las comunidades, contribuyendo al crecimiento del país.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="dedicamos">
+    <!-- Valores -->
+    <section id="valores">
         <div class="container">
-            <h2 class="section-title">A qué nos dedicamos</h2>
-            <div style="max-width:800px; margin:0 auto; text-align:center; background:var(--bg-card); padding:40px; border-radius:32px;">
-                <p style="color:var(--text-secondary)">[ESPACIO: Descripción general del estudio] Integramos topografía, arquitectura y diseño de experiencias para crear proyectos únicos.</p>
+            <h2 class="section-title" data-key="valores_title">Nuestros Valores</h2>
+            <div class="valores-list" id="valoresContainer">
+                <!-- Los valores se llenan con JS según el idioma -->
             </div>
         </div>
     </section>
 
+    <!-- Servicios (6 tarjetas que enlazan a páginas individuales) -->
     <section id="servicios">
         <div class="container">
-            <h2 class="section-title">Servicios</h2>
+            <h2 class="section-title" data-key="servicios_title">Servicios</h2>
             <div class="grid-3cols">
-                <div class="service-card"><h3>📐 Cálculo topografía</h3><p>Levantamientos, curvas de nivel, modelos 3D de terreno.</p></div>
-                <div class="service-card"><h3>🎢 Parques temáticos</h3><p>Masterplan, diseño narrativo y paisajismo inmersivo.</p></div>
-                <div class="service-card"><h3>🏡 Reformas integrales</h3><p>Casas, parques, locales: transformamos cualquier espacio.</p></div>
-                <div class="service-card"><h3>🏙️ Urbanismo</h3><p>Espacios públicos, plazas, regeneración urbana.</p></div>
-                <div class="service-card"><h3>📊 Dirección obra</h3><p>Gestión, presupuestos y control de calidad.</p></div>
-                <div class="service-card"><h3>🔄 Asesoría técnica</h3><p>Consultoría estructural y normativa.</p></div>
+                <a href="servicio-topografia.html" class="service-card">
+                    <h3>📐 <span data-key="serv_topografia_titulo">Cálculo topografía</span></h3>
+                    <p data-key="serv_topografia_desc">Levantamientos, curvas de nivel, modelos 3D de terreno.</p>
+                    <span class="btn-servicio" data-key="ver_mas">Ver más →</span>
+                </a>
+                <a href="servicio-urbanismo.html" class="service-card">
+                    <h3>🏙️ <span data-key="serv_urbanismo_titulo">Urbanismo</span></h3>
+                    <p data-key="serv_urbanismo_desc">Espacios públicos, plazas, regeneración urbana.</p>
+                    <span class="btn-servicio" data-key="ver_mas">Ver más →</span>
+                </a>
+                <a href="servicio-parques.html" class="service-card">
+                    <h3>🎢 <span data-key="serv_parques_titulo">Parques temáticos</span></h3>
+                    <p data-key="serv_parques_desc">Masterplan, diseño narrativo y paisajismo inmersivo.</p>
+                    <span class="btn-servicio" data-key="ver_mas">Ver más →</span>
+                </a>
+                <a href="servicio-direccion.html" class="service-card">
+                    <h3>📊 <span data-key="serv_direccion_titulo">Dirección obra</span></h3>
+                    <p data-key="serv_direccion_desc">Gestión, presupuestos y control de calidad.</p>
+                    <span class="btn-servicio" data-key="ver_mas">Ver más →</span>
+                </a>
+                <a href="servicio-reformas.html" class="service-card">
+                    <h3>🔄 <span data-key="serv_reformas_titulo">Reformas integrales</span></h3>
+                    <p data-key="serv_reformas_desc">Casas, parques, locales: transformamos cualquier espacio.</p>
+                    <span class="btn-servicio" data-key="ver_mas">Ver más →</span>
+                </a>
+                <a href="servicio-asesoria.html" class="service-card">
+                    <h3>⚙️ <span data-key="serv_asesoria_titulo">Asesoría técnica</span></h3>
+                    <p data-key="serv_asesoria_desc">Consultoría estructural y normativa.</p>
+                    <span class="btn-servicio" data-key="ver_mas">Ver más →</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="reformas">
-        <div class="container">
-            <h2 class="section-title">Reformas</h2>
-            <div class="grid-2cols">
-                <div><img src="https://placehold.co/600x400/d9d9d9/888888?text=Antes/Después" style="width:100%; border-radius:24px;"></div>
-                <div><h3>De casas a parques temáticos</h3><p style="color:var(--text-secondary)">[ESPACIO: Explica tus servicios de reforma] Renovamos por completo cualquier tipo de proyecto: viviendas, parques, hoteles, espacios industriales.</p></div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Contacto -->
     <section id="contacto">
         <div class="container">
-            <h2 class="section-title">Contacto</h2>
+            <h2 class="section-title" data-key="contacto_title">Contacto</h2>
             <div class="grid-2cols">
-                <div class="service-card"><p>📧 contacto@geotectura.com</p><p>📞 +502 1234 5678</p><p>📍 Guatemala City</p></div>
-                <div><form><input placeholder="Nombre"><input placeholder="Email"><textarea placeholder="Mensaje"></textarea><button type="submit">Enviar</button></form></div>
+                <div class="service-card">
+                    <p>📧 <strong>Email:</strong> info@geotectura.com</p>
+                    <p>📞 <strong>Teléfono:</strong> +502 1234 5678</p>
+                    <p>📍 <strong>Ubicación:</strong> Ciudad de Guatemala</p>
+                    <p>🕒 <strong data-key="horario">Horario:</strong> Lunes a Viernes · 8am - 6pm</p>
+                </div>
+                <div class="service-card">
+                    <form>
+                        <input type="text" placeholder="Nombre" style="width:100%; padding:12px; margin-bottom:12px; border-radius:40px; border:1px solid var(--border-light); background:var(--bg-primary);">
+                        <input type="email" placeholder="Email" style="width:100%; padding:12px; margin-bottom:12px; border-radius:40px; border:1px solid var(--border-light); background:var(--bg-primary);">
+                        <textarea placeholder="Mensaje" rows="3" style="width:100%; padding:12px; border-radius:20px; border:1px solid var(--border-light); background:var(--bg-primary);"></textarea>
+                        <button type="submit" style="margin-top:12px; background:var(--accent); color:white; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">Enviar</button>
+                    </form>
+                </div>
             </div>
-            <div style="text-align:center; margin-top:40px;"><a href="portafolio.html" class="btn-portafolio">✨ Ver portafolio completo ✨</a></div>
         </div>
     </section>
 </main>
 
-<footer><div class="container"><p>© 2026 Geotectura GT — Estudio de arquitectura</p><p>+ diseño minimalista · inspiración Gómez Platero</p></div></footer>
+<footer>
+    <div class="container">
+        <p>© 2026 Geotectura · Fundada en 2025</p>
+        <p style="margin-top:8px;">Construimos calidad, seguridad y desarrollo</p>
+    </div>
+</footer>
 
 <script>
+    // Modo oscuro
     const toggle = document.getElementById('darkModeToggle');
     toggle.addEventListener('click', () => {
         document.body.classList.toggle('dark');
         toggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
     });
+
+    // Diccionario de textos por idioma
+    const texts = {
+        es: {
+            nav_inicio: "Inicio", nav_servicios: "Servicios", nav_proyectos: "Proyectos", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo",
+            hero_title: "Geotectura", hero_subtitle: "Construimos espacios que transforman vidas",
+            empresa_title: "¿Quiénes somos?",
+            empresa_desc: "Geotectura es una empresa de proyectos de construcción fundada en 2025. Ofrecemos servicios de construcción de viviendas, edificios, locales comerciales y obras de infraestructura, garantizando calidad, seguridad y cumplimiento de los plazos establecidos. Contamos con un equipo de profesionales capacitados utilizando materiales de alta calidad para satisfacer las necesidades de nuestros clientes. Nuestro compromiso es brindar soluciones innovadoras y eficientes, contribuyendo al desarrollo de las comunidades y al crecimiento del sector de la construcción.",
+            mision_title: "Misión", mision_text: "Brindar servicios de construcción de alta calidad, desarrollando proyectos seguros, innovadores y sostenibles que satisfagan las necesidades de nuestros clientes, mediante el trabajo de un equipo profesional comprometido con la excelencia y la responsabilidad.",
+            vision_title: "Visión", vision_text: "Ser una empresa líder en el sector de la construcción, reconocida por la calidad de sus obras, la innovación en sus procesos y el compromiso con el desarrollo de las comunidades, contribuyendo al crecimiento del país.",
+            valores_title: "Nuestros Valores",
+            valores_list: ["Responsabilidad", "Compromiso", "Calidad", "Seguridad", "Trabajo en equipo", "Respeto", "Honestidad", "Innovación", "Sostenibilidad ambiental"],
+            servicios_title: "Servicios",
+            serv_topografia_titulo: "Cálculo topografía", serv_topografia_desc: "Levantamientos, curvas de nivel, modelos 3D de terreno.",
+            serv_urbanismo_titulo: "Urbanismo", serv_urbanismo_desc: "Espacios públicos, plazas, regeneración urbana.",
+            serv_parques_titulo: "Parques temáticos", serv_parques_desc: "Masterplan, diseño narrativo y paisajismo inmersivo.",
+            serv_direccion_titulo: "Dirección obra", serv_direccion_desc: "Gestión, presupuestos y control de calidad.",
+            serv_reformas_titulo: "Reformas integrales", serv_reformas_desc: "Casas, parques, locales: transformamos cualquier espacio.",
+            serv_asesoria_titulo: "Asesoría técnica", serv_asesoria_desc: "Consultoría estructural y normativa.",
+            contacto_title: "Contacto", horario: "Horario", ver_mas: "Ver más →"
+        },
+        en: {
+            nav_inicio: "Home", nav_servicios: "Services", nav_proyectos: "Projects", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
+            hero_title: "Geotectura", hero_subtitle: "We build spaces that transform lives",
+            empresa_title: "Who we are?",
+            empresa_desc: "Geotectura is a construction project company founded in 2025. We offer construction services for homes, buildings, commercial spaces and infrastructure works, guaranteeing quality, safety and compliance with established deadlines. We have a team of trained professionals using high-quality materials to satisfy our clients' needs. Our commitment is to provide innovative and efficient solutions, contributing to the development of communities and the growth of the construction sector.",
+            mision_title: "Mission", mision_text: "To provide high-quality construction services, developing safe, innovative and sustainable projects that satisfy the needs of our clients, through the work of a professional team committed to excellence and responsibility.",
+            vision_title: "Vision", vision_text: "To be a leading company in the construction sector, recognized for the quality of its works, innovation in its processes and commitment to community development, contributing to the country's growth.",
+            valores_title: "Our Values",
+            valores_list: ["Responsibility", "Commitment", "Quality", "Safety", "Teamwork", "Respect", "Honesty", "Innovation", "Environmental Sustainability"],
+            servicios_title: "Services",
+            serv_topografia_titulo: "Topography calculation", serv_topografia_desc: "Surveys, contour lines, 3D terrain models.",
+            serv_urbanismo_titulo: "Urbanism", serv_urbanismo_desc: "Public spaces, squares, urban regeneration.",
+            serv_parques_titulo: "Theme parks", serv_parques_desc: "Masterplan, narrative design, immersive landscaping.",
+            serv_direccion_titulo: "Construction management", serv_direccion_desc: "Management, budgets, quality control.",
+            serv_reformas_titulo: "Integral renovations", serv_reformas_desc: "Homes, parks, venues: we transform any space.",
+            serv_asesoria_titulo: "Technical advisory", serv_asesoria_desc: "Structural and regulatory consulting.",
+            contacto_title: "Contact", horario: "Schedule", ver_mas: "View more →"
+        },
+        pt: {
+            nav_inicio: "Início", nav_servicios: "Serviços", nav_proyectos: "Projetos", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
+            hero_title: "Geotectura", hero_subtitle: "Construímos espaços que transformam vidas",
+            empresa_title: "Quem somos?",
+            empresa_desc: "Geotectura é uma empresa de projetos de construção fundada em 2025. Oferecemos serviços de construção de casas, edifícios, espaços comerciais e obras de infraestrutura, garantindo qualidade, segurança e cumprimento dos prazos estabelecidos. Contamos com uma equipe de profissionais capacitados utilizando materiais de alta qualidade para satisfazer as necessidades dos nossos clientes. Nosso compromisso é fornecer soluções inovadoras e eficientes, contribuindo para o desenvolvimento das comunidades e para o crescimento do setor da construção.",
+            mision_title: "Missão", mision_text: "Oferecer serviços de construção de alta qualidade, desenvolvendo projetos seguros, inovadores e sustentáveis que atendam às necessidades dos nossos clientes, através do trabalho de uma equipe profissional comprometida com a excelência e responsabilidade.",
+            vision_title: "Visão", vision_text: "Ser uma empresa líder no setor da construção, reconhecida pela qualidade das suas obras, inovação nos seus processos e compromisso com o desenvolvimento das comunidades, contribuindo para o crescimento do país.",
+            valores_title: "Nossos Valores",
+            valores_list: ["Responsabilidade", "Compromisso", "Qualidade", "Segurança", "Trabalho em equipe", "Respeito", "Honestidade", "Inovação", "Sustentabilidade ambiental"],
+            servicios_title: "Serviços",
+            serv_topografia_titulo: "Cálculo topográfico", serv_topografia_desc: "Levantamentos, curvas de nível, modelos 3D de terreno.",
+            serv_urbanismo_titulo: "Urbanismo", serv_urbanismo_desc: "Espaços públicos, praças, regeneração urbana.",
+            serv_parques_titulo: "Parques temáticos", serv_parques_desc: "Masterplan, design narrativo, paisagismo imersivo.",
+            serv_direccion_titulo: "Gestão de obras", serv_direccion_desc: "Gestão, orçamentos, controle de qualidade.",
+            serv_reformas_titulo: "Reformas integrais", serv_reformas_desc: "Casas, parques, locais: transformamos qualquer espaço.",
+            serv_asesoria_titulo: "Assessoria técnica", serv_asesoria_desc: "Consultoria estrutural e normativa.",
+            contacto_title: "Contato", horario: "Horário", ver_mas: "Ver mais →"
+        }
+    };
+
+    function changeLanguage(lang) {
+        const elements = document.querySelectorAll('[data-key]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (texts[lang][key]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = texts[lang][key];
+                } else {
+                    el.innerHTML = texts[lang][key];
+                }
+            }
+        });
+        // Actualizar valores
+        if (texts[lang].valores_list) {
+            const valoresContainer = document.getElementById('valoresContainer');
+            valoresContainer.innerHTML = texts[lang].valores_list.map(v => `<span class="valor-badge">${v}</span>`).join('');
+        }
+    }
+
+    const langSelect = document.getElementById('langSelect');
+    langSelect.addEventListener('change', (e) => {
+        changeLanguage(e.target.value);
+        localStorage.setItem('geotectura_lang', e.target.value);
+    });
+
+    const savedLang = localStorage.getItem('geotectura_lang') || 'es';
+    langSelect.value = savedLang;
+    changeLanguage(savedLang);
 </script>
 </body>
 </html>
