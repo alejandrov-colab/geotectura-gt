@@ -1,1 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Geotectura GT · Estudio de Arquitectura</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.2s ease, border-color 0.2s ease;
+        }
 
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* ========== VARIABLES MODO CLARO / OSCURO ========== */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f8f8;
+            --bg-card: #fafafa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --border-light: #e8e8e8;
+            --accent: #2c2c2c;
+            --hero-overlay: rgba(0, 0, 0, 0.3);
+            --header-bg: rgba(255, 255, 255, 0.92);
+        }
+
+        body.dark {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #121212;
+            --bg-card: #1e1e1e;
+            --text-primary: #ededed;
+            --text-secondary: #b0b0b0;
+            --border-light: #2a2a2a;
+            --accent: #3a3a3a;
+            --hero-overlay: rgba(0, 0, 0, 0.55);
+            --header-bg: rgba(18, 18, 18, 0.92);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== HEADER FIJO CON NUEVO MENÚ ========== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--header-bg);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid var(--border-light);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--text-primary);
+            background: var(--bg-card);
+        }
+
+        /* Botón modo oscuro */
+        .darkmode-toggle {
+            background: var(--accent);
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            transition: transform 0.2s;
+        }
+        .darkmode-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('https://placehold.co/1920x1080/d4d4d4/888888?text=Geotectura+Studio');
+            background-size: cover;
+            background-position: center;
+            margin-top: 70px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            color: white;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            color: white;
+            font-weight: 300;
+        }
+
+        /* ========== SECCIONES ========== */
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 500;
+            margin-bottom: 48px;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+        .grid-2cols, .grid-3cols {
+            display: grid;
+            gap: 40px;
+        }
+        .grid-2cols { grid-template-columns: repeat(2, 1fr); }
+        .grid-3cols { grid-template-columns: repeat(3, 1fr); }
+
+        .service-card, .project-card {
+            background: var(--bg-card);
+            padding: 28px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .service-card:hover, .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.1);
+        }
+
+        .btn-portafolio {
+            display: inline-block;
+            margin-top: 30px;
+            background: var(--accent);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 800px) {
+            .grid-2cols, .grid-3cols { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .nav-links { justify-content: center; gap: 14px; }
+            .nav-bar { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container nav-bar">
+        <div class="logo"><a href="index.html">◈ GEOTECTURA GT</a></div>
+        <ul class="nav-links">
+            <li><a href="index.html#servicios">Servicios</a></li>
+            <li><a href="portafolio.html">Proyectos</a></li>
+            <li><a href="#">GP inside</a></li>
+            <li><a href="#">Noticias</a></li>
+            <li><a href="equipo.html">Quiénes somos</a></li>
+            <li><a href="#">Trabaja con nosotros</a></li>
+            <li><a href="index.html#contacto">Contacto</a></li>
+            <li><button class="lang-btn">EN</button></li>
+            <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Geotectura GT</h1>
+            <p>Arquitectura del territorio · Espacios que transforman</p>
+        </div>
+    </section>
+
+    <section id="vision-mision">
+        <div class="container">
+            <h2 class="section-title">Visión & Misión</h2>
+            <div class="grid-2cols">
+                <div class="service-card"><h3>🌿 Visión</h3><p style="color:var(--text-secondary)">[ESPACIO: Redacta tu visión aquí] Ser referentes en diseño territorial sostenible.</p></div>
+                <div class="service-card"><h3>⚙️ Misión</h3><p style="color:var(--text-secondary)">[ESPACIO: Redacta tu misión] Desarrollar proyectos que respeten el entorno y mejoren la calidad de vida.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dedicamos">
+        <div class="container">
+            <h2 class="section-title">A qué nos dedicamos</h2>
+            <div style="max-width:800px; margin:0 auto; text-align:center; background:var(--bg-card); padding:40px; border-radius:32px;">
+                <p style="color:var(--text-secondary)">[ESPACIO: Descripción general del estudio] Integramos topografía, arquitectura y diseño de experiencias para crear proyectos únicos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios">
+        <div class="container">
+            <h2 class="section-title">Servicios</h2>
+            <div class="grid-3cols">
+                <div class="service-card"><h3>📐 Cálculo topografía</h3><p>Levantamientos, curvas de nivel, modelos 3D de terreno.</p></div>
+                <div class="service-card"><h3>🎢 Parques temáticos</h3><p>Masterplan, diseño narrativo y paisajismo inmersivo.</p></div>
+                <div class="service-card"><h3>🏡 Reformas integrales</h3><p>Casas, parques, locales: transformamos cualquier espacio.</p></div>
+                <div class="service-card"><h3>🏙️ Urbanismo</h3><p>Espacios públicos, plazas, regeneración urbana.</p></div>
+                <div class="service-card"><h3>📊 Dirección obra</h3><p>Gestión, presupuestos y control de calidad.</p></div>
+                <div class="service-card"><h3>🔄 Asesoría técnica</h3><p>Consultoría estructural y normativa.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reformas">
+        <div class="container">
+            <h2 class="section-title">Reformas</h2>
+            <div class="grid-2cols">
+                <div><img src="https://placehold.co/600x400/d9d9d9/888888?text=Antes/Después" style="width:100%; border-radius:24px;"></div>
+                <div><h3>De casas a parques temáticos</h3><p style="color:var(--text-secondary)">[ESPACIO: Explica tus servicios de reforma] Renovamos por completo cualquier tipo de proyecto: viviendas, parques, hoteles, espacios industriales.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="grid-2cols">
+                <div class="service-card"><p>📧 contacto@geotectura.com</p><p>📞 +502 1234 5678</p><p>📍 Guatemala City</p></div>
+                <div><form><input placeholder="Nombre"><input placeholder="Email"><textarea placeholder="Mensaje"></textarea><button type="submit">Enviar</button></form></div>
+            </div>
+            <div style="text-align:center; margin-top:40px;"><a href="portafolio.html" class="btn-portafolio">✨ Ver portafolio completo ✨</a></div>
+        </div>
+    </section>
+</main>
+
+<footer><div class="container"><p>© 2026 Geotectura GT — Estudio de arquitectura</p><p>+ diseño minimalista · inspiración Gómez Platero</p></div></footer>
+
+<script>
+    const toggle = document.getElementById('darkModeToggle');
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        toggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    });
+</script>
+</body>
+</html>
