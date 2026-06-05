@@ -1,16 +1,389 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Equipo · Geotectura GT</title><style>*{margin:0;padding:0;box-sizing:border-box;} body{font-family:'Inter',sans-serif;background:#fff;color:#111;} .container{max-width:1200px;margin:0 auto;padding:20px;} .grid-equipo{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:40px;margin:60px 0;} .miembro{text-align:center;} .miembro img{width:180px;height:180px;border-radius:50%;object-fit:cover;margin-bottom:16px;} .btn-volver{background:#000;color:white;padding:10px 24px;border-radius:40px;display:inline-block;margin:20px 0;text-decoration:none;} footer{text-align:center;padding:40px;}</style></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geotectura · Nuestro equipo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.2s ease;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f8f8;
+            --bg-card: #fafafa;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --border-light: #e8e8e8;
+            --accent: #2c2c2c;
+            --header-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body.dark {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #121212;
+            --bg-card: #1e1e1e;
+            --text-primary: #ededed;
+            --text-secondary: #b0b0b0;
+            --border-light: #2a2a2a;
+            --accent: #3a3a3a;
+            --header-bg: rgba(18, 18, 18, 0.95);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--header-bg);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo a {
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .darkmode-toggle {
+            background: var(--accent);
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        /* Hero equipo */
+        .hero-equipo {
+            background: var(--bg-secondary);
+            padding: 140px 0 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .hero-equipo h1 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .hero-equipo p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid de equipo */
+        .grid-equipo {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 48px;
+            padding: 60px 0;
+        }
+
+        .miembro-card {
+            text-align: center;
+            background: var(--bg-card);
+            padding: 32px 24px;
+            border-radius: 32px;
+            border: 1px solid var(--border-light);
+            transition: transform 0.3s;
+        }
+
+        .miembro-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .miembro-foto {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            background: #d4d4d4;
+        }
+
+        .miembro-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+        }
+
+        .miembro-cargo {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .miembro-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Valores del equipo */
+        .valores-equipo {
+            background: var(--bg-secondary);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .valores-equipo h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .grid-valores {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .valor-item {
+            padding: 24px;
+        }
+
+        .valor-icono {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 800px) {
+            .hero-equipo h1 { font-size: 2rem; }
+            .grid-equipo { grid-template-columns: 1fr; }
+            .nav-links { justify-content: center; }
+            .nav-bar { flex-direction: column; }
+        }
+    </style>
+</head>
 <body>
-<div class="container">
-    <header><h1>◈ Nuestro equipo</h1><a href="index.html" class="btn-volver">← Volver al inicio</a></header>
-    <div class="grid-equipo">
-        <div class="miembro"><img src="https://placehold.co/400x400/e0e0e0/aaaaaa?text=Arq"><h3>María González</h3><p>Directora creativa · Arquitectura del paisaje</p></div>
-        <div class="miembro"><img src="https://placehold.co/400x400/d0d0d0/aaaaaa?text=Top"><h3>Carlos Méndez</h3><p>Ingeniero topógrafo · GIS y modelado 3D</p></div>
-        <div class="miembro"><img src="https://placehold.co/400x400/c8c8c8/aaaaaa?text=Arq2"><h3>Lucía Herrera</h3><p>Arquitecta · Reformas y diseño interior</p></div>
-        <div class="miembro"><img src="https://placehold.co/400x400/bebebe/aaaaaa?text=Proj"><h3>Javier Estrada</h3><p>Project Manager · Parques temáticos</p></div>
+
+<header>
+    <div class="container nav-bar">
+        <div class="logo"><a href="index.html">◈ GEOTECTURA</a></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="index.html#servicios">Servicios</a></li>
+            <li><a href="portafolio.html">Proyectos</a></li>
+            <li><a href="index.html#contacto">Contacto</a></li>
+            <li><a href="equipo.html" style="opacity:0.7;">Equipo</a></li>
+            <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
+        </ul>
     </div>
-    <footer>+ Talento multidisciplinario para transformar territorios</footer>
-</div>
+</header>
+
+<main>
+    <section class="hero-equipo">
+        <div class="container">
+            <h1>👥 Nuestro equipo humano</h1>
+            <p>Profesionales apasionados por la construcción, comprometidos con la excelencia</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="grid-equipo">
+            <!-- Miembro 1 -->
+            <div class="miembro-card">
+                <img src="https://placehold.co/400x400/d4d4d4/888888?text=Director" class="miembro-foto" alt="Director">
+                <h3>Carlos Rodríguez</h3>
+                <div class="miembro-cargo">🏗️ Director General / Fundador</div>
+                <p class="miembro-desc">Ingeniero civil con 15 años de experiencia en proyectos de gran escala. Especialista en gestión de obras y desarrollo inmobiliario.</p>
+                <div class="social-links">
+                    <a href="#">in</a>
+                    <a href="#">📧</a>
+                </div>
+            </div>
+
+            <!-- Miembro 2 -->
+            <div class="miembro-card">
+                <img src="https://placehold.co/400x400/c8c8c8/888888?text=Arquitecta" class="miembro-foto" alt="Arquitecta">
+                <h3>Ana María López</h3>
+                <div class="miembro-cargo">📐 Directora de Arquitectura</div>
+                <p class="miembro-desc">Arquitecta con maestría en diseño sostenible. Lidera los proyectos de vivienda y espacios comerciales con un enfoque innovador.</p>
+                <div class="social-links">
+                    <a href="#">in</a>
+                    <a href="#">📧</a>
+                </div>
+            </div>
+
+            <!-- Miembro 3 -->
+            <div class="miembro-card">
+                <img src="https://placehold.co/400x400/bebebe/888888?text=Ingeniera" class="miembro-foto" alt="Ingeniera">
+                <h3>María Fernanda Ríos</h3>
+                <div class="miembro-cargo">📊 Gerente de Proyectos</div>
+                <p class="miembro-desc">Ingeniera civil con certificación PMP. Coordina equipos multidisciplinarios y garantiza el cumplimiento de plazos y presupuestos.</p>
+                <div class="social-links">
+                    <a href="#">in</a>
+                    <a href="#">📧</a>
+                </div>
+            </div>
+
+            <!-- Miembro 4 -->
+            <div class="miembro-card">
+                <img src="https://placehold.co/400x400/d0d0d0/888888?text=Topógrafo" class="miembro-foto" alt="Topógrafo">
+                <h3>Javier Méndez</h3>
+                <div class="miembro-cargo">🗺️ Especialista en Topografía</div>
+                <p class="miembro-desc">Topógrafo experto en levantamientos con drones y modelado 3D de terrenos para proyectos de infraestructura.</p>
+                <div class="social-links">
+                    <a href="#">in</a>
+                    <a href="#">📧</a>
+                </div>
+            </div>
+
+            <!-- Miembro 5 -->
+            <div class="miembro-card">
+                <img src="https://placehold.co/400x400/dcdcdc/888888?text=Paisajista" class="miembro-foto" alt="Paisajista">
+                <h3>Lucía Torres</h3>
+                <div class="miembro-cargo">🌿 Diseñadora de Parques</div>
+                <p class="miembro-desc">Arquitecta paisajista. Crea experiencias únicas en parques temáticos y espacios públicos sostenibles.</p>
+                <div class="social-links">
+                    <a href="#">in</a>
+                    <a href="#">📧</a>
+                </div>
+            </div>
+
+            <!-- Miembro 6 -->
+            <div class="miembro-card">
+                <img src="https://placehold.co/400x400/e0e0e0/888888?text=Estructurista" class="miembro-foto" alt="Estructurista">
+                <h3>Roberto Castillo</h3>
+                <div class="miembro-cargo">🏛️ Ingeniero Estructural</div>
+                <p class="miembro-desc">Especialista en cálculo de estructuras y asesoría técnica para edificaciones de mediana y gran altura.</p>
+                <div class="social-links">
+                    <a href="#">in</a>
+                    <a href="#">📧</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de valores del equipo -->
+    <section class="valores-equipo">
+        <div class="container">
+            <h2>Nuestra forma de trabajar</h2>
+            <div class="grid-valores">
+                <div class="valor-item">
+                    <div class="valor-icono">🤝</div>
+                    <h3>Colaboración</h3>
+                    <p style="color: var(--text-secondary);">Trabajamos en equipo con comunicación constante.</p>
+                </div>
+                <div class="valor-item">
+                    <div class="valor-icono">🔧</div>
+                    <h3>Excelencia técnica</h3>
+                    <p style="color: var(--text-secondary);">Actualización continua y mejores prácticas.</p>
+                </div>
+                <div class="valor-item">
+                    <div class="valor-icono">🎯</div>
+                    <h3>Orientación al cliente</h3>
+                    <p style="color: var(--text-secondary);">Escuchamos y superamos expectativas.</p>
+                </div>
+                <div class="valor-item">
+                    <div class="valor-icono">🌱</div>
+                    <h3>Compromiso social</h3>
+                    <p style="color: var(--text-secondary);">Construimos comunidades mejores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Geotectura · +15 años construyendo confianza</p>
+        <p style="margin-top: 8px; font-size: 0.75rem;">Un equipo de profesionales listo para tu proyecto</p>
+    </div>
+</footer>
+
+<script>
+    const toggle = document.getElementById('darkModeToggle');
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        toggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+    });
+</script>
 </body>
 </html>
