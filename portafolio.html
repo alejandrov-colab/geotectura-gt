@@ -3,235 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geotectura · Portafolio de proyectos</title>
+    <title>Geotectura · Portafolio</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.2s ease;
-        }
-
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f8f8;
-            --bg-card: #fafafa;
-            --text-primary: #1a1a1a;
-            --text-secondary: #4a4a4a;
-            --border-light: #e8e8e8;
-            --accent: #2c2c2c;
-            --header-bg: rgba(255, 255, 255, 0.95);
-        }
-
-        body.dark {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #121212;
-            --bg-card: #1e1e1e;
-            --text-primary: #ededed;
-            --text-secondary: #b0b0b0;
-            --border-light: #2a2a2a;
-            --accent: #3a3a3a;
-            --header-bg: rgba(18, 18, 18, 0.95);
-        }
-
-        body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.5;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--header-bg);
-            backdrop-filter: blur(16px);
-            z-index: 1000;
-            padding: 18px 0;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .nav-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .logo a {
-            font-size: 1.4rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            text-decoration: none;
-            color: var(--text-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            transition: opacity 0.2s;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.7;
-        }
-
-        .darkmode-toggle {
-            background: var(--accent);
-            border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        /* Hero de portafolio */
-        .hero-portafolio {
-            background: var(--bg-secondary);
-            padding: 140px 0 60px;
-            text-align: center;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .hero-portafolio h1 {
-            font-size: 2.8rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 16px;
-        }
-
-        .hero-portafolio p {
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Filtros */
-        .filtros {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin: 48px 0 32px;
-        }
-
-        .filtro-btn {
-            background: transparent;
-            border: 1px solid var(--border-light);
-            padding: 8px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.85rem;
-            color: var(--text-primary);
-            transition: all 0.2s;
-        }
-
-        .filtro-btn.active, .filtro-btn:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        /* Grid de proyectos */
-        .grid-proyectos {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 32px;
-            padding: 40px 0 60px;
-        }
-
-        .proyecto-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid var(--border-light);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .proyecto-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.2);
-        }
-
-        .proyecto-img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            background: #d4d4d4;
-        }
-
-        .proyecto-info {
-            padding: 24px;
-        }
-
-        .proyecto-categoria {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .proyecto-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-        }
-
-        .proyecto-info p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-        }
-
-        .ver-proyecto {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid var(--border-light);
-            color: var(--text-secondary);
-        }
-
-        @media (max-width: 800px) {
-            .hero-portafolio h1 { font-size: 2rem; }
-            .grid-proyectos { grid-template-columns: 1fr; }
-            .nav-links { justify-content: center; }
-            .nav-bar { flex-direction: column; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.2s ease; }
+        :root { --bg-primary: #ffffff; --bg-secondary: #f8f8f8; --bg-card: #fafafa; --text-primary: #1a1a1a; --text-secondary: #4a4a4a; --border-light: #e8e8e8; --accent: #2c2c2c; --header-bg: rgba(255, 255, 255, 0.95); }
+        body.dark { --bg-primary: #0a0a0a; --bg-secondary: #121212; --bg-card: #1e1e1e; --text-primary: #ededed; --text-secondary: #b0b0b0; --border-light: #2a2a2a; --accent: #3a3a3a; --header-bg: rgba(18, 18, 18, 0.95); }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        header { position: fixed; top: 0; left: 0; width: 100%; background: var(--header-bg); backdrop-filter: blur(16px); z-index: 1000; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .logo a { font-size: 1.4rem; font-weight: 600; text-decoration: none; color: var(--text-primary); }
+        .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; align-items: center; }
+        .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--text-primary); transition: opacity 0.2s; }
+        .nav-links a:hover, .nav-links a.active { opacity: 0.7; }
+        .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
+        .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
+        .hero-portafolio { background: var(--bg-secondary); padding: 140px 0 60px; text-align: center; border-bottom: 1px solid var(--border-light); }
+        .hero-portafolio h1 { font-size: 2.8rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .hero-portafolio p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+        .filtros { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin: 48px 0 32px; }
+        .filtro-btn { background: transparent; border: 1px solid var(--border-light); padding: 8px 24px; border-radius: 40px; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--text-primary); transition: all 0.2s; }
+        .filtro-btn.active, .filtro-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+        .grid-proyectos { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 32px; padding: 40px 0 60px; }
+        .proyecto-card { background: var(--bg-card); border-radius: 20px; overflow: hidden; border: 1px solid var(--border-light); transition: transform 0.3s, box-shadow 0.3s; }
+        .proyecto-card:hover { transform: translateY(-8px); box-shadow: 0 20px 30px -15px rgba(0,0,0,0.2); }
+        .proyecto-img { width: 100%; height: 240px; object-fit: cover; background: #d4d4d4; }
+        .proyecto-info { padding: 24px; }
+        .proyecto-categoria { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+        .proyecto-info h3 { font-size: 1.3rem; margin-bottom: 12px; }
+        .proyecto-info p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px; }
+        footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary); }
+        @media (max-width: 800px) { .hero-portafolio h1 { font-size: 2rem; } .grid-proyectos { grid-template-columns: 1fr; } .nav-links { justify-content: center; } .nav-bar { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -240,11 +43,13 @@
     <div class="container nav-bar">
         <div class="logo"><a href="index.html">◈ GEOTECTURA</a></div>
         <ul class="nav-links">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="index.html#servicios">Servicios</a></li>
-            <li><a href="portafolio.html" style="opacity:0.7;">Proyectos</a></li>
-            <li><a href="index.html#contacto">Contacto</a></li>
-            <li><a href="equipo.html">Equipo</a></li>
+            <li><a href="index.html" data-key="nav_inicio">Inicio</a></li>
+            <li><a href="index.html#servicios" data-key="nav_servicios">Servicios</a></li>
+            <li><a href="portafolio.html" data-key="nav_proyectos" class="active">Proyectos</a></li>
+            <li><a href="nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
+            <li><a href="index.html#contacto" data-key="nav_contacto">Contacto</a></li>
+            <li><a href="equipo.html" data-key="nav_equipo">Equipo</a></li>
+            <li><select class="lang-select" id="langSelect"><option value="es">🇪🇸 ES</option><option value="en">🇬🇧 EN</option><option value="pt">🇵🇹 PT</option></select></li>
             <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
         </ul>
     </div>
@@ -253,122 +58,75 @@
 <main>
     <section class="hero-portafolio">
         <div class="container">
-            <h1>✨ Nuestros proyectos ✨</h1>
-            <p>Conoce las obras que hemos desarrollado con calidad, innovación y compromiso</p>
+            <h1 data-key="portafolio_title">✨ Nuestros proyectos ✨</h1>
+            <p data-key="portafolio_subtitle">Conoce las obras que hemos desarrollado con calidad, innovación y compromiso</p>
         </div>
     </section>
 
     <div class="container">
         <div class="filtros">
-            <button class="filtro-btn active" data-filter="todos">Todos</button>
-            <button class="filtro-btn" data-filter="viviendas">Viviendas</button>
-            <button class="filtro-btn" data-filter="comerciales">Comerciales</button>
-            <button class="filtro-btn" data-filter="parques">Parques</button>
-            <button class="filtro-btn" data-filter="infraestructura">Infraestructura</button>
+            <button class="filtro-btn active" data-filter="todos" data-key="filtro_todos">Todos</button>
+            <button class="filtro-btn" data-filter="viviendas" data-key="filtro_viviendas">Viviendas</button>
+            <button class="filtro-btn" data-filter="comerciales" data-key="filtro_comerciales">Comerciales</button>
+            <button class="filtro-btn" data-filter="parques" data-key="filtro_parques">Parques</button>
+            <button class="filtro-btn" data-filter="infraestructura" data-key="filtro_infraestructura">Infraestructura</button>
         </div>
 
         <div class="grid-proyectos" id="proyectosGrid">
-            <!-- Proyecto 1 -->
-            <div class="proyecto-card" data-categoria="viviendas">
-                <img src="https://placehold.co/600x400/d4d4d4/888888?text=Residencial+Los+Pinos" class="proyecto-img" alt="Residencial Los Pinos">
-                <div class="proyecto-info">
-                    <div class="proyecto-categoria">🏠 Viviendas</div>
-                    <h3>Residencial Los Pinos</h3>
-                    <p>Conjunto de 25 viviendas unifamiliares con diseño bioclimático y áreas verdes comunes. Proyecto llave en mano entregado en 12 meses.</p>
-                    <a href="#" class="ver-proyecto">Ver detalles →</a>
-                </div>
-            </div>
-
-            <!-- Proyecto 2 -->
-            <div class="proyecto-card" data-categoria="comerciales">
-                <img src="https://placehold.co/600x400/c8c8c8/888888?text=Plaza+Comercial+Centro" class="proyecto-img" alt="Plaza Comercial Centro">
-                <div class="proyecto-info">
-                    <div class="proyecto-categoria">🏢 Comerciales</div>
-                    <h3>Plaza Comercial Centro</h3>
-                    <p>Centro comercial de 3 niveles con 45 locales, estacionamiento subterráneo y terraza gastronómica.</p>
-                    <a href="#" class="ver-proyecto">Ver detalles →</a>
-                </div>
-            </div>
-
-            <!-- Proyecto 3 -->
-            <div class="proyecto-card" data-categoria="parques">
-                <img src="https://placehold.co/600x400/bebebe/888888?text=Parque+de+la+Familia" class="proyecto-img" alt="Parque de la Familia">
-                <div class="proyecto-info">
-                    <div class="proyecto-categoria">🌳 Parques</div>
-                    <h3>Parque de la Familia</h3>
-                    <p>Parque temático de 5 hectáreas con zonas infantiles, senderos interpretativos y área de picnic.</p>
-                    <a href="#" class="ver-proyecto">Ver detalles →</a>
-                </div>
-            </div>
-
-            <!-- Proyecto 4 -->
-            <div class="proyecto-card" data-categoria="infraestructura">
-                <img src="https://placehold.co/600x400/d0d0d0/888888?text=Paseo+del+Río" class="proyecto-img" alt="Paseo del Río">
-                <div class="proyecto-info">
-                    <div class="proyecto-categoria">🌊 Infraestructura</div>
-                    <h3>Paseo del Río</h3>
-                    <p>Regeneración urbana de 2 km de ribera con ciclovía, miradores y áreas de esparcimiento.</p>
-                    <a href="#" class="ver-proyecto">Ver detalles →</a>
-                </div>
-            </div>
-
-            <!-- Proyecto 5 -->
-            <div class="proyecto-card" data-categoria="viviendas">
-                <img src="https://placehold.co/600x400/dcdcdc/888888?text=Torres+Alta+Vista" class="proyecto-img" alt="Torres Alta Vista">
-                <div class="proyecto-info">
-                    <div class="proyecto-categoria">🏗️ Viviendas</div>
-                    <h3>Torres Alta Vista</h3>
-                    <p>Dos torres residenciales de 12 niveles con amenities, piscina y gimnasio.</p>
-                    <a href="#" class="ver-proyecto">Ver detalles →</a>
-                </div>
-            </div>
-
-            <!-- Proyecto 6 -->
-            <div class="proyecto-card" data-categoria="comerciales">
-                <img src="https://placehold.co/600x400/c0c0c0/888888?text=Gastropark" class="proyecto-img" alt="Gastropark">
-                <div class="proyecto-info">
-                    <div class="proyecto-categoria">🍽️ Comerciales</div>
-                    <h3>Gastropark</h3>
-                    <p>Complejo gastronómico al aire libre con 12 restaurantes y zonas de entretenimiento.</p>
-                    <a href="#" class="ver-proyecto">Ver detalles →</a>
-                </div>
-            </div>
+            <div class="proyecto-card" data-categoria="viviendas"><img src="https://placehold.co/600x400/d4d4d4/888888?text=Residencial+Los+Pinos" class="proyecto-img"><div class="proyecto-info"><div class="proyecto-categoria" data-key="cat_viviendas">🏠 Viviendas</div><h3 data-key="proy1_titulo">Residencial Los Pinos</h3><p data-key="proy1_desc">Conjunto de 25 viviendas unifamiliares con diseño bioclimático y áreas verdes comunes.</p></div></div>
+            <div class="proyecto-card" data-categoria="comerciales"><img src="https://placehold.co/600x400/c8c8c8/888888?text=Plaza+Comercial+Centro" class="proyecto-img"><div class="proyecto-info"><div class="proyecto-categoria" data-key="cat_comerciales">🏢 Comerciales</div><h3 data-key="proy2_titulo">Plaza Comercial Centro</h3><p data-key="proy2_desc">Centro comercial de 3 niveles con 45 locales y terraza gastronómica.</p></div></div>
+            <div class="proyecto-card" data-categoria="parques"><img src="https://placehold.co/600x400/bebebe/888888?text=Parque+de+la+Familia" class="proyecto-img"><div class="proyecto-info"><div class="proyecto-categoria" data-key="cat_parques">🌳 Parques</div><h3 data-key="proy3_titulo">Parque de la Familia</h3><p data-key="proy3_desc">Parque temático de 5 hectáreas con zonas infantiles y senderos interpretativos.</p></div></div>
+            <div class="proyecto-card" data-categoria="infraestructura"><img src="https://placehold.co/600x400/d0d0d0/888888?text=Paseo+del+Río" class="proyecto-img"><div class="proyecto-info"><div class="proyecto-categoria" data-key="cat_infraestructura">🌊 Infraestructura</div><h3 data-key="proy4_titulo">Paseo del Río</h3><p data-key="proy4_desc">Regeneración urbana de 2 km de ribera con ciclovía y miradores.</p></div></div>
+            <div class="proyecto-card" data-categoria="viviendas"><img src="https://placehold.co/600x400/dcdcdc/888888?text=Torres+Alta+Vista" class="proyecto-img"><div class="proyecto-info"><div class="proyecto-categoria" data-key="cat_viviendas">🏗️ Viviendas</div><h3 data-key="proy5_titulo">Torres Alta Vista</h3><p data-key="proy5_desc">Dos torres residenciales de 12 niveles con amenities y piscina.</p></div></div>
+            <div class="proyecto-card" data-categoria="comerciales"><img src="https://placehold.co/600x400/c0c0c0/888888?text=Gastropark" class="proyecto-img"><div class="proyecto-info"><div class="proyecto-categoria" data-key="cat_comerciales">🍽️ Comerciales</div><h3 data-key="proy6_titulo">Gastropark</h3><p data-key="proy6_desc">Complejo gastronómico al aire libre con 12 restaurantes.</p></div></div>
         </div>
     </div>
 </main>
 
-<footer>
-    <div class="container">
-        <p>© 2026 Geotectura · Calidad que transforma espacios</p>
-        <p style="margin-top: 8px; font-size: 0.75rem;">+50 proyectos entregados · +100 clientes satisfechos</p>
-    </div>
-</footer>
+<footer><div class="container"><p>© 2026 Geotectura · Calidad que transforma espacios</p></div></footer>
 
 <script>
-    // Modo oscuro
-    const toggle = document.getElementById('darkModeToggle');
-    toggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        toggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-    });
+    // Diccionario de textos
+    const texts = {
+        es: { nav_inicio: "Inicio", nav_servicios: "Servicios", nav_proyectos: "Proyectos", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo", portafolio_title: "✨ Nuestros proyectos ✨", portafolio_subtitle: "Conoce las obras que hemos desarrollado con calidad, innovación y compromiso", filtro_todos: "Todos", filtro_viviendas: "Viviendas", filtro_comerciales: "Comerciales", filtro_parques: "Parques", filtro_infraestructura: "Infraestructura", cat_viviendas: "🏠 Viviendas", cat_comerciales: "🏢 Comerciales", cat_parques: "🌳 Parques", cat_infraestructura: "🌊 Infraestructura", proy1_titulo: "Residencial Los Pinos", proy1_desc: "Conjunto de 25 viviendas unifamiliares con diseño bioclimático y áreas verdes comunes.", proy2_titulo: "Plaza Comercial Centro", proy2_desc: "Centro comercial de 3 niveles con 45 locales y terraza gastronómica.", proy3_titulo: "Parque de la Familia", proy3_desc: "Parque temático de 5 hectáreas con zonas infantiles y senderos interpretativos.", proy4_titulo: "Paseo del Río", proy4_desc: "Regeneración urbana de 2 km de ribera con ciclovía y miradores.", proy5_titulo: "Torres Alta Vista", proy5_desc: "Dos torres residenciales de 12 niveles con amenities y piscina.", proy6_titulo: "Gastropark", proy6_desc: "Complejo gastronómico al aire libre con 12 restaurantes." },
+        en: { nav_inicio: "Home", nav_servicios: "Services", nav_proyectos: "Projects", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team", portafolio_title: "✨ Our projects ✨", portafolio_subtitle: "Discover the works we have developed with quality, innovation and commitment", filtro_todos: "All", filtro_viviendas: "Housing", filtro_comerciales: "Commercial", filtro_parques: "Parks", filtro_infraestructura: "Infrastructure", cat_viviendas: "🏠 Housing", cat_comerciales: "🏢 Commercial", cat_parques: "🌳 Parks", cat_infraestructura: "🌊 Infrastructure", proy1_titulo: "Los Pinos Residential", proy1_desc: "Set of 25 single-family homes with bioclimatic design and common green areas.", proy2_titulo: "Centro Commercial Plaza", proy2_desc: "3-level shopping center with 45 stores and food court.", proy3_titulo: "Family Park", proy3_desc: "5-hectare theme park with children's areas and interpretive trails.", proy4_titulo: "River Walk", proy4_desc: "Urban regeneration of 2 km of riverbank with bike path and viewpoints.", proy5_titulo: "Alta Vista Towers", proy5_desc: "Two 12-level residential towers with amenities and pool.", proy6_titulo: "Gastropark", proy6_desc: "Open-air gastronomic complex with 12 restaurants." },
+        pt: { nav_inicio: "Início", nav_servicios: "Serviços", nav_proyectos: "Projetos", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe", portafolio_title: "✨ Nossos projetos ✨", portafolio_subtitle: "Conheça as obras que desenvolvemos com qualidade, inovação e compromisso", filtro_todos: "Todos", filtro_viviendas: "Residências", filtro_comerciales: "Comerciais", filtro_parques: "Parques", filtro_infraestructura: "Infraestrutura", cat_viviendas: "🏠 Residências", cat_comerciales: "🏢 Comerciais", cat_parques: "🌳 Parques", cat_infraestructura: "🌊 Infraestrutura", proy1_titulo: "Residencial Los Pinos", proy1_desc: "Conjunto de 25 casas unifamiliares com design bioclimático e áreas verdes comuns.", proy2_titulo: "Praça Comercial Centro", proy2_desc: "Centro comercial de 3 níveis com 45 lojas e terraço gastronômico.", proy3_titulo: "Parque da Família", proy3_desc: "Parque temático de 5 hectares com áreas infantis e trilhas interpretativas.", proy4_titulo: "Passeio do Rio", proy4_desc: "Regeneração urbana de 2 km de margem de rio com ciclovia e mirantes.", proy5_titulo: "Torres Alta Vista", proy5_desc: "Duas torres residenciais de 12 níveis com comodidades e piscina.", proy6_titulo: "Gastropark", proy6_desc: "Complexo gastronômico ao ar livre com 12 restaurantes." }
+    };
 
-    // Filtros de proyectos
+    function changeLanguage(lang) {
+        localStorage.setItem('geotectura_lang', lang);
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (texts[lang] && texts[lang][key]) el.innerHTML = texts[lang][key];
+        });
+    }
+    const savedLang = localStorage.getItem('geotectura_lang') || 'es';
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect) { langSelect.value = savedLang; changeLanguage(savedLang); langSelect.addEventListener('change', (e) => changeLanguage(e.target.value)); }
+
+    const theme = localStorage.getItem('geotectura_theme');
+    if (theme === 'dark') document.body.classList.add('dark');
+    const toggleBtn = document.getElementById('darkModeToggle');
+    if (toggleBtn) {
+        if (theme === 'dark') toggleBtn.textContent = '☀️';
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light');
+            toggleBtn.textContent = isDark ? '☀️' : '🌙';
+        });
+    }
+
+    // Filtros
     const filtros = document.querySelectorAll('.filtro-btn');
     const proyectos = document.querySelectorAll('.proyecto-card');
-
     filtros.forEach(filtro => {
         filtro.addEventListener('click', () => {
             filtros.forEach(f => f.classList.remove('active'));
             filtro.classList.add('active');
-            
             const categoria = filtro.getAttribute('data-filter');
-            
             proyectos.forEach(proyecto => {
-                if (categoria === 'todos' || proyecto.getAttribute('data-categoria') === categoria) {
-                    proyecto.style.display = 'block';
-                } else {
-                    proyecto.style.display = 'none';
-                }
+                proyecto.style.display = (categoria === 'todos' || proyecto.getAttribute('data-categoria') === categoria) ? 'block' : 'none';
             });
         });
     });
