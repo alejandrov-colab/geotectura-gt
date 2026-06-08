@@ -22,6 +22,8 @@
             --accent: #2c2c2c;
             --hero-overlay: rgba(0, 0, 0, 0.35);
             --header-bg: rgba(255, 255, 255, 0.95);
+            --whatsapp: #25D366;
+            --instagram: #E4405F;
         }
 
         body.dark {
@@ -161,52 +163,52 @@
             color: white;
         }
 
-       /* Hero */
-.hero {
-    min-height: 85vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    margin-top: 70px;
-}
+        /* Hero con blur */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            margin-top: 70px;
+        }
 
-/* Pseudoelemento para la imagen con blur */
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('imagenes/fondo.png');
-    background-size: cover;
-    background-position: center;
-    filter: blur(3px); /* Ajusta este valor: 2px (poco blur) a 8px (mucho blur) */
-    z-index: 0;
-}
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('imagenes/fondo.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(4px);
+            z-index: 0;
+        }
 
-.hero-content {
-    position: relative;
-    z-index: 1;
-}
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
 
-.hero-content h1 {
-    font-size: 3.8rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    margin-bottom: 16px;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra para mejor legibilidad */
-}
+        .hero-content h1 {
+            font-size: 3.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
 
-.hero-content p {
-    font-size: 1.2rem;
-    color: white;
-    font-weight: 300;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-}
+        .hero-content p {
+            font-size: 1.2rem;
+            color: white;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
         /* Secciones */
         section {
             padding: 80px 0;
@@ -276,6 +278,99 @@
             padding: 8px 20px;
             border-radius: 40px;
             font-size: 0.85rem;
+        }
+
+        /* Estilos para el formulario de contacto */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .form-group textarea {
+            border-radius: 24px;
+            resize: vertical;
+        }
+
+        .btn-enviar {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 500;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+
+        .btn-enviar:hover {
+            opacity: 0.8;
+        }
+
+        /* Estilos para redes sociales */
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .social-whatsapp {
+            background: var(--whatsapp);
+            color: white;
+        }
+
+        .social-instagram {
+            background: var(--instagram);
+            color: white;
+        }
+
+        /* Mensaje de éxito del formulario */
+        .form-message {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #4CAF50;
+            color: white;
+            display: block;
+        }
+
+        .form-message.error {
+            background: #f44336;
+            color: white;
+            display: block;
         }
 
         footer {
@@ -381,24 +476,62 @@
         </div>
     </section>
 
-    <!-- Contacto -->
+    <!-- Contacto con formulario funcional y redes sociales -->
     <section id="contacto">
         <div class="container">
             <h2 class="section-title" data-key="contacto_title">Contacto</h2>
             <div class="grid-2cols">
+                <!-- Información de contacto -->
                 <div class="service-card">
-                    <p>📧 <strong>Email:</strong> info@geotectura.com</p>
-                    <p>📞 <strong>Teléfono:</strong> +502 1234 5678</p>
-                    <p>📍 <strong>Ubicación:</strong> Ciudad de Guatemala</p>
-                    <p>🕒 <strong data-key="horario">Horario:</strong> Lunes a Viernes · 8am - 6pm</p>
+                    <h3>📬 <span data-key="info_contacto">Información de contacto</span></h3>
+                    <p style="margin: 16px 0;">📧 <strong>Email:</strong> <a href="mailto:info@geotectura.com" style="color: var(--accent);">info@geotectura.com</a></p>
+                    <p style="margin: 16px 0;">📞 <strong>Teléfono:</strong> <a href="tel:+50212345678" style="color: var(--accent);">+502 1234 5678</a></p>
+                    <p style="margin: 16px 0;">📍 <strong>Ubicación:</strong> Ciudad de Guatemala</p>
+                    <p style="margin: 16px 0;">🕒 <strong data-key="horario">Horario:</strong> Lunes a Viernes · 8am - 6pm</p>
+                    
+                    <!-- Redes sociales -->
+                    <h3 style="margin-top: 32px;">📱 <span data-key="redes_sociales">Síguenos</span></h3>
+                    <div class="social-links">
+                        <a href="https://wa.me/50212345678?text=Hola%20Geotectura,%20me%20interesa%20recibir%20más%20información%20sobre%20sus%20servicios" 
+                           class="social-icon social-whatsapp" 
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                            💬
+                        </a>
+                        <a href="https://instagram.com/geotectura" 
+                           class="social-icon social-instagram" 
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                            📷
+                        </a>
+                    </div>
+                    <p style="font-size: 0.75rem; margin-top: 16px; color: var(--text-secondary);">
+                        <span data-key="click_redes">Haz clic en los iconos para contactarnos directamente</span>
+                    </p>
                 </div>
+
+                <!-- Formulario de contacto funcional -->
                 <div class="service-card">
-                    <form>
-                        <input type="text" placeholder="Nombre" style="width:100%; padding:12px; margin-bottom:12px; border-radius:40px; border:1px solid var(--border-light); background:var(--bg-primary);">
-                        <input type="email" placeholder="Email" style="width:100%; padding:12px; margin-bottom:12px; border-radius:40px; border:1px solid var(--border-light); background:var(--bg-primary);">
-                        <textarea placeholder="Mensaje" rows="3" style="width:100%; padding:12px; border-radius:20px; border:1px solid var(--border-light); background:var(--bg-primary);"></textarea>
-                        <button type="submit" style="margin-top:12px; background:var(--accent); color:white; border:none; padding:12px 28px; border-radius:40px; cursor:pointer;">Enviar</button>
+                    <h3>✉️ <span data-key="formulario_titulo">Escríbenos</span></h3>
+                    <form id="contactForm" action="https://formspree.io/f/xgvvagrv" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="nombre" placeholder="Nombre completo" required data-key="form_nombre">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Correo electrónico" required data-key="form_email">
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" name="telefono" placeholder="Teléfono (opcional)" data-key="form_telefono">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="mensaje" rows="4" placeholder="¿En qué podemos ayudarte?" required data-key="form_mensaje"></textarea>
+                        </div>
+                        <button type="submit" class="btn-enviar" data-key="form_enviar">Enviar mensaje →</button>
                     </form>
+                    <div id="formMessage" class="form-message"></div>
+                    <p style="font-size: 0.7rem; text-align: center; margin-top: 16px; color: var(--text-secondary);">
+                        📬 <span data-key="form_nota">Tu mensaje nos llegará por correo electrónico. Te responderemos a la brevedad.</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -408,7 +541,7 @@
 <footer>
     <div class="container">
         <p>© 2026 Geotectura · Fundada en 2025</p>
-        <p style="margin-top:8px;">Construimos calidad, seguridad y desarrollo</p>
+        <p style="margin-top: 8px;">Construimos calidad, seguridad y desarrollo</p>
     </div>
 </footer>
 
@@ -432,7 +565,9 @@
             serv_direccion_titulo: "Dirección obra", serv_direccion_desc: "Gestión, presupuestos y control de calidad.",
             serv_reformas_titulo: "Reformas integrales", serv_reformas_desc: "Casas, parques, locales: transformamos cualquier espacio.",
             serv_asesoria_titulo: "Asesoría técnica", serv_asesoria_desc: "Consultoría estructural y normativa.",
-            contacto_title: "Contacto", horario: "Horario", ver_mas: "Ver más →"
+            contacto_title: "Contacto", horario: "Horario", ver_mas: "Ver más →",
+            info_contacto: "Información de contacto", redes_sociales: "Síguenos", click_redes: "Haz clic en los iconos para contactarnos directamente",
+            formulario_titulo: "Escríbenos", form_nombre: "Nombre completo", form_email: "Correo electrónico", form_telefono: "Teléfono (opcional)", form_mensaje: "¿En qué podemos ayudarte?", form_enviar: "Enviar mensaje →", form_nota: "Tu mensaje nos llegará por correo electrónico. Te responderemos a la brevedad."
         },
         en: {
             nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "Projects", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
@@ -451,7 +586,9 @@
             serv_direccion_titulo: "Construction management", serv_direccion_desc: "Management, budgets, quality control.",
             serv_reformas_titulo: "Integral renovations", serv_reformas_desc: "Homes, parks, venues: we transform any space.",
             serv_asesoria_titulo: "Technical advisory", serv_asesoria_desc: "Structural and regulatory consulting.",
-            contacto_title: "Contact", horario: "Schedule", ver_mas: "View more →"
+            contacto_title: "Contact", horario: "Schedule", ver_mas: "View more →",
+            info_contacto: "Contact information", redes_sociales: "Follow us", click_redes: "Click on the icons to contact us directly",
+            formulario_titulo: "Write to us", form_nombre: "Full name", form_email: "Email", form_telefono: "Phone (optional)", form_mensaje: "How can we help you?", form_enviar: "Send message →", form_nota: "Your message will be sent by email. We will respond shortly."
         },
         pt: {
             nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Projetos", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
@@ -470,7 +607,9 @@
             serv_direccion_titulo: "Gestão de obras", serv_direccion_desc: "Gestão, orçamentos, controle de qualidade.",
             serv_reformas_titulo: "Reformas integrais", serv_reformas_desc: "Casas, parques, locais: transformamos qualquer espaço.",
             serv_asesoria_titulo: "Assessoria técnica", serv_asesoria_desc: "Consultoria estrutural e normativa.",
-            contacto_title: "Contato", horario: "Horário", ver_mas: "Ver mais →"
+            contacto_title: "Contato", horario: "Horário", ver_mas: "Ver mais →",
+            info_contacto: "Informações de contato", redes_sociales: "Siga-nos", click_redes: "Clique nos ícones para nos contatar diretamente",
+            formulario_titulo: "Escreva-nos", form_nombre: "Nome completo", form_email: "E-mail", form_telefono: "Telefone (opcional)", form_mensaje: "Como podemos ajudá-lo?", form_enviar: "Enviar mensagem →", form_nota: "Sua mensagem será enviada por e-mail. Responderemos em breve."
         }
     };
 
@@ -510,6 +649,50 @@
             const isDark = document.body.classList.contains('dark');
             localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light');
             toggleBtn.textContent = isDark ? '☀️' : '🌙';
+        });
+    }
+
+    // Manejo del formulario con Formspree
+    const form = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    formMessage.className = 'form-message success';
+                    formMessage.textContent = '✅ ¡Mensaje enviado con éxito! Te contactaremos pronto.';
+                    form.reset();
+                    
+                    // Ocultar mensaje después de 5 segundos
+                    setTimeout(() => {
+                        formMessage.className = 'form-message';
+                        formMessage.textContent = '';
+                    }, 5000);
+                } else {
+                    throw new Error('Error en el envío');
+                }
+            } catch (error) {
+                formMessage.className = 'form-message error';
+                formMessage.textContent = '❌ Hubo un error al enviar el mensaje. Por favor, intenta nuevamente o escríbenos directamente a info@geotectura.com';
+                
+                setTimeout(() => {
+                    formMessage.className = 'form-message';
+                    formMessage.textContent = '';
+                }, 5000);
+            }
         });
     }
 </script>
