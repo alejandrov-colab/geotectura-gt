@@ -5,26 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geotectura · Parques temáticos</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --bg-primary: #ffffff; --bg-secondary: #f8f8f8; --text-primary: #1a1a1a; --text-secondary: #4a4a4a; --border-light: #e8e8e8; --accent: #2c2c2c; }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.2s ease; }
+        :root { --bg-primary: #ffffff; --bg-secondary: #f8f8f8; --bg-card: #fafafa; --text-primary: #1a1a1a; --text-secondary: #4a4a4a; --border-light: #e8e8e8; --accent: #2c2c2c; --header-bg: rgba(255, 255, 255, 0.95); }
+        body.dark { --bg-primary: #0a0a0a; --bg-secondary: #121212; --bg-card: #1e1e1e; --text-primary: #ededed; --text-secondary: #b0b0b0; --border-light: #2a2a2a; --accent: #3a3a3a; --header-bg: rgba(18, 18, 18, 0.95); }
         body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
-        body.dark { --bg-primary: #0a0a0a; --bg-secondary: #121212; --text-primary: #ededed; --text-secondary: #b0b0b0; --border-light: #2a2a2a; --accent: #3a3a3a; }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        header { padding: 40px 0 20px; border-bottom: 1px solid var(--border-light); }
-        .servicio-detalle { padding: 60px 0; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        header { position: fixed; top: 0; left: 0; width: 100%; background: var(--header-bg); backdrop-filter: blur(16px); z-index: 1000; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .logo a { font-size: 1.4rem; font-weight: 600; text-decoration: none; color: var(--text-primary); }
+        .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; align-items: center; }
+        .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--text-primary); transition: opacity 0.2s; }
+        .nav-links a:hover { opacity: 0.7; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: var(--bg-card); min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 12px; border: 1px solid var(--border-light); top: 100%; left: 0; }
+        .dropdown-content a { color: var(--text-primary); padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; }
+        .dropdown-content a:hover { background-color: var(--bg-secondary); opacity: 1; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
+        .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
+        .servicio-detalle { padding: 140px 0 60px; }
         .grid-2cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px; align-items: center; }
         .servicio-img { width: 100%; border-radius: 24px; background: #e0e0e0; height: 400px; object-fit: cover; }
         footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary); }
-        .darkmode-toggle { position: fixed; bottom: 24px; right: 24px; background: var(--accent); border: none; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; font-size: 1.4rem; z-index: 100; }
-        @media (max-width: 800px) { .grid-2cols { grid-template-columns: 1fr; } }
+        @media (max-width: 800px) { .grid-2cols { grid-template-columns: 1fr; } .nav-links { justify-content: center; } .nav-bar { flex-direction: column; } .dropdown-content { position: static; box-shadow: none; margin-top: 8px; } }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="container">
-        <a href="index.html" style="font-size:1.8rem; font-weight:600; text-decoration:none; color:var(--text-primary);">◈ GEOTECTURA</a>
+    <div class="container nav-bar">
+        <div class="logo"><a href="index.html">◈ GEOTECTURA</a></div>
+        <ul class="nav-links">
+            <li><a href="index.html" data-key="nav_inicio">Inicio</a></li>
+            <li class="dropdown">
+                <a href="#" data-key="nav_servicios">Servicios ▼</a>
+                <div class="dropdown-content">
+                    <a href="servicio-topografia.html" data-key="serv_topografia">📐 Cálculo topografía</a>
+                    <a href="servicio-urbanismo.html" data-key="serv_urbanismo">🏙️ Urbanismo</a>
+                    <a href="servicio-parques.html" data-key="serv_parques">🎢 Parques temáticos</a>
+                    <a href="servicio-direccion.html" data-key="serv_direccion">📊 Dirección obra</a>
+                    <a href="servicio-reformas.html" data-key="serv_reformas">🔄 Reformas integrales</a>
+                    <a href="servicio-asesoria.html" data-key="serv_asesoria">⚙️ Asesoría técnica</a>
+                </div>
+            </li>
+            <li><a href="portafolio.html" data-key="nav_proyectos">Proyectos</a></li>
+            <li><a href="nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
+            <li><a href="index.html#contacto" data-key="nav_contacto">Contacto</a></li>
+            <li><a href="equipo.html" data-key="nav_equipo">Equipo</a></li>
+            <li><select class="lang-select" id="langSelect"><option value="es">🇪🇸 ES</option><option value="en">🇬🇧 EN</option><option value="pt">🇵🇹 PT</option></select></li>
+            <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
+        </ul>
     </div>
 </header>
 
@@ -33,22 +64,22 @@
         <div class="container">
             <div class="grid-2cols">
                 <div>
-                    <h1 style="font-size: 2.5rem; margin-bottom: 24px;">🎢 Parques temáticos</h1>
-                    <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 20px;">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 24px;" data-key="titulo">🎢 Parques temáticos</h1>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 20px;" data-key="descripcion">
                         Creamos experiencias únicas a través del diseño narrativo y paisajismo inmersivo. Desarrollamos parques temáticos, ecoparques, parques de aventura y centros recreativos que cautivan a visitantes de todas las edades.
                     </p>
-                    <h3 style="margin: 24px 0 12px;">🔹 Lo que ofrecemos</h3>
-                    <ul style="color: var(--text-secondary); margin-left: 20px;">
-                        <li>Masterplan y diseño conceptual de parques</li>
-                        <li>Diseño narrativo y tematización de espacios</li>
-                        <li>Paisajismo inmersivo y zonas de aventura</li>
-                        <li>Zonas infantiles, áreas de descanso y servicios</li>
-                        <li>Estudios de flujo de visitantes y accesibilidad</li>
+                    <h3 style="margin: 24px 0 12px;" data-key="enfoque_titulo">🔹 Lo que ofrecemos</h3>
+                    <ul style="color: var(--text-secondary); margin-left: 20px;" id="listaServicios">
+                        <li data-key="item1">Masterplan y diseño conceptual de parques</li>
+                        <li data-key="item2">Diseño narrativo y tematización de espacios</li>
+                        <li data-key="item3">Paisajismo inmersivo y zonas de aventura</li>
+                        <li data-key="item4">Zonas infantiles, áreas de descanso y servicios</li>
+                        <li data-key="item5">Estudios de flujo de visitantes y accesibilidad</li>
                     </ul>
-                    <a href="index.html#contacto" style="display: inline-block; margin-top: 32px; background: var(--accent); color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none;">Solicitar cotización →</a>
+                    <a href="index.html#contacto" style="display: inline-block; margin-top: 32px; background: var(--accent); color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none;" data-key="boton">Solicitar cotización →</a>
                 </div>
                 <div>
-                    <img src="imagenes/parque-tema.jpg" class="servicio-img" alt="Parque Temático">
+                    <img src="imagenes/parques.jpg" class="servicio-img" alt="Parques temáticos">
                 </div>
             </div>
         </div>
@@ -57,18 +88,70 @@
 
 <footer>
     <div class="container">
-        <p>© 2026 Geotectura · Experiencias que inspiran</p>
+        <p data-key="footer">© 2026 Geotectura · Experiencias que inspiran</p>
     </div>
 </footer>
 
-<button class="darkmode-toggle" id="darkModeToggle">🌙</button>
-
 <script>
-    const toggle = document.getElementById('darkModeToggle');
-    toggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        toggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-    });
+    const texts = {
+        es: {
+            nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Proyectos", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo",
+            serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica",
+            titulo: "🎢 Parques temáticos",
+            descripcion: "Creamos experiencias únicas a través del diseño narrativo y paisajismo inmersivo. Desarrollamos parques temáticos, ecoparques, parques de aventura y centros recreativos que cautivan a visitantes de todas las edades.",
+            enfoque_titulo: "🔹 Lo que ofrecemos",
+            item1: "Masterplan y diseño conceptual de parques",
+            item2: "Diseño narrativo y tematización de espacios",
+            item3: "Paisajismo inmersivo y zonas de aventura",
+            item4: "Zonas infantiles, áreas de descanso y servicios",
+            item5: "Estudios de flujo de visitantes y accesibilidad",
+            boton: "Solicitar cotización →",
+            footer: "© 2026 Geotectura · Experiencias que inspiran"
+        },
+        en: {
+            nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "Projects", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
+            serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory",
+            titulo: "🎢 Theme parks",
+            descripcion: "We create unique experiences through narrative design and immersive landscaping. We develop theme parks, eco-parks, adventure parks and recreational centers that captivate visitors of all ages.",
+            enfoque_titulo: "🔹 What we offer",
+            item1: "Masterplan and conceptual park design",
+            item2: "Narrative design and spatial theming",
+            item3: "Immersive landscaping and adventure zones",
+            item4: "Children's areas, rest areas and services",
+            item5: "Visitor flow studies and accessibility",
+            boton: "Request a quote →",
+            footer: "© 2026 Geotectura · Experiences that inspire"
+        },
+        pt: {
+            nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Projetos", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
+            serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria",
+            titulo: "🎢 Parques temáticos",
+            descripcion: "Criamos experiências únicas através do design narrativo e paisagismo imersivo. Desenvolvemos parques temáticos, ecoparques, parques de aventura e centros recreativos que cativam visitantes de todas as idades.",
+            enfoque_titulo: "🔹 O que oferecemos",
+            item1: "Masterplan e design conceitual de parques",
+            item2: "Design narrativo e tematização de espaços",
+            item3: "Paisagismo imersivo e zonas de aventura",
+            item4: "Áreas infantis, áreas de descanso e serviços",
+            item5: "Estudos de fluxo de visitantes e acessibilidade",
+            boton: "Solicitar orçamento →",
+            footer: "© 2026 Geotectura · Experiências que inspiram"
+        }
+    };
+
+    function changeLanguage(lang) {
+        localStorage.setItem('geotectura_lang', lang);
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (texts[lang] && texts[lang][key]) el.innerHTML = texts[lang][key];
+        });
+    }
+    const savedLang = localStorage.getItem('geotectura_lang') || 'es';
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect) { langSelect.value = savedLang; changeLanguage(savedLang); langSelect.addEventListener('change', (e) => changeLanguage(e.target.value)); }
+    const theme = localStorage.getItem('geotectura_theme');
+    if (theme === 'dark') document.body.classList.add('dark');
+    const toggleBtn = document.getElementById('darkModeToggle');
+    if (toggleBtn) { if (theme === 'dark') toggleBtn.textContent = '☀️'; toggleBtn.addEventListener('click', () => { document.body.classList.toggle('dark'); const isDark = document.body.classList.contains('dark'); localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light'); toggleBtn.textContent = isDark ? '☀️' : '🌙'; }); }
 </script>
 </body>
 </html>
