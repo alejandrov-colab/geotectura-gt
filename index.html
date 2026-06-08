@@ -23,7 +23,10 @@
             --hero-overlay: rgba(0, 0, 0, 0.35);
             --header-bg: rgba(255, 255, 255, 0.95);
             --whatsapp: #25D366;
-            --instagram: #E4405F;
+            --instagram-start: #fdf497;
+            --instagram-mid: #fd5949;
+            --instagram-end: #d6249f;
+            --instagram-deep: #285AEB;
         }
 
         body.dark {
@@ -318,7 +321,7 @@
             opacity: 0.8;
         }
 
-        /* Estilos para redes sociales */
+        /* Estilos para redes sociales con imágenes PNG */
         .social-links {
             display: flex;
             gap: 20px;
@@ -330,26 +333,39 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
             text-decoration: none;
-            transition: transform 0.2s, opacity 0.2s;
         }
 
         .social-icon:hover {
             transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
+        .social-img {
+            width: 28px;
+            height: 28px;
+            display: block;
+        }
+
+        /* WhatsApp */
         .social-whatsapp {
-            background: var(--whatsapp);
-            color: white;
+            background-color: #25D366;
         }
 
+        .social-whatsapp:hover {
+            background-color: #128C7E;
+        }
+
+        /* Instagram - gradiente oficial */
         .social-instagram {
-            background: var(--instagram);
-            color: white;
+            background: radial-gradient(circle at 30% 110%, 
+                #fdf497 0%, #fdf497 5%, 
+                #fd5949 45%, #d6249f 60%, 
+                #285AEB 90%);
         }
 
         /* Mensaje de éxito del formulario */
@@ -489,22 +505,22 @@
                     <p style="margin: 16px 0;">📍 <strong>Ubicación:</strong> Ciudad de Guatemala</p>
                     <p style="margin: 16px 0;">🕒 <strong data-key="horario">Horario:</strong> Lunes a Viernes · 8am - 6pm</p>
                     
-                    <!-- Redes sociales -->
-<h3 style="margin-top: 32px;">📱 <span data-key="redes_sociales">Síguenos</span></h3>
-<div class="social-links">
-    <a href="https://wa.me/50212345678?text=Hola%20Geotectura,%20me%20interesa%20recibir%20más%20información%20sobre%20sus%20servicios" 
-       class="social-icon social-whatsapp" 
-       target="_blank" 
-       rel="noopener noreferrer">
-        <img src="imagenes/mensajeria.png" alt="WhatsApp" class="social-img">
-    </a>
-    <a href="https://instagram.com/geotectura" 
-       class="social-icon social-instagram" 
-       target="_blank" 
-       rel="noopener noreferrer">
-        <img src="imagenes/intagram.png" alt="Instagram" class="social-img">
-    </a>
-</div>
+                    <!-- Redes sociales con imágenes PNG -->
+                    <h3 style="margin-top: 32px;">📱 <span data-key="redes_sociales">Síguenos</span></h3>
+                    <div class="social-links">
+                        <a href="https://wa.me/50212345678?text=Hola%20Geotectura,%20me%20interesa%20recibir%20más%20información%20sobre%20sus%20servicios" 
+                           class="social-icon social-whatsapp" 
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                            <img src="imagenes/whatsapp-icon.png" alt="WhatsApp" class="social-img">
+                        </a>
+                        <a href="https://instagram.com/geotectura" 
+                           class="social-icon social-instagram" 
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                            <img src="imagenes/instagram-icon.png" alt="Instagram" class="social-img">
+                        </a>
+                    </div>
                     <p style="font-size: 0.75rem; margin-top: 16px; color: var(--text-secondary);">
                         <span data-key="click_redes">Haz clic en los iconos para contactarnos directamente</span>
                     </p>
@@ -676,7 +692,6 @@
                     formMessage.textContent = '✅ ¡Mensaje enviado con éxito! Te contactaremos pronto.';
                     form.reset();
                     
-                    // Ocultar mensaje después de 5 segundos
                     setTimeout(() => {
                         formMessage.className = 'form-message';
                         formMessage.textContent = '';
