@@ -69,16 +69,16 @@
                         Realizamos levantamientos topográficos de precisión, generación de curvas de nivel, modelos digitales de terreno (MDT) y análisis de pendientes. Ideal para proyectos de urbanismo, carreteras, edificaciones y estudios de suelo.
                     </p>
                     <h3 style="margin: 24px 0 12px;" data-key="enfoque_titulo">🔹 Nuestro enfoque</h3>
-                    <ul style="color: var(--text-secondary); margin-left: 20px;" data-key="lista">
-                        <li>Uso de drones y estaciones totales</li>
-                        <li>Modelos 3D para visualización de terrenos</li>
-                        <li>Informes técnicos y cálculos de movimiento de tierras</li>
-                        <li>Compatibilidad con software de ingeniería (AutoCAD, Civil 3D)</li>
+                    <ul style="color: var(--text-secondary); margin-left: 20px;" id="listaServicios">
+                        <li data-key="item1">Uso de drones y estaciones totales</li>
+                        <li data-key="item2">Modelos 3D para visualización de terrenos</li>
+                        <li data-key="item3">Informes técnicos y cálculos de movimiento de tierras</li>
+                        <li data-key="item4">Compatibilidad con software de ingeniería (AutoCAD, Civil 3D)</li>
                     </ul>
                     <a href="index.html#contacto" style="display: inline-block; margin-top: 32px; background: var(--accent); color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none;" data-key="boton">Solicitar cotización →</a>
                 </div>
                 <div>
-                    <img src="imagenes/calculo-topo.jpg" class="servicio-img" alt="Topografía">
+                    <img src="imagenes/topografia.jpg" class="servicio-img" alt="Topografía">
                 </div>
             </div>
         </div>
@@ -87,33 +87,91 @@
 
 <footer>
     <div class="container">
-        <p>© 2026 Geotectura · Precisión en cada medición</p>
+        <p data-key="footer">© 2026 Geotectura · Precisión en cada medición</p>
     </div>
 </footer>
 
 <script>
+    // Diccionario completo de textos para esta página
     const texts = {
-        es: { nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Proyectos", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo", serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica", titulo: "📐 Cálculo de topografía", descripcion: "Realizamos levantamientos topográficos de precisión, generación de curvas de nivel, modelos digitales de terreno (MDT) y análisis de pendientes. Ideal para proyectos de urbanismo, carreteras, edificaciones y estudios de suelo.", enfoque_titulo: "🔹 Nuestro enfoque", lista: "<li>Uso de drones y estaciones totales</li><li>Modelos 3D para visualización de terrenos</li><li>Informes técnicos y cálculos de movimiento de tierras</li><li>Compatibilidad con software de ingeniería (AutoCAD, Civil 3D)</li>", boton: "Solicitar cotización →" },
-        en: { nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "Projects", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team", serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory", titulo: "📐 Topography calculation", descripcion: "We perform precision topographic surveys, generation of contour lines, digital terrain models (DTM) and slope analysis. Ideal for urban planning, roads, buildings and soil studies.", enfoque_titulo: "🔹 Our approach", lista: "<li>Use of drones and total stations</li><li>3D models for terrain visualization</li><li>Technical reports and earth movement calculations</li><li>Compatibility with engineering software (AutoCAD, Civil 3D)</li>", boton: "Request a quote →" },
-        pt: { nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Projetos", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe", serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria", titulo: "📐 Cálculo topográfico", descripcion: "Realizamos levantamentos topográficos de precisão, geração de curvas de nível, modelos digitais de terreno (MDT) e análise de declividades. Ideal para projetos de urbanismo, estradas, edificações e estudos de solo.", enfoque_titulo: "🔹 Nossa abordagem", lista: "<li>Uso de drones e estações totais</li><li>Modelos 3D para visualização de terrenos</li><li>Relatórios técnicos e cálculos de movimento de terra</li><li>Compatibilidade com software de engenharia (AutoCAD, Civil 3D)</li>", boton: "Solicitar orçamento →" }
+        es: {
+            nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Proyectos", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo",
+            serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica",
+            titulo: "📐 Cálculo de topografía",
+            descripcion: "Realizamos levantamientos topográficos de precisión, generación de curvas de nivel, modelos digitales de terreno (MDT) y análisis de pendientes. Ideal para proyectos de urbanismo, carreteras, edificaciones y estudios de suelo.",
+            enfoque_titulo: "🔹 Nuestro enfoque",
+            item1: "Uso de drones y estaciones totales",
+            item2: "Modelos 3D para visualización de terrenos",
+            item3: "Informes técnicos y cálculos de movimiento de tierras",
+            item4: "Compatibilidad con software de ingeniería (AutoCAD, Civil 3D)",
+            boton: "Solicitar cotización →",
+            footer: "© 2026 Geotectura · Precisión en cada medición"
+        },
+        en: {
+            nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "Projects", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
+            serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory",
+            titulo: "📐 Topography calculation",
+            descripcion: "We perform precision topographic surveys, generation of contour lines, digital terrain models (DTM) and slope analysis. Ideal for urban planning, roads, buildings and soil studies.",
+            enfoque_titulo: "🔹 Our approach",
+            item1: "Use of drones and total stations",
+            item2: "3D models for terrain visualization",
+            item3: "Technical reports and earth movement calculations",
+            item4: "Compatibility with engineering software (AutoCAD, Civil 3D)",
+            boton: "Request a quote →",
+            footer: "© 2026 Geotectura · Precision in every measurement"
+        },
+        pt: {
+            nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Projetos", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
+            serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria",
+            titulo: "📐 Cálculo topográfico",
+            descripcion: "Realizamos levantamentos topográficos de precisão, geração de curvas de nível, modelos digitais de terreno (MDT) e análise de declividades. Ideal para projetos de urbanismo, estradas, edificações e estudos de solo.",
+            enfoque_titulo: "🔹 Nossa abordagem",
+            item1: "Uso de drones e estações totais",
+            item2: "Modelos 3D para visualização de terrenos",
+            item3: "Relatórios técnicos e cálculos de movimento de terra",
+            item4: "Compatibilidade com software de engenharia (AutoCAD, Civil 3D)",
+            boton: "Solicitar orçamento →",
+            footer: "© 2026 Geotectura · Precisão em cada medição"
+        }
     };
+
+    // Función para cambiar idioma
     function changeLanguage(lang) {
         localStorage.setItem('geotectura_lang', lang);
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
             if (texts[lang] && texts[lang][key]) {
-                if (key === 'lista') el.innerHTML = texts[lang][key];
-                else el.innerHTML = texts[lang][key];
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = texts[lang][key];
+                } else {
+                    el.innerHTML = texts[lang][key];
+                }
             }
         });
     }
+
+    // Cargar idioma guardado
     const savedLang = localStorage.getItem('geotectura_lang') || 'es';
     const langSelect = document.getElementById('langSelect');
-    if (langSelect) { langSelect.value = savedLang; changeLanguage(savedLang); langSelect.addEventListener('change', (e) => changeLanguage(e.target.value)); }
+    if (langSelect) {
+        langSelect.value = savedLang;
+        changeLanguage(savedLang);
+        langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+    }
+
+    // Cargar modo oscuro guardado
     const theme = localStorage.getItem('geotectura_theme');
     if (theme === 'dark') document.body.classList.add('dark');
     const toggleBtn = document.getElementById('darkModeToggle');
-    if (toggleBtn) { if (theme === 'dark') toggleBtn.textContent = '☀️'; toggleBtn.addEventListener('click', () => { document.body.classList.toggle('dark'); const isDark = document.body.classList.contains('dark'); localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light'); toggleBtn.textContent = isDark ? '☀️' : '🌙'; }); }
+    if (toggleBtn) {
+        if (theme === 'dark') toggleBtn.textContent = '☀️';
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light');
+            toggleBtn.textContent = isDark ? '☀️' : '🌙';
+        });
+    }
 </script>
 </body>
 </html>
