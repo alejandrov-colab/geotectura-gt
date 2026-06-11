@@ -1,1 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geotectura · Fachada Principal</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.2s ease; }
+        :root { --bg-primary: #ffffff; --bg-secondary: #f8f8f8; --bg-card: #fafafa; --text-primary: #1a1a1a; --text-secondary: #4a4a4a; --border-light: #e8e8e8; --accent: #2c2c2c; --header-bg: rgba(255, 255, 255, 0.95); }
+        body.dark { --bg-primary: #0a0a0a; --bg-secondary: #121212; --bg-card: #1e1e1e; --text-primary: #ededed; --text-secondary: #b0b0b0; --border-light: #2a2a2a; --accent: #3a3a3a; --header-bg: rgba(18, 18, 18, 0.95); }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        header { position: fixed; top: 0; left: 0; width: 100%; background: var(--header-bg); backdrop-filter: blur(16px); z-index: 1000; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .logo a { font-size: 1.4rem; font-weight: 600; text-decoration: none; color: var(--text-primary); }
+        .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; align-items: center; }
+        .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--text-primary); transition: opacity 0.2s; }
+        .nav-links a:hover { opacity: 0.7; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: var(--bg-card); min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 12px; border: 1px solid var(--border-light); top: 100%; left: 0; }
+        .dropdown-content a { color: var(--text-primary); padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; }
+        .dropdown-content a:hover { background-color: var(--bg-secondary); opacity: 1; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
+        .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
+        
+        .referencia-hero { background: var(--bg-secondary); padding: 140px 0 60px; text-align: center; border-bottom: 1px solid var(--border-light); }
+        .referencia-hero h1 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .referencia-hero p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+        
+        .plan-wrapper { position: relative; border-radius: 24px; overflow: hidden; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .plan-wrapper img { width: 100%; display: block; }
+        .plan-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); font-size: 2rem; font-weight: 700; white-space: nowrap; opacity: 0.08; pointer-events: none; user-select: none; z-index: 2; font-family: monospace; letter-spacing: 4px; }
+        
+        .info-card { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
+        .info-card h2 { font-size: 1.5rem; margin-bottom: 20px; }
+        .info-list { list-style: none; }
+        .info-list li { padding: 12px 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; }
+        .info-list li:last-child { border-bottom: none; }
+        .info-label { font-weight: 600; }
+        .info-value { color: var(--text-secondary); }
+        
+        .descripcion { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
+        .descripcion h2 { font-size: 1.5rem; margin-bottom: 20px; }
+        .descripcion p { margin-bottom: 16px; color: var(--text-secondary); line-height: 1.6; }
+        
+        .btn-volver { display: inline-block; margin-top: 20px; padding: 12px 28px; background: var(--accent); color: white; text-decoration: none; border-radius: 40px; font-weight: 500; transition: opacity 0.2s; }
+        .btn-volver:hover { opacity: 0.85; }
+        
+        footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary); margin-top: 40px; }
+        @media (max-width: 800px) { .referencia-hero h1 { font-size: 1.8rem; } .nav-links { justify-content: center; } .nav-bar { flex-direction: column; } .plan-watermark { font-size: 1rem; } .info-list li { flex-direction: column; gap: 8px; } }
+    </style>
+</head>
+<body>
 
+<header>
+    <div class="container nav-bar">
+        <div class="logo"><a href="../index.html">◈ GEOTECTURA</a></div>
+        <ul class="nav-links">
+            <li><a href="../index.html" data-key="nav_inicio">Inicio</a></li>
+            <li class="dropdown">
+                <a href="#" data-key="nav_servicios">Servicios ▼</a>
+                <div class="dropdown-content">
+                    <a href="../servicio-topografia.html" data-key="serv_topografia">📐 Cálculo topografía</a>
+                    <a href="../servicio-urbanismo.html" data-key="serv_urbanismo">🏙️ Urbanismo</a>
+                    <a href="../servicio-parques.html" data-key="serv_parques">🎢 Parques temáticos</a>
+                    <a href="../servicio-direccion.html" data-key="serv_direccion">📊 Dirección obra</a>
+                    <a href="../servicio-reformas.html" data-key="serv_reformas">🔄 Reformas integrales</a>
+                    <a href="../servicio-asesoria.html" data-key="serv_asesoria">⚙️ Asesoría técnica</a>
+                </div>
+            </li>
+            <li><a href="../portafolio.html" data-key="nav_proyectos">Referencias</a></li>
+            <li><a href="../nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
+            <li><a href="../index.html#contacto" data-key="nav_contacto">Contacto</a></li>
+            <li><a href="../equipo.html" data-key="nav_equipo">Equipo</a></li>
+            <li><select class="lang-select" id="langSelect"><option value="es">🇪🇸 ES</option><option value="en">🇬🇧 EN</option><option value="pt">🇵🇹 PT</option></select></li>
+            <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <section class="referencia-hero">
+        <div class="container">
+            <h1 data-key="titulo">🏛️ Fachada Principal</h1>
+            <p data-key="subtitulo">Alzado frontal del proyecto arquitectónico</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="plan-wrapper">
+            <img src="../imagenes/fachada-principal.webp" alt="Fachada Principal" onerror="this.src='https://placehold.co/1200x800/bebebe/888888?text=Fachada+Principal'">
+            <div class="plan-watermark">GEOTECTURA GT</div>
+        </div>
+
+        <div class="info-card">
+            <h2 data-key="info_titulo">📋 Información técnica</h2>
+            <ul class="info-list">
+                <li><span class="info-label" data-key="tipo_label">Tipo:</span><span class="info-value" data-key="tipo_valor">Fachada arquitectónica</span></li>
+                <li><span class="info-label" data-key="escala_label">Escala:</span><span class="info-value" data-key="escala_valor">1:50</span></li>
+                <li><span class="info-label" data-key="formato_label">Formato:</span><span class="info-value" data-key="formato_valor">AutoCAD</span></li>
+            </ul>
+        </div>
+
+        <div class="descripcion">
+            <h2 data-key="detalle_titulo">📐 Detalle técnico</h2>
+            <p data-key="desc_p1">Fachada principal del proyecto a escala 1:50, mostrando la composición arquitectónica del frente del edificio con especificaciones de acabados (blanqueado, azulejo), ubicación de ventanas (V-3, V-5) y dimensiones de vanos.</p>
+            <p data-key="desc_p2">El alzado incluye cotas verticales y horizontales, materiales (R+C) y detalles constructivos de zócalo, cornisas y cubierta.</p>
+            <p data-key="desc_p3">Esta documentación es fundamental para la correcta ejecución de la envolvente del edificio y para garantizar la fidelidad del diseño durante la construcción.</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="../portafolio.html" class="btn-volver" data-key="btn_volver">← Volver a referencias</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Geotectura · Todos los derechos reservados</p>
+        <p style="margin-top: 8px; font-size: 0.7rem;">Planos, planillas y detalles constructivos</p>
+    </div>
+</footer>
+
+<script>
+    const texts = {
+        es: {
+            nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Referencias", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo",
+            serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica",
+            titulo: "🏛️ Fachada Principal", subtitulo: "Alzado frontal del proyecto arquitectónico",
+            info_titulo: "📋 Información técnica",
+            tipo_label: "Tipo:", tipo_valor: "Fachada arquitectónica",
+            escala_label: "Escala:", escala_valor: "1:50",
+            formato_label: "Formato:", formato_valor: "AutoCAD",
+            detalle_titulo: "📐 Detalle técnico",
+            desc_p1: "Fachada principal del proyecto a escala 1:50, mostrando la composición arquitectónica del frente del edificio con especificaciones de acabados (blanqueado, azulejo), ubicación de ventanas (V-3, V-5) y dimensiones de vanos.",
+            desc_p2: "El alzado incluye cotas verticales y horizontales, materiales (R+C) y detalles constructivos de zócalo, cornisas y cubierta.",
+            desc_p3: "Esta documentación es fundamental para la correcta ejecución de la envolvente del edificio y para garantizar la fidelidad del diseño durante la construcción.",
+            btn_volver: "← Volver a referencias"
+        },
+        en: {
+            nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "References", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
+            serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory",
+            titulo: "🏛️ Main Facade", subtitulo: "Front elevation of the architectural project",
+            info_titulo: "📋 Technical information",
+            tipo_label: "Type:", tipo_valor: "Architectural facade",
+            escala_label: "Scale:", escala_valor: "1:50",
+            formato_label: "Format:", formato_valor: "AutoCAD",
+            detalle_titulo: "📐 Technical detail",
+            desc_p1: "Main facade of the project at scale 1:50, showing the architectural composition of the building's front with finish specifications (whitewash, tile), window locations (V-3, V-5) and opening dimensions.",
+            desc_p2: "The elevation includes vertical and horizontal dimensions, materials (R+C) and construction details of baseboard, cornices and roof.",
+            desc_p3: "This documentation is essential for the correct execution of the building envelope and to ensure design fidelity during construction.",
+            btn_volver: "← Back to references"
+        },
+        pt: {
+            nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Referências", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
+            serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria",
+            titulo: "🏛️ Fachada Principal", subtitulo: "Elevação frontal do projeto arquitetônico",
+            info_titulo: "📋 Informação técnica",
+            tipo_label: "Tipo:", tipo_valor: "Fachada arquitetônica",
+            escala_label: "Escala:", escala_valor: "1:50",
+            formato_label: "Formato:", formato_valor: "AutoCAD",
+            detalle_titulo: "📐 Detalhe técnico",
+            desc_p1: "Fachada principal do projeto na escala 1:50, mostrando a composição arquitetônica da frente do edifício com especificações de acabamentos (caiação, azulejo), localização das janelas (V-3, V-5) e dimensões dos vãos.",
+            desc_p2: "A elevação inclui cotas verticais e horizontais, materiais (R+C) e detalhes construtivos de rodapé, cornijas e cobertura.",
+            desc_p3: "Esta documentação é fundamental para a correta execução da envoltória do edifício e para garantir a fidelidade do projeto durante a construção.",
+            btn_volver: "← Voltar às referências"
+        }
+    };
+
+    function changeLanguage(lang) {
+        localStorage.setItem('geotectura_lang', lang);
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (texts[lang] && texts[lang][key]) el.innerHTML = texts[lang][key];
+        });
+    }
+
+    const savedLang = localStorage.getItem('geotectura_lang') || 'es';
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect) {
+        langSelect.value = savedLang;
+        changeLanguage(savedLang);
+        langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+    }
+
+    const theme = localStorage.getItem('geotectura_theme');
+    if (theme === 'dark') document.body.classList.add('dark');
+    const toggleBtn = document.getElementById('darkModeToggle');
+    if (toggleBtn) {
+        if (theme === 'dark') toggleBtn.textContent = '☀️';
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light');
+            toggleBtn.textContent = isDark ? '☀️' : '🌙';
+        });
+    }
+
+    document.addEventListener("contextmenu", (e) => { e.preventDefault(); });
+    document.querySelectorAll("img").forEach(img => { img.setAttribute("draggable", "false"); });
+</script>
+</body>
+</html>
