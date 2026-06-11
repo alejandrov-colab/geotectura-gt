@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geotectura · Portafolio de proyectos</title>
+    <title>Geotectura · Referencias técnicas</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.2s ease; }
         :root { --bg-primary: #ffffff; --bg-secondary: #f8f8f8; --bg-card: #fafafa; --text-primary: #1a1a1a; --text-secondary: #4a4a4a; --border-light: #e8e8e8; --accent: #2c2c2c; --header-bg: rgba(255, 255, 255, 0.95); }
@@ -35,15 +35,17 @@
         .proyecto-card:hover { transform: translateY(-8px); box-shadow: 0 20px 30px -15px rgba(0,0,0,0.2); }
         
         .plan-wrapper { position: relative; overflow: hidden; }
-        .plan-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); font-size: 2rem; font-weight: 700; white-space: nowrap; opacity: 0.08; pointer-events: none; user-select: none; z-index: 2; font-family: monospace; letter-spacing: 4px; }
-        .proyecto-img { width: 100%; height: 240px; object-fit: cover; display: block; }
+        .plan-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); font-size: 1.8rem; font-weight: 700; white-space: nowrap; opacity: 0.08; pointer-events: none; user-select: none; z-index: 2; font-family: monospace; letter-spacing: 4px; }
+        .proyecto-img { width: 100%; height: 240px; object-fit: cover; display: block; background: var(--bg-secondary); }
         
         .proyecto-info { padding: 24px; }
         .proyecto-categoria { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
-        .proyecto-info h3 { font-size: 1.3rem; margin-bottom: 12px; }
+        .proyecto-info h3 { font-size: 1.3rem; margin-bottom: 8px; }
         
         .proyecto-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
         .proyecto-meta span { padding: 4px 10px; border: 1px solid var(--border-light); border-radius: 20px; font-size: 0.7rem; color: var(--text-secondary); }
+        
+        .proyecto-autores { font-size: 0.8rem; color: var(--accent); margin-bottom: 12px; font-weight: 500; }
         
         .proyecto-info p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.4; }
         
@@ -76,7 +78,7 @@
                     <a href="servicio-asesoria.html" data-key="serv_asesoria">⚙️ Asesoría técnica</a>
                 </div>
             </li>
-            <li><a href="portafolio.html" data-key="nav_proyectos" class="active">Proyectos</a></li>
+            <li><a href="portafolio.html" data-key="nav_proyectos" class="active">Referencias</a></li>
             <li><a href="nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
             <li><a href="index.html#contacto" data-key="nav_contacto">Contacto</a></li>
             <li><a href="equipo.html" data-key="nav_equipo">Equipo</a></li>
@@ -89,132 +91,138 @@
 <main>
     <section class="hero-portafolio">
         <div class="container">
-            <h1 data-key="portafolio_title">✨ Proyectos destacados ✨</h1>
-            <p data-key="portafolio_subtitle">Conoce los proyectos que hemos desarrollado con calidad, innovación y compromiso</p>
+            <h1 data-key="portafolio_title">📐 Referencias técnicas</h1>
+            <p data-key="portafolio_subtitle">Trabajos desarrollados en AutoCAD por estudiantes del Centro de Estudios CED</p>
         </div>
     </section>
 
     <div class="container">
         <div class="filtros">
             <button class="filtro-btn active" data-filter="todos" data-key="filtro_todos">Todos</button>
-            <button class="filtro-btn" data-filter="educativo" data-key="filtro_educativo">Educativo</button>
-            <button class="filtro-btn" data-filter="residencial" data-key="filtro_residencial">Residencial</button>
-            <button class="filtro-btn" data-filter="comercial" data-key="filtro_comercial">Comercial</button>
+            <button class="filtro-btn" data-filter="planillas" data-key="filtro_planillas">Planillas</button>
+            <button class="filtro-btn" data-filter="fachadas" data-key="filtro_fachadas">Fachadas</button>
+            <button class="filtro-btn" data-filter="cortes" data-key="filtro_cortes">Cortes</button>
         </div>
 
         <div class="grid-proyectos" id="proyectosGrid">
             
-            <!-- PROYECTO 1: Centro de Estudios Diversificados CED (EDUCATIVO) -->
-            <div class="proyecto-card" data-categoria="educativo">
+            <!-- REFERENCIA 1: PLANILLA DE SOLERAS, CIMIENTOS Y COLUMNAS -->
+            <div class="proyecto-card" data-categoria="planillas">
                 <div class="plan-wrapper">
-                    <img src="imagenes/ced-fachada.webp" class="proyecto-img" alt="Centro de Estudios CED" onerror="this.src='https://placehold.co/600x400/d4d4d4/888888?text=Centro+de+Estudios+CED'">
+                    <img src="imagenes/planilla-soleras.webp" class="proyecto-img" alt="Planilla de Soleras, Cimientos y Columnas" onerror="this.src='https://placehold.co/600x400/d4d4d4/888888?text=Planilla+Soleras+Cimientos+Columnas'">
                     <div class="plan-watermark">GEOTECTURA GT</div>
                 </div>
                 <div class="proyecto-info">
-                    <div class="proyecto-categoria">🏫 Educativo</div>
-                    <h3>Centro de Estudios CED</h3>
+                    <div class="proyecto-categoria">📊 Planilla estructural</div>
+                    <h3>Planilla de Soleras, Cimientos y Columnas</h3>
+                    <div class="proyecto-autores">✍️ Jeremay Arriaga · Juan Carlos Cabrera</div>
                     <div class="proyecto-meta">
-                        <span>2,500 m²</span>
-                        <span>Guatemala</span>
-                        <span>2025</span>
+                        <span>Segunda Unidad</span>
+                        <span>AutoCAD</span>
+                        <span>CED</span>
                     </div>
-                    <p>Proyecto de centro educativo con aulas, laboratorios, áreas administrativas y espacios recreativos. Diseño funcional con iluminación natural y ventilación cruzada.</p>
-                    <a href="proyectos/ced-centro-estudios.html" class="btn-proyecto">Ver Proyecto →</a>
+                    <p>Planilla técnica con especificaciones de soleras (SI-1, SI-2, SS-1), cimientos (CC-1, CC-2) y columnas (A, B, C). Incluye secciones, longitudes, cantidades de acero y espaciamiento de estribos.</p>
+                    <a href="proyectos/planilla-soleras.html" class="btn-proyecto">Ver referencia →</a>
                 </div>
             </div>
 
-            <!-- PROYECTO 2: Residencial Los Pinos (RESIDENCIAL) -->
-            <div class="proyecto-card" data-categoria="residencial">
+            <!-- REFERENCIA 2: PLANILLA DE VENTANAS -->
+            <div class="proyecto-card" data-categoria="planillas">
                 <div class="plan-wrapper">
-                    <img src="imagenes/residencial-pinos.webp" class="proyecto-img" alt="Residencial Los Pinos" onerror="this.src='https://placehold.co/600x400/c8c8c8/888888?text=Residencial+Los+Pinos'">
+                    <img src="imagenes/planilla-ventanas.webp" class="proyecto-img" alt="Planilla de Ventanas" onerror="this.src='https://placehold.co/600x400/c8c8c8/888888?text=Planilla+de+Ventanas'">
                     <div class="plan-watermark">GEOTECTURA GT</div>
                 </div>
                 <div class="proyecto-info">
-                    <div class="proyecto-categoria">🏠 Residencial</div>
-                    <h3>Residencial Los Pinos</h3>
+                    <div class="proyecto-categoria">🪟 Planilla de carpintería</div>
+                    <h3>Planilla de Ventanas</h3>
+                    <div class="proyecto-autores">✍️ Mia Nicole Chivalán Flores · Juan Carlos Cabrera Ipiña</div>
                     <div class="proyecto-meta">
-                        <span>25 viviendas</span>
-                        <span>Villa Nueva</span>
-                        <span>2025</span>
+                        <span>Tercera Unidad</span>
+                        <span>Escala 1:25</span>
+                        <span>1/07/2025</span>
                     </div>
-                    <p>Conjunto de viviendas unifamiliares con diseño bioclimático, áreas verdes comunes y sistema de captación de agua pluvial.</p>
-                    <a href="proyectos/residencial-pinos.html" class="btn-proyecto">Ver Proyecto →</a>
+                    <p>Detalle técnico de 10 tipos de ventanas (V-1 al V-10) con marcos de aluminio y diferentes tipos de vidrio (polarizado, nevado, claro). Incluye medidas y rotulación.</p>
+                    <a href="proyectos/planilla-ventanas.html" class="btn-proyecto">Ver referencia →</a>
                 </div>
             </div>
 
-            <!-- PROYECTO 3: Plaza Comercial El Portal (COMERCIAL) -->
-            <div class="proyecto-card" data-categoria="comercial">
+            <!-- REFERENCIA 3: FACHADA PRINCIPAL -->
+            <div class="proyecto-card" data-categoria="fachadas">
                 <div class="plan-wrapper">
-                    <img src="imagenes/plaza-portal.webp" class="proyecto-img" alt="Plaza Comercial El Portal" onerror="this.src='https://placehold.co/600x400/bebebe/888888?text=Plaza+Comercial+El+Portal'">
+                    <img src="imagenes/fachada-principal.webp" class="proyecto-img" alt="Fachada Principal" onerror="this.src='https://placehold.co/600x400/bebebe/888888?text=Fachada+Principal'">
                     <div class="plan-watermark">GEOTECTURA GT</div>
                 </div>
                 <div class="proyecto-info">
-                    <div class="proyecto-categoria">🏢 Comercial</div>
-                    <h3>Plaza Comercial El Portal</h3>
+                    <div class="proyecto-categoria">🏛️ Fachada</div>
+                    <h3>Fachada Principal</h3>
+                    <div class="proyecto-autores">✍️ Mia Nicole Chivalán Flores · Juan Carlos Cabrera Ipiña</div>
                     <div class="proyecto-meta">
-                        <span>8,500 m²</span>
-                        <span>Mixco</span>
-                        <span>2026</span>
+                        <span>Cuarta Unidad</span>
+                        <span>Escala 1:50</span>
+                        <span>28/05/2025</span>
                     </div>
-                    <p>Centro comercial de 2 niveles con áreas de esparcimiento, terraza gastronómica y estacionamiento para 250 vehículos.</p>
-                    <a href="proyectos/plaza-portal.html" class="btn-proyecto">Ver Proyecto →</a>
+                    <p>Fachada principal del Centro de Estudios CED con especificaciones de acabados (blanqueado, azulejo), dimensiones de vanos y ubicación de ventanas tipo V-3 y V-5.</p>
+                    <a href="proyectos/fachada-principal.html" class="btn-proyecto">Ver referencia →</a>
                 </div>
             </div>
 
-            <!-- PROYECTO 4: Vivienda Unifamiliar Casa CED (RESIDENCIAL) -->
-            <div class="proyecto-card" data-categoria="residencial">
+            <!-- REFERENCIA 4: FACHADA LATERAL Y CORTE TRANSVERSAL -->
+            <div class="proyecto-card" data-categoria="fachadas">
                 <div class="plan-wrapper">
-                    <img src="imagenes/casa-ced.webp" class="proyecto-img" alt="Casa CED" onerror="this.src='https://placehold.co/600x400/d0d0d0/888888?text=Casa+CED'">
+                    <img src="imagenes/fachada-lateral.webp" class="proyecto-img" alt="Fachada Lateral y Corte Transversal" onerror="this.src='https://placehold.co/600x400/d0d0d0/888888?text=Fachada+Lateral'">
                     <div class="plan-watermark">GEOTECTURA GT</div>
                 </div>
                 <div class="proyecto-info">
-                    <div class="proyecto-categoria">🏡 Vivienda unifamiliar</div>
-                    <h3>Casa CED</h3>
+                    <div class="proyecto-categoria">🏛️ Fachada</div>
+                    <h3>Fachada Lateral y Corte Transversal</h3>
+                    <div class="proyecto-autores">✍️ Mia Nicole Chivalán Flores · Juan Carlos Cabrera Ipiña</div>
                     <div class="proyecto-meta">
-                        <span>180 m²</span>
-                        <span>Zona 15, Guatemala</span>
-                        <span>2025</span>
+                        <span>Cuarta Unidad</span>
+                        <span>Escala 1:50</span>
+                        <span>28/05/2025</span>
                     </div>
-                    <p>Vivienda unifamiliar de 3 niveles con terraza, jardín interior y acabados modernos. Diseño que optimiza el espacio y la iluminación natural.</p>
-                    <a href="proyectos/casa-ced.html" class="btn-proyecto">Ver Proyecto →</a>
+                    <p>Fachada lateral del proyecto con corte transversal, mostrando niveles, acabados (R+C, blanqueado) y detalles constructivos de la estructura.</p>
+                    <a href="proyectos/fachada-lateral.html" class="btn-proyecto">Ver referencia →</a>
                 </div>
             </div>
 
-            <!-- PROYECTO 5: Parque Lineal Las Flores (EDUCATIVO/URBANO) -->
-            <div class="proyecto-card" data-categoria="educativo">
+            <!-- REFERENCIA 5: CORTE LONGITUDINAL -->
+            <div class="proyecto-card" data-categoria="cortes">
                 <div class="plan-wrapper">
-                    <img src="imagenes/parque-lineal.webp" class="proyecto-img" alt="Parque Lineal Las Flores" onerror="this.src='https://placehold.co/600x400/dcdcdc/888888?text=Parque+Lineal+Las+Flores'">
+                    <img src="imagenes/corte-longitudinal.webp" class="proyecto-img" alt="Corte Longitudinal" onerror="this.src='https://placehold.co/600x400/dcdcdc/888888?text=Corte+Longitudinal'">
                     <div class="plan-watermark">GEOTECTURA GT</div>
                 </div>
                 <div class="proyecto-info">
-                    <div class="proyecto-categoria">🌳 Espacio público</div>
-                    <h3>Parque Lineal Las Flores</h3>
+                    <div class="proyecto-categoria">✂️ Corte arquitectónico</div>
+                    <h3>Corte Longitudinal</h3>
+                    <div class="proyecto-autores">✍️ Mia Nicole Chivalán Flores · Juan Carlos Cabrera Ipiña</div>
                     <div class="proyecto-meta">
-                        <span>1.5 km lineales</span>
-                        <span>Zona 7, Guatemala</span>
-                        <span>2026</span>
+                        <span>Cuarta Unidad</span>
+                        <span>Escala 1:50</span>
+                        <span>28/05/2025</span>
                     </div>
-                    <p>Proyecto de regeneración urbana con áreas deportivas, juegos infantiles, ciclovía y zonas de esparcimiento comunitario.</p>
-                    <a href="proyectos/parque-lineal.html" class="btn-proyecto">Ver Proyecto →</a>
+                    <p>Corte longitudinal del Centro de Estudios CED mostrando alturas de entrepiso, acabados interiores, ubicación de ventanas y detalles de cubierta.</p>
+                    <a href="proyectos/corte-longitudinal.html" class="btn-proyecto">Ver referencia →</a>
                 </div>
             </div>
 
-            <!-- PROYECTO 6: Edificio Corporativo CED (COMERCIAL) -->
-            <div class="proyecto-card" data-categoria="comercial">
+            <!-- REFERENCIA 6: PLANO ACOTADO Y ELEVACIONES -->
+            <div class="proyecto-card" data-categoria="cortes">
                 <div class="plan-wrapper">
-                    <img src="imagenes/edificio-corporativo.webp" class="proyecto-img" alt="Edificio Corporativo CED" onerror="this.src='https://placehold.co/600x400/c0c0c0/888888?text=Edificio+Corporativo+CED'">
+                    <img src="imagenes/plano-acotado.webp" class="proyecto-img" alt="Plano Acotado y Elevaciones" onerror="this.src='https://placehold.co/600x400/c0c0c0/888888?text=Plano+Acotado+y+Elevaciones'">
                     <div class="plan-watermark">GEOTECTURA GT</div>
                 </div>
                 <div class="proyecto-info">
-                    <div class="proyecto-categoria">🏢 Corporativo</div>
-                    <h3>Edificio Corporativo CED</h3>
+                    <div class="proyecto-categoria">📐 Plano acotado</div>
+                    <h3>Plano Acotado y Elevaciones</h3>
+                    <div class="proyecto-autores">✍️ Jeremay Arriaga · Juan Carlos Cabrera</div>
                     <div class="proyecto-meta">
-                        <span>6 niveles</span>
-                        <span>Zona 4, Guatemala</span>
-                        <span>2026</span>
+                        <span>Cuarta Unidad</span>
+                        <span>AutoCAD</span>
+                        <span>CED</span>
                     </div>
-                    <p>Edificio de oficinas con planta libre, certificación de eficiencia energética y terraza con paneles solares.</p>
-                    <a href="proyectos/edificio-corporativo.html" class="btn-proyecto">Ver Proyecto →</a>
+                    <p>Plano acotado del proyecto con elevaciones numeradas (1, 2 y 3), dimensiones generales y distribución espacial del Centro de Estudios CED.</p>
+                    <a href="proyectos/plano-acotado.html" class="btn-proyecto">Ver referencia →</a>
                 </div>
             </div>
         </div>
@@ -225,15 +233,15 @@
 <section class="copyright-section">
     <div class="container">
         <h3>📜 Propiedad Intelectual</h3>
-        <p>Todos los diseños, planos, renders, fotografías e imágenes publicadas en este sitio son propiedad intelectual de <strong>GEOTECTURA GT</strong>.</p>
-        <p>Se prohíbe la reproducción total o parcial, distribución, modificación o uso sin autorización expresa por escrito.</p>
+        <p>Todos los planos, planillas, fachadas y cortes presentados son propiedad intelectual de sus autores.</p>
+        <p>Centro de Estudios CED · AutoCAD · Trabajos académicos</p>
     </div>
 </section>
 
 <footer>
     <div class="container">
-        <p>© 2026 Geotectura · Calidad que transforma espacios</p>
-        <p style="margin-top: 8px; font-size: 0.75rem;">Proyectos educativos, residenciales y comerciales</p>
+        <p>© 2026 Geotectura · Referencias técnicas de AutoCAD</p>
+        <p style="margin-top: 8px; font-size: 0.75rem;">Trabajos desarrollados por estudiantes del CED</p>
     </div>
 </footer>
 
@@ -241,22 +249,22 @@
     // Diccionario de textos
     const texts = {
         es: { 
-            nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Proyectos", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo", 
+            nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Referencias", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo", 
             serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica", 
-            portafolio_title: "✨ Proyectos destacados ✨", portafolio_subtitle: "Conoce los proyectos que hemos desarrollado con calidad, innovación y compromiso", 
-            filtro_todos: "Todos", filtro_educativo: "Educativo", filtro_residencial: "Residencial", filtro_comercial: "Comercial" 
+            portafolio_title: "📐 Referencias técnicas", portafolio_subtitle: "Trabajos desarrollados en AutoCAD por estudiantes del Centro de Estudios CED", 
+            filtro_todos: "Todos", filtro_planillas: "Planillas", filtro_fachadas: "Fachadas", filtro_cortes: "Cortes" 
         },
         en: { 
-            nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "Projects", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team", 
+            nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "References", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team", 
             serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory", 
-            portafolio_title: "✨ Featured projects ✨", portafolio_subtitle: "Discover the projects we have developed with quality, innovation and commitment", 
-            filtro_todos: "All", filtro_educativo: "Educational", filtro_residencial: "Residential", filtro_comercial: "Commercial" 
+            portafolio_title: "📐 Technical references", portafolio_subtitle: "AutoCAD works developed by CED students", 
+            filtro_todos: "All", filtro_planillas: "Schedules", filtro_fachadas: "Facades", filtro_cortes: "Sections" 
         },
         pt: { 
-            nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Projetos", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe", 
+            nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Referências", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe", 
             serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria", 
-            portafolio_title: "✨ Projetos em destaque ✨", portafolio_subtitle: "Conheça os projetos que desenvolvemos com qualidade, inovação e compromisso", 
-            filtro_todos: "Todos", filtro_educativo: "Educacional", filtro_residencial: "Residencial", filtro_comercial: "Comercial" 
+            portafolio_title: "📐 Referências técnicas", portafolio_subtitle: "Trabalhos em AutoCAD desenvolvidos por alunos do CED", 
+            filtro_todos: "Todos", filtro_planillas: "Planilhas", filtro_fachadas: "Fachadas", filtro_cortes: "Cortes" 
         }
     };
 
