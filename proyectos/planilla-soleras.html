@@ -44,8 +44,6 @@
         .descripcion { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
         .descripcion h2 { font-size: 1.5rem; margin-bottom: 20px; }
         .descripcion p { margin-bottom: 16px; color: var(--text-secondary); line-height: 1.6; }
-        .descripcion ul { margin: 16px 0 16px 24px; color: var(--text-secondary); line-height: 1.6; }
-        .descripcion li { margin-bottom: 8px; }
         
         .btn-volver { display: inline-block; margin-top: 20px; padding: 12px 28px; background: var(--accent); color: white; text-decoration: none; border-radius: 40px; font-weight: 500; transition: opacity 0.2s; }
         .btn-volver:hover { opacity: 0.85; }
@@ -98,24 +96,23 @@
         <div class="info-card">
             <h2>📋 Información técnica</h2>
             <ul class="info-list">
-                <li><span class="info-label">Tipo:</span><span class="info-value">Planilla estructural</span></li>
-                <li><span class="info-label">Elementos incluidos:</span><span class="info-value">Soleras (SI-1, SI-2, SS-1) · Cimientos (CC-1, CC-2) · Columnas (A, B, C)</span></li>
-                <li><span class="info-label">Software:</span><span class="info-value">AutoCAD</span></li>
+                <li><span class="info-label">Tipo de documento:</span><span class="info-value">Planilla estructural</span></li>
+                <li><span class="info-label">Elementos incluidos:</span><span class="info-value">Soleras (SI-1, SI-2, SS-1), Cimientos (CC-1, CC-2), Columnas (A, B, C)</span></li>
+                <li><span class="info-label">Formato:</span><span class="info-value">AutoCAD</span></li>
             </ul>
         </div>
 
-       <div class="descripcion">
-    <h2>📐 Detalle técnico</h2>
-    
-    <p>Este plano constituye una lámina de conjunto esencial dentro del proceso de diseño y comunicación del proyecto, ya que integra en una sola vista las dimensiones generales y las elevaciones principales. Su función principal es establecer las restricciones dimensionales del terreno, los retiros obligatorios, las áreas construidas y las proporciones generales de la edificación, sirviendo como referencia base para el desarrollo de planos más específicos.</p>
-    
-    <p>Las <strong>cotas principales</strong> definen la extensión total del predio, los límites de construcción, los ejes de referencia y las dimensiones de los volúmenes que componen el proyecto. Este nivel de acotación es estratégico porque permite verificar el cumplimiento de normativas urbanísticas (retiros frontales, laterales y posteriores, índice de ocupación y área libre) antes de avanzar en detalles constructivos. Cada cota está referenciada a ejes estructurales, facilitando la localización de elementos en campo durante la etapa de replanteo.</p>
-    
-    <p>Las <strong>elevaciones numeradas</strong> (1, 2 y 3) presentan las vistas del proyecto desde diferentes orientaciones, permitiendo apreciar la volumetría general, la composición de fachadas, la altura de cumbreras, la ubicación de vanos y la relación visual entre los distintos cuerpos que conforman la edificación. Estas vistas son fundamentales para que el cliente, los ingenieros y los contratistas comprendan la intención estética y funcional del diseño antes del inicio de la construcción.</p>
-    
-    <p>Además, el plano incluye anotaciones sobre <strong>niveles de piso terminado</strong>, <strong>alturas de entrepiso</strong> y referencias cruzadas a otros planos del conjunto (cortes, fachadas detalladas, planos de cimentación). Esta integración de información convierte a esta lámina en un punto de partida obligatorio para la coordinación entre disciplinas (arquitectura, estructuras, instalaciones) y para la planificación general de la obra.</p>
-    
-    <p>En resumen, este plano no solo documenta las dimensiones y visuales del proyecto, sino que actúa como <strong>herramienta de control dimensional y de comunicación visual</strong>, asegurando que todos los involucrados compartan una misma comprensión del alcance, la escala y la imagen final de la edificación.</p>
+        <div class="descripcion">
+            <h2>📐 Detalle técnico</h2>
+            <p>Esta planilla constituye un recurso fundamental dentro del proceso de diseño y cálculo estructural, ya que organiza de manera sistemática las características geométricas y de refuerzo de los elementos que componen el sistema resistente del proyecto. La claridad en la presentación de estos datos facilita la interpretación por parte de ingenieros, contratistas y personal de obra, reduciendo márgenes de error durante la ejecución.</p>
+            
+            <p>Las <strong>soleras</strong> (elementos horizontales de amarre) se presentan en tres tipologías principales con sus respectivas dimensiones transversales: 0.15×0.15 m, 0.15×0.10 m y 0.15×0.30 m. Para cada una se detalla la longitud total, el número de varillas de refuerzo longitudinal (varillas No. 3) y el espaciamiento de los estribos (generalmente @0.15 m o @0.20 m), asegurando un comportamiento adecuado frente a cargas laterales y verticales.</p>
+            
+            <p>Los <strong>cimientos</strong>, representados por las referencias CC-1 y CC-2, presentan una sección transversal constante de 0.40×0.20 m y longitudes de 25.00 m y 17.60 m respectivamente. Su refuerzo consiste en varillas No. 4 longitudinales y estribos No. 3 con separación de 0.15 m, lo que garantiza una distribución homogénea de cargas hacia el terreno de fundación y controla la aparición de fisuras por retracción o asentamientos diferenciales.</p>
+            
+            <p>Las <strong>columnas</strong>, clasificadas en tipos A, B y C, varían en sección y refuerzo según su posición y función estructural. Las columnas tipo A (0.15×0.15 m) y B (0.15×0.30 m) utilizan varillas No. 3 con estribos No. 2 a 0.15 m, mientras que las tipo C (0.10×0.15 m) emplean igualmente varillas No. 3 pero con estribos más espaciados (0.20 m), adaptándose a zonas de menor solicitación.</p>
+            
+            <p>En conjunto, esta planilla no solo cuantifica materiales (concreto, acero de refuerzo, formaletas), sino que también establece las bases para la correcta ejecución de los elementos estructurales, cumpliendo con normativas vigentes de construcción. Su empleo en el sitio de obra asegura que el diseño conceptual se traduzca fielmente en una edificación segura, durable y eficiente desde el punto de vista constructivo.</p>
         </div>
 
         <div style="text-align: center;">
