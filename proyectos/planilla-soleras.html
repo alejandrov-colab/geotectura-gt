@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geotectura · Planilla de Soleras, Cimientos y Columnas</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.2s ease; }
+        :root { --bg-primary: #ffffff; --bg-secondary: #f8f8f8; --bg-card: #fafafa; --text-primary: #1a1a1a; --text-secondary: #4a4a4a; --border-light: #e8e8e8; --accent: #2c2c2c; --header-bg: rgba(255, 255, 255, 0.95); }
+        body.dark { --bg-primary: #0a0a0a; --bg-secondary: #121212; --bg-card: #1e1e1e; --text-primary: #ededed; --text-secondary: #b0b0b0; --border-light: #2a2a2a; --accent: #3a3a3a; --header-bg: rgba(18, 18, 18, 0.95); }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        header { position: fixed; top: 0; left: 0; width: 100%; background: var(--header-bg); backdrop-filter: blur(16px); z-index: 1000; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .logo a { font-size: 1.4rem; font-weight: 600; text-decoration: none; color: var(--text-primary); }
+        .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; align-items: center; }
+        .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--text-primary); transition: opacity 0.2s; }
+        .nav-links a:hover { opacity: 0.7; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: var(--bg-card); min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 12px; border: 1px solid var(--border-light); top: 100%; left: 0; }
+        .dropdown-content a { color: var(--text-primary); padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; }
+        .dropdown-content a:hover { background-color: var(--bg-secondary); opacity: 1; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
+        .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
+        
+        .referencia-hero { background: var(--bg-secondary); padding: 140px 0 60px; text-align: center; border-bottom: 1px solid var(--border-light); }
+        .referencia-hero h1 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .referencia-hero p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+        
+        .plan-wrapper { position: relative; border-radius: 24px; overflow: hidden; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .plan-wrapper img { width: 100%; display: block; }
+        .plan-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); font-size: 3rem; font-weight: 700; white-space: nowrap; opacity: 0.08; pointer-events: none; user-select: none; z-index: 2; font-family: monospace; letter-spacing: 4px; }
+        
+        .info-card { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
+        .info-card h2 { font-size: 1.5rem; margin-bottom: 20px; }
+        .info-list { list-style: none; }
+        .info-list li { padding: 12px 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; }
+        .info-list li:last-child { border-bottom: none; }
+        .info-label { font-weight: 600; }
+        .info-value { color: var(--text-secondary); }
+        
+        .descripcion { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
+        .descripcion p { margin-bottom: 16px; color: var(--text-secondary); line-height: 1.6; }
+        
+        .btn-volver { display: inline-block; margin-top: 20px; padding: 12px 28px; background: var(--accent); color: white; text-decoration: none; border-radius: 40px; font-weight: 500; transition: opacity 0.2s; }
+        .btn-volver:hover { opacity: 0.85; }
+        
+        footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary); margin-top: 40px; }
+        @media (max-width: 800px) { .referencia-hero h1 { font-size: 1.8rem; } .nav-links { justify-content: center; } .nav-bar { flex-direction: column; } .plan-watermark { font-size: 1.2rem; } .info-list li { flex-direction: column; gap: 8px; } }
+    </style>
+</head>
+<body>
 
+<header>
+    <div class="container nav-bar">
+        <div class="logo"><a href="../index.html">◈ GEOTECTURA</a></div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li class="dropdown">
+                <a href="#">Servicios ▼</a>
+                <div class="dropdown-content">
+                    <a href="../servicio-topografia.html">📐 Cálculo topografía</a>
+                    <a href="../servicio-urbanismo.html">🏙️ Urbanismo</a>
+                    <a href="../servicio-parques.html">🎢 Parques temáticos</a>
+                    <a href="../servicio-direccion.html">📊 Dirección obra</a>
+                    <a href="../servicio-reformas.html">🔄 Reformas integrales</a>
+                    <a href="../servicio-asesoria.html">⚙️ Asesoría técnica</a>
+                </div>
+            </li>
+            <li><a href="../portafolio.html">Referencias</a></li>
+            <li><a href="../nosotros.html">Nosotros</a></li>
+            <li><a href="../index.html#contacto">Contacto</a></li>
+            <li><a href="../equipo.html">Equipo</a></li>
+            <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <section class="referencia-hero">
+        <div class="container">
+            <h1>📊 Planilla de Soleras, Cimientos y Columnas</h1>
+            <p>Especificaciones técnicas de elementos estructurales</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="plan-wrapper">
+            <img src="../imagenes/planilla-soleras.webp" alt="Planilla de Soleras, Cimientos y Columnas" onerror="this.src='https://placehold.co/1200x800/d4d4d4/888888?text=Planilla+de+Soleras+Cimientos+y+Columnas'">
+            <div class="plan-watermark">GEOTECTURA GT</div>
+        </div>
+
+        <div class="info-card">
+            <h2>📋 Información técnica</h2>
+            <ul class="info-list">
+                <li><span class="info-label">Tipo de documento:</span><span class="info-value">Planilla estructural</span></li>
+                <li><span class="info-label">Elementos incluidos:</span><span class="info-value">Soleras (SI-1, SI-2, SS-1), Cimientos (CC-1, CC-2), Columnas (A, B, C)</span></li>
+                <li><span class="info-label">Formato:</span><span class="info-value">AutoCAD</span></li>
+            </ul>
+        </div>
+
+        <div class="descripcion">
+            <h2>📐 Descripción del documento</h2>
+            <p>Planilla técnica que detalla las especificaciones de los elementos estructurales del proyecto. Incluye secciones transversales de cada elemento, longitudes, cantidades de acero de refuerzo y espaciamiento de estribos.</p>
+            <p>Las soleras se presentan con sus dimensiones características (0.15x0.15, 0.15x0.10, 0.15x0.30), mientras que los cimientos muestran una sección de 0.40x0.20. Las columnas varían en sección (A: 0.15x0.15, B: 0.15x0.30, C: 0.10x0.15) con especificaciones de refuerzo longitudinal y estribos.</p>
+            <p>Este tipo de documentación es fundamental para el correcto dimensionamiento y ejecución de la estructura portante de cualquier edificación.</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="../portafolio.html" class="btn-volver">← Volver a referencias</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Geotectura · Todos los derechos reservados</p>
+        <p style="margin-top: 8px; font-size: 0.7rem;">Planos, planillas y detalles constructivos</p>
+    </div>
+</footer>
+
+<script>
+    const theme = localStorage.getItem('geotectura_theme');
+    if (theme === 'dark') document.body.classList.add('dark');
+    const toggleBtn = document.getElementById('darkModeToggle');
+    if (toggleBtn) {
+        if (theme === 'dark') toggleBtn.textContent = '☀️';
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light');
+            toggleBtn.textContent = isDark ? '☀️' : '🌙';
+        });
+    }
+    document.addEventListener("contextmenu", (e) => { e.preventDefault(); });
+    document.querySelectorAll("img").forEach(img => { img.setAttribute("draggable", "false"); });
+</script>
+</body>
+</html>
