@@ -42,7 +42,10 @@
         .info-value { color: var(--text-secondary); }
         
         .descripcion { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
+        .descripcion h2 { font-size: 1.5rem; margin-bottom: 20px; }
         .descripcion p { margin-bottom: 16px; color: var(--text-secondary); line-height: 1.6; }
+        .descripcion ul { margin: 16px 0 16px 24px; color: var(--text-secondary); line-height: 1.6; }
+        .descripcion li { margin-bottom: 8px; }
         
         .btn-volver { display: inline-block; margin-top: 20px; padding: 12px 28px; background: var(--accent); color: white; text-decoration: none; border-radius: 40px; font-weight: 500; transition: opacity 0.2s; }
         .btn-volver:hover { opacity: 0.85; }
@@ -95,17 +98,23 @@
         <div class="info-card">
             <h2>📋 Información técnica</h2>
             <ul class="info-list">
-                <li><span class="info-label">Tipo de documento:</span><span class="info-value">Planilla estructural</span></li>
-                <li><span class="info-label">Elementos incluidos:</span><span class="info-value">Soleras (SI-1, SI-2, SS-1), Cimientos (CC-1, CC-2), Columnas (A, B, C)</span></li>
-                <li><span class="info-label">Formato:</span><span class="info-value">AutoCAD</span></li>
+                <li><span class="info-label">Tipo:</span><span class="info-value">Planilla estructural</span></li>
+                <li><span class="info-label">Elementos incluidos:</span><span class="info-value">Soleras (SI-1, SI-2, SS-1) · Cimientos (CC-1, CC-2) · Columnas (A, B, C)</span></li>
+                <li><span class="info-label">Software:</span><span class="info-value">AutoCAD</span></li>
             </ul>
         </div>
 
         <div class="descripcion">
-            <h2>📐 Descripción del documento</h2>
-            <p>Planilla técnica que detalla las especificaciones de los elementos estructurales del proyecto. Incluye secciones transversales de cada elemento, longitudes, cantidades de acero de refuerzo y espaciamiento de estribos.</p>
-            <p>Las soleras se presentan con sus dimensiones características (0.15x0.15, 0.15x0.10, 0.15x0.30), mientras que los cimientos muestran una sección de 0.40x0.20. Las columnas varían en sección (A: 0.15x0.15, B: 0.15x0.30, C: 0.10x0.15) con especificaciones de refuerzo longitudinal y estribos.</p>
-            <p>Este tipo de documentación es fundamental para el correcto dimensionamiento y ejecución de la estructura portante de cualquier edificación.</p>
+            <h2>📐 Detalle técnico</h2>
+            <p>Esta planilla constituye un recurso fundamental dentro del proceso de diseño y cálculo estructural, ya que organiza de manera sistemática las características geométricas y de refuerzo de los elementos que componen el sistema resistente del proyecto. La claridad en la presentación de estos datos facilita la interpretación por parte de ingenieros, contratistas y personal de obra, reduciendo márgenes de error durante la ejecución.</p>
+            
+            <p>Las <strong>soleras</strong> (elementos horizontales de amarre) se presentan en tres tipologías principales con sus respectivas dimensiones transversales: 0.15×0.15 m, 0.15×0.10 m y 0.15×0.30 m. Para cada una se detalla la longitud total, el número de varillas de refuerzo longitudinal (varillas No. 3) y el espaciamiento de los estribos (generalmente @0.15 m o @0.20 m), asegurando un comportamiento adecuado frente a cargas laterales y verticales.</p>
+            
+            <p>Los <strong>cimientos</strong>, representados por las referencias CC-1 y CC-2, presentan una sección transversal constante de 0.40×0.20 m y longitudes de 25.00 m y 17.60 m respectivamente. Su refuerzo consiste en varillas No. 4 longitudinales y estribos No. 3 con separación de 0.15 m, lo que garantiza una distribución homogénea de cargas hacia el terreno de fundación y controla la aparición de fisuras por retracción o asentamientos diferenciales.</p>
+            
+            <p>Las <strong>columnas</strong>, clasificadas en tipos A, B y C, varían en sección y refuerzo según su posición y función estructural. Las columnas tipo A (0.15×0.15 m) y B (0.15×0.30 m) utilizan varillas No. 3 con estribos No. 2 a 0.15 m, mientras que las tipo C (0.10×0.15 m) emplean igualmente varillas No. 3 pero con estribos más espaciados (0.20 m), adaptándose a zonas de menor solicitación.</p>
+            
+            <p>En conjunto, esta planilla no solo cuantifica materiales (concreto, acero de refuerzo formaletas), sino que también establece las bases para la correcta ejecución de los elementos estructurales, cumpliendo con normativas vigentes de construcción. Su empleo en el sitio de obra asegura que el diseño conceptual se traduzca fielmente en una edificación segura, durable y eficiente desde el punto de vista constructivo.</p>
         </div>
 
         <div style="text-align: center;">
