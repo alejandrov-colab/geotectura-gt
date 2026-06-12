@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Geotectura · Planilla de Soleras, Cimientos y Columnas</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.2s ease; }
         :root { --bg-primary: #ffffff; --bg-secondary: #f8f8f8; --bg-card: #fafafa; --text-primary: #1a1a1a; --text-secondary: #4a4a4a; --border-light: #e8e8e8; --accent: #2c2c2c; --header-bg: rgba(255, 255, 255, 0.95); }
         body.dark { --bg-primary: #0a0a0a; --bg-secondary: #121212; --bg-card: #1e1e1e; --text-primary: #ededed; --text-secondary: #b0b0b0; --border-light: #2a2a2a; --accent: #3a3a3a; --header-bg: rgba(18, 18, 18, 0.95); }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; overflow-x: hidden; }
         @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
         .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
         header { position: fixed; top: 0; left: 0; width: 100%; background: var(--header-bg); backdrop-filter: blur(16px); z-index: 1000; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
@@ -25,18 +25,130 @@
         .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
         .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
         
-        .referencia-hero { background: var(--bg-secondary); padding: 140px 0 60px; text-align: center; border-bottom: 1px solid var(--border-light); }
+        .referencia-hero { background: var(--bg-secondary); padding: 140px 0 40px; text-align: center; border-bottom: 1px solid var(--border-light); }
         .referencia-hero h1 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
         .referencia-hero p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
         
-        .plan-wrapper { position: relative; border-radius: 24px; overflow: hidden; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .plan-wrapper img { width: 100%; display: block; }
-        .plan-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); font-size: 2rem; font-weight: 700; white-space: nowrap; opacity: 0.08; pointer-events: none; user-select: none; z-index: 2; font-family: monospace; letter-spacing: 4px; }
+        /* ===== VISOR DE PLANO INTERACTIVO ===== */
+        .visor-container {
+            margin: 40px 0;
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .visor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .visor-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .visor-badge {
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        
+        .visor-controls {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .visor-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+        
+        .visor-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .visor-zoom-info {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            padding: 8px 12px;
+            background: var(--bg-card);
+            border-radius: 20px;
+        }
+        
+        .plan-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg-primary);
+            cursor: grab;
+            overflow: auto;
+            max-height: 70vh;
+            border: 1px solid var(--border-light);
+        }
+        
+        .plan-wrapper:active {
+            cursor: grabbing;
+        }
+        
+        .plan-img-container {
+            position: relative;
+            display: inline-block;
+            min-width: 100%;
+        }
+        
+        .plan-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            pointer-events: auto;
+        }
+        
+        .plan-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: 2.5rem;
+            font-weight: 700;
+            white-space: nowrap;
+            opacity: 0.06;
+            pointer-events: none;
+            user-select: none;
+            z-index: 2;
+            font-family: monospace;
+            letter-spacing: 6px;
+        }
+        
+        .zoom-hint {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
         
         .info-card { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
         .info-card h2 { font-size: 1.5rem; margin-bottom: 20px; }
         .info-list { list-style: none; }
-        .info-list li { padding: 12px 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; }
+        .info-list li { padding: 12px 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
         .info-list li:last-child { border-bottom: none; }
         .info-label { font-weight: 600; }
         .info-value { color: var(--text-secondary); }
@@ -49,7 +161,15 @@
         .btn-volver:hover { opacity: 0.85; }
         
         footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary); margin-top: 40px; }
-        @media (max-width: 800px) { .referencia-hero h1 { font-size: 1.8rem; } .nav-links { justify-content: center; } .nav-bar { flex-direction: column; } .plan-watermark { font-size: 1rem; } .info-list li { flex-direction: column; gap: 8px; } }
+        
+        @media (max-width: 800px) {
+            .referencia-hero h1 { font-size: 1.8rem; }
+            .nav-links { justify-content: center; }
+            .nav-bar { flex-direction: column; }
+            .plan-watermark { font-size: 1rem; letter-spacing: 2px; }
+            .visor-header { flex-direction: column; align-items: flex-start; }
+            .info-list li { flex-direction: column; gap: 4px; }
+        }
     </style>
 </head>
 <body>
@@ -89,9 +209,32 @@
     </section>
 
     <div class="container">
-        <div class="plan-wrapper">
-            <img src="../imagenes/planilla-soleras.webp" alt="Planilla de Soleras, Cimientos y Columnas" onerror="this.src='https://placehold.co/1200x800/d4d4d4/888888?text=Planilla+de+Soleras+Cimientos+y+Columnas'">
-            <div class="plan-watermark">GEOTECTURA GT</div>
+        <!-- VISOR INTERACTIVO DEL PLANO -->
+        <div class="visor-container">
+            <div class="visor-header">
+                <div class="visor-title">
+                    <span class="visor-badge" data-key="visor_badge">Plano técnico</span>
+                    <span class="visor-zoom-info" id="zoomInfo">100%</span>
+                </div>
+                <div class="visor-controls">
+                    <button class="visor-btn" id="zoomInBtn" data-key="zoom_in">🔍 Acercar</button>
+                    <button class="visor-btn" id="zoomOutBtn" data-key="zoom_out">🔍 Alejar</button>
+                    <button class="visor-btn" id="resetZoomBtn" data-key="reset_zoom">⟳ Restablecer</button>
+                </div>
+            </div>
+            <div class="plan-wrapper" id="planWrapper">
+                <div class="plan-img-container" id="planContainer">
+                    <img src="../imagenes/planilla-soleras.webp" 
+                         class="plan-img" 
+                         alt="Planilla de Soleras, Cimientos y Columnas" 
+                         id="planImage"
+                         onerror="this.src='https://placehold.co/1600x1200/d4d4d4/888888?text=Planilla+de+Soleras+Cimientos+y+Columnas'">
+                    <div class="plan-watermark">GEOTECTURA GT</div>
+                </div>
+            </div>
+            <div class="zoom-hint" data-key="zoom_hint">
+                💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano
+            </div>
         </div>
 
         <div class="info-card">
@@ -107,6 +250,7 @@
             <h2 data-key="detalle_titulo">📐 Detalle técnico</h2>
             <p data-key="desc_p1">Planilla estructural que sistematiza las características geométricas y de refuerzo de soleras, cimientos y columnas, facilitando la interpretación técnica durante la ejecución de la obra.</p>
             <p data-key="desc_p2">Las <strong>soleras</strong> (0.15×0.15, 0.15×0.10 y 0.15×0.30 m) incorporan refuerzo longitudinal con varillas No. 3 y estribos No. 2 espaciados cada 0.15 o 0.20 m. Los <strong>cimientos</strong> CC-1 y CC-2 (0.40×0.20 m) utilizan varillas No. 4 con estribos No. 3 @0.15 m. Las <strong>columnas</strong> tipo A (0.15×0.15), B (0.15×0.30) y C (0.10×0.15) ajustan su refuerzo según su función estructural.</p>
+            <p data-key="desc_p3">Esta documentación permite cuantificar materiales (concreto y acero) y garantiza una ejecución segura y eficiente, alineada con las normativas constructivas vigentes.</p>
         </div>
 
         <div style="text-align: center;">
@@ -130,6 +274,11 @@
             serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica",
             titulo: "📊 Planilla de Soleras, Cimientos y Columnas",
             subtitulo: "Especificaciones técnicas de elementos estructurales",
+            visor_badge: "Plano técnico",
+            zoom_in: "🔍 Acercar",
+            zoom_out: "🔍 Alejar",
+            reset_zoom: "⟳ Restablecer",
+            zoom_hint: "💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano",
             info_titulo: "📋 Información técnica",
             tipo_label: "Tipo:", tipo_valor: "Planilla estructural",
             elementos_label: "Elementos:", elementos_valor: "Soleras (SI-1, SI-2, SS-1) · Cimientos (CC-1, CC-2) · Columnas (A, B, C)",
@@ -137,13 +286,19 @@
             detalle_titulo: "📐 Detalle técnico",
             desc_p1: "Planilla estructural que sistematiza las características geométricas y de refuerzo de soleras, cimientos y columnas, facilitando la interpretación técnica durante la ejecución de la obra.",
             desc_p2: "Las <strong>soleras</strong> (0.15×0.15, 0.15×0.10 y 0.15×0.30 m) incorporan refuerzo longitudinal con varillas No. 3 y estribos No. 2 espaciados cada 0.15 o 0.20 m. Los <strong>cimientos</strong> CC-1 y CC-2 (0.40×0.20 m) utilizan varillas No. 4 con estribos No. 3 @0.15 m. Las <strong>columnas</strong> tipo A (0.15×0.15), B (0.15×0.30) y C (0.10×0.15) ajustan su refuerzo según su función estructural.",
+            desc_p3: "Esta documentación permite cuantificar materiales (concreto y acero) y garantiza una ejecución segura y eficiente, alineada con las normativas constructivas vigentes.",
             btn_volver: "← Volver a referencias"
         },
         en: {
             nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "References", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
             serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory",
-            titulo: "📊 Schedules of Beams, Foundations and Columns",
+            titulo: "📊 Beams, Foundations and Columns Schedule",
             subtitulo: "Technical specifications of structural elements",
+            visor_badge: "Technical drawing",
+            zoom_in: "🔍 Zoom in",
+            zoom_out: "🔍 Zoom out",
+            reset_zoom: "⟳ Reset",
+            zoom_hint: "💡 Tip: Use mouse wheel to zoom and drag to pan across the drawing",
             info_titulo: "📋 Technical information",
             tipo_label: "Type:", tipo_valor: "Structural schedule",
             elementos_label: "Elements:", elementos_valor: "Beams (SI-1, SI-2, SS-1) · Foundations (CC-1, CC-2) · Columns (A, B, C)",
@@ -151,6 +306,7 @@
             detalle_titulo: "📐 Technical detail",
             desc_p1: "Structural schedule that systematizes the geometric and reinforcement characteristics of beams, foundations and columns, facilitating technical interpretation during construction.",
             desc_p2: "<strong>Beams</strong> (0.15×0.15, 0.15×0.10 and 0.15×0.30 m) incorporate longitudinal reinforcement with No. 3 bars and No. 2 stirrups spaced every 0.15 or 0.20 m. <strong>Foundations</strong> CC-1 and CC-2 (0.40×0.20 m) use No. 4 bars with No. 3 stirrups @0.15 m. <strong>Columns</strong> type A (0.15×0.15), B (0.15×0.30) and C (0.10×0.15) adjust their reinforcement according to their structural function.",
+            desc_p3: "This documentation allows quantifying materials (concrete and steel) and guarantees a safe and efficient execution, aligned with current construction regulations.",
             btn_volver: "← Back to references"
         },
         pt: {
@@ -158,6 +314,11 @@
             serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria",
             titulo: "📊 Planilha de Vergas, Fundações e Colunas",
             subtitulo: "Especificações técnicas de elementos estruturais",
+            visor_badge: "Desenho técnico",
+            zoom_in: "🔍 Aproximar",
+            zoom_out: "🔍 Afastar",
+            reset_zoom: "⟳ Restaurar",
+            zoom_hint: "💡 Dica: Use a roda do mouse para zoom e arraste para se mover pelo desenho",
             info_titulo: "📋 Informação técnica",
             tipo_label: "Tipo:", tipo_valor: "Planilha estrutural",
             elementos_label: "Elementos:", elementos_valor: "Vergas (SI-1, SI-2, SS-1) · Fundações (CC-1, CC-2) · Colunas (A, B, C)",
@@ -165,6 +326,7 @@
             detalle_titulo: "📐 Detalhe técnico",
             desc_p1: "Planilha estrutural que sistematiza as características geométricas e de reforço de vergas, fundações e colunas, facilitando a interpretação técnica durante a execução da obra.",
             desc_p2: "As <strong>vergas</strong> (0.15×0.15, 0.15×0.10 e 0.15×0.30 m) incorporam reforço longitudinal com barras No. 3 e estribos No. 2 espaçados a cada 0.15 ou 0.20 m. As <strong>fundações</strong> CC-1 e CC-2 (0.40×0.20 m) utilizam barras No. 4 com estribos No. 3 @0.15 m. As <strong>colunas</strong> tipo A (0.15×0.15), B (0.15×0.30) e C (0.10×0.15) ajustam seu reforço conforme sua função estrutural.",
+            desc_p3: "Esta documentação permite quantificar materiais (concreto e aço) e garante uma execução segura e eficiente, alinhada com as normas construtivas vigentes.",
             btn_volver: "← Voltar às referências"
         }
     };
@@ -206,6 +368,106 @@
         });
     }
 
+    // ===== VISOR INTERACTIVO CON ZOOM Y PAN =====
+    const wrapper = document.getElementById('planWrapper');
+    const container = document.getElementById('planContainer');
+    const image = document.getElementById('planImage');
+    const zoomInfo = document.getElementById('zoomInfo');
+    
+    let scale = 1;
+    let panX = 0;
+    let panY = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    
+    function updateTransform() {
+        container.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+        container.style.transformOrigin = 'top left';
+        zoomInfo.textContent = `${Math.round(scale * 100)}%`;
+    }
+    
+    function zoomAtPoint(clientX, clientY, delta) {
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        
+        const mouseX = clientX - wrapperRect.left;
+        const mouseY = clientY - wrapperRect.top;
+        
+        const oldScale = scale;
+        scale *= delta;
+        scale = Math.min(Math.max(scale, 0.5), 4);
+        
+        if (scale !== oldScale) {
+            const ratio = scale / oldScale;
+            panX = (panX - mouseX) * ratio + mouseX;
+            panY = (panY - mouseY) * ratio + mouseY;
+            
+            const maxPanX = Math.max(0, (wrapperRect.width * (scale - 1)) / 2);
+            const maxPanY = Math.max(0, (wrapperRect.height * (scale - 1)) / 2);
+            panX = Math.min(maxPanX, Math.max(-maxPanX, panX));
+            panY = Math.min(maxPanY, Math.max(-maxPanY, panY));
+            
+            updateTransform();
+        }
+    }
+    
+    wrapper.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? 0.9 : 1.1;
+        zoomAtPoint(e.clientX, e.clientY, delta);
+    });
+    
+    wrapper.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.visor-btn')) return;
+        isDragging = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+        wrapper.style.cursor = 'grabbing';
+    });
+    
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        panX = e.clientX - startX;
+        panY = e.clientY - startY;
+        
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const maxPanX = Math.max(0, (wrapperRect.width * (scale - 1)) / 2);
+        const maxPanY = Math.max(0, (wrapperRect.height * (scale - 1)) / 2);
+        panX = Math.min(maxPanX, Math.max(-maxPanX, panX));
+        panY = Math.min(maxPanY, Math.max(-maxPanY, panY));
+        
+        updateTransform();
+    });
+    
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        wrapper.style.cursor = 'grab';
+    });
+    
+    document.getElementById('zoomInBtn').addEventListener('click', () => {
+        const centerX = wrapper.clientWidth / 2;
+        const centerY = wrapper.clientHeight / 2;
+        zoomAtPoint(centerX + wrapper.getBoundingClientRect().left, centerY + wrapper.getBoundingClientRect().top, 1.2);
+    });
+    
+    document.getElementById('zoomOutBtn').addEventListener('click', () => {
+        const centerX = wrapper.clientWidth / 2;
+        const centerY = wrapper.clientHeight / 2;
+        zoomAtPoint(centerX + wrapper.getBoundingClientRect().left, centerY + wrapper.getBoundingClientRect().top, 0.8);
+    });
+    
+    document.getElementById('resetZoomBtn').addEventListener('click', () => {
+        scale = 1;
+        panX = 0;
+        panY = 0;
+        updateTransform();
+    });
+    
+    wrapper.style.cursor = 'grab';
+    updateTransform();
+    
+    // Protección de imágenes
     document.addEventListener("contextmenu", (e) => { e.preventDefault(); });
     document.querySelectorAll("img").forEach(img => { img.setAttribute("draggable", "false"); });
 </script>
