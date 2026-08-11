@@ -259,19 +259,25 @@
 
     .plan-img-container {
       position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      left: 50%;
+      top: 50%;
+
+      /* IMPORTANTE:
+         El contenedor ya NO se amplía con scale().
+         Su ancho/alto cambian realmente con JavaScript para obligar
+         al navegador a volver a renderizar el SVG como vector. */
+      transform: translate(-50%, -50%);
       transform-origin: center center;
-      will-change: transform;
     }
 
     .plan-img {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      max-width: none;
+      max-height: none;
+      object-fit: fill;
+
       pointer-events: none;
       user-select: none;
       -webkit-user-drag: none;
@@ -928,10 +934,11 @@
       darkModeToggle.textContent = isDark ? "☀️" : "🌙";
     });
 
-    /* ===================== VISOR INTERACTIVO ===================== */
+    /* ===================== VISOR INTERACTIVO SVG NÍTIDO ===================== */
     const viewerCard = document.getElementById("viewerCard");
     const wrapper = document.getElementById("planWrapper");
     const container = document.getElementById("planContainer");
+    const planImage = document.getElementById("planImage");
     const zoomInfo = document.getElementById("zoomInfo");
 
     const zoomInBtn = document.getElementById("zoomInBtn");
@@ -942,6 +949,10 @@
     let scale = 1;
     let panX = 0;
     let panY = 0;
+
+    let baseWidth = 0;
+    let baseHeight = 0;
+
     let isDragging = false;
     let pointerStartX = 0;
     let pointerStartY = 0;
@@ -949,14 +960,45 @@
     let startPanY = 0;
 
     const MIN_SCALE = 0.75;
-    const MAX_SCALE = 4;
+    const MAX_SCALE = 6;
 
     function clamp(value, min, max) {
       return Math.min(Math.max(value, min), max);
     }
 
-    function updateTransform() {
-      container.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+    /* Calcula el tamaño base del SVG usando "contain",
+       pero SIN rasterizarlo mediante transform: scale(). */
+    function calculateBaseSize() {
+      if (!planImage.naturalWidth || !planImage.naturalHeight) return;
+
+      const rect = wrapper.getBoundingClientRect();
+      const imageRatio = planImage.naturalWidth / planImage.naturalHeight;
+      const wrapperRatio = rect.width / rect.height;
+
+      if (wrapperRatio > imageRatio) {
+        baseHeight = rect.height;
+        baseWidth = baseHeight * imageRatio;
+      } else {
+        baseWidth = rect.width;
+        baseHeight = baseWidth / imageRatio;
+      }
+
+      updateView();
+    }
+
+    /* Aquí está la diferencia importante:
+       NO usamos scale().
+       Modificamos width/height reales del SVG para que el navegador
+       lo vuelva a dibujar a la resolución visual necesaria. */
+    function updateView() {
+      if (!baseWidth || !baseHeight) return;
+
+      container.style.width = `${baseWidth * scale}px`;
+      container.style.height = `${baseHeight * scale}px`;
+
+      container.style.transform =
+        `translate(calc(-50% + ${panX}px), calc(-50% + ${panY}px))`;
+
       zoomInfo.textContent = `${Math.round(scale * 100)}%`;
     }
 
@@ -964,15 +1006,17 @@
       scale = 1;
       panX = 0;
       panY = 0;
-      updateTransform();
+      updateView();
     }
 
     function zoomTo(nextScale, clientX = null, clientY = null) {
       const oldScale = scale;
       nextScale = clamp(nextScale, MIN_SCALE, MAX_SCALE);
 
-      if (nextScale === oldScale) return;
+      if (Math.abs(nextScale - oldScale) < 0.0001) return;
 
+      /* Mantiene el punto bajo el cursor aproximadamente fijo
+         mientras cambia el tamaño real del SVG. */
       if (clientX !== null && clientY !== null) {
         const rect = wrapper.getBoundingClientRect();
         const x = clientX - rect.left - rect.width / 2;
@@ -990,11 +1034,12 @@
         panY = 0;
       }
 
-      updateTransform();
+      updateView();
     }
 
     wrapper.addEventListener("wheel", e => {
       e.preventDefault();
+
       const factor = e.deltaY < 0 ? 1.12 : 0.89;
       zoomTo(scale * factor, e.clientX, e.clientY);
     }, { passive: false });
@@ -1016,12 +1061,15 @@
 
       panX = startPanX + (e.clientX - pointerStartX);
       panY = startPanY + (e.clientY - pointerStartY);
-      updateTransform();
+
+      updateView();
     });
 
     const stopDragging = e => {
       isDragging = false;
-      try { wrapper.releasePointerCapture?.(e.pointerId); } catch (_) {}
+      try {
+        wrapper.releasePointerCapture?.(e.pointerId);
+      } catch (_) {}
     };
 
     wrapper.addEventListener("pointerup", stopDragging);
@@ -1058,10 +1106,29 @@
     });
 
     document.addEventListener("fullscreenchange", () => {
-      if (!document.fullscreenElement) {
-        resetView();
-      }
+      scale = 1;
+      panX = 0;
+      panY = 0;
+
+      requestAnimationFrame(() => {
+        calculateBaseSize();
+      });
     });
+
+    /* Recalcula el tamaño cuando cambia el visor
+       (responsive, pantalla completa, cambio de ventana, etc.). */
+    const planResizeObserver = new ResizeObserver(() => {
+      calculateBaseSize();
+    });
+
+    planResizeObserver.observe(wrapper);
+
+    /* Esperar a que el SVG conozca sus dimensiones reales. */
+    if (planImage.complete && planImage.naturalWidth && planImage.naturalHeight) {
+      calculateBaseSize();
+    } else {
+      planImage.addEventListener("load", calculateBaseSize, { once: true });
+    }
 
     /* ===================== PROTECCIÓN BÁSICA DE IMÁGENES ===================== */
     document.addEventListener("contextmenu", e => {
@@ -1072,7 +1139,6 @@
       img.setAttribute("draggable", "false");
     });
 
-    updateTransform();
   </script>
 </body>
 </html>
