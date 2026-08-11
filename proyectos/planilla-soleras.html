@@ -1,475 +1,1078 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Geotectura · Planilla de Soleras, Cimientos y Columnas</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.2s ease; }
-        :root { --bg-primary: #ffffff; --bg-secondary: #f8f8f8; --bg-card: #fafafa; --text-primary: #1a1a1a; --text-secondary: #4a4a4a; --border-light: #e8e8e8; --accent: #2c2c2c; --header-bg: rgba(255, 255, 255, 0.95); }
-        body.dark { --bg-primary: #0a0a0a; --bg-secondary: #121212; --bg-card: #1e1e1e; --text-primary: #ededed; --text-secondary: #b0b0b0; --border-light: #2a2a2a; --accent: #3a3a3a; --header-bg: rgba(18, 18, 18, 0.95); }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; overflow-x: hidden; }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        header { position: fixed; top: 0; left: 0; width: 100%; background: var(--header-bg); backdrop-filter: blur(16px); z-index: 1000; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
-        .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-        .logo a { font-size: 1.4rem; font-weight: 600; text-decoration: none; color: var(--text-primary); }
-        .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; align-items: center; }
-        .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--text-primary); transition: opacity 0.2s; }
-        .nav-links a:hover { opacity: 0.7; }
-        .dropdown { position: relative; display: inline-block; }
-        .dropdown-content { display: none; position: absolute; background-color: var(--bg-card); min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 12px; border: 1px solid var(--border-light); top: 100%; left: 0; }
-        .dropdown-content a { color: var(--text-primary); padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; }
-        .dropdown-content a:hover { background-color: var(--bg-secondary); opacity: 1; }
-        .dropdown:hover .dropdown-content { display: block; }
-        .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
-        .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
-        
-        .referencia-hero { background: var(--bg-secondary); padding: 140px 0 40px; text-align: center; border-bottom: 1px solid var(--border-light); }
-        .referencia-hero h1 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
-        .referencia-hero p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
-        
-        /* ===== VISOR DE PLANO INTERACTIVO ===== */
-        .visor-container {
-            margin: 40px 0;
-            background: var(--bg-secondary);
-            border-radius: 24px;
-            padding: 20px;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .visor-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        
-        .visor-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .visor-badge {
-            background: var(--accent);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-        
-        .visor-controls {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .visor-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            padding: 8px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.8rem;
-            color: var(--text-primary);
-            transition: all 0.2s;
-        }
-        
-        .visor-btn:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-        
-        .visor-zoom-info {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            padding: 8px 12px;
-            background: var(--bg-card);
-            border-radius: 20px;
-        }
-        
-        .plan-wrapper {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            background: var(--bg-primary);
-            cursor: grab;
-            overflow: auto;
-            max-height: 70vh;
-            border: 1px solid var(--border-light);
-        }
-        
-        .plan-wrapper:active {
-            cursor: grabbing;
-        }
-        
-        .plan-img-container {
-            position: relative;
-            display: inline-block;
-            min-width: 100%;
-        }
-        
-        .plan-img {
-            display: block;
-            width: 100%;
-            height: auto;
-            pointer-events: auto;
-        }
-        
-        .plan-watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-25deg);
-            font-size: 2.5rem;
-            font-weight: 700;
-            white-space: nowrap;
-            opacity: 0.06;
-            pointer-events: none;
-            user-select: none;
-            z-index: 2;
-            font-family: monospace;
-            letter-spacing: 6px;
-        }
-        
-        .zoom-hint {
-            text-align: center;
-            margin-top: 12px;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-        }
-        
-        .info-card { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
-        .info-card h2 { font-size: 1.5rem; margin-bottom: 20px; }
-        .info-list { list-style: none; }
-        .info-list li { padding: 12px 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-        .info-list li:last-child { border-bottom: none; }
-        .info-label { font-weight: 600; }
-        .info-value { color: var(--text-secondary); }
-        
-        .descripcion { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
-        .descripcion h2 { font-size: 1.5rem; margin-bottom: 20px; }
-        .descripcion p { margin-bottom: 16px; color: var(--text-secondary); line-height: 1.6; }
-        
-        .btn-volver { display: inline-block; margin-top: 20px; padding: 12px 28px; background: var(--accent); color: white; text-decoration: none; border-radius: 40px; font-weight: 500; transition: opacity 0.2s; }
-        .btn-volver:hover { opacity: 0.85; }
-        
-        footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary); margin-top: 40px; }
-        
-        @media (max-width: 800px) {
-            .referencia-hero h1 { font-size: 1.8rem; }
-            .nav-links { justify-content: center; }
-            .nav-bar { flex-direction: column; }
-            .plan-watermark { font-size: 1rem; letter-spacing: 2px; }
-            .visor-header { flex-direction: column; align-items: flex-start; }
-            .info-list li { flex-direction: column; gap: 4px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Geotectura · Soleras, Cimientos y Columnas</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f8f8;
+      --bg-card: #fafafa;
+      --text-primary: #1a1a1a;
+      --text-secondary: #4a4a4a;
+      --border-light: #e8e8e8;
+      --header-bg: rgba(255,255,255,.95);
+
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #fafafa;
+      --surface-muted: #f6f6f6;
+      --text: #161616;
+      --text-soft: #666666;
+      --border: #e7e7e7;
+      --accent: #252525;
+      --accent-hover: #111111;
+      --header-bg: rgba(255,255,255,.94);
+      --shadow: 0 10px 30px rgba(0,0,0,.07);
+      --chip: #f4f4f4;
+      --chip-text: #404040;
+      --plan-bg: #ffffff;
+      --viewer-toolbar: #fbfbfb;
+    }
+
+    body.dark {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #121212;
+      --bg-card: #1e1e1e;
+      --text-primary: #ededed;
+      --text-secondary: #b0b0b0;
+      --border-light: #2a2a2a;
+      --header-bg: rgba(18,18,18,.95);
+
+      --bg: #0b0b0c;
+      --surface: #141416;
+      --surface-soft: #18181a;
+      --surface-muted: #111113;
+      --text: #f2f2f2;
+      --text-soft: #a9a9ad;
+      --border: #2a2a2e;
+      --accent: #f0f0f0;
+      --accent-hover: #ffffff;
+      --header-bg: rgba(11,11,12,.94);
+      --shadow: 0 10px 34px rgba(0,0,0,.32);
+      --chip: #202024;
+      --chip-text: #d7d7da;
+      --viewer-toolbar: #18181a;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      overflow-x: hidden;
+      transition: background-color .25s ease, color .25s ease;
+    }
+
+    button, select, a {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    
+    /* ===================== HEADER ORIGINAL ===================== */
+    header { position: fixed; top: 0; left: 0; width: 100%; background: var(--header-bg); backdrop-filter: blur(16px); z-index: 1000; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
+    .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .logo a { font-size: 1.4rem; font-weight: 600; text-decoration: none; color: var(--text-primary); }
+    .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--text-primary); transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 0.7; }
+    .dropdown { position: relative; display: inline-block; }
+    .dropdown-content { display: none; position: absolute; background-color: var(--bg-card); min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 12px; border: 1px solid var(--border-light); top: 100%; left: 0; }
+    .dropdown-content a { color: var(--text-primary); padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; }
+    .dropdown-content a:hover { background-color: var(--bg-secondary); opacity: 1; }
+    .dropdown:hover .dropdown-content { display: block; }
+    .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
+    .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
+
+
+    /* ===================== HERO ===================== */
+    .reference-hero {
+      padding: 118px 20px 26px;
+      text-align: center;
+      background:
+        linear-gradient(180deg, var(--surface-muted) 0%, var(--surface-soft) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-soft);
+      font-size: .82rem;
+      margin-bottom: 5px;
+    }
+
+    .eyebrow-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      display: inline-grid;
+      place-items: center;
+      background: linear-gradient(135deg, #9b86ff, #64d5ff 50%, #6be4a8);
+      color: #fff;
+      font-size: .7rem;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
+    }
+
+    .reference-hero h1 {
+      font-size: clamp(1.8rem, 3vw, 2.45rem);
+      line-height: 1.12;
+      letter-spacing: -.035em;
+      font-weight: 700;
+      margin-bottom: 13px;
+    }
+
+    .hero-tags {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 0 15px;
+      border-radius: 999px;
+      background: var(--chip);
+      color: var(--chip-text);
+      border: 1px solid var(--border);
+      font-size: .69rem;
+      font-weight: 500;
+    }
+
+    /* ===================== MAIN ===================== */
+    main {
+      padding-bottom: 36px;
+    }
+
+    .viewer-card {
+      margin: 22px auto 12px;
+      padding: 14px;
+      border-radius: 17px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .viewer-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      padding: 0 3px;
+    }
+
+    .viewer-left,
+    .viewer-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .viewer-badge {
+      background: #242424;
+      color: #fff;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: .64rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    body.dark .viewer-badge {
+      background: #ededed;
+      color: #111;
+    }
+
+    .zoom-info {
+      color: var(--text-soft);
+      font-size: .68rem;
+      min-width: 38px;
+    }
+
+    .viewer-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 7px 13px;
+      font-size: .68rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+      white-space: nowrap;
+    }
+
+    .viewer-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    body.dark .viewer-btn:hover {
+      color: #111;
+    }
+
+    .plan-wrapper {
+      position: relative;
+      width: 100%;
+      height: clamp(340px, 38vw, 510px);
+      background: var(--plan-bg);
+      border: 1px solid #e5e5e5;
+      border-radius: 13px;
+      overflow: hidden;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .plan-wrapper:active {
+      cursor: grabbing;
+    }
+
+    .plan-img-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    .plan-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .plan-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-22deg);
+      font-size: clamp(1.5rem, 3.5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: .18em;
+      color: #000;
+      opacity: .075;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    .zoom-hint {
+      text-align: center;
+      margin-top: 8px;
+      color: var(--text-soft);
+      font-size: .64rem;
+    }
+
+    /* Fullscreen viewer */
+    .viewer-card:fullscreen {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      border-radius: 0;
+      padding: 14px;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .viewer-card:fullscreen .plan-wrapper {
+      flex: 1;
+      height: auto;
+    }
+
+    /* ===================== INFO ===================== */
+    .content-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 16px 20px;
+      margin: 10px 0;
+      box-shadow: 0 5px 18px rgba(0,0,0,.025);
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .97rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .small-icon {
+      opacity: .85;
+      font-size: .9rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: minmax(150px, .9fr) 1fr;
+    }
+
+    .info-row {
+      display: contents;
+    }
+
+    .info-label,
+    .info-value {
+      padding: 6px 0;
+      border-top: 1px solid var(--border);
+      font-size: .68rem;
+    }
+
+    .info-label {
+      font-weight: 600;
+      padding-right: 20px;
+    }
+
+    .info-value {
+      color: var(--text-soft);
+    }
+
+    .description-text {
+      color: var(--text-soft);
+      font-size: .69rem;
+      line-height: 1.55;
+      max-width: 880px;
+      margin-bottom: 12px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .feature-card {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 11px 12px;
+      min-height: 72px;
+      background: var(--surface);
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .feature-card:nth-child(1) .feature-icon {
+      background: rgba(137, 92, 246, .12);
+      color: #7b4ce3;
+    }
+
+    .feature-card:nth-child(2) .feature-icon {
+      background: rgba(72, 190, 118, .13);
+      color: #2ba564;
+    }
+
+    .feature-card:nth-child(3) .feature-icon {
+      background: rgba(61, 155, 235, .13);
+      color: #2386d2;
+    }
+
+    .feature-card h3 {
+      font-size: .73rem;
+      margin-bottom: 2px;
+    }
+
+    .feature-card p {
+      color: var(--text-soft);
+      font-size: .61rem;
+      line-height: 1.35;
+    }
+
+    .back-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #fff;
+      background: #252525;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: .72rem;
+      font-weight: 600;
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    body.dark .btn-back {
+      color: #111;
+      background: #f0f0f0;
+    }
+
+    .btn-back:hover {
+      transform: translateY(-1px);
+      opacity: .9;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      color: var(--text-soft);
+      text-align: center;
+      padding: 24px 20px 30px;
+      font-size: .66rem;
+    }
+
+    footer p + p {
+      margin-top: 4px;
+      font-size: .6rem;
+    }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 900px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .nav-bar {
+        padding: 10px 0;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: 11px;
+      }
+
+      .reference-hero {
+        padding-top: 150px;
+      }
+
+      .viewer-toolbar {
+        align-items: flex-start;
+      }
+
+      .viewer-controls {
+        width: 100%;
+      }
+
+      .plan-wrapper {
+        height: 52vw;
+        min-height: 310px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-label,
+      .info-value {
+        border-top: 0;
+      }
+
+      .info-label {
+        padding-bottom: 0;
+        margin-top: 8px;
+      }
+
+      .info-value {
+        border-bottom: 1px solid var(--border);
+        padding-top: 2px;
+        padding-bottom: 8px;
+      }
+
+      .viewer-controls {
+        gap: 7px;
+      }
+
+      .viewer-btn {
+        padding: 7px 10px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .nav-links > li:nth-child(-n+6) {
+        display: none;
+      }
+
+      .reference-hero {
+        padding-top: 118px;
+      }
+
+      .reference-hero h1 {
+        font-size: 1.65rem;
+      }
+
+      .viewer-card {
+        padding: 10px;
+        border-radius: 14px;
+      }
+
+      .plan-wrapper {
+        min-height: 280px;
+      }
+
+      .viewer-btn .btn-text {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
-
-<header>
+  <header>
     <div class="container nav-bar">
-        <div class="logo"><a href="../index.html">◈ GEOTECTURA</a></div>
-        <ul class="nav-links">
-            <li><a href="../index.html" data-key="nav_inicio">Inicio</a></li>
-            <li class="dropdown">
-                <a href="#" data-key="nav_servicios">Servicios ▼</a>
-                <div class="dropdown-content">
-                    <a href="../servicio-topografia.html" data-key="serv_topografia">📐 Cálculo topografía</a>
-                    <a href="../servicio-urbanismo.html" data-key="serv_urbanismo">🏙️ Urbanismo</a>
-                    <a href="../servicio-parques.html" data-key="serv_parques">🎢 Parques temáticos</a>
-                    <a href="../servicio-direccion.html" data-key="serv_direccion">📊 Dirección obra</a>
-                    <a href="../servicio-reformas.html" data-key="serv_reformas">🔄 Reformas integrales</a>
-                    <a href="../servicio-asesoria.html" data-key="serv_asesoria">⚙️ Asesoría técnica</a>
-                </div>
-            </li>
-            <li><a href="../portafolio.html" data-key="nav_proyectos">Referencias</a></li>
-            <li><a href="../nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
-            <li><a href="../index.html#contacto" data-key="nav_contacto">Contacto</a></li>
-            <li><a href="../equipo.html" data-key="nav_equipo">Equipo</a></li>
-            <li><select class="lang-select" id="langSelect"><option value="es">🇪🇸 ES</option><option value="en">🇬🇧 EN</option><option value="pt">🇵🇹 PT</option></select></li>
-            <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
-        </ul>
+      <div class="logo"><a href="../index.html">◈ GEOTECTURA</a></div>
+      <ul class="nav-links">
+        <li><a href="../index.html" data-key="nav_inicio">Inicio</a></li>
+        <li class="dropdown">
+          <a href="#" data-key="nav_servicios">Servicios ▼</a>
+          <div class="dropdown-content">
+            <a href="../servicio-topografia.html" data-key="serv_topografia">📐 Cálculo topografía</a>
+            <a href="../servicio-urbanismo.html" data-key="serv_urbanismo">🏙️ Urbanismo</a>
+            <a href="../servicio-parques.html" data-key="serv_parques">🎢 Parques temáticos</a>
+            <a href="../servicio-direccion.html" data-key="serv_direccion">📊 Dirección obra</a>
+            <a href="../servicio-reformas.html" data-key="serv_reformas">🔄 Reformas integrales</a>
+            <a href="../servicio-asesoria.html" data-key="serv_asesoria">⚙️ Asesoría técnica</a>
+          </div>
+        </li>
+        <li><a href="../portafolio.html" data-key="nav_proyectos">Referencias</a></li>
+        <li><a href="../nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
+        <li><a href="../index.html#contacto" data-key="nav_contacto">Contacto</a></li>
+        <li><a href="../equipo.html" data-key="nav_equipo">Equipo</a></li>
+        <li><select class="lang-select" id="langSelect"><option value="es">🇪🇸 ES</option><option value="en">🇬🇧 EN</option><option value="pt">🇵🇹 PT</option></select></li>
+        <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
+      </ul>
     </div>
-</header>
+  </header>
 
-<main>
-    <section class="referencia-hero">
-        <div class="container">
-            <h1 data-key="titulo">📊 Planilla de Soleras, Cimientos y Columnas</h1>
-            <p data-key="subtitulo">Especificaciones técnicas de elementos estructurales</p>
-        </div>
+  <main>
+    <section class="reference-hero">
+      <div class="eyebrow">
+        <span class="eyebrow-icon">▥</span>
+        <span data-key="plano_tipo_superior">Plano estructural</span>
+      </div>
+
+      <h1 data-key="titulo">Soleras, Cimientos y Columnas</h1>
+
+      <div class="hero-tags">
+        <span class="tag" data-key="tag_estructural">Estructural</span>
+        <span class="tag" data-key="tag_planta">Planta</span>
+        <span class="tag">AutoCAD</span>
+      </div>
     </section>
 
     <div class="container">
-        <!-- VISOR INTERACTIVO DEL PLANO -->
-        <div class="visor-container">
-            <div class="visor-header">
-                <div class="visor-title">
-                    <span class="visor-badge" data-key="visor_badge">Plano técnico</span>
-                    <span class="visor-zoom-info" id="zoomInfo">100%</span>
-                </div>
-                <div class="visor-controls">
-                    <button class="visor-btn" id="zoomInBtn" data-key="zoom_in">🔍 Acercar</button>
-                    <button class="visor-btn" id="zoomOutBtn" data-key="zoom_out">🔍 Alejar</button>
-                    <button class="visor-btn" id="resetZoomBtn" data-key="reset_zoom">⟳ Restablecer</button>
-                </div>
-            </div>
-            <div class="plan-wrapper" id="planWrapper">
-                <div class="plan-img-container" id="planContainer">
-                    <img src="../imagenes/planilla-soleras.webp" 
-                         class="plan-img" 
-                         alt="Planilla de Soleras, Cimientos y Columnas" 
-                         id="planImage"
-                         onerror="this.src='https://placehold.co/1600x1200/d4d4d4/888888?text=Planilla+de+Soleras+Cimientos+y+Columnas'">
-                    <div class="plan-watermark">GEOTECTURA GT</div>
-                </div>
-            </div>
-            <div class="zoom-hint" data-key="zoom_hint">
-                💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano
-            </div>
+      <section class="viewer-card" id="viewerCard">
+        <div class="viewer-toolbar">
+          <div class="viewer-left">
+            <span class="viewer-badge" data-key="visor_badge">Plano técnico</span>
+            <span class="zoom-info" id="zoomInfo">100%</span>
+          </div>
+
+          <div class="viewer-controls">
+            <button class="viewer-btn" id="zoomInBtn" type="button">
+              🔍 <span class="btn-text" data-key="zoom_in">Acercar</span>
+            </button>
+
+            <button class="viewer-btn" id="zoomOutBtn" type="button">
+              🔎 <span class="btn-text" data-key="zoom_out">Alejar</span>
+            </button>
+
+            <button class="viewer-btn" id="fullscreenBtn" type="button">
+              ⛶ <span class="btn-text" data-key="fullscreen">Pantalla completa</span>
+            </button>
+
+            <button class="viewer-btn" id="resetZoomBtn" type="button">
+              ⟳ <span class="btn-text" data-key="reset_zoom">Restablecer</span>
+            </button>
+          </div>
         </div>
 
-        <div class="info-card">
-            <h2 data-key="info_titulo">📋 Información técnica</h2>
-            <ul class="info-list">
-                <li><span class="info-label" data-key="tipo_label">Tipo:</span><span class="info-value" data-key="tipo_valor">Planilla estructural</span></li>
-                <li><span class="info-label" data-key="elementos_label">Elementos:</span><span class="info-value" data-key="elementos_valor">Soleras (SI-1, SI-2, SS-1) · Cimientos (CC-1, CC-2) · Columnas (A, B, C)</span></li>
-                <li><span class="info-label" data-key="formato_label">Formato:</span><span class="info-value" data-key="formato_valor">AutoCAD</span></li>
-            </ul>
+        <div class="plan-wrapper" id="planWrapper">
+          <div class="plan-img-container" id="planContainer">
+            <img
+              src="../imagenes/planilla-soleras.webp"
+              class="plan-img"
+              alt="Plano estructural de soleras, cimientos y columnas"
+              id="planImage"
+              draggable="false"
+              onerror="this.src='https://placehold.co/1800x950/ffffff/777777?text=Plano+estructural+sin+cajetin'">
+            <div class="plan-watermark">GEOTECTURA GT</div>
+          </div>
         </div>
 
-        <div class="descripcion">
-            <h2 data-key="detalle_titulo">📐 Detalle técnico</h2>
-            <p data-key="desc_p1">Planilla estructural que sistematiza las características geométricas y de refuerzo de soleras, cimientos y columnas, facilitando la interpretación técnica durante la ejecución de la obra.</p>
-            <p data-key="desc_p2">Las <strong>soleras</strong> (0.15×0.15, 0.15×0.10 y 0.15×0.30 m) incorporan refuerzo longitudinal con varillas No. 3 y estribos No. 2 espaciados cada 0.15 o 0.20 m. Los <strong>cimientos</strong> CC-1 y CC-2 (0.40×0.20 m) utilizan varillas No. 4 con estribos No. 3 @0.15 m. Las <strong>columnas</strong> tipo A (0.15×0.15), B (0.15×0.30) y C (0.10×0.15) ajustan su refuerzo según su función estructural.</p>
-            <p data-key="desc_p3">Esta documentación permite cuantificar materiales (concreto y acero) y garantiza una ejecución segura y eficiente, alineada con las normativas constructivas vigentes.</p>
+        <div class="zoom-hint" data-key="zoom_hint">
+          💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano
         </div>
+      </section>
 
-        <div style="text-align: center;">
-            <a href="../portafolio.html" class="btn-volver" data-key="btn_volver">← Volver a referencias</a>
+      <section class="content-card">
+        <h2 class="card-title">
+          <span class="small-icon">📋</span>
+          <span data-key="info_titulo">Información del plano</span>
+        </h2>
+
+        <div class="info-grid">
+          <div class="info-row">
+            <div class="info-label" data-key="disciplina_label">Disciplina:</div>
+            <div class="info-value" data-key="disciplina_valor">Estructural</div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-label" data-key="contenido_label">Contenido:</div>
+            <div class="info-value" data-key="contenido_valor">Soleras · Cimientos · Columnas</div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-label" data-key="software_label">Software:</div>
+            <div class="info-value">AutoCAD</div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-label" data-key="tipo_label">Tipo:</div>
+            <div class="info-value" data-key="tipo_valor">Planta estructural</div>
+          </div>
         </div>
+      </section>
+
+      <section class="content-card">
+        <h2 class="card-title">
+          <span class="small-icon">▧</span>
+          <span data-key="descripcion_titulo">Descripción</span>
+        </h2>
+
+        <p class="description-text" data-key="descripcion">
+          Referencia técnica de un trabajo previamente desarrollado. El plano muestra la organización general de los elementos estructurales y su relación dentro de la propuesta, conservando cotas, ejes y referencias necesarias para su lectura.
+        </p>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon">▦</div>
+            <div>
+              <h3 data-key="feature_soleras_titulo">Soleras</h3>
+              <p data-key="feature_soleras_desc">Distribución y continuidad de los elementos de amarre estructural.</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">⌂</div>
+            <div>
+              <h3 data-key="feature_cimientos_titulo">Cimientos</h3>
+              <p data-key="feature_cimientos_desc">Ubicación y relación de los elementos de cimentación dentro de la planta.</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">I</div>
+            <div>
+              <h3 data-key="feature_columnas_titulo">Columnas</h3>
+              <p data-key="feature_columnas_desc">Modulación y posición de los apoyos verticales de la estructura.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="back-wrap">
+        <a href="../portafolio.html" class="btn-back" data-key="btn_volver">← Volver a referencias</a>
+      </div>
     </div>
-</main>
+  </main>
 
-<footer>
+  <footer>
     <div class="container">
-        <p>© 2026 Geotectura · Todos los derechos reservados</p>
-        <p style="margin-top: 8px; font-size: 0.7rem;">Planos, planillas y detalles constructivos</p>
+      <p>© 2026 Geotectura · <span data-key="footer_rights">Todos los derechos reservados</span></p>
+      <p data-key="footer_sub">Planos, planillas y detalles constructivos</p>
     </div>
-</footer>
+  </footer>
 
-<script>
-    // Diccionario de textos para 3 idiomas
+  <script>
+    /* ===================== IDIOMAS ===================== */
     const texts = {
-        es: {
-            nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Referencias", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo",
-            serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica",
-            titulo: "📊 Planilla de Soleras, Cimientos y Columnas",
-            subtitulo: "Especificaciones técnicas de elementos estructurales",
-            visor_badge: "Plano técnico",
-            zoom_in: "🔍 Acercar",
-            zoom_out: "🔍 Alejar",
-            reset_zoom: "⟳ Restablecer",
-            zoom_hint: "💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano",
-            info_titulo: "📋 Información técnica",
-            tipo_label: "Tipo:", tipo_valor: "Planilla estructural",
-            elementos_label: "Elementos:", elementos_valor: "Soleras (SI-1, SI-2, SS-1) · Cimientos (CC-1, CC-2) · Columnas (A, B, C)",
-            formato_label: "Formato:", formato_valor: "AutoCAD",
-            detalle_titulo: "📐 Detalle técnico",
-            desc_p1: "Planilla estructural que sistematiza las características geométricas y de refuerzo de soleras, cimientos y columnas, facilitando la interpretación técnica durante la ejecución de la obra.",
-            desc_p2: "Las <strong>soleras</strong> (0.15×0.15, 0.15×0.10 y 0.15×0.30 m) incorporan refuerzo longitudinal con varillas No. 3 y estribos No. 2 espaciados cada 0.15 o 0.20 m. Los <strong>cimientos</strong> CC-1 y CC-2 (0.40×0.20 m) utilizan varillas No. 4 con estribos No. 3 @0.15 m. Las <strong>columnas</strong> tipo A (0.15×0.15), B (0.15×0.30) y C (0.10×0.15) ajustan su refuerzo según su función estructural.",
-            desc_p3: "Esta documentación permite cuantificar materiales (concreto y acero) y garantiza una ejecución segura y eficiente, alineada con las normativas constructivas vigentes.",
-            btn_volver: "← Volver a referencias"
-        },
-        en: {
-            nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "References", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
-            serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory",
-            titulo: "📊 Beams, Foundations and Columns Schedule",
-            subtitulo: "Technical specifications of structural elements",
-            visor_badge: "Technical drawing",
-            zoom_in: "🔍 Zoom in",
-            zoom_out: "🔍 Zoom out",
-            reset_zoom: "⟳ Reset",
-            zoom_hint: "💡 Tip: Use mouse wheel to zoom and drag to pan across the drawing",
-            info_titulo: "📋 Technical information",
-            tipo_label: "Type:", tipo_valor: "Structural schedule",
-            elementos_label: "Elements:", elementos_valor: "Beams (SI-1, SI-2, SS-1) · Foundations (CC-1, CC-2) · Columns (A, B, C)",
-            formato_label: "Format:", formato_valor: "AutoCAD",
-            detalle_titulo: "📐 Technical detail",
-            desc_p1: "Structural schedule that systematizes the geometric and reinforcement characteristics of beams, foundations and columns, facilitating technical interpretation during construction.",
-            desc_p2: "<strong>Beams</strong> (0.15×0.15, 0.15×0.10 and 0.15×0.30 m) incorporate longitudinal reinforcement with No. 3 bars and No. 2 stirrups spaced every 0.15 or 0.20 m. <strong>Foundations</strong> CC-1 and CC-2 (0.40×0.20 m) use No. 4 bars with No. 3 stirrups @0.15 m. <strong>Columns</strong> type A (0.15×0.15), B (0.15×0.30) and C (0.10×0.15) adjust their reinforcement according to their structural function.",
-            desc_p3: "This documentation allows quantifying materials (concrete and steel) and guarantees a safe and efficient execution, aligned with current construction regulations.",
-            btn_volver: "← Back to references"
-        },
-        pt: {
-            nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Referências", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
-            serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria",
-            titulo: "📊 Planilha de Vergas, Fundações e Colunas",
-            subtitulo: "Especificações técnicas de elementos estruturais",
-            visor_badge: "Desenho técnico",
-            zoom_in: "🔍 Aproximar",
-            zoom_out: "🔍 Afastar",
-            reset_zoom: "⟳ Restaurar",
-            zoom_hint: "💡 Dica: Use a roda do mouse para zoom e arraste para se mover pelo desenho",
-            info_titulo: "📋 Informação técnica",
-            tipo_label: "Tipo:", tipo_valor: "Planilha estrutural",
-            elementos_label: "Elementos:", elementos_valor: "Vergas (SI-1, SI-2, SS-1) · Fundações (CC-1, CC-2) · Colunas (A, B, C)",
-            formato_label: "Formato:", formato_valor: "AutoCAD",
-            detalle_titulo: "📐 Detalhe técnico",
-            desc_p1: "Planilha estrutural que sistematiza as características geométricas e de reforço de vergas, fundações e colunas, facilitando a interpretação técnica durante a execução da obra.",
-            desc_p2: "As <strong>vergas</strong> (0.15×0.15, 0.15×0.10 e 0.15×0.30 m) incorporam reforço longitudinal com barras No. 3 e estribos No. 2 espaçados a cada 0.15 ou 0.20 m. As <strong>fundações</strong> CC-1 e CC-2 (0.40×0.20 m) utilizam barras No. 4 com estribos No. 3 @0.15 m. As <strong>colunas</strong> tipo A (0.15×0.15), B (0.15×0.30) e C (0.10×0.15) ajustam seu reforço conforme sua função estrutural.",
-            desc_p3: "Esta documentação permite quantificar materiais (concreto e aço) e garante uma execução segura e eficiente, alinhada com as normas construtivas vigentes.",
-            btn_volver: "← Voltar às referências"
-        }
+      es: {
+        nav_inicio: "Inicio",
+        nav_servicios: "Servicios ▼",
+        nav_proyectos: "Referencias",
+        nav_nosotros: "Nosotros",
+        nav_contacto: "Contacto",
+        nav_equipo: "Equipo",
+
+        serv_topografia: "📐 Cálculo topografía",
+        serv_urbanismo: "🏙️ Urbanismo",
+        serv_parques: "🎢 Parques temáticos",
+        serv_direccion: "📊 Dirección obra",
+        serv_reformas: "🔄 Reformas integrales",
+        serv_asesoria: "⚙️ Asesoría técnica",
+
+        plano_tipo_superior: "Plano estructural",
+        titulo: "Soleras, Cimientos y Columnas",
+        tag_estructural: "Estructural",
+        tag_planta: "Planta",
+
+        visor_badge: "Plano técnico",
+        zoom_in: "Acercar",
+        zoom_out: "Alejar",
+        fullscreen: "Pantalla completa",
+        reset_zoom: "Restablecer",
+        zoom_hint: "💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano",
+
+        info_titulo: "Información del plano",
+        disciplina_label: "Disciplina:",
+        disciplina_valor: "Estructural",
+        contenido_label: "Contenido:",
+        contenido_valor: "Soleras · Cimientos · Columnas",
+        software_label: "Software:",
+        tipo_label: "Tipo:",
+        tipo_valor: "Planta estructural",
+
+        descripcion_titulo: "Descripción",
+        descripcion: "Referencia técnica de un trabajo previamente desarrollado. El plano muestra la organización general de los elementos estructurales y su relación dentro de la propuesta, conservando cotas, ejes y referencias necesarias para su lectura.",
+
+        feature_soleras_titulo: "Soleras",
+        feature_soleras_desc: "Distribución y continuidad de los elementos de amarre estructural.",
+        feature_cimientos_titulo: "Cimientos",
+        feature_cimientos_desc: "Ubicación y relación de los elementos de cimentación dentro de la planta.",
+        feature_columnas_titulo: "Columnas",
+        feature_columnas_desc: "Modulación y posición de los apoyos verticales de la estructura.",
+
+        btn_volver: "← Volver a referencias",
+        footer_rights: "Todos los derechos reservados",
+        footer_sub: "Planos, planillas y detalles constructivos"
+      },
+
+      en: {
+        nav_inicio: "Home",
+        nav_servicios: "Services ▼",
+        nav_proyectos: "References",
+        nav_nosotros: "About",
+        nav_contacto: "Contact",
+        nav_equipo: "Team",
+
+        serv_topografia: "📐 Topography",
+        serv_urbanismo: "🏙️ Urbanism",
+        serv_parques: "🎢 Theme parks",
+        serv_direccion: "📊 Construction mgmt",
+        serv_reformas: "🔄 Renovations",
+        serv_asesoria: "⚙️ Technical advisory",
+
+        plano_tipo_superior: "Structural drawing",
+        titulo: "Beams, Foundations and Columns",
+        tag_estructural: "Structural",
+        tag_planta: "Plan",
+
+        visor_badge: "Technical drawing",
+        zoom_in: "Zoom in",
+        zoom_out: "Zoom out",
+        fullscreen: "Full screen",
+        reset_zoom: "Reset",
+        zoom_hint: "💡 Tip: Use the mouse wheel to zoom and drag to move around the drawing",
+
+        info_titulo: "Drawing information",
+        disciplina_label: "Discipline:",
+        disciplina_valor: "Structural",
+        contenido_label: "Content:",
+        contenido_valor: "Beams · Foundations · Columns",
+        software_label: "Software:",
+        tipo_label: "Type:",
+        tipo_valor: "Structural plan",
+
+        descripcion_titulo: "Description",
+        descripcion: "Technical reference from a previously developed project. The drawing shows the overall organization of the structural elements and their relationship within the proposal, keeping dimensions, axes and references needed for technical reading.",
+
+        feature_soleras_titulo: "Beams",
+        feature_soleras_desc: "Distribution and continuity of the structural tie elements.",
+        feature_cimientos_titulo: "Foundations",
+        feature_cimientos_desc: "Location and relationship of foundation elements within the plan.",
+        feature_columnas_titulo: "Columns",
+        feature_columnas_desc: "Grid and position of the vertical structural supports.",
+
+        btn_volver: "← Back to references",
+        footer_rights: "All rights reserved",
+        footer_sub: "Drawings, schedules and construction details"
+      },
+
+      pt: {
+        nav_inicio: "Início",
+        nav_servicios: "Serviços ▼",
+        nav_proyectos: "Referências",
+        nav_nosotros: "Sobre",
+        nav_contacto: "Contato",
+        nav_equipo: "Equipe",
+
+        serv_topografia: "📐 Topografia",
+        serv_urbanismo: "🏙️ Urbanismo",
+        serv_parques: "🎢 Parques temáticos",
+        serv_direccion: "📊 Gestão de obras",
+        serv_reformas: "🔄 Reformas",
+        serv_asesoria: "⚙️ Assessoria técnica",
+
+        plano_tipo_superior: "Desenho estrutural",
+        titulo: "Vergas, Fundações e Colunas",
+        tag_estructural: "Estrutural",
+        tag_planta: "Planta",
+
+        visor_badge: "Desenho técnico",
+        zoom_in: "Aproximar",
+        zoom_out: "Afastar",
+        fullscreen: "Tela cheia",
+        reset_zoom: "Restaurar",
+        zoom_hint: "💡 Dica: Use a roda do mouse para aplicar zoom e arraste para se mover pelo desenho",
+
+        info_titulo: "Informações do desenho",
+        disciplina_label: "Disciplina:",
+        disciplina_valor: "Estrutural",
+        contenido_label: "Conteúdo:",
+        contenido_valor: "Vergas · Fundações · Colunas",
+        software_label: "Software:",
+        tipo_label: "Tipo:",
+        tipo_valor: "Planta estrutural",
+
+        descripcion_titulo: "Descrição",
+        descripcion: "Referência técnica de um trabalho previamente desenvolvido. O desenho mostra a organização geral dos elementos estruturais e sua relação dentro da proposta, mantendo cotas, eixos e referências necessárias para a leitura técnica.",
+
+        feature_soleras_titulo: "Vergas",
+        feature_soleras_desc: "Distribuição e continuidade dos elementos de amarração estrutural.",
+        feature_cimientos_titulo: "Fundações",
+        feature_cimientos_desc: "Localização e relação dos elementos de fundação dentro da planta.",
+        feature_columnas_titulo: "Colunas",
+        feature_columnas_desc: "Modulação e posição dos apoios verticais da estrutura.",
+
+        btn_volver: "← Voltar às referências",
+        footer_rights: "Todos os direitos reservados",
+        footer_sub: "Desenhos, planilhas e detalhes construtivos"
+      }
     };
 
     function changeLanguage(lang) {
-        localStorage.setItem('geotectura_lang', lang);
-        document.querySelectorAll('[data-key]').forEach(el => {
-            const key = el.getAttribute('data-key');
-            if (texts[lang] && texts[lang][key]) {
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    el.placeholder = texts[lang][key];
-                } else if (key === 'desc_p2') {
-                    el.innerHTML = texts[lang][key];
-                } else {
-                    el.innerHTML = texts[lang][key];
-                }
-            }
-        });
+      localStorage.setItem("geotectura_lang", lang);
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-key]").forEach(el => {
+        const key = el.dataset.key;
+        if (texts[lang] && texts[lang][key]) {
+          el.textContent = texts[lang][key];
+        }
+      });
     }
 
-    const savedLang = localStorage.getItem('geotectura_lang') || 'es';
-    const langSelect = document.getElementById('langSelect');
-    if (langSelect) {
-        langSelect.value = savedLang;
-        changeLanguage(savedLang);
-        langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+    const langSelect = document.getElementById("langSelect");
+    const savedLang = localStorage.getItem("geotectura_lang") || "es";
+    langSelect.value = savedLang;
+    changeLanguage(savedLang);
+    langSelect.addEventListener("change", e => changeLanguage(e.target.value));
+
+    /* ===================== TEMA CLARO / OSCURO ===================== */
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const savedTheme = localStorage.getItem("geotectura_theme");
+
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark");
+      darkModeToggle.textContent = "☀️";
     }
 
-    const theme = localStorage.getItem('geotectura_theme');
-    if (theme === 'dark') document.body.classList.add('dark');
-    const toggleBtn = document.getElementById('darkModeToggle');
-    if (toggleBtn) {
-        if (theme === 'dark') toggleBtn.textContent = '☀️';
-        toggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            const isDark = document.body.classList.contains('dark');
-            localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light');
-            toggleBtn.textContent = isDark ? '☀️' : '🌙';
-        });
-    }
+    darkModeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
 
-    // ===== VISOR INTERACTIVO CON ZOOM Y PAN =====
-    const wrapper = document.getElementById('planWrapper');
-    const container = document.getElementById('planContainer');
-    const image = document.getElementById('planImage');
-    const zoomInfo = document.getElementById('zoomInfo');
-    
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("geotectura_theme", isDark ? "dark" : "light");
+      darkModeToggle.textContent = isDark ? "☀️" : "🌙";
+    });
+
+    /* ===================== VISOR INTERACTIVO ===================== */
+    const viewerCard = document.getElementById("viewerCard");
+    const wrapper = document.getElementById("planWrapper");
+    const container = document.getElementById("planContainer");
+    const zoomInfo = document.getElementById("zoomInfo");
+
+    const zoomInBtn = document.getElementById("zoomInBtn");
+    const zoomOutBtn = document.getElementById("zoomOutBtn");
+    const resetZoomBtn = document.getElementById("resetZoomBtn");
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
+
     let scale = 1;
     let panX = 0;
     let panY = 0;
     let isDragging = false;
-    let startX = 0;
-    let startY = 0;
-    
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+    let startPanX = 0;
+    let startPanY = 0;
+
+    const MIN_SCALE = 0.75;
+    const MAX_SCALE = 4;
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
     function updateTransform() {
-        container.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
-        container.style.transformOrigin = 'top left';
-        zoomInfo.textContent = `${Math.round(scale * 100)}%`;
+      container.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      zoomInfo.textContent = `${Math.round(scale * 100)}%`;
     }
-    
-    function zoomAtPoint(clientX, clientY, delta) {
-        const wrapperRect = wrapper.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        
-        const mouseX = clientX - wrapperRect.left;
-        const mouseY = clientY - wrapperRect.top;
-        
-        const oldScale = scale;
-        scale *= delta;
-        scale = Math.min(Math.max(scale, 0.5), 4);
-        
-        if (scale !== oldScale) {
-            const ratio = scale / oldScale;
-            panX = (panX - mouseX) * ratio + mouseX;
-            panY = (panY - mouseY) * ratio + mouseY;
-            
-            const maxPanX = Math.max(0, (wrapperRect.width * (scale - 1)) / 2);
-            const maxPanY = Math.max(0, (wrapperRect.height * (scale - 1)) / 2);
-            panX = Math.min(maxPanX, Math.max(-maxPanX, panX));
-            panY = Math.min(maxPanY, Math.max(-maxPanY, panY));
-            
-            updateTransform();
-        }
+
+    function resetView() {
+      scale = 1;
+      panX = 0;
+      panY = 0;
+      updateTransform();
     }
-    
-    wrapper.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const delta = e.deltaY > 0 ? 0.9 : 1.1;
-        zoomAtPoint(e.clientX, e.clientY, delta);
-    });
-    
-    wrapper.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.visor-btn')) return;
-        isDragging = true;
-        startX = e.clientX - panX;
-        startY = e.clientY - panY;
-        wrapper.style.cursor = 'grabbing';
-    });
-    
-    window.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        panX = e.clientX - startX;
-        panY = e.clientY - startY;
-        
-        const wrapperRect = wrapper.getBoundingClientRect();
-        const maxPanX = Math.max(0, (wrapperRect.width * (scale - 1)) / 2);
-        const maxPanY = Math.max(0, (wrapperRect.height * (scale - 1)) / 2);
-        panX = Math.min(maxPanX, Math.max(-maxPanX, panX));
-        panY = Math.min(maxPanY, Math.max(-maxPanY, panY));
-        
-        updateTransform();
-    });
-    
-    window.addEventListener('mouseup', () => {
-        isDragging = false;
-        wrapper.style.cursor = 'grab';
-    });
-    
-    document.getElementById('zoomInBtn').addEventListener('click', () => {
-        const centerX = wrapper.clientWidth / 2;
-        const centerY = wrapper.clientHeight / 2;
-        zoomAtPoint(centerX + wrapper.getBoundingClientRect().left, centerY + wrapper.getBoundingClientRect().top, 1.2);
-    });
-    
-    document.getElementById('zoomOutBtn').addEventListener('click', () => {
-        const centerX = wrapper.clientWidth / 2;
-        const centerY = wrapper.clientHeight / 2;
-        zoomAtPoint(centerX + wrapper.getBoundingClientRect().left, centerY + wrapper.getBoundingClientRect().top, 0.8);
-    });
-    
-    document.getElementById('resetZoomBtn').addEventListener('click', () => {
-        scale = 1;
+
+    function zoomTo(nextScale, clientX = null, clientY = null) {
+      const oldScale = scale;
+      nextScale = clamp(nextScale, MIN_SCALE, MAX_SCALE);
+
+      if (nextScale === oldScale) return;
+
+      if (clientX !== null && clientY !== null) {
+        const rect = wrapper.getBoundingClientRect();
+        const x = clientX - rect.left - rect.width / 2;
+        const y = clientY - rect.top - rect.height / 2;
+        const ratio = nextScale / oldScale;
+
+        panX = x - (x - panX) * ratio;
+        panY = y - (y - panY) * ratio;
+      }
+
+      scale = nextScale;
+
+      if (scale <= 1) {
         panX = 0;
         panY = 0;
-        updateTransform();
+      }
+
+      updateTransform();
+    }
+
+    wrapper.addEventListener("wheel", e => {
+      e.preventDefault();
+      const factor = e.deltaY < 0 ? 1.12 : 0.89;
+      zoomTo(scale * factor, e.clientX, e.clientY);
+    }, { passive: false });
+
+    wrapper.addEventListener("pointerdown", e => {
+      if (e.button !== 0 && e.pointerType === "mouse") return;
+
+      isDragging = true;
+      wrapper.setPointerCapture?.(e.pointerId);
+
+      pointerStartX = e.clientX;
+      pointerStartY = e.clientY;
+      startPanX = panX;
+      startPanY = panY;
     });
-    
-    wrapper.style.cursor = 'grab';
+
+    wrapper.addEventListener("pointermove", e => {
+      if (!isDragging || scale <= 1) return;
+
+      panX = startPanX + (e.clientX - pointerStartX);
+      panY = startPanY + (e.clientY - pointerStartY);
+      updateTransform();
+    });
+
+    const stopDragging = e => {
+      isDragging = false;
+      try { wrapper.releasePointerCapture?.(e.pointerId); } catch (_) {}
+    };
+
+    wrapper.addEventListener("pointerup", stopDragging);
+    wrapper.addEventListener("pointercancel", stopDragging);
+
+    wrapper.addEventListener("dblclick", e => {
+      if (scale > 1.05) {
+        resetView();
+      } else {
+        zoomTo(1.8, e.clientX, e.clientY);
+      }
+    });
+
+    zoomInBtn.addEventListener("click", () => {
+      zoomTo(scale * 1.2);
+    });
+
+    zoomOutBtn.addEventListener("click", () => {
+      zoomTo(scale * 0.83);
+    });
+
+    resetZoomBtn.addEventListener("click", resetView);
+
+    fullscreenBtn.addEventListener("click", async () => {
+      try {
+        if (!document.fullscreenElement) {
+          await viewerCard.requestFullscreen();
+        } else {
+          await document.exitFullscreen();
+        }
+      } catch (err) {
+        console.warn("No fue posible activar pantalla completa:", err);
+      }
+    });
+
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) {
+        resetView();
+      }
+    });
+
+    /* ===================== PROTECCIÓN BÁSICA DE IMÁGENES ===================== */
+    document.addEventListener("contextmenu", e => {
+      if (e.target.closest(".plan-wrapper")) e.preventDefault();
+    });
+
+    document.querySelectorAll("img").forEach(img => {
+      img.setAttribute("draggable", "false");
+    });
+
     updateTransform();
-    
-    // Protección de imágenes
-    document.addEventListener("contextmenu", (e) => { e.preventDefault(); });
-    document.querySelectorAll("img").forEach(img => { img.setAttribute("draggable", "false"); });
-</script>
+  </script>
 </body>
 </html>
+
