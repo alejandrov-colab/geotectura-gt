@@ -211,9 +211,20 @@
     }
 
     .zoom-info {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 56px;
+      height: 25px;
+      padding: 0 9px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface-soft);
       color: var(--text-soft);
-      font-size: .68rem;
-      min-width: 38px;
+      font-size: .66rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
 
     .viewer-btn {
@@ -243,7 +254,7 @@
     .plan-wrapper {
       position: relative;
       width: 100%;
-      height: clamp(340px, 38vw, 510px);
+      height: clamp(390px, 43vw, 590px);
       background: var(--plan-bg);
       border: 1px solid #e5e5e5;
       border-radius: 13px;
@@ -300,9 +311,11 @@
 
     .zoom-hint {
       text-align: center;
-      margin-top: 8px;
+      margin-top: 10px;
       color: var(--text-soft);
-      font-size: .64rem;
+      font-size: .68rem;
+      font-weight: 500;
+      line-height: 1.45;
     }
 
     /* Fullscreen viewer */
@@ -327,8 +340,8 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 15px;
-      padding: 16px 20px;
-      margin: 10px 0;
+      padding: 13px 20px;
+      margin: 9px 0;
       box-shadow: 0 5px 18px rgba(0,0,0,.025);
     }
 
@@ -338,7 +351,7 @@
       gap: 8px;
       font-size: .97rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .small-icon {
@@ -357,7 +370,7 @@
 
     .info-label,
     .info-value {
-      padding: 6px 0;
+      padding: 4px 0;
       border-top: 1px solid var(--border);
       font-size: .68rem;
     }
@@ -506,8 +519,9 @@
       }
 
       .plan-wrapper {
-        height: 52vw;
-        min-height: 310px;
+        height: 56vw;
+        min-height: 340px;
+        max-height: 560px;
       }
     }
 
@@ -564,7 +578,7 @@
       }
 
       .plan-wrapper {
-        min-height: 280px;
+        min-height: 300px;
       }
 
       .viewer-btn .btn-text {
@@ -627,11 +641,11 @@
 
           <div class="viewer-controls">
             <button class="viewer-btn" id="zoomInBtn" type="button">
-              🔍 <span class="btn-text" data-key="zoom_in">Acercar</span>
+              ＋ <span class="btn-text" data-key="zoom_in">Acercar</span>
             </button>
 
             <button class="viewer-btn" id="zoomOutBtn" type="button">
-              🔎 <span class="btn-text" data-key="zoom_out">Alejar</span>
+              − <span class="btn-text" data-key="zoom_out">Alejar</span>
             </button>
 
             <button class="viewer-btn" id="fullscreenBtn" type="button">
