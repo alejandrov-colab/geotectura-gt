@@ -66,7 +66,7 @@
         }
 
         .viewer-card {
-            margin: 24px 0 12px;
+            margin: 22px 0 12px;
             padding: 14px;
             border: 1px solid var(--border-light);
             border-radius: 18px;
@@ -77,67 +77,82 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 16px;
             flex-wrap: wrap;
             margin-bottom: 10px;
-            padding: 0 2px;
+            padding: 0 3px;
         }
         .viewer-left,
         .viewer-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         .viewer-badge {
             display: inline-flex;
             align-items: center;
-            min-height: 25px;
-            padding: 0 11px;
+            justify-content: center;
+            min-height: 24px;
+            padding: 0 10px;
             border-radius: 999px;
-            background: var(--accent);
-            color: white;
-            font-size: 0.66rem;
+            background: #242424;
+            color: #fff;
+            font-size: 0.64rem;
             font-weight: 600;
             white-space: nowrap;
+        }
+        body.dark .viewer-badge {
+            background: #ededed;
+            color: #111;
         }
         .zoom-info {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 56px;
-            height: 25px;
+            min-width: 46px;
+            height: 24px;
             padding: 0 9px;
             border: 1px solid var(--border-light);
             border-radius: 999px;
             color: var(--text-secondary);
             background: var(--bg-primary);
             font-size: 0.66rem;
-            font-weight: 600;
+            font-weight: 500;
             font-variant-numeric: tabular-nums;
+            white-space: nowrap;
         }
         .viewer-btn {
-            width: 31px;
-            height: 31px;
-            display: inline-grid;
-            place-items: center;
             border: 1px solid var(--border-light);
-            border-radius: 999px;
             background: var(--bg-primary);
             color: var(--text-primary);
+            border-radius: 999px;
+            padding: 7px 13px;
+            font-size: 0.68rem;
+            font-weight: 500;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: transform .18s ease, opacity .18s ease;
+            transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 31px;
         }
         .viewer-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
             transform: translateY(-1px);
-            opacity: .72;
+        }
+        body.dark .viewer-btn:hover {
+            color: #111;
         }
 
         .plan-wrapper {
             position: relative;
             width: 100%;
-            height: clamp(430px, 50vw, 680px);
+            height: clamp(440px, 50vw, 690px);
             border: 1px solid var(--border-light);
             border-radius: 14px;
             overflow: hidden;
@@ -185,28 +200,28 @@
         .viewer-note {
             text-align: center;
             color: var(--text-secondary);
-            font-size: .67rem;
+            font-size: .64rem;
             line-height: 1.45;
-            margin-top: 9px;
+            margin-top: 8px;
         }
 
         .info-card,
         .descripcion {
             background: var(--bg-card);
-            padding: 18px 22px;
-            border-radius: 16px;
+            padding: 14px 20px;
+            border-radius: 15px;
             border: 1px solid var(--border-light);
-            margin: 10px 0;
+            margin: 9px 0;
         }
         .info-card h2,
         .descripcion h2 {
-            font-size: 1rem;
-            margin-bottom: 9px;
+            font-size: .96rem;
+            margin-bottom: 7px;
             font-weight: 700;
         }
         .info-list { list-style: none; }
         .info-list li {
-            padding: 6px 0;
+            padding: 5px 0;
             border-top: 1px solid var(--border-light);
             display: grid;
             grid-template-columns: minmax(150px, .9fr) 1fr;
@@ -220,10 +235,10 @@
 
         .descripcion p {
             color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: .73rem;
-            margin-bottom: 8px;
-            max-width: 1020px;
+            line-height: 1.5;
+            font-size: .70rem;
+            margin: 0;
+            max-width: 1040px;
         }
         .descripcion p:last-child { margin-bottom: 0; }
 
@@ -231,17 +246,17 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-top: 12px;
+            margin-top: 14px;
         }
         .feature-card {
             display: grid;
             grid-template-columns: 38px 1fr;
             gap: 10px;
             align-items: center;
+            min-height: 78px;
+            padding: 12px 13px;
             border: 1px solid var(--border-light);
-            border-radius: 11px;
-            padding: 11px 12px;
-            min-height: 72px;
+            border-radius: 12px;
             background: var(--bg-primary);
         }
         .feature-icon {
@@ -250,22 +265,24 @@
             border-radius: 9px;
             display: grid;
             place-items: center;
-            font-size: .95rem;
-            font-weight: 700;
+            border: 1px solid var(--border-light);
             background: var(--bg-secondary);
             color: var(--text-primary);
-            border: 1px solid var(--border-light);
+            font-size: .95rem;
+            font-weight: 700;
         }
         .feature-card h3 {
-            font-size: .73rem;
-            margin-bottom: 2px;
+            margin: 0 0 3px;
+            font-size: .74rem;
+            font-weight: 700;
         }
         .feature-card p {
+            margin: 0;
             color: var(--text-secondary);
             font-size: .61rem;
-            line-height: 1.35;
-            margin: 0;
+            line-height: 1.42;
         }
+
 
         .btn-wrap {
             text-align: center;
@@ -326,15 +343,13 @@
                 gap: 2px;
                 padding: 7px 0;
             }
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         @media (max-width: 540px) {
             .viewer-card { padding: 10px; border-radius: 14px; }
             .viewer-toolbar { align-items: flex-start; }
-            .viewer-controls { width: 100%; }
+            .viewer-controls { width: 100%; gap: 7px; }
+            .viewer-btn .btn-text { display: none; }
             .plan-wrapper { min-height: 300px; }
             .info-card, .descripcion { padding: 16px; }
         }
@@ -375,9 +390,9 @@
             <p data-key="subtitulo">Detalle técnico de carpintería de aluminio</p>
 
             <div class="hero-tags">
-                <span class="hero-tag" data-key="tipo_valor">Planilla de carpintería</span>
-                <span class="hero-tag" data-key="escala_valor">1:25</span>
-                <span class="hero-tag" data-key="formato_valor">AutoCAD</span>
+                <span class="hero-tag" data-key="hero_tag_tipo">Planilla de ventanas</span>
+                <span class="hero-tag" data-key="hero_tag_escala">Escala 1:25</span>
+                <span class="hero-tag">AutoCAD</span>
             </div>
         </div>
     </section>
@@ -386,15 +401,30 @@
         <section class="viewer-card" id="viewerCard">
             <div class="viewer-toolbar">
                 <div class="viewer-left">
-                    <span class="viewer-badge">V-1 — V-10</span>
+                    <span class="viewer-badge" data-key="visor_badge">Plano técnico</span>
                     <span class="zoom-info" id="zoomInfo">100%</span>
                 </div>
 
                 <div class="viewer-controls">
-                    <button class="viewer-btn" id="zoomInBtn" type="button" aria-label="Zoom in">＋</button>
-                    <button class="viewer-btn" id="zoomOutBtn" type="button" aria-label="Zoom out">−</button>
-                    <button class="viewer-btn" id="fullscreenBtn" type="button" aria-label="Fullscreen">⛶</button>
-                    <button class="viewer-btn" id="resetZoomBtn" type="button" aria-label="Reset">⟳</button>
+                    <button class="viewer-btn" id="zoomInBtn" type="button">
+                        <span aria-hidden="true">◔</span>
+                        <span class="btn-text" data-key="zoom_in">Acercar</span>
+                    </button>
+
+                    <button class="viewer-btn" id="zoomOutBtn" type="button">
+                        <span aria-hidden="true">◔</span>
+                        <span class="btn-text" data-key="zoom_out">Alejar</span>
+                    </button>
+
+                    <button class="viewer-btn" id="fullscreenBtn" type="button">
+                        <span aria-hidden="true">⛶</span>
+                        <span class="btn-text" data-key="fullscreen">Pantalla completa</span>
+                    </button>
+
+                    <button class="viewer-btn" id="resetZoomBtn" type="button">
+                        <span aria-hidden="true">⟳</span>
+                        <span class="btn-text" data-key="reset_zoom">Restablecer</span>
+                    </button>
                 </div>
             </div>
 
@@ -410,45 +440,65 @@
                 </div>
             </div>
 
-            <div class="viewer-note">＋ / − · arrastra para desplazarte · doble clic para restablecer</div>
+            <div class="viewer-note" data-key="zoom_hint">💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano</div>
         </section>
 
         <div class="info-card">
             <h2 data-key="info_titulo">📋 Información del plano</h2>
             <ul class="info-list">
-                <li><span class="info-label" data-key="disciplina_label">Disciplina:</span><span class="info-value" data-key="disciplina_valor">Arquitectura</span></li>
-                <li><span class="info-label" data-key="contenido_label">Contenido:</span><span class="info-value" data-key="contenido_valor">Ventanas V-1 · V-10</span></li>
-                <li><span class="info-label" data-key="software_label">Software:</span><span class="info-value">AutoCAD</span></li>
-                <li><span class="info-label" data-key="tipo_label">Tipo:</span><span class="info-value" data-key="tipo_valor">Planilla de ventanas</span></li>
+                <li>
+                    <span class="info-label" data-key="contenido_label">Contenido:</span>
+                    <span class="info-value" data-key="contenido_valor">10 tipologías de ventanas · V-1 a V-10</span>
+                </li>
+                <li>
+                    <span class="info-label" data-key="ambientes_label">Ambientes:</span>
+                    <span class="info-value" data-key="ambientes_valor">Dormitorio 1 · Baños 2 y 3 · Salas 1 y 2 · Comedor</span>
+                </li>
+                <li>
+                    <span class="info-label" data-key="material_label">Materialidad:</span>
+                    <span class="info-value" data-key="material_valor">Marcos de aluminio · Vidrio polarizado, nevado y claro</span>
+                </li>
+                <li>
+                    <span class="info-label" data-key="representacion_label">Representación:</span>
+                    <span class="info-value" data-key="representacion_valor">Elevaciones acotadas y rotulación técnica por tipología</span>
+                </li>
             </ul>
         </div>
 
         <div class="descripcion">
             <h2><span aria-hidden="true">▧</span> <span data-key="descripcion_titulo">Descripción</span></h2>
-            <p data-key="desc_p1">Referencia técnica de una planilla de ventanas previamente desarrollada. El documento reúne la identificación, dimensiones y características generales de los distintos tipos de ventanas utilizados en el proyecto.</p>
+            <p data-key="desc_p1">
+                Planilla técnica desarrollada para documentar de forma ordenada la configuración de las ventanas del proyecto. Cada tipología se presenta mediante elevación, cotas y rotulación específica, permitiendo reconocer con claridad sus dimensiones, proporciones y acabado de vidrio.
+            </p>
 
             <div class="feature-grid">
                 <article class="feature-card">
                     <div class="feature-icon">V</div>
                     <div>
-                        <h3 data-key="feature_ventanas_titulo">Ventanas</h3>
-                        <p data-key="feature_ventanas_desc">Identificación y organización de los distintos tipos de ventana incluidos en la planilla.</p>
+                        <h3 data-key="feature_ventanas_titulo">Tipologías</h3>
+                        <p data-key="feature_ventanas_desc">
+                            Serie V-1 a V-10 organizada para facilitar la identificación y consulta de cada solución de ventana dentro del proyecto.
+                        </p>
                     </div>
                 </article>
 
                 <article class="feature-card">
                     <div class="feature-icon">◇</div>
                     <div>
-                        <h3 data-key="feature_vidrios_titulo">Vidrios</h3>
-                        <p data-key="feature_vidrios_desc">Referencia de los tipos de vidrio especificados para cada elemento.</p>
+                        <h3 data-key="feature_vidrios_titulo">Tipos de vidrio</h3>
+                        <p data-key="feature_vidrios_desc">
+                            La especificación diferencia vidrio polarizado, nevado y claro según los requerimientos de privacidad, iluminación y uso de cada ambiente.
+                        </p>
                     </div>
                 </article>
 
                 <article class="feature-card">
-                    <div class="feature-icon">▤</div>
+                    <div class="feature-icon">⌂</div>
                     <div>
-                        <h3 data-key="feature_perfiles_titulo">Perfiles</h3>
-                        <p data-key="feature_perfiles_desc">Lectura general de marcos, perfiles y encuentros necesarios para su fabricación.</p>
+                        <h3 data-key="feature_perfiles_titulo">Aplicación</h3>
+                        <p data-key="feature_perfiles_desc">
+                            Las distintas configuraciones se distribuyen entre dormitorio, baños, salas y comedor, manteniendo una lectura técnica coherente del conjunto.
+                        </p>
                     </div>
                 </article>
             </div>
@@ -474,15 +524,29 @@
             serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica",
             titulo: "🪟 Planilla de Ventanas", subtitulo: "Detalle técnico de carpintería de aluminio",
             info_titulo: "📋 Información del plano",
-            disciplina_label: "Disciplina:", disciplina_valor: "Arquitectura",
-            contenido_label: "Contenido:", contenido_valor: "Ventanas V-1 · V-10",
-            software_label: "Software:",
-            tipo_label: "Tipo:", tipo_valor: "Planilla de ventanas",
+            contenido_label: "Contenido:", contenido_valor: "10 tipologías de ventanas · V-1 a V-10",
             detalle_titulo: "▧", descripcion_titulo: "Descripción",
-            desc_p1: "Referencia técnica de una planilla de ventanas previamente desarrollada. El documento reúne la identificación, dimensiones y características generales de los distintos tipos de ventanas utilizados en el proyecto.",
-            feature_ventanas_titulo: "Ventanas", feature_ventanas_desc: "Identificación y organización de los distintos tipos de ventana incluidos en la planilla.",
-            feature_vidrios_titulo: "Vidrios", feature_vidrios_desc: "Referencia de los tipos de vidrio especificados para cada elemento.",
-            feature_perfiles_titulo: "Perfiles", feature_perfiles_desc: "Lectura general de marcos, perfiles y encuentros necesarios para su fabricación.",
+            desc_p1: "Planilla técnica desarrollada para documentar de forma ordenada la configuración de las ventanas del proyecto. Cada tipología se presenta mediante elevación, cotas y rotulación específica, permitiendo reconocer con claridad sus dimensiones, proporciones y acabado de vidrio.",
+            hero_tag_tipo: "Planilla de ventanas",
+            hero_tag_escala: "Escala 1:25",
+            ambientes_label: "Ambientes:",
+            ambientes_valor: "Dormitorio 1 · Baños 2 y 3 · Salas 1 y 2 · Comedor",
+            material_label: "Materialidad:",
+            material_valor: "Marcos de aluminio · Vidrio polarizado, nevado y claro",
+            representacion_label: "Representación:",
+            representacion_valor: "Elevaciones acotadas y rotulación técnica por tipología",
+            feature_ventanas_titulo: "Tipologías",
+            feature_ventanas_desc: "Serie V-1 a V-10 organizada para facilitar la identificación y consulta de cada solución de ventana dentro del proyecto.",
+            feature_vidrios_titulo: "Tipos de vidrio",
+            feature_vidrios_desc: "La especificación diferencia vidrio polarizado, nevado y claro según los requerimientos de privacidad, iluminación y uso de cada ambiente.",
+            feature_perfiles_titulo: "Aplicación",
+            feature_perfiles_desc: "Las distintas configuraciones se distribuyen entre dormitorio, baños, salas y comedor, manteniendo una lectura técnica coherente del conjunto.",
+            visor_badge: "Plano técnico",
+            zoom_in: "Acercar",
+            zoom_out: "Alejar",
+            fullscreen: "Pantalla completa",
+            reset_zoom: "Restablecer",
+            zoom_hint: "💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano",
             btn_volver: "← Volver a referencias"
         },
         en: {
@@ -490,15 +554,29 @@
             serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory",
             titulo: "🪟 Window Schedule", subtitulo: "Technical detail of aluminum carpentry",
             info_titulo: "📋 Drawing information",
-            disciplina_label: "Discipline:", disciplina_valor: "Architecture",
-            contenido_label: "Content:", contenido_valor: "Windows V-1 · V-10",
-            software_label: "Software:",
-            tipo_label: "Type:", tipo_valor: "Window schedule",
+            contenido_label: "Content:", contenido_valor: "10 window types · V-1 to V-10",
             detalle_titulo: "▧", descripcion_titulo: "Description",
-            desc_p1: "Technical reference from a previously developed window schedule. The document brings together the identification, dimensions and general characteristics of the different window types used in the project.",
-            feature_ventanas_titulo: "Windows", feature_ventanas_desc: "Identification and organization of the different window types included in the schedule.",
-            feature_vidrios_titulo: "Glass", feature_vidrios_desc: "Reference to the glass types specified for each element.",
-            feature_perfiles_titulo: "Profiles", feature_perfiles_desc: "General reading of frames, profiles and junctions required for fabrication.",
+            desc_p1: "Technical schedule developed to document the project’s window configurations in a clear and orderly manner. Each type is presented through elevation, dimensions and specific labeling, allowing its proportions, measurements and glass finish to be identified at a glance.",
+            hero_tag_tipo: "Window schedule",
+            hero_tag_escala: "Scale 1:25",
+            ambientes_label: "Rooms:",
+            ambientes_valor: "Bedroom 1 · Bathrooms 2 and 3 · Living Rooms 1 and 2 · Dining Room",
+            material_label: "Materials:",
+            material_valor: "Aluminum frames · Tinted, frosted and clear glass",
+            representacion_label: "Representation:",
+            representacion_valor: "Dimensioned elevations and technical labeling by type",
+            feature_ventanas_titulo: "Window types",
+            feature_ventanas_desc: "Series V-1 to V-10 organized to make each window solution easy to identify and consult within the project.",
+            feature_vidrios_titulo: "Glass types",
+            feature_vidrios_desc: "The specification distinguishes tinted, frosted and clear glass according to the privacy, lighting and functional requirements of each room.",
+            feature_perfiles_titulo: "Application",
+            feature_perfiles_desc: "The different configurations are distributed across the bedroom, bathrooms, living rooms and dining room, maintaining a consistent technical reading.",
+            visor_badge: "Technical drawing",
+            zoom_in: "Zoom in",
+            zoom_out: "Zoom out",
+            fullscreen: "Full screen",
+            reset_zoom: "Reset",
+            zoom_hint: "💡 Tip: Use the mouse wheel to zoom and drag to move around the drawing",
             btn_volver: "← Back to references"
         },
         pt: {
@@ -506,15 +584,29 @@
             serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria",
             titulo: "🪟 Planilha de Janelas", subtitulo: "Detalhe técnico de esquadrias de alumínio",
             info_titulo: "📋 Informações do desenho",
-            disciplina_label: "Disciplina:", disciplina_valor: "Arquitetura",
-            contenido_label: "Conteúdo:", contenido_valor: "Janelas V-1 · V-10",
-            software_label: "Software:",
-            tipo_label: "Tipo:", tipo_valor: "Planilha de janelas",
+            contenido_label: "Conteúdo:", contenido_valor: "10 tipologias de janelas · V-1 a V-10",
             detalle_titulo: "▧", descripcion_titulo: "Descrição",
-            desc_p1: "Referência técnica de uma planilha de janelas previamente desenvolvida. O documento reúne a identificação, dimensões e características gerais dos diferentes tipos de janelas utilizados no projeto.",
-            feature_ventanas_titulo: "Janelas", feature_ventanas_desc: "Identificação e organização dos diferentes tipos de janela incluídos na planilha.",
-            feature_vidrios_titulo: "Vidros", feature_vidrios_desc: "Referência aos tipos de vidro especificados para cada elemento.",
-            feature_perfiles_titulo: "Perfis", feature_perfiles_desc: "Leitura geral de molduras, perfis e encontros necessários para a fabricação.",
+            desc_p1: "Planilha técnica desenvolvida para documentar de forma clara e organizada as configurações das janelas do projeto. Cada tipologia é apresentada por meio de elevação, cotas e rotulação específica, permitindo identificar com precisão suas dimensões, proporções e acabamento do vidro.",
+            hero_tag_tipo: "Planilha de janelas",
+            hero_tag_escala: "Escala 1:25",
+            ambientes_label: "Ambientes:",
+            ambientes_valor: "Dormitório 1 · Banheiros 2 e 3 · Salas 1 e 2 · Sala de Jantar",
+            material_label: "Materiais:",
+            material_valor: "Molduras de alumínio · Vidro polarizado, fosco e claro",
+            representacion_label: "Representação:",
+            representacion_valor: "Elevações cotadas e rotulação técnica por tipologia",
+            feature_ventanas_titulo: "Tipologias",
+            feature_ventanas_desc: "Série V-1 a V-10 organizada para facilitar a identificação e a consulta de cada solução de janela no projeto.",
+            feature_vidrios_titulo: "Tipos de vidro",
+            feature_vidrios_desc: "A especificação diferencia vidro polarizado, fosco e claro conforme os requisitos de privacidade, iluminação e uso de cada ambiente.",
+            feature_perfiles_titulo: "Aplicação",
+            feature_perfiles_desc: "As diferentes configurações são distribuídas entre dormitório, banheiros, salas e sala de jantar, mantendo uma leitura técnica coerente do conjunto.",
+            visor_badge: "Desenho técnico",
+            zoom_in: "Aproximar",
+            zoom_out: "Afastar",
+            fullscreen: "Tela cheia",
+            reset_zoom: "Restaurar",
+            zoom_hint: "💡 Dica: Use a roda do mouse para aplicar zoom e arraste para se mover pelo desenho",
             btn_volver: "← Voltar às referências"
         }
     };
