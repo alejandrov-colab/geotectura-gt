@@ -25,31 +25,319 @@
         .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
         .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
         
-        .referencia-hero { background: var(--bg-secondary); padding: 140px 0 60px; text-align: center; border-bottom: 1px solid var(--border-light); }
-        .referencia-hero h1 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
-        .referencia-hero p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
-        
-        .plan-wrapper { position: relative; border-radius: 24px; overflow: hidden; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .plan-wrapper img { width: 100%; display: block; }
-        .plan-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); font-size: 2rem; font-weight: 700; white-space: nowrap; opacity: 0.08; pointer-events: none; user-select: none; z-index: 2; font-family: monospace; letter-spacing: 4px; }
-        
-        .info-card { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
-        .info-card h2 { font-size: 1.5rem; margin-bottom: 20px; }
+        .referencia-hero {
+            background: var(--bg-secondary);
+            padding: 118px 0 34px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .referencia-hero h1 {
+            font-size: clamp(2rem, 3.2vw, 2.7rem);
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            margin-bottom: 8px;
+            line-height: 1.12;
+        }
+        .referencia-hero p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+        }
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            padding: 0 14px;
+            border: 1px solid var(--border-light);
+            border-radius: 999px;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .viewer-card {
+            margin: 24px 0 12px;
+            padding: 14px;
+            border: 1px solid var(--border-light);
+            border-radius: 18px;
+            background: var(--bg-card);
+            box-shadow: 0 8px 26px rgba(0,0,0,0.06);
+        }
+        .viewer-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            padding: 0 2px;
+        }
+        .viewer-left,
+        .viewer-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .viewer-badge {
+            display: inline-flex;
+            align-items: center;
+            min-height: 25px;
+            padding: 0 11px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.66rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .zoom-info {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 56px;
+            height: 25px;
+            padding: 0 9px;
+            border: 1px solid var(--border-light);
+            border-radius: 999px;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            font-size: 0.66rem;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+        .viewer-btn {
+            width: 31px;
+            height: 31px;
+            display: inline-grid;
+            place-items: center;
+            border: 1px solid var(--border-light);
+            border-radius: 999px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: transform .18s ease, opacity .18s ease;
+        }
+        .viewer-btn:hover {
+            transform: translateY(-1px);
+            opacity: .72;
+        }
+
+        .plan-wrapper {
+            position: relative;
+            width: 100%;
+            height: clamp(430px, 50vw, 680px);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            overflow: hidden;
+            margin: 0;
+            background: var(--bg-primary);
+            box-shadow: none;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+        }
+        .plan-wrapper:active { cursor: grabbing; }
+        .plan-img-stage {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(calc(-50% + 0px), calc(-50% + 0px)) scale(1);
+            transform-origin: center center;
+            will-change: transform;
+        }
+        .plan-img-stage img {
+            display: block;
+            width: min(1000px, 88vw);
+            max-width: none;
+            height: auto;
+            user-select: none;
+            pointer-events: none;
+            -webkit-user-drag: none;
+        }
+        .plan-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: clamp(1.7rem, 3.6vw, 3.4rem);
+            font-weight: 700;
+            white-space: nowrap;
+            opacity: 0.08;
+            pointer-events: none;
+            user-select: none;
+            z-index: 2;
+            font-family: monospace;
+            letter-spacing: 4px;
+            color: var(--text-primary);
+        }
+        .viewer-note {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: .67rem;
+            line-height: 1.45;
+            margin-top: 9px;
+        }
+
+        .info-card,
+        .descripcion {
+            background: var(--bg-card);
+            padding: 18px 22px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            margin: 10px 0;
+        }
+        .info-card h2,
+        .descripcion h2 {
+            font-size: 1rem;
+            margin-bottom: 9px;
+            font-weight: 700;
+        }
         .info-list { list-style: none; }
-        .info-list li { padding: 12px 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; }
+        .info-list li {
+            padding: 6px 0;
+            border-top: 1px solid var(--border-light);
+            display: grid;
+            grid-template-columns: minmax(150px, .9fr) 1fr;
+            gap: 20px;
+            align-items: center;
+            font-size: .72rem;
+        }
         .info-list li:last-child { border-bottom: none; }
         .info-label { font-weight: 600; }
         .info-value { color: var(--text-secondary); }
-        
-        .descripcion { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
-        .descripcion h2 { font-size: 1.5rem; margin-bottom: 20px; }
-        .descripcion p { margin-bottom: 16px; color: var(--text-secondary); line-height: 1.6; }
-        
-        .btn-volver { display: inline-block; margin-top: 20px; padding: 12px 28px; background: var(--accent); color: white; text-decoration: none; border-radius: 40px; font-weight: 500; transition: opacity 0.2s; }
-        .btn-volver:hover { opacity: 0.85; }
-        
-        footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary); margin-top: 40px; }
-        @media (max-width: 800px) { .referencia-hero h1 { font-size: 1.8rem; } .nav-links { justify-content: center; } .nav-bar { flex-direction: column; } .plan-watermark { font-size: 1rem; } .info-list li { flex-direction: column; gap: 8px; } }
+
+        .descripcion p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: .73rem;
+            margin-bottom: 8px;
+            max-width: 1020px;
+        }
+        .descripcion p:last-child { margin-bottom: 0; }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .feature-card {
+            display: grid;
+            grid-template-columns: 38px 1fr;
+            gap: 10px;
+            align-items: center;
+            border: 1px solid var(--border-light);
+            border-radius: 11px;
+            padding: 11px 12px;
+            min-height: 72px;
+            background: var(--bg-primary);
+        }
+        .feature-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            display: grid;
+            place-items: center;
+            font-size: .95rem;
+            font-weight: 700;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+        .feature-card h3 {
+            font-size: .73rem;
+            margin-bottom: 2px;
+        }
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: .61rem;
+            line-height: 1.35;
+            margin: 0;
+        }
+
+        .btn-wrap {
+            text-align: center;
+            margin-top: 18px;
+        }
+        .btn-volver {
+            display: inline-block;
+            padding: 10px 19px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 40px;
+            font-size: .75rem;
+            font-weight: 600;
+            transition: opacity 0.2s, transform .2s ease;
+        }
+        .btn-volver:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        .viewer-card:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            padding: 14px;
+            margin: 0;
+            border-radius: 0;
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+        }
+        .viewer-card:fullscreen .plan-wrapper {
+            flex: 1;
+            height: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            margin-top: 30px;
+        }
+
+        @media (max-width: 800px) {
+            .referencia-hero { padding-top: 150px; }
+            .referencia-hero h1 { font-size: 1.8rem; }
+            .nav-links { justify-content: center; }
+            .nav-bar { flex-direction: column; }
+            .plan-wrapper {
+                height: 58vw;
+                min-height: 330px;
+                max-height: 520px;
+            }
+            .plan-img-stage img { width: min(900px, 94vw); }
+            .info-list li {
+                grid-template-columns: 1fr;
+                gap: 2px;
+                padding: 7px 0;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .viewer-card { padding: 10px; border-radius: 14px; }
+            .viewer-toolbar { align-items: flex-start; }
+            .viewer-controls { width: 100%; }
+            .plan-wrapper { min-height: 300px; }
+            .info-card, .descripcion { padding: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -85,31 +373,88 @@
         <div class="container">
             <h1 data-key="titulo">🪟 Planilla de Ventanas</h1>
             <p data-key="subtitulo">Detalle técnico de carpintería de aluminio</p>
+
+            <div class="hero-tags">
+                <span class="hero-tag" data-key="tipo_valor">Planilla de carpintería</span>
+                <span class="hero-tag" data-key="escala_valor">1:25</span>
+                <span class="hero-tag" data-key="formato_valor">AutoCAD</span>
+            </div>
         </div>
     </section>
 
     <div class="container">
-        <div class="plan-wrapper">
-            <img src="../imagenes/planilla-ventanas.webp" alt="Planilla de Ventanas" onerror="this.src='https://placehold.co/1200x800/c8c8c8/888888?text=Planilla+de+Ventanas'">
-            <div class="plan-watermark">GEOTECTURA GT</div>
-        </div>
+        <section class="viewer-card" id="viewerCard">
+            <div class="viewer-toolbar">
+                <div class="viewer-left">
+                    <span class="viewer-badge">V-1 — V-10</span>
+                    <span class="zoom-info" id="zoomInfo">100%</span>
+                </div>
+
+                <div class="viewer-controls">
+                    <button class="viewer-btn" id="zoomInBtn" type="button" aria-label="Zoom in">＋</button>
+                    <button class="viewer-btn" id="zoomOutBtn" type="button" aria-label="Zoom out">−</button>
+                    <button class="viewer-btn" id="fullscreenBtn" type="button" aria-label="Fullscreen">⛶</button>
+                    <button class="viewer-btn" id="resetZoomBtn" type="button" aria-label="Reset">⟳</button>
+                </div>
+            </div>
+
+            <div class="plan-wrapper" id="planWrapper">
+                <div class="plan-img-stage" id="planStage">
+                    <img
+                        src="../imagenes/planilla-ventanas.webp"
+                        alt="Planilla de Ventanas"
+                        id="planImage"
+                        draggable="false"
+                        onerror="this.src='https://placehold.co/1200x800/c8c8c8/888888?text=Planilla+de+Ventanas'">
+                    <div class="plan-watermark">GEOTECTURA GT</div>
+                </div>
+            </div>
+
+            <div class="viewer-note">＋ / − · arrastra para desplazarte · doble clic para restablecer</div>
+        </section>
 
         <div class="info-card">
-            <h2 data-key="info_titulo">📋 Información técnica</h2>
+            <h2 data-key="info_titulo">📋 Información del plano</h2>
             <ul class="info-list">
-                <li><span class="info-label" data-key="tipo_label">Tipo:</span><span class="info-value" data-key="tipo_valor">Planilla de carpintería</span></li>
-                <li><span class="info-label" data-key="escala_label">Escala:</span><span class="info-value" data-key="escala_valor">1:25</span></li>
-                <li><span class="info-label" data-key="formato_label">Formato:</span><span class="info-value" data-key="formato_valor">AutoCAD</span></li>
+                <li><span class="info-label" data-key="disciplina_label">Disciplina:</span><span class="info-value" data-key="disciplina_valor">Arquitectura</span></li>
+                <li><span class="info-label" data-key="contenido_label">Contenido:</span><span class="info-value" data-key="contenido_valor">Ventanas V-1 · V-10</span></li>
+                <li><span class="info-label" data-key="software_label">Software:</span><span class="info-value">AutoCAD</span></li>
+                <li><span class="info-label" data-key="tipo_label">Tipo:</span><span class="info-value" data-key="tipo_valor">Planilla de ventanas</span></li>
             </ul>
         </div>
 
         <div class="descripcion">
-            <h2 data-key="detalle_titulo">📐 Detalle técnico</h2>
-            <p data-key="desc_p1">Planilla que detalla 10 tipos de ventanas (V-1 al V-10) con marcos de aluminio y diferentes vidrios (polarizado, nevado, claro), incluyendo dimensiones, cortes y especificaciones de instalación.</p>
-            <p data-key="desc_p2">Cada ventana se presenta con sus medidas de ancho, alto, espesor de marco y tipo de vidrio. Los detalles a escala 1:25 permiten visualizar los perfiles, herrajes y encuentros con el muro, facilitando su fabricación y montaje.</p>
+            <h2><span aria-hidden="true">▧</span> <span data-key="descripcion_titulo">Descripción</span></h2>
+            <p data-key="desc_p1">Referencia técnica de una planilla de ventanas previamente desarrollada. El documento reúne la identificación, dimensiones y características generales de los distintos tipos de ventanas utilizados en el proyecto.</p>
+
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <div class="feature-icon">V</div>
+                    <div>
+                        <h3 data-key="feature_ventanas_titulo">Ventanas</h3>
+                        <p data-key="feature_ventanas_desc">Identificación y organización de los distintos tipos de ventana incluidos en la planilla.</p>
+                    </div>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">◇</div>
+                    <div>
+                        <h3 data-key="feature_vidrios_titulo">Vidrios</h3>
+                        <p data-key="feature_vidrios_desc">Referencia de los tipos de vidrio especificados para cada elemento.</p>
+                    </div>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon">▤</div>
+                    <div>
+                        <h3 data-key="feature_perfiles_titulo">Perfiles</h3>
+                        <p data-key="feature_perfiles_desc">Lectura general de marcos, perfiles y encuentros necesarios para su fabricación.</p>
+                    </div>
+                </article>
+            </div>
         </div>
 
-        <div style="text-align: center;">
+        <div class="btn-wrap">
             <a href="../portafolio.html" class="btn-volver" data-key="btn_volver">← Volver a referencias</a>
         </div>
     </div>
@@ -128,39 +473,48 @@
             nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Referencias", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo",
             serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica",
             titulo: "🪟 Planilla de Ventanas", subtitulo: "Detalle técnico de carpintería de aluminio",
-            info_titulo: "📋 Información técnica",
-            tipo_label: "Tipo:", tipo_valor: "Planilla de carpintería",
-            escala_label: "Escala:", escala_valor: "1:25",
-            formato_label: "Formato:", formato_valor: "AutoCAD",
-            detalle_titulo: "📐 Detalle técnico",
-            desc_p1: "Planilla que detalla 10 tipos de ventanas (V-1 al V-10) con marcos de aluminio y diferentes vidrios (polarizado, nevado, claro), incluyendo dimensiones, cortes y especificaciones de instalación.",
-            desc_p2: "Cada ventana se presenta con sus medidas de ancho, alto, espesor de marco y tipo de vidrio. Los detalles a escala 1:25 permiten visualizar los perfiles, herrajes y encuentros con el muro, facilitando su fabricación y montaje.",
+            info_titulo: "📋 Información del plano",
+            disciplina_label: "Disciplina:", disciplina_valor: "Arquitectura",
+            contenido_label: "Contenido:", contenido_valor: "Ventanas V-1 · V-10",
+            software_label: "Software:",
+            tipo_label: "Tipo:", tipo_valor: "Planilla de ventanas",
+            detalle_titulo: "▧", descripcion_titulo: "Descripción",
+            desc_p1: "Referencia técnica de una planilla de ventanas previamente desarrollada. El documento reúne la identificación, dimensiones y características generales de los distintos tipos de ventanas utilizados en el proyecto.",
+            feature_ventanas_titulo: "Ventanas", feature_ventanas_desc: "Identificación y organización de los distintos tipos de ventana incluidos en la planilla.",
+            feature_vidrios_titulo: "Vidrios", feature_vidrios_desc: "Referencia de los tipos de vidrio especificados para cada elemento.",
+            feature_perfiles_titulo: "Perfiles", feature_perfiles_desc: "Lectura general de marcos, perfiles y encuentros necesarios para su fabricación.",
             btn_volver: "← Volver a referencias"
         },
         en: {
             nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "References", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
             serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory",
             titulo: "🪟 Window Schedule", subtitulo: "Technical detail of aluminum carpentry",
-            info_titulo: "📋 Technical information",
-            tipo_label: "Type:", tipo_valor: "Carpentry schedule",
-            escala_label: "Scale:", escala_valor: "1:25",
-            formato_label: "Format:", formato_valor: "AutoCAD",
-            detalle_titulo: "📐 Technical detail",
-            desc_p1: "Schedule detailing 10 types of windows (V-1 to V-10) with aluminum frames and different types of glass (polarized, frosted, clear), including dimensions, sections and installation specifications.",
-            desc_p2: "Each window is presented with its width, height, frame thickness and glass type measurements. Details at scale 1:25 allow visualization of profiles, hardware and wall connections, facilitating manufacturing and assembly.",
+            info_titulo: "📋 Drawing information",
+            disciplina_label: "Discipline:", disciplina_valor: "Architecture",
+            contenido_label: "Content:", contenido_valor: "Windows V-1 · V-10",
+            software_label: "Software:",
+            tipo_label: "Type:", tipo_valor: "Window schedule",
+            detalle_titulo: "▧", descripcion_titulo: "Description",
+            desc_p1: "Technical reference from a previously developed window schedule. The document brings together the identification, dimensions and general characteristics of the different window types used in the project.",
+            feature_ventanas_titulo: "Windows", feature_ventanas_desc: "Identification and organization of the different window types included in the schedule.",
+            feature_vidrios_titulo: "Glass", feature_vidrios_desc: "Reference to the glass types specified for each element.",
+            feature_perfiles_titulo: "Profiles", feature_perfiles_desc: "General reading of frames, profiles and junctions required for fabrication.",
             btn_volver: "← Back to references"
         },
         pt: {
             nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Referências", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
             serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria",
             titulo: "🪟 Planilha de Janelas", subtitulo: "Detalhe técnico de esquadrias de alumínio",
-            info_titulo: "📋 Informação técnica",
-            tipo_label: "Tipo:", tipo_valor: "Planilha de esquadrias",
-            escala_label: "Escala:", escala_valor: "1:25",
-            formato_label: "Formato:", formato_valor: "AutoCAD",
-            detalle_titulo: "📐 Detalhe técnico",
-            desc_p1: "Planilha que detalha 10 tipos de janelas (V-1 a V-10) com molduras de alumínio e diferentes vidros (polarizado, fosco, claro), incluindo dimensões, cortes e especificações de instalação.",
-            desc_p2: "Cada janela é apresentada com suas medidas de largura, altura, espessura da moldura e tipo de vidro. Os detalhes na escala 1:25 permitem visualizar perfis, ferragens e encontros com a parede, facilitando a fabricação e montagem.",
+            info_titulo: "📋 Informações do desenho",
+            disciplina_label: "Disciplina:", disciplina_valor: "Arquitetura",
+            contenido_label: "Conteúdo:", contenido_valor: "Janelas V-1 · V-10",
+            software_label: "Software:",
+            tipo_label: "Tipo:", tipo_valor: "Planilha de janelas",
+            detalle_titulo: "▧", descripcion_titulo: "Descrição",
+            desc_p1: "Referência técnica de uma planilha de janelas previamente desenvolvida. O documento reúne a identificação, dimensões e características gerais dos diferentes tipos de janelas utilizados no projeto.",
+            feature_ventanas_titulo: "Janelas", feature_ventanas_desc: "Identificação e organização dos diferentes tipos de janela incluídos na planilha.",
+            feature_vidrios_titulo: "Vidros", feature_vidrios_desc: "Referência aos tipos de vidro especificados para cada elemento.",
+            feature_perfiles_titulo: "Perfis", feature_perfiles_desc: "Leitura geral de molduras, perfis e encontros necessários para a fabricação.",
             btn_volver: "← Voltar às referências"
         }
     };
@@ -199,6 +553,98 @@
             toggleBtn.textContent = isDark ? '☀️' : '🌙';
         });
     }
+
+
+    /* ===================== VISOR DE PLANILLA ===================== */
+    const viewerCard = document.getElementById('viewerCard');
+    const planWrapper = document.getElementById('planWrapper');
+    const planStage = document.getElementById('planStage');
+    const zoomInfo = document.getElementById('zoomInfo');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+    const resetZoomBtn = document.getElementById('resetZoomBtn');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+    let viewerScale = 1;
+    let viewerX = 0;
+    let viewerY = 0;
+    let dragging = false;
+    let startX = 0;
+    let startY = 0;
+    let originX = 0;
+    let originY = 0;
+
+    const MIN_ZOOM = 1;
+    const MAX_ZOOM = 3.5;
+
+    function updateViewer() {
+        planStage.style.transform =
+            `translate(calc(-50% + ${viewerX}px), calc(-50% + ${viewerY}px)) scale(${viewerScale})`;
+        zoomInfo.textContent = `${Math.round(viewerScale * 100)}%`;
+    }
+
+    function resetViewer() {
+        viewerScale = 1;
+        viewerX = 0;
+        viewerY = 0;
+        updateViewer();
+    }
+
+    function setZoom(nextZoom) {
+        viewerScale = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, nextZoom));
+        if (viewerScale === 1) {
+            viewerX = 0;
+            viewerY = 0;
+        }
+        updateViewer();
+    }
+
+    zoomInBtn.addEventListener('click', () => setZoom(viewerScale * 1.2));
+    zoomOutBtn.addEventListener('click', () => setZoom(viewerScale / 1.2));
+    resetZoomBtn.addEventListener('click', resetViewer);
+
+    planWrapper.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        setZoom(viewerScale * (e.deltaY < 0 ? 1.12 : 0.89));
+    }, { passive: false });
+
+    planWrapper.addEventListener('pointerdown', (e) => {
+        if (viewerScale <= 1) return;
+        dragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        originX = viewerX;
+        originY = viewerY;
+        planWrapper.setPointerCapture?.(e.pointerId);
+    });
+
+    planWrapper.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        viewerX = originX + (e.clientX - startX);
+        viewerY = originY + (e.clientY - startY);
+        updateViewer();
+    });
+
+    const stopDrag = (e) => {
+        dragging = false;
+        try { planWrapper.releasePointerCapture?.(e.pointerId); } catch (_) {}
+    };
+
+    planWrapper.addEventListener('pointerup', stopDrag);
+    planWrapper.addEventListener('pointercancel', stopDrag);
+    planWrapper.addEventListener('dblclick', resetViewer);
+
+    fullscreenBtn.addEventListener('click', async () => {
+        try {
+            if (!document.fullscreenElement) {
+                await viewerCard.requestFullscreen();
+            } else {
+                await document.exitFullscreen();
+            }
+        } catch (_) {}
+    });
+
+    document.addEventListener('fullscreenchange', resetViewer);
 
     document.addEventListener("contextmenu", (e) => { e.preventDefault(); });
     document.querySelectorAll("img").forEach(img => { img.setAttribute("draggable", "false"); });
