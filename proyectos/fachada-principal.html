@@ -49,18 +49,71 @@
         .viewer-card:fullscreen { width:100vw; height:100vh; padding:14px; margin:0; border-radius:0; background:var(--bg-card); display:flex; flex-direction:column; }
         .viewer-card:fullscreen .plan-wrapper { flex:1; height:auto; }
 
-        .info-card,.descripcion { background:var(--bg-card); padding:14px 20px; border-radius:15px; border:1px solid var(--border-light); margin:9px 0; }
+        .info-card,.descripcion { background:var(--bg-card); padding:15px 20px; border-radius:15px; border:1px solid var(--border-light); margin:9px 0; }
         .info-card h2,.descripcion h2 { font-size:.96rem; margin-bottom:7px; font-weight:700; }
         .info-list { list-style:none; }
         .info-list li { padding:5px 0; border-top:1px solid var(--border-light); display:grid; grid-template-columns:minmax(160px,.9fr) 1.25fr; gap:20px; align-items:center; font-size:.72rem; }
         .info-label { font-weight:600; }
         .info-value { color:var(--text-secondary); }
         .descripcion>p { color:var(--text-secondary); line-height:1.55; font-size:.70rem; margin:0; max-width:1060px; }
-        .feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
-        .feature-card { display:grid; grid-template-columns:38px 1fr; gap:10px; align-items:center; min-height:80px; padding:12px 13px; border:1px solid var(--border-light); border-radius:12px; background:var(--bg-primary); }
-        .feature-icon { width:34px; height:34px; border-radius:9px; display:grid; place-items:center; border:1px solid var(--border-light); background:var(--bg-secondary); color:var(--text-primary); font-size:.95rem; font-weight:700; }
-        .feature-card h3 { margin:0 0 3px; font-size:.74rem; font-weight:700; }
-        .feature-card p { margin:0; color:var(--text-secondary); font-size:.61rem; line-height:1.42; }
+        .feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px; }
+        .feature-card {
+            display:grid;
+            grid-template-columns:40px 1fr;
+            gap:11px;
+            align-items:center;
+            min-height:82px;
+            padding:12px 14px;
+            border:1px solid var(--border-light);
+            border-radius:12px;
+            background:var(--bg-primary);
+        }
+        .feature-icon {
+            width:36px;
+            height:36px;
+            border-radius:9px;
+            display:grid;
+            place-items:center;
+            border:1px solid transparent;
+            font-size:.95rem;
+            font-weight:700;
+        }
+
+        /* Acentos visuales por categoría */
+        .feature-card:nth-child(1) .feature-icon {
+            background:rgba(137,92,246,.12);
+            color:#7b4ce3;
+            border-color:rgba(137,92,246,.10);
+        }
+
+        .feature-card:nth-child(2) .feature-icon {
+            background:rgba(72,190,118,.13);
+            color:#2ba564;
+            border-color:rgba(72,190,118,.10);
+        }
+
+        .feature-card:nth-child(3) .feature-icon {
+            background:rgba(61,155,235,.13);
+            color:#2386d2;
+            border-color:rgba(61,155,235,.10);
+        }
+
+        body.dark .feature-card:nth-child(1) .feature-icon {
+            background:rgba(137,92,246,.18);
+            color:#b8a7ff;
+        }
+
+        body.dark .feature-card:nth-child(2) .feature-icon {
+            background:rgba(72,190,118,.18);
+            color:#7ed9a3;
+        }
+
+        body.dark .feature-card:nth-child(3) .feature-icon {
+            background:rgba(61,155,235,.18);
+            color:#82c4f4;
+        }
+        .feature-card h3 { margin:0 0 3px; font-size:.75rem; font-weight:700; }
+        .feature-card p { margin:0; color:var(--text-secondary); font-size:.62rem; line-height:1.42; }
         .btn-wrap { text-align:center; margin-top:18px; }
         .btn-volver { display:inline-block; padding:10px 19px; background:var(--accent); color:white; text-decoration:none; border-radius:40px; font-size:.75rem; font-weight:600; transition:opacity .2s ease,transform .2s ease; }
         .btn-volver:hover { opacity:.85; transform:translateY(-1px); }
