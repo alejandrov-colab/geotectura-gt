@@ -137,7 +137,7 @@
         }
 
         .nav-bar {
-            min-height: 72px;
+            min-height: 76px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -166,7 +166,7 @@
 
         .nav-links > li > a {
             text-decoration: none;
-            font-size: .78rem;
+            font-size: .82rem;
             font-weight: 500;
             color: var(--text-secondary);
             transition: color .2s ease;
@@ -266,7 +266,7 @@
         .hero {
             position: relative;
             min-height: 92vh;
-            margin-top: 72px;
+            margin-top: 76px;
             display: flex;
             align-items: flex-end;
             color: #fff;
@@ -422,6 +422,46 @@
             letter-spacing: .12em;
         }
 
+
+        /* ================= INTRO ================= */
+        .intro {
+            padding: 70px 0 76px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .intro-inner {
+            display: grid;
+            grid-template-columns: 210px minmax(0, 760px);
+            gap: 70px;
+            align-items: start;
+        }
+
+        .intro-label {
+            color: var(--brand);
+            font-size: .68rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding-top: 9px;
+        }
+
+        .intro-copy {
+            font-size: clamp(1.5rem, 3vw, 2.8rem);
+            line-height: 1.16;
+            letter-spacing: -.04em;
+            font-weight: 500;
+            max-width: 860px;
+        }
+
+        .intro-copy strong {
+            color: var(--brand);
+            font-weight: 500;
+        }
+
+        .intro .text-link {
+            margin-top: 22px;
+        }
+
         /* ================= ABOUT ================= */
         .about {
             padding: 110px 0;
@@ -508,7 +548,7 @@
             position: absolute;
             inset: 0;
             object-fit: cover;
-            filter: grayscale(.9) contrast(.92);
+            filter: grayscale(.42) contrast(.96);
             transform: scale(1.01);
             transition: transform .5s ease, filter .5s ease;
         }
@@ -522,7 +562,7 @@
 
         .reference-card:hover img {
             transform: scale(1.055);
-            filter: grayscale(.2) contrast(.96);
+            filter: grayscale(0) contrast(1);
         }
 
         .reference-content {
@@ -683,6 +723,62 @@
             border-radius: 4px;
             color: var(--text-secondary);
             font-size: .69rem;
+        }
+
+
+        /* ================= CTA ================= */
+        .project-cta {
+            padding: 0;
+            background: var(--brand);
+            color: white;
+        }
+
+        .project-cta-inner {
+            min-height: 360px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .project-cta .eyebrow {
+            color: rgba(255,255,255,.72);
+        }
+
+        .project-cta h2 {
+            margin-top: 18px;
+            max-width: 880px;
+            font-size: clamp(2.5rem, 5.6vw, 5.7rem);
+            line-height: .94;
+            letter-spacing: -.06em;
+            font-weight: 600;
+        }
+
+        .project-cta p {
+            margin-top: 22px;
+            max-width: 660px;
+            color: rgba(255,255,255,.78);
+            font-size: .96rem;
+        }
+
+        .cta-arrow {
+            width: 92px;
+            height: 92px;
+            flex: 0 0 92px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.48);
+            display: grid;
+            place-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 2rem;
+            transition: background .2s ease, color .2s ease, transform .2s ease;
+        }
+
+        .cta-arrow:hover {
+            background: white;
+            color: var(--brand);
+            transform: translateX(5px);
         }
 
         /* ================= CONTACT ================= */
@@ -892,8 +988,20 @@
             .hero-grid,
             .about-grid,
             .section-head,
-            .contact-grid {
+            .contact-grid,
+            .intro-inner,
+            .project-cta-inner {
                 grid-template-columns: 1fr;
+            }
+
+            .intro-inner {
+                gap: 24px;
+            }
+
+            .project-cta-inner {
+                min-height: 420px;
+                gap: 36px;
+                padding: 70px 0;
             }
 
             .hero-side {
@@ -923,11 +1031,11 @@
             }
 
             .nav-bar {
-                min-height: 64px;
+                min-height: 66px;
             }
 
             .hero {
-                margin-top: 64px;
+                margin-top: 66px;
                 min-height: 88vh;
             }
 
@@ -947,12 +1055,28 @@
                 border: 0;
             }
 
+            .intro,
             .about,
             .references,
             .services,
             .principles,
             .contact {
                 padding: 78px 0;
+            }
+
+            .project-cta {
+                padding: 0;
+            }
+
+            .project-cta-inner {
+                min-height: 380px;
+                padding: 64px 0;
+            }
+
+            .cta-arrow {
+                width: 70px;
+                height: 70px;
+                flex-basis: 70px;
             }
 
             .reference-grid,
@@ -1090,31 +1214,16 @@
         </div>
     </section>
 
-    <!-- ================= ABOUT ================= -->
-    <section class="about" id="empresa">
-        <div class="container about-grid">
-            <div class="about-copy">
-                <span class="eyebrow" data-key="about_eyebrow">Sobre Geotectura</span>
-                <h2 data-key="empresa_title">Arquitectura y construcción con criterio técnico.</h2>
-                <p data-key="empresa_desc">
-                    Geotectura es una empresa de proyectos de construcción fundada en 2025. Desarrollamos soluciones para vivienda, edificación, espacios comerciales e infraestructura, integrando calidad, seguridad, planificación y una ejecución responsable.
-                </p>
-                <a href="nosotros.html" class="text-link" data-key="about_link">Conocer Geotectura →</a>
-            </div>
 
-            <div class="about-aside">
-                <div class="about-row">
-                    <small data-key="about_label_1">Enfoque</small>
-                    <p data-key="about_value_1">Diseño funcional, precisión técnica y soluciones claras para cada etapa del proyecto.</p>
-                </div>
-                <div class="about-row">
-                    <small data-key="about_label_2">Compromiso</small>
-                    <p data-key="about_value_2">Calidad, seguridad, cumplimiento y comunicación transparente con cada cliente.</p>
-                </div>
-                <div class="about-row">
-                    <small data-key="about_label_3">Visión</small>
-                    <p data-key="about_value_3">Crear espacios que respondan al contexto, aporten valor y puedan evolucionar con el tiempo.</p>
-                </div>
+    <!-- ================= INTRO ================= -->
+    <section class="intro">
+        <div class="container intro-inner">
+            <div class="intro-label" data-key="intro_label">GEOTECTURA / GUATEMALA</div>
+            <div>
+                <p class="intro-copy" data-key="intro_text">
+                    Desarrollamos soluciones arquitectónicas y constructivas desde el análisis del territorio hasta el detalle técnico, buscando que cada proyecto sea <strong>claro, funcional y realizable.</strong>
+                </p>
+                <a href="nosotros.html" class="text-link" data-key="intro_link">Conocer el estudio →</a>
             </div>
         </div>
     </section>
@@ -1228,16 +1337,46 @@
         </div>
     </section>
 
+    <!-- ================= ABOUT ================= -->
+    <section class="about" id="empresa">
+        <div class="container about-grid">
+            <div class="about-copy">
+                <span class="eyebrow" data-key="about_eyebrow">Sobre Geotectura</span>
+                <h2 data-key="empresa_title">Arquitectura y construcción con criterio técnico.</h2>
+                <p data-key="empresa_desc">
+                    Geotectura es una empresa de proyectos de construcción fundada en 2025. Desarrollamos soluciones para vivienda, edificación, espacios comerciales e infraestructura, integrando calidad, seguridad, planificación y una ejecución responsable.
+                </p>
+                <a href="nosotros.html" class="text-link" data-key="about_link">Conocer Geotectura →</a>
+            </div>
+
+            <div class="about-aside">
+                <div class="about-row">
+                    <small data-key="about_label_1">Enfoque</small>
+                    <p data-key="about_value_1">Diseño funcional, precisión técnica y soluciones claras para cada etapa del proyecto.</p>
+                </div>
+                <div class="about-row">
+                    <small data-key="about_label_2">Compromiso</small>
+                    <p data-key="about_value_2">Calidad, seguridad, cumplimiento y comunicación transparente con cada cliente.</p>
+                </div>
+                <div class="about-row">
+                    <small data-key="about_label_3">Visión</small>
+                    <p data-key="about_value_3">Crear espacios que respondan al contexto, aporten valor y puedan evolucionar con el tiempo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- ================= PRINCIPLES ================= -->
     <section class="principles">
         <div class="container">
             <div class="section-head">
                 <div>
-                    <span class="eyebrow" data-key="principles_eyebrow">Nuestra forma de trabajar</span>
-                    <h2 data-key="principles_title">Una base clara para cada proyecto.</h2>
+                    <span class="eyebrow" data-key="principles_eyebrow">Nuestros principios</span>
+                    <h2 data-key="principles_title">Tres criterios que guían nuestro trabajo.</h2>
                 </div>
                 <p data-key="principles_intro">
-                    Más que llenar la página de declaraciones, resumimos nuestra filosofía en tres ideas que orientan las decisiones del estudio.
+                    La calidad de un proyecto también depende de cómo se toman las decisiones. Estos principios resumen la forma en que abordamos cada encargo.
                 </p>
             </div>
 
@@ -1245,29 +1384,41 @@
                 <article class="principle-card">
                     <span class="number">01</span>
                     <div>
-                        <h3 data-key="mision_title">Misión</h3>
-                        <p data-key="mision_text">Brindar servicios de construcción de alta calidad, desarrollando proyectos seguros, innovadores y sostenibles mediante un trabajo profesional y responsable.</p>
+                        <h3 data-key="principle_1_title">Precisión</h3>
+                        <p data-key="principle_1_text">Cada decisión debe responder a una necesidad real y poder justificarse técnica, espacial y constructivamente.</p>
                     </div>
                 </article>
 
                 <article class="principle-card">
                     <span class="number">02</span>
                     <div>
-                        <h3 data-key="vision_title">Visión</h3>
-                        <p data-key="vision_text">Consolidarnos como una empresa reconocida por la calidad de sus obras, la innovación en sus procesos y su aporte al entorno construido.</p>
+                        <h3 data-key="principle_2_title">Claridad</h3>
+                        <p data-key="principle_2_text">Diseñamos y documentamos para que las ideas puedan entenderse desde el concepto inicial hasta la ejecución.</p>
                     </div>
                 </article>
 
                 <article class="principle-card">
                     <span class="number">03</span>
                     <div>
-                        <h3 data-key="valores_title">Valores</h3>
-                        <div class="values-wrap">
-                            <div class="values-list" id="valoresContainer"></div>
-                        </div>
+                        <h3 data-key="principle_3_title">Responsabilidad</h3>
+                        <p data-key="principle_3_text">Proponemos soluciones conscientes del contexto, el presupuesto, los materiales y las condiciones reales de obra.</p>
                     </div>
                 </article>
             </div>
+        </div>
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+    <section class="project-cta">
+        <div class="container project-cta-inner">
+            <div>
+                <span class="eyebrow" data-key="cta_eyebrow">Iniciemos una conversación</span>
+                <h2 data-key="cta_title">¿Tienes un proyecto en mente?</h2>
+                <p data-key="cta_text">Hablemos sobre cómo llevarlo del concepto a una solución técnica, clara y ejecutable.</p>
+            </div>
+
+            <a href="#contacto" class="cta-arrow" aria-label="Ir a contacto">→</a>
         </div>
     </section>
 
@@ -1393,6 +1544,9 @@
             hero_meta_1: "Fundación",
             hero_meta_2: "Áreas de servicio",
             hero_meta_3: "Guatemala",
+            intro_label: "GEOTECTURA / GUATEMALA",
+            intro_text: "Desarrollamos soluciones arquitectónicas y constructivas desde el análisis del territorio hasta el detalle técnico, buscando que cada proyecto sea claro, funcional y realizable.",
+            intro_link: "Conocer el estudio →",
 
             about_eyebrow: "Sobre Geotectura",
             empresa_title: "Arquitectura y construcción con criterio técnico.",
@@ -1435,15 +1589,18 @@
             serv_asesoria_titulo: "Asesoría técnica",
             serv_asesoria_desc: "Acompañamiento estructural, constructivo y normativo para tomar mejores decisiones.",
 
-            principles_eyebrow: "Nuestra forma de trabajar",
-            principles_title: "Una base clara para cada proyecto.",
-            principles_intro: "Más que llenar la página de declaraciones, resumimos nuestra filosofía en tres ideas que orientan las decisiones del estudio.",
-            mision_title: "Misión",
-            mision_text: "Brindar servicios de construcción de alta calidad, desarrollando proyectos seguros, innovadores y sostenibles mediante un trabajo profesional y responsable.",
-            vision_title: "Visión",
-            vision_text: "Consolidarnos como una empresa reconocida por la calidad de sus obras, la innovación en sus procesos y su aporte al entorno construido.",
-            valores_title: "Valores",
-            valores_list: ["Responsabilidad", "Compromiso", "Calidad", "Seguridad", "Trabajo en equipo", "Respeto", "Honestidad", "Innovación", "Sostenibilidad"],
+            principles_eyebrow: "Nuestros principios",
+            principles_title: "Tres criterios que guían nuestro trabajo.",
+            principles_intro: "La calidad de un proyecto también depende de cómo se toman las decisiones. Estos principios resumen la forma en que abordamos cada encargo.",
+            principle_1_title: "Precisión",
+            principle_1_text: "Cada decisión debe responder a una necesidad real y poder justificarse técnica, espacial y constructivamente.",
+            principle_2_title: "Claridad",
+            principle_2_text: "Diseñamos y documentamos para que las ideas puedan entenderse desde el concepto inicial hasta la ejecución.",
+            principle_3_title: "Responsabilidad",
+            principle_3_text: "Proponemos soluciones conscientes del contexto, el presupuesto, los materiales y las condiciones reales de obra.",
+            cta_eyebrow: "Iniciemos una conversación",
+            cta_title: "¿Tienes un proyecto en mente?",
+            cta_text: "Hablemos sobre cómo llevarlo del concepto a una solución técnica, clara y ejecutable.",
 
             contact_eyebrow: "Contacto",
             contacto_title: "Conversemos sobre tu próximo proyecto.",
@@ -1491,6 +1648,9 @@
             hero_meta_1: "Founded",
             hero_meta_2: "Service areas",
             hero_meta_3: "Guatemala",
+            intro_label: "GEOTECTURA / GUATEMALA",
+            intro_text: "We develop architectural and construction solutions from territorial analysis to technical detail, aiming for every project to be clear, functional and buildable.",
+            intro_link: "Discover the studio →",
 
             about_eyebrow: "About Geotectura",
             empresa_title: "Architecture and construction with technical criteria.",
@@ -1533,15 +1693,18 @@
             serv_asesoria_titulo: "Technical advisory",
             serv_asesoria_desc: "Structural, construction and regulatory support for better decision-making.",
 
-            principles_eyebrow: "How we work",
-            principles_title: "A clear foundation for every project.",
-            principles_intro: "Rather than filling the page with statements, we summarize our philosophy in three ideas that guide our decisions.",
-            mision_title: "Mission",
-            mision_text: "Provide high-quality construction services through safe, innovative and sustainable projects delivered with professional and responsible work.",
-            vision_title: "Vision",
-            vision_text: "Become a company recognized for the quality of its work, innovation in its processes and contribution to the built environment.",
-            valores_title: "Values",
-            valores_list: ["Responsibility", "Commitment", "Quality", "Safety", "Teamwork", "Respect", "Honesty", "Innovation", "Sustainability"],
+            principles_eyebrow: "Our principles",
+            principles_title: "Three criteria that guide our work.",
+            principles_intro: "Project quality also depends on how decisions are made. These principles summarize the way we approach every commission.",
+            principle_1_title: "Precision",
+            principle_1_text: "Every decision should respond to a real need and be technically, spatially and constructively justified.",
+            principle_2_title: "Clarity",
+            principle_2_text: "We design and document so ideas can be understood from the initial concept through execution.",
+            principle_3_title: "Responsibility",
+            principle_3_text: "We propose solutions that consider context, budget, materials and real construction conditions.",
+            cta_eyebrow: "Let's start a conversation",
+            cta_title: "Do you have a project in mind?",
+            cta_text: "Let's talk about taking it from concept to a clear, technical and buildable solution.",
 
             contact_eyebrow: "Contact",
             contacto_title: "Let's talk about your next project.",
@@ -1589,6 +1752,9 @@
             hero_meta_1: "Fundação",
             hero_meta_2: "Áreas de serviço",
             hero_meta_3: "Guatemala",
+            intro_label: "GEOTECTURA / GUATEMALA",
+            intro_text: "Desenvolvemos soluções arquitetônicas e construtivas desde a análise do território até o detalhe técnico, buscando que cada projeto seja claro, funcional e executável.",
+            intro_link: "Conhecer o estúdio →",
 
             about_eyebrow: "Sobre a Geotectura",
             empresa_title: "Arquitetura e construção com critério técnico.",
@@ -1631,15 +1797,18 @@
             serv_asesoria_titulo: "Assessoria técnica",
             serv_asesoria_desc: "Acompanhamento estrutural, construtivo e normativo para decisões melhores.",
 
-            principles_eyebrow: "Nossa forma de trabalhar",
-            principles_title: "Uma base clara para cada projeto.",
-            principles_intro: "Em vez de preencher a página com declarações, resumimos nossa filosofia em três ideias que orientam nossas decisões.",
-            mision_title: "Missão",
-            mision_text: "Oferecer serviços de construção de alta qualidade por meio de projetos seguros, inovadores e sustentáveis, desenvolvidos com trabalho profissional e responsável.",
-            vision_title: "Visão",
-            vision_text: "Consolidar-nos como uma empresa reconhecida pela qualidade das obras, inovação nos processos e contribuição ao ambiente construído.",
-            valores_title: "Valores",
-            valores_list: ["Responsabilidade", "Compromisso", "Qualidade", "Segurança", "Trabalho em equipe", "Respeito", "Honestidade", "Inovação", "Sustentabilidade"],
+            principles_eyebrow: "Nossos princípios",
+            principles_title: "Três critérios que orientam nosso trabalho.",
+            principles_intro: "A qualidade de um projeto também depende de como as decisões são tomadas. Estes princípios resumem a forma como abordamos cada trabalho.",
+            principle_1_title: "Precisão",
+            principle_1_text: "Cada decisão deve responder a uma necessidade real e poder ser justificada técnica, espacial e construtivamente.",
+            principle_2_title: "Clareza",
+            principle_2_text: "Projetamos e documentamos para que as ideias sejam compreendidas desde o conceito inicial até a execução.",
+            principle_3_title: "Responsabilidade",
+            principle_3_text: "Propomos soluções conscientes do contexto, orçamento, materiais e condições reais de obra.",
+            cta_eyebrow: "Vamos iniciar uma conversa",
+            cta_title: "Você tem um projeto em mente?",
+            cta_text: "Vamos conversar sobre como levá-lo do conceito a uma solução técnica, clara e executável.",
 
             contact_eyebrow: "Contato",
             contacto_title: "Vamos conversar sobre seu próximo projeto.",
@@ -1771,3 +1940,4 @@
 
 </body>
 </html>
+
