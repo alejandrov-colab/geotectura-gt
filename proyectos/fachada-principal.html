@@ -42,8 +42,26 @@
         body.dark .viewer-btn:hover { color:#111; }
         .plan-wrapper { position:relative; width:100%; height:clamp(440px,50vw,690px); border:1px solid var(--border-light); border-radius:14px; overflow:hidden; margin:0; background:#fff; box-shadow:none; cursor:grab; user-select:none; touch-action:none; }
         .plan-wrapper:active { cursor:grabbing; }
-        .plan-img-stage { position:absolute; left:50%; top:50%; transform:translate(calc(-50% + 0px),calc(-50% + 0px)) scale(1); transform-origin:center center; will-change:transform; }
-        .plan-img-stage img { display:block; width:min(1080px,90vw); max-width:none; height:auto; user-select:none; pointer-events:none; -webkit-user-drag:none; }
+
+        /* SVG real en el DOM: el zoom se hace con viewBox, NO con transform: scale(). */
+        .plan-svg-host {
+            position:absolute;
+            inset:0;
+            overflow:hidden;
+        }
+
+        .plan-svg-host > svg {
+            display:block;
+            width:100%;
+            height:100%;
+            max-width:none;
+            max-height:none;
+            user-select:none;
+            pointer-events:none;
+            shape-rendering:geometricPrecision;
+            text-rendering:geometricPrecision;
+        }
+
         .plan-watermark { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-25deg); font-size:clamp(1.7rem,3.6vw,3.4rem); font-weight:700; white-space:nowrap; opacity:.08; pointer-events:none; user-select:none; z-index:2; font-family:monospace; letter-spacing:4px; color:#111; }
         .viewer-note { text-align:center; color:var(--text-secondary); font-size:.64rem; line-height:1.45; margin-top:8px; }
         .viewer-card:fullscreen { width:100vw; height:100vh; padding:14px; margin:0; border-radius:0; background:var(--bg-card); display:flex; flex-direction:column; }
@@ -118,7 +136,7 @@
         .btn-volver { display:inline-block; padding:10px 19px; background:var(--accent); color:white; text-decoration:none; border-radius:40px; font-size:.75rem; font-weight:600; transition:opacity .2s ease,transform .2s ease; }
         .btn-volver:hover { opacity:.85; transform:translateY(-1px); }
         footer { text-align:center; padding:30px 0; border-top:1px solid var(--border-light); color:var(--text-secondary); margin-top:30px; }
-        @media (max-width:800px) { .referencia-hero{padding-top:150px}.referencia-hero h1{font-size:1.8rem}.nav-links{justify-content:center}.nav-bar{flex-direction:column}.plan-wrapper{height:58vw;min-height:330px;max-height:540px}.plan-img-stage img{width:min(980px,94vw)}.info-list li{grid-template-columns:1fr;gap:2px;padding:7px 0}.feature-grid{grid-template-columns:1fr} }
+        @media (max-width:800px) { .referencia-hero{padding-top:150px}.referencia-hero h1{font-size:1.8rem}.nav-links{justify-content:center}.nav-bar{flex-direction:column}.plan-wrapper{height:58vw;min-height:330px;max-height:540px}.info-list li{grid-template-columns:1fr;gap:2px;padding:7px 0}.feature-grid{grid-template-columns:1fr} }
         @media (max-width:540px) { .viewer-card{padding:10px;border-radius:14px}.viewer-toolbar{align-items:flex-start}.viewer-controls{width:100%;gap:7px}.viewer-btn .btn-text{display:none}.plan-wrapper{min-height:300px}.info-card,.descripcion{padding:16px} }
     </style>
 </head>
@@ -178,10 +196,14 @@
                 </div>
             </div>
             <div class="plan-wrapper" id="planWrapper">
-                <div class="plan-img-stage" id="planStage">
-                    <img src="../imagenes/FACHADAS.svg" alt="Fachada Principal" id="planImage" draggable="false" onerror="this.src='https://placehold.co/1200x800/bebebe/888888?text=Fachada+Principal'">
-                    <div class="plan-watermark">GEOTECTURA GT</div>
+                <div
+                    class="plan-svg-host"
+                    id="planSvgHost"
+                    data-src="../imagenes/FACHADAS.svg"
+                    role="img"
+                    aria-label="Fachada Principal">
                 </div>
+                <div class="plan-watermark">GEOTECTURA GT</div>
             </div>
             <div class="viewer-note" data-key="zoom_hint">💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano</div>
         </section>
@@ -280,33 +302,410 @@
         });
     }
 
-    /* ===================== VISOR INTERACTIVO ===================== */
-    const viewerCard=document.getElementById('viewerCard');
-    const planWrapper=document.getElementById('planWrapper');
-    const planStage=document.getElementById('planStage');
-    const zoomInfo=document.getElementById('zoomInfo');
-    const zoomInBtn=document.getElementById('zoomInBtn');
-    const zoomOutBtn=document.getElementById('zoomOutBtn');
-    const fullscreenBtn=document.getElementById('fullscreenBtn');
-    const resetZoomBtn=document.getElementById('resetZoomBtn');
-    let viewerScale=1,viewerX=0,viewerY=0,isDragging=false,pointerStartX=0,pointerStartY=0,startViewerX=0,startViewerY=0;
-    const MIN_ZOOM=1,MAX_ZOOM=4;
-    function updateViewer(){planStage.style.transform=`translate(calc(-50% + ${viewerX}px), calc(-50% + ${viewerY}px)) scale(${viewerScale})`;zoomInfo.textContent=`${Math.round(viewerScale*100)}%`;}
-    function resetViewer(){viewerScale=1;viewerX=0;viewerY=0;updateViewer();}
-    function setZoom(nextZoom){viewerScale=Math.min(MAX_ZOOM,Math.max(MIN_ZOOM,nextZoom));if(viewerScale<=1){viewerX=0;viewerY=0;}updateViewer();}
-    zoomInBtn.addEventListener('click',()=>setZoom(viewerScale*1.2));
-    zoomOutBtn.addEventListener('click',()=>setZoom(viewerScale/1.2));
-    resetZoomBtn.addEventListener('click',resetViewer);
-    planWrapper.addEventListener('wheel',e=>{e.preventDefault();setZoom(viewerScale*(e.deltaY<0?1.12:.89));},{passive:false});
-    planWrapper.addEventListener('pointerdown',e=>{if(viewerScale<=1)return;isDragging=true;pointerStartX=e.clientX;pointerStartY=e.clientY;startViewerX=viewerX;startViewerY=viewerY;planWrapper.setPointerCapture?.(e.pointerId);});
-    planWrapper.addEventListener('pointermove',e=>{if(!isDragging)return;viewerX=startViewerX+(e.clientX-pointerStartX);viewerY=startViewerY+(e.clientY-pointerStartY);updateViewer();});
-    const stopDragging=e=>{isDragging=false;try{planWrapper.releasePointerCapture?.(e.pointerId);}catch(_){}};
-    planWrapper.addEventListener('pointerup',stopDragging);planWrapper.addEventListener('pointercancel',stopDragging);planWrapper.addEventListener('dblclick',resetViewer);
-    fullscreenBtn.addEventListener('click',async()=>{try{if(!document.fullscreenElement){await viewerCard.requestFullscreen();}else{await document.exitFullscreen();}}catch(err){console.warn('No fue posible activar pantalla completa:',err);}});
-    document.addEventListener('fullscreenchange',resetViewer);
+    /* ===================== VISOR SVG VECTORIAL ===================== */
+    const viewerCard = document.getElementById('viewerCard');
+    const planWrapper = document.getElementById('planWrapper');
+    const planSvgHost = document.getElementById('planSvgHost');
+    const zoomInfo = document.getElementById('zoomInfo');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const resetZoomBtn = document.getElementById('resetZoomBtn');
+
+    let planSvg = null;
+
+    let originalViewBox = null;
+    let currentViewBox = null;
+    let viewerScale = 1;
+
+    const MIN_ZOOM = 1;
+    const MAX_ZOOM = 8;
+
+    let isDragging = false;
+    let dragStartClientX = 0;
+    let dragStartClientY = 0;
+    let dragStartViewBox = null;
+    let dragStartCTM = null;
+
+    function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+    }
+
+    /* Carga FACHADAS.svg como SVG real dentro del DOM.
+       Tu archivo es vectorial (paths/text, sin <image> raster incrustado). */
+    async function loadPlanSvg() {
+        const src = planSvgHost.dataset.src;
+
+        try {
+            const response = await fetch(src, { cache: 'force-cache' });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const svgText = await response.text();
+            const parser = new DOMParser();
+            const svgDocument = parser.parseFromString(svgText, 'image/svg+xml');
+
+            if (svgDocument.querySelector('parsererror')) {
+                throw new Error('El archivo SVG no pudo interpretarse.');
+            }
+
+            const loadedSvg = svgDocument.documentElement;
+
+            if (
+                !loadedSvg ||
+                loadedSvg.namespaceURI !== 'http://www.w3.org/2000/svg'
+            ) {
+                throw new Error('El archivo cargado no es un SVG válido.');
+            }
+
+            /* El SVG adjunto tiene width/height físicos; los quitamos para que
+               el visor controle el tamaño y preserve el viewBox vectorial. */
+            loadedSvg.removeAttribute('width');
+            loadedSvg.removeAttribute('height');
+            loadedSvg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+            loadedSvg.setAttribute('focusable', 'false');
+            loadedSvg.setAttribute('aria-hidden', 'true');
+
+            planSvgHost.replaceChildren(
+                document.importNode(loadedSvg, true)
+            );
+
+            planSvg = planSvgHost.querySelector('svg');
+
+            const vb = planSvg.viewBox.baseVal;
+
+            if (vb && vb.width > 0 && vb.height > 0) {
+                originalViewBox = {
+                    x: vb.x,
+                    y: vb.y,
+                    width: vb.width,
+                    height: vb.height
+                };
+            } else {
+                const bbox = planSvg.getBBox();
+
+                originalViewBox = {
+                    x: bbox.x,
+                    y: bbox.y,
+                    width: bbox.width,
+                    height: bbox.height
+                };
+
+                planSvg.setAttribute(
+                    'viewBox',
+                    `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`
+                );
+            }
+
+            resetViewer();
+
+        } catch (error) {
+            console.error('No fue posible cargar FACHADAS.svg:', error);
+
+            planSvgHost.innerHTML = `
+                <div style="
+                    width:100%;
+                    height:100%;
+                    display:grid;
+                    place-items:center;
+                    padding:24px;
+                    text-align:center;
+                    color:#777;
+                    font-size:.78rem;
+                ">
+                    No fue posible cargar FACHADAS.svg.<br>
+                    Si abriste el HTML con file://, pruébalo con Live Server o GitHub Pages.
+                </div>
+            `;
+        }
+    }
+
+    function applyViewBox() {
+        if (!planSvg || !currentViewBox) return;
+
+        planSvg.setAttribute(
+            'viewBox',
+            `${currentViewBox.x} ${currentViewBox.y} ${currentViewBox.width} ${currentViewBox.height}`
+        );
+
+        zoomInfo.textContent = `${Math.round(viewerScale * 100)}%`;
+    }
+
+    function clampViewBox(box) {
+        if (!originalViewBox) return box;
+
+        const maxX =
+            originalViewBox.x +
+            originalViewBox.width -
+            box.width;
+
+        const maxY =
+            originalViewBox.y +
+            originalViewBox.height -
+            box.height;
+
+        box.x = clamp(
+            box.x,
+            originalViewBox.x,
+            Math.max(originalViewBox.x, maxX)
+        );
+
+        box.y = clamp(
+            box.y,
+            originalViewBox.y,
+            Math.max(originalViewBox.y, maxY)
+        );
+
+        return box;
+    }
+
+    function resetViewer() {
+        if (!originalViewBox) return;
+
+        viewerScale = 1;
+
+        currentViewBox = {
+            ...originalViewBox
+        };
+
+        applyViewBox();
+    }
+
+    function clientToSvgPoint(clientX, clientY) {
+        if (!planSvg) return null;
+
+        const ctm = planSvg.getScreenCTM();
+        if (!ctm) return null;
+
+        return new DOMPoint(clientX, clientY)
+            .matrixTransform(ctm.inverse());
+    }
+
+    /* Zoom vectorial real:
+       en vez de escalar una capa con CSS, reducimos el área visible del viewBox. */
+    function setZoom(nextZoom, clientX = null, clientY = null) {
+        if (!planSvg || !originalViewBox || !currentViewBox) return;
+
+        nextZoom = clamp(nextZoom, MIN_ZOOM, MAX_ZOOM);
+
+        if (Math.abs(nextZoom - viewerScale) < 0.00001) {
+            return;
+        }
+
+        let focus = null;
+
+        if (clientX !== null && clientY !== null) {
+            focus = clientToSvgPoint(clientX, clientY);
+        }
+
+        if (!focus) {
+            focus = {
+                x: currentViewBox.x + currentViewBox.width / 2,
+                y: currentViewBox.y + currentViewBox.height / 2
+            };
+        }
+
+        const oldBox = { ...currentViewBox };
+
+        const newWidth =
+            originalViewBox.width / nextZoom;
+
+        const newHeight =
+            originalViewBox.height / nextZoom;
+
+        const relativeX =
+            (focus.x - oldBox.x) / oldBox.width;
+
+        const relativeY =
+            (focus.y - oldBox.y) / oldBox.height;
+
+        currentViewBox = {
+            x: focus.x - relativeX * newWidth,
+            y: focus.y - relativeY * newHeight,
+            width: newWidth,
+            height: newHeight
+        };
+
+        currentViewBox = clampViewBox(currentViewBox);
+        viewerScale = nextZoom;
+
+        applyViewBox();
+    }
+
+    zoomInBtn.addEventListener(
+        'click',
+        () => setZoom(viewerScale * 1.25)
+    );
+
+    zoomOutBtn.addEventListener(
+        'click',
+        () => setZoom(viewerScale / 1.25)
+    );
+
+    resetZoomBtn.addEventListener(
+        'click',
+        resetViewer
+    );
+
+    /* Zoom con rueda, centrado en el cursor */
+    planWrapper.addEventListener(
+        'wheel',
+        (e) => {
+            if (!planSvg) return;
+
+            e.preventDefault();
+
+            const factor =
+                e.deltaY < 0
+                    ? 1.12
+                    : 1 / 1.12;
+
+            setZoom(
+                viewerScale * factor,
+                e.clientX,
+                e.clientY
+            );
+        },
+        { passive: false }
+    );
+
+    /* Arrastre dentro del viewBox */
+    planWrapper.addEventListener(
+        'pointerdown',
+        (e) => {
+            if (
+                !planSvg ||
+                viewerScale <= 1 ||
+                (e.pointerType === 'mouse' && e.button !== 0)
+            ) {
+                return;
+            }
+
+            const ctm = planSvg.getScreenCTM();
+            if (!ctm) return;
+
+            isDragging = true;
+
+            dragStartClientX = e.clientX;
+            dragStartClientY = e.clientY;
+
+            dragStartViewBox = {
+                ...currentViewBox
+            };
+
+            dragStartCTM = ctm;
+
+            planWrapper.setPointerCapture?.(e.pointerId);
+        }
+    );
+
+    planWrapper.addEventListener(
+        'pointermove',
+        (e) => {
+            if (
+                !isDragging ||
+                !dragStartViewBox ||
+                !dragStartCTM
+            ) {
+                return;
+            }
+
+            const scaleX =
+                Math.hypot(
+                    dragStartCTM.a,
+                    dragStartCTM.b
+                );
+
+            const scaleY =
+                Math.hypot(
+                    dragStartCTM.c,
+                    dragStartCTM.d
+                ) || scaleX;
+
+            if (!scaleX || !scaleY) return;
+
+            const deltaSvgX =
+                (e.clientX - dragStartClientX) / scaleX;
+
+            const deltaSvgY =
+                (e.clientY - dragStartClientY) / scaleY;
+
+            currentViewBox = {
+                x: dragStartViewBox.x - deltaSvgX,
+                y: dragStartViewBox.y - deltaSvgY,
+                width: dragStartViewBox.width,
+                height: dragStartViewBox.height
+            };
+
+            currentViewBox = clampViewBox(currentViewBox);
+            applyViewBox();
+        }
+    );
+
+    function stopDragging(e) {
+        isDragging = false;
+        dragStartViewBox = null;
+        dragStartCTM = null;
+
+        try {
+            planWrapper.releasePointerCapture?.(e.pointerId);
+        } catch (_) {}
+    }
+
+    planWrapper.addEventListener('pointerup', stopDragging);
+    planWrapper.addEventListener('pointercancel', stopDragging);
+
+    /* Doble clic: 200% / restablecer */
+    planWrapper.addEventListener(
+        'dblclick',
+        (e) => {
+            if (viewerScale > 1.05) {
+                resetViewer();
+            } else {
+                setZoom(
+                    2,
+                    e.clientX,
+                    e.clientY
+                );
+            }
+        }
+    );
+
+    fullscreenBtn.addEventListener(
+        'click',
+        async () => {
+            try {
+                if (!document.fullscreenElement) {
+                    await viewerCard.requestFullscreen();
+                } else {
+                    await document.exitFullscreen();
+                }
+            } catch (err) {
+                console.warn(
+                    'No fue posible activar pantalla completa:',
+                    err
+                );
+            }
+        }
+    );
+
+    document.addEventListener(
+        'fullscreenchange',
+        () => {
+            /* El viewBox sigue siendo válido al cambiar el tamaño.
+               Al salir de fullscreen restablecemos la vista, igual que tu código original. */
+            if (!document.fullscreenElement) {
+                resetViewer();
+            }
+        }
+    );
+
+    loadPlanSvg();
+
 
     document.addEventListener("contextmenu", (e) => { e.preventDefault(); });
-    document.querySelectorAll("img").forEach(img => { img.setAttribute("draggable", "false"); });
 </script>
 </body>
 </html>
