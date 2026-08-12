@@ -24,32 +24,49 @@
         .dropdown:hover .dropdown-content { display: block; }
         .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
         .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
-        
-        .referencia-hero { background: var(--bg-secondary); padding: 140px 0 60px; text-align: center; border-bottom: 1px solid var(--border-light); }
-        .referencia-hero h1 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
-        .referencia-hero p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
-        
-        .plan-wrapper { position: relative; border-radius: 24px; overflow: hidden; margin: 40px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .plan-wrapper img { width: 100%; display: block; }
-        .plan-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); font-size: 2rem; font-weight: 700; white-space: nowrap; opacity: 0.08; pointer-events: none; user-select: none; z-index: 2; font-family: monospace; letter-spacing: 4px; }
-        
-        .info-card { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
-        .info-card h2 { font-size: 1.5rem; margin-bottom: 20px; }
-        .info-list { list-style: none; }
-        .info-list li { padding: 12px 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; }
-        .info-list li:last-child { border-bottom: none; }
-        .info-label { font-weight: 600; }
-        .info-value { color: var(--text-secondary); }
-        
-        .descripcion { background: var(--bg-card); padding: 32px; border-radius: 24px; border: 1px solid var(--border-light); margin: 40px 0; }
-        .descripcion h2 { font-size: 1.5rem; margin-bottom: 20px; }
-        .descripcion p { margin-bottom: 16px; color: var(--text-secondary); line-height: 1.6; }
-        
-        .btn-volver { display: inline-block; margin-top: 20px; padding: 12px 28px; background: var(--accent); color: white; text-decoration: none; border-radius: 40px; font-weight: 500; transition: opacity 0.2s; }
-        .btn-volver:hover { opacity: 0.85; }
-        
-        footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary); margin-top: 40px; }
-        @media (max-width: 800px) { .referencia-hero h1 { font-size: 1.8rem; } .nav-links { justify-content: center; } .nav-bar { flex-direction: column; } .plan-watermark { font-size: 1rem; } .info-list li { flex-direction: column; gap: 8px; } }
+
+        .referencia-hero { background: var(--bg-secondary); padding: 118px 0 34px; text-align: center; border-bottom: 1px solid var(--border-light); }
+        .referencia-hero h1 { font-size: clamp(2rem,3.2vw,2.7rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.12; margin-bottom: 8px; }
+        .referencia-hero p { color: var(--text-secondary); max-width: 650px; margin: 0 auto; font-size: .9rem; }
+        .hero-tags { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin-top:16px; }
+        .hero-tag { display:inline-flex; align-items:center; justify-content:center; min-height:28px; padding:0 14px; border:1px solid var(--border-light); border-radius:999px; background:var(--bg-card); color:var(--text-secondary); font-size:.7rem; font-weight:500; }
+
+        .viewer-card { margin:22px 0 12px; padding:14px; border:1px solid var(--border-light); border-radius:18px; background:var(--bg-card); box-shadow:0 8px 26px rgba(0,0,0,.055); }
+        .viewer-toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:10px; padding:0 3px; }
+        .viewer-left,.viewer-controls { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+        .viewer-badge { display:inline-flex; align-items:center; justify-content:center; min-height:24px; padding:0 10px; border-radius:999px; background:#242424; color:#fff; font-size:.64rem; font-weight:600; white-space:nowrap; }
+        body.dark .viewer-badge { background:#ededed; color:#111; }
+        .zoom-info { display:inline-flex; align-items:center; justify-content:center; min-width:46px; height:24px; padding:0 9px; border:1px solid var(--border-light); border-radius:999px; color:var(--text-secondary); background:var(--bg-primary); font-size:.66rem; font-weight:500; font-variant-numeric:tabular-nums; white-space:nowrap; }
+        .viewer-btn { border:1px solid var(--border-light); background:var(--bg-primary); color:var(--text-primary); border-radius:999px; padding:7px 13px; min-height:31px; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:.68rem; font-weight:500; cursor:pointer; white-space:nowrap; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
+        .viewer-btn:hover { background:var(--accent); color:var(--bg-primary); border-color:var(--accent); transform:translateY(-1px); }
+        body.dark .viewer-btn:hover { color:#111; }
+        .plan-wrapper { position:relative; width:100%; height:clamp(440px,50vw,690px); border:1px solid var(--border-light); border-radius:14px; overflow:hidden; margin:0; background:#fff; box-shadow:none; cursor:grab; user-select:none; touch-action:none; }
+        .plan-wrapper:active { cursor:grabbing; }
+        .plan-img-stage { position:absolute; left:50%; top:50%; transform:translate(calc(-50% + 0px),calc(-50% + 0px)) scale(1); transform-origin:center center; will-change:transform; }
+        .plan-img-stage img { display:block; width:min(1080px,90vw); max-width:none; height:auto; user-select:none; pointer-events:none; -webkit-user-drag:none; }
+        .plan-watermark { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-25deg); font-size:clamp(1.7rem,3.6vw,3.4rem); font-weight:700; white-space:nowrap; opacity:.08; pointer-events:none; user-select:none; z-index:2; font-family:monospace; letter-spacing:4px; color:#111; }
+        .viewer-note { text-align:center; color:var(--text-secondary); font-size:.64rem; line-height:1.45; margin-top:8px; }
+        .viewer-card:fullscreen { width:100vw; height:100vh; padding:14px; margin:0; border-radius:0; background:var(--bg-card); display:flex; flex-direction:column; }
+        .viewer-card:fullscreen .plan-wrapper { flex:1; height:auto; }
+
+        .info-card,.descripcion { background:var(--bg-card); padding:14px 20px; border-radius:15px; border:1px solid var(--border-light); margin:9px 0; }
+        .info-card h2,.descripcion h2 { font-size:.96rem; margin-bottom:7px; font-weight:700; }
+        .info-list { list-style:none; }
+        .info-list li { padding:5px 0; border-top:1px solid var(--border-light); display:grid; grid-template-columns:minmax(160px,.9fr) 1.25fr; gap:20px; align-items:center; font-size:.72rem; }
+        .info-label { font-weight:600; }
+        .info-value { color:var(--text-secondary); }
+        .descripcion>p { color:var(--text-secondary); line-height:1.55; font-size:.70rem; margin:0; max-width:1060px; }
+        .feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
+        .feature-card { display:grid; grid-template-columns:38px 1fr; gap:10px; align-items:center; min-height:80px; padding:12px 13px; border:1px solid var(--border-light); border-radius:12px; background:var(--bg-primary); }
+        .feature-icon { width:34px; height:34px; border-radius:9px; display:grid; place-items:center; border:1px solid var(--border-light); background:var(--bg-secondary); color:var(--text-primary); font-size:.95rem; font-weight:700; }
+        .feature-card h3 { margin:0 0 3px; font-size:.74rem; font-weight:700; }
+        .feature-card p { margin:0; color:var(--text-secondary); font-size:.61rem; line-height:1.42; }
+        .btn-wrap { text-align:center; margin-top:18px; }
+        .btn-volver { display:inline-block; padding:10px 19px; background:var(--accent); color:white; text-decoration:none; border-radius:40px; font-size:.75rem; font-weight:600; transition:opacity .2s ease,transform .2s ease; }
+        .btn-volver:hover { opacity:.85; transform:translateY(-1px); }
+        footer { text-align:center; padding:30px 0; border-top:1px solid var(--border-light); color:var(--text-secondary); margin-top:30px; }
+        @media (max-width:800px) { .referencia-hero{padding-top:150px}.referencia-hero h1{font-size:1.8rem}.nav-links{justify-content:center}.nav-bar{flex-direction:column}.plan-wrapper{height:58vw;min-height:330px;max-height:540px}.plan-img-stage img{width:min(980px,94vw)}.info-list li{grid-template-columns:1fr;gap:2px;padding:7px 0}.feature-grid{grid-template-columns:1fr} }
+        @media (max-width:540px) { .viewer-card{padding:10px;border-radius:14px}.viewer-toolbar{align-items:flex-start}.viewer-controls{width:100%;gap:7px}.viewer-btn .btn-text{display:none}.plan-wrapper{min-height:300px}.info-card,.descripcion{padding:16px} }
     </style>
 </head>
 <body>
@@ -84,34 +101,59 @@
     <section class="referencia-hero">
         <div class="container">
             <h1 data-key="titulo">🏛️ Fachada Principal</h1>
-            <p data-key="subtitulo">Alzado frontal del proyecto arquitectónico</p>
+            <p data-key="subtitulo">Elevación arquitectónica del frente principal</p>
+            <div class="hero-tags">
+                <span class="hero-tag" data-key="hero_tag_tipo">Fachada principal</span>
+                <span class="hero-tag" data-key="hero_tag_escala">Escala 1:50</span>
+                <span class="hero-tag">AutoCAD</span>
+            </div>
         </div>
     </section>
 
     <div class="container">
-        <div class="plan-wrapper">
-            <img src="../imagenes/fachada-principal.webp" alt="Fachada Principal" onerror="this.src='https://placehold.co/1200x800/bebebe/888888?text=Fachada+Principal'">
-            <div class="plan-watermark">GEOTECTURA GT</div>
-        </div>
+        <section class="viewer-card" id="viewerCard">
+            <div class="viewer-toolbar">
+                <div class="viewer-left">
+                    <span class="viewer-badge" data-key="visor_badge">Plano técnico</span>
+                    <span class="zoom-info" id="zoomInfo">100%</span>
+                </div>
+                <div class="viewer-controls">
+                    <button class="viewer-btn" id="zoomInBtn" type="button"><span aria-hidden="true">⌕</span><span class="btn-text" data-key="zoom_in">Acercar</span></button>
+                    <button class="viewer-btn" id="zoomOutBtn" type="button"><span aria-hidden="true">⌕</span><span class="btn-text" data-key="zoom_out">Alejar</span></button>
+                    <button class="viewer-btn" id="fullscreenBtn" type="button"><span aria-hidden="true">⛶</span><span class="btn-text" data-key="fullscreen">Pantalla completa</span></button>
+                    <button class="viewer-btn" id="resetZoomBtn" type="button"><span aria-hidden="true">⟳</span><span class="btn-text" data-key="reset_zoom">Restablecer</span></button>
+                </div>
+            </div>
+            <div class="plan-wrapper" id="planWrapper">
+                <div class="plan-img-stage" id="planStage">
+                    <img src="../imagenes/fachada-principal.webp" alt="Fachada Principal" id="planImage" draggable="false" onerror="this.src='https://placehold.co/1200x800/bebebe/888888?text=Fachada+Principal'">
+                    <div class="plan-watermark">GEOTECTURA GT</div>
+                </div>
+            </div>
+            <div class="viewer-note" data-key="zoom_hint">💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano</div>
+        </section>
 
-        <div class="info-card">
-            <h2 data-key="info_titulo">📋 Información técnica</h2>
+        <section class="info-card">
+            <h2 data-key="info_titulo">📋 Información del plano</h2>
             <ul class="info-list">
-                <li><span class="info-label" data-key="tipo_label">Tipo:</span><span class="info-value" data-key="tipo_valor">Fachada arquitectónica</span></li>
-                <li><span class="info-label" data-key="escala_label">Escala:</span><span class="info-value" data-key="escala_valor">1:50</span></li>
-                <li><span class="info-label" data-key="formato_label">Formato:</span><span class="info-value" data-key="formato_valor">AutoCAD</span></li>
+                <li><span class="info-label" data-key="contenido_label">Contenido:</span><span class="info-value" data-key="contenido_valor">Elevación frontal · Fachada principal</span></li>
+                <li><span class="info-label" data-key="aberturas_label">Aberturas:</span><span class="info-value" data-key="aberturas_valor">Ventanas V-3 y V-5 · vanos acotados</span></li>
+                <li><span class="info-label" data-key="acabados_label">Acabados:</span><span class="info-value" data-key="acabados_valor">Blanqueado · Azulejo · especificaciones R+C</span></li>
+                <li><span class="info-label" data-key="representacion_label">Representación:</span><span class="info-value" data-key="representacion_valor">Cotas horizontales y verticales · detalles de remate y cubierta</span></li>
             </ul>
-        </div>
+        </section>
 
-        <div class="descripcion">
-            <h2 data-key="detalle_titulo">📐 Detalle técnico</h2>
-            <p data-key="desc_p1">Fachada principal del proyecto a escala 1:50, mostrando la composición arquitectónica del frente del edificio con especificaciones de acabados (blanqueado, azulejo), ubicación de ventanas (V-3, V-5) y dimensiones de vanos.</p>
-            <p data-key="desc_p2">El alzado incluye cotas verticales y horizontales, materiales (R+C) y detalles constructivos de zócalo, cornisas y cubierta.</p>
-        </div>
+        <section class="descripcion">
+            <h2><span aria-hidden="true">▧</span> <span data-key="descripcion_titulo">Descripción</span></h2>
+            <p data-key="desc_p1">Elevación principal desarrollada para documentar la composición del frente arquitectónico con una lectura clara de proporciones, vanos, materiales y remates. El dibujo integra cotas y especificaciones gráficas que permiten reconocer la relación entre los elementos de fachada y su expresión constructiva.</p>
+            <div class="feature-grid">
+                <article class="feature-card"><div class="feature-icon">▥</div><div><h3 data-key="feature_composicion_titulo">Composición</h3><p data-key="feature_composicion_desc">La elevación organiza llenos, vanos y líneas de remate para establecer una lectura equilibrada y coherente del frente principal.</p></div></article>
+                <article class="feature-card"><div class="feature-icon">◇</div><div><h3 data-key="feature_acabados_titulo">Acabados</h3><p data-key="feature_acabados_desc">El plano diferencia superficies con blanqueado y azulejo, vinculando cada acabado con su ubicación dentro de la fachada.</p></div></article>
+                <article class="feature-card"><div class="feature-icon">⌂</div><div><h3 data-key="feature_detalles_titulo">Detalles constructivos</h3><p data-key="feature_detalles_desc">Se incorporan referencias de zócalo, cornisas, cubierta y sistema R+C para complementar la interpretación técnica del alzado.</p></div></article>
+            </div>
+        </section>
 
-        <div style="text-align: center;">
-            <a href="../portafolio.html" class="btn-volver" data-key="btn_volver">← Volver a referencias</a>
-        </div>
+        <div class="btn-wrap"><a href="../portafolio.html" class="btn-volver" data-key="btn_volver">← Volver a referencias</a></div>
     </div>
 </main>
 
@@ -125,43 +167,34 @@
 <script>
     const texts = {
         es: {
-            nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Referencias", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo",
-            serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica",
-            titulo: "🏛️ Fachada Principal", subtitulo: "Alzado frontal del proyecto arquitectónico",
-            info_titulo: "📋 Información técnica",
-            tipo_label: "Tipo:", tipo_valor: "Fachada arquitectónica",
-            escala_label: "Escala:", escala_valor: "1:50",
-            formato_label: "Formato:", formato_valor: "AutoCAD",
-            detalle_titulo: "📐 Detalle técnico",
-            desc_p1: "Fachada principal del proyecto a escala 1:50, mostrando la composición arquitectónica del frente del edificio con especificaciones de acabados (blanqueado, azulejo), ubicación de ventanas (V-3, V-5) y dimensiones de vanos.",
-            desc_p2: "El alzado incluye cotas verticales y horizontales, materiales (R+C) y detalles constructivos de zócalo, cornisas y cubierta.",
-            btn_volver: "← Volver a referencias"
+            nav_inicio:"Inicio", nav_servicios:"Servicios ▼", nav_proyectos:"Referencias", nav_nosotros:"Nosotros", nav_contacto:"Contacto", nav_equipo:"Equipo",
+            serv_topografia:"📐 Cálculo topografía", serv_urbanismo:"🏙️ Urbanismo", serv_parques:"🎢 Parques temáticos", serv_direccion:"📊 Dirección obra", serv_reformas:"🔄 Reformas integrales", serv_asesoria:"⚙️ Asesoría técnica",
+            titulo:"🏛️ Fachada Principal", subtitulo:"Elevación arquitectónica del frente principal", hero_tag_tipo:"Fachada principal", hero_tag_escala:"Escala 1:50",
+            visor_badge:"Plano técnico", zoom_in:"Acercar", zoom_out:"Alejar", fullscreen:"Pantalla completa", reset_zoom:"Restablecer", zoom_hint:"💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano",
+            info_titulo:"📋 Información del plano", contenido_label:"Contenido:", contenido_valor:"Elevación frontal · Fachada principal", aberturas_label:"Aberturas:", aberturas_valor:"Ventanas V-3 y V-5 · vanos acotados", acabados_label:"Acabados:", acabados_valor:"Blanqueado · Azulejo · especificaciones R+C", representacion_label:"Representación:", representacion_valor:"Cotas horizontales y verticales · detalles de remate y cubierta",
+            descripcion_titulo:"Descripción", desc_p1:"Elevación principal desarrollada para documentar la composición del frente arquitectónico con una lectura clara de proporciones, vanos, materiales y remates. El dibujo integra cotas y especificaciones gráficas que permiten reconocer la relación entre los elementos de fachada y su expresión constructiva.",
+            feature_composicion_titulo:"Composición", feature_composicion_desc:"La elevación organiza llenos, vanos y líneas de remate para establecer una lectura equilibrada y coherente del frente principal.", feature_acabados_titulo:"Acabados", feature_acabados_desc:"El plano diferencia superficies con blanqueado y azulejo, vinculando cada acabado con su ubicación dentro de la fachada.", feature_detalles_titulo:"Detalles constructivos", feature_detalles_desc:"Se incorporan referencias de zócalo, cornisas, cubierta y sistema R+C para complementar la interpretación técnica del alzado.",
+            btn_volver:"← Volver a referencias"
         },
         en: {
-            nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "References", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
-            serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory",
-            titulo: "🏛️ Main Facade", subtitulo: "Front elevation of the architectural project",
-            info_titulo: "📋 Technical information",
-            tipo_label: "Type:", tipo_valor: "Architectural facade",
-            escala_label: "Scale:", escala_valor: "1:50",
-            formato_label: "Format:", formato_valor: "AutoCAD",
-            detalle_titulo: "📐 Technical detail",
-            desc_p1: "Main facade of the project at scale 1:50, showing the architectural composition of the building's front with finish specifications (whitewash, tile), window locations (V-3, V-5) and opening dimensions.",
-            desc_p2: "The elevation includes vertical and horizontal dimensions, materials (R+C) and construction details of baseboard, cornices and roof.",
-            btn_volver: "← Back to references"
+            nav_inicio:"Home", nav_servicios:"Services ▼", nav_proyectos:"References", nav_nosotros:"About", nav_contacto:"Contact", nav_equipo:"Team",
+            serv_topografia:"📐 Topography", serv_urbanismo:"🏙️ Urbanism", serv_parques:"🎢 Theme parks", serv_direccion:"📊 Construction mgmt", serv_reformas:"🔄 Renovations", serv_asesoria:"⚙️ Advisory",
+            titulo:"🏛️ Main Facade", subtitulo:"Architectural elevation of the main frontage", hero_tag_tipo:"Main facade", hero_tag_escala:"Scale 1:50",
+            visor_badge:"Technical drawing", zoom_in:"Zoom in", zoom_out:"Zoom out", fullscreen:"Full screen", reset_zoom:"Reset", zoom_hint:"💡 Tip: Use the mouse wheel to zoom and drag to move around the drawing",
+            info_titulo:"📋 Drawing information", contenido_label:"Content:", contenido_valor:"Front elevation · Main facade", aberturas_label:"Openings:", aberturas_valor:"Windows V-3 and V-5 · dimensioned openings", acabados_label:"Finishes:", acabados_valor:"Whitewash · Tile · R+C specifications", representacion_label:"Representation:", representacion_valor:"Horizontal and vertical dimensions · edge and roof details",
+            descripcion_titulo:"Description", desc_p1:"Main elevation developed to document the architectural frontage with a clear reading of proportions, openings, materials and finishing elements. The drawing integrates dimensions and graphic specifications that make it possible to understand the relationship between the facade components and their constructive expression.",
+            feature_composicion_titulo:"Composition", feature_composicion_desc:"The elevation organizes solid areas, openings and finishing lines to establish a balanced and coherent reading of the main frontage.", feature_acabados_titulo:"Finishes", feature_acabados_desc:"The drawing differentiates whitewashed and tiled surfaces, linking each finish to its corresponding position on the facade.", feature_detalles_titulo:"Construction details", feature_detalles_desc:"References to the baseboard, cornices, roof and R+C system complement the technical interpretation of the elevation.",
+            btn_volver:"← Back to references"
         },
         pt: {
-            nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Referências", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
-            serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria",
-            titulo: "🏛️ Fachada Principal", subtitulo: "Elevação frontal do projeto arquitetônico",
-            info_titulo: "📋 Informação técnica",
-            tipo_label: "Tipo:", tipo_valor: "Fachada arquitetônica",
-            escala_label: "Escala:", escala_valor: "1:50",
-            formato_label: "Formato:", formato_valor: "AutoCAD",
-            detalle_titulo: "📐 Detalhe técnico",
-            desc_p1: "Fachada principal do projeto na escala 1:50, mostrando a composição arquitetônica da frente do edifício com especificações de acabamentos (caiação, azulejo), localização das janelas (V-3, V-5) e dimensões dos vãos.",
-            desc_p2: "A elevação inclui cotas verticais e horizontais, materiais (R+C) e detalhes construtivos de rodapé, cornijas e cobertura.",
-            btn_volver: "← Voltar às referências"
+            nav_inicio:"Início", nav_servicios:"Serviços ▼", nav_proyectos:"Referências", nav_nosotros:"Sobre", nav_contacto:"Contato", nav_equipo:"Equipe",
+            serv_topografia:"📐 Topografia", serv_urbanismo:"🏙️ Urbanismo", serv_parques:"🎢 Parques temáticos", serv_direccion:"📊 Gestão obras", serv_reformas:"🔄 Reformas", serv_asesoria:"⚙️ Consultoria",
+            titulo:"🏛️ Fachada Principal", subtitulo:"Elevação arquitetônica da frente principal", hero_tag_tipo:"Fachada principal", hero_tag_escala:"Escala 1:50",
+            visor_badge:"Desenho técnico", zoom_in:"Aproximar", zoom_out:"Afastar", fullscreen:"Tela cheia", reset_zoom:"Restaurar", zoom_hint:"💡 Dica: Use a roda do mouse para aplicar zoom e arraste para se mover pelo desenho",
+            info_titulo:"📋 Informações do desenho", contenido_label:"Conteúdo:", contenido_valor:"Elevação frontal · Fachada principal", aberturas_label:"Aberturas:", aberturas_valor:"Janelas V-3 e V-5 · vãos cotados", acabados_label:"Acabamentos:", acabados_valor:"Caiação · Azulejo · especificações R+C", representacion_label:"Representação:", representacion_valor:"Cotas horizontais e verticais · detalhes de remate e cobertura",
+            descripcion_titulo:"Descrição", desc_p1:"Elevação principal desenvolvida para documentar a composição da frente arquitetônica com uma leitura clara de proporções, vãos, materiais e remates. O desenho integra cotas e especificações gráficas que permitem compreender a relação entre os elementos da fachada e sua expressão construtiva.",
+            feature_composicion_titulo:"Composição", feature_composicion_desc:"A elevação organiza cheios, vãos e linhas de remate para estabelecer uma leitura equilibrada e coerente da frente principal.", feature_acabados_titulo:"Acabamentos", feature_acabados_desc:"O desenho diferencia superfícies com caiação e azulejo, relacionando cada acabamento à sua posição na fachada.", feature_detalles_titulo:"Detalhes construtivos", feature_detalles_desc:"Referências de rodapé, cornijas, cobertura e sistema R+C complementam a interpretação técnica da elevação.",
+            btn_volver:"← Voltar às referências"
         }
     };
 
@@ -193,6 +226,31 @@
             toggleBtn.textContent = isDark ? '☀️' : '🌙';
         });
     }
+
+    /* ===================== VISOR INTERACTIVO ===================== */
+    const viewerCard=document.getElementById('viewerCard');
+    const planWrapper=document.getElementById('planWrapper');
+    const planStage=document.getElementById('planStage');
+    const zoomInfo=document.getElementById('zoomInfo');
+    const zoomInBtn=document.getElementById('zoomInBtn');
+    const zoomOutBtn=document.getElementById('zoomOutBtn');
+    const fullscreenBtn=document.getElementById('fullscreenBtn');
+    const resetZoomBtn=document.getElementById('resetZoomBtn');
+    let viewerScale=1,viewerX=0,viewerY=0,isDragging=false,pointerStartX=0,pointerStartY=0,startViewerX=0,startViewerY=0;
+    const MIN_ZOOM=1,MAX_ZOOM=4;
+    function updateViewer(){planStage.style.transform=`translate(calc(-50% + ${viewerX}px), calc(-50% + ${viewerY}px)) scale(${viewerScale})`;zoomInfo.textContent=`${Math.round(viewerScale*100)}%`;}
+    function resetViewer(){viewerScale=1;viewerX=0;viewerY=0;updateViewer();}
+    function setZoom(nextZoom){viewerScale=Math.min(MAX_ZOOM,Math.max(MIN_ZOOM,nextZoom));if(viewerScale<=1){viewerX=0;viewerY=0;}updateViewer();}
+    zoomInBtn.addEventListener('click',()=>setZoom(viewerScale*1.2));
+    zoomOutBtn.addEventListener('click',()=>setZoom(viewerScale/1.2));
+    resetZoomBtn.addEventListener('click',resetViewer);
+    planWrapper.addEventListener('wheel',e=>{e.preventDefault();setZoom(viewerScale*(e.deltaY<0?1.12:.89));},{passive:false});
+    planWrapper.addEventListener('pointerdown',e=>{if(viewerScale<=1)return;isDragging=true;pointerStartX=e.clientX;pointerStartY=e.clientY;startViewerX=viewerX;startViewerY=viewerY;planWrapper.setPointerCapture?.(e.pointerId);});
+    planWrapper.addEventListener('pointermove',e=>{if(!isDragging)return;viewerX=startViewerX+(e.clientX-pointerStartX);viewerY=startViewerY+(e.clientY-pointerStartY);updateViewer();});
+    const stopDragging=e=>{isDragging=false;try{planWrapper.releasePointerCapture?.(e.pointerId);}catch(_){}};
+    planWrapper.addEventListener('pointerup',stopDragging);planWrapper.addEventListener('pointercancel',stopDragging);planWrapper.addEventListener('dblclick',resetViewer);
+    fullscreenBtn.addEventListener('click',async()=>{try{if(!document.fullscreenElement){await viewerCard.requestFullscreen();}else{await document.exitFullscreen();}}catch(err){console.warn('No fue posible activar pantalla completa:',err);}});
+    document.addEventListener('fullscreenchange',resetViewer);
 
     document.addEventListener("contextmenu", (e) => { e.preventDefault(); });
     document.querySelectorAll("img").forEach(img => { img.setAttribute("draggable", "false"); });
