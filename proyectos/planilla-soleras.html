@@ -340,7 +340,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 15px;
-      padding: 13px 20px;
+      padding: 15px 20px;
       margin: 9px 0;
       box-shadow: 0 5px 18px rgba(0,0,0,.025);
     }
@@ -361,7 +361,7 @@
 
     .info-grid {
       display: grid;
-      grid-template-columns: minmax(150px, .9fr) 1fr;
+      grid-template-columns: minmax(160px, .78fr) 1.35fr;
     }
 
     .info-row {
@@ -386,10 +386,10 @@
 
     .description-text {
       color: var(--text-soft);
-      font-size: .69rem;
-      line-height: 1.55;
-      max-width: 880px;
-      margin-bottom: 12px;
+      font-size: .70rem;
+      line-height: 1.58;
+      max-width: 1040px;
+      margin-bottom: 13px;
     }
 
     .feature-grid {
@@ -405,8 +405,8 @@
       align-items: center;
       border: 1px solid var(--border);
       border-radius: 11px;
-      padding: 11px 12px;
-      min-height: 72px;
+      padding: 12px 13px;
+      min-height: 78px;
       background: var(--surface);
     }
 
@@ -442,8 +442,8 @@
 
     .feature-card p {
       color: var(--text-soft);
-      font-size: .61rem;
-      line-height: 1.35;
+      font-size: .62rem;
+      line-height: 1.42;
     }
 
     .back-wrap {
@@ -625,8 +625,8 @@
       <h1 data-key="titulo">Soleras, Cimientos y Columnas</h1>
 
       <div class="hero-tags">
-        <span class="tag" data-key="tag_estructural">Estructural</span>
         <span class="tag" data-key="tag_planta">Planta</span>
+        <span class="tag" data-key="tag_lectura">Ejes y cotas</span>
         <span class="tag">AutoCAD</span>
       </div>
     </section>
@@ -685,23 +685,23 @@
 
         <div class="info-grid">
           <div class="info-row">
-            <div class="info-label" data-key="disciplina_label">Disciplina:</div>
-            <div class="info-value" data-key="disciplina_valor">Estructural</div>
-          </div>
-
-          <div class="info-row">
             <div class="info-label" data-key="contenido_label">Contenido:</div>
             <div class="info-value" data-key="contenido_valor">Soleras · Cimientos · Columnas</div>
           </div>
 
           <div class="info-row">
-            <div class="info-label" data-key="software_label">Software:</div>
-            <div class="info-value">AutoCAD</div>
+            <div class="info-label" data-key="organizacion_label">Organización:</div>
+            <div class="info-value" data-key="organizacion_valor">Ejes estructurales · cotas generales · referencias de modulación</div>
           </div>
 
           <div class="info-row">
-            <div class="info-label" data-key="tipo_label">Tipo:</div>
-            <div class="info-value" data-key="tipo_valor">Planta estructural</div>
+            <div class="info-label" data-key="sistema_label">Sistema representado:</div>
+            <div class="info-value" data-key="sistema_valor">Elementos de amarre · cimentación · apoyos verticales</div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-label" data-key="representacion_label">Representación:</div>
+            <div class="info-value" data-key="representacion_valor">Planta estructural coordinada con cotas y referencias técnicas</div>
           </div>
         </div>
       </section>
@@ -713,7 +713,7 @@
         </h2>
 
         <p class="description-text" data-key="descripcion">
-          Referencia técnica de un trabajo previamente desarrollado. El plano muestra la organización general de los elementos estructurales y su relación dentro de la propuesta, conservando cotas, ejes y referencias necesarias para su lectura.
+          Plano estructural desarrollado para comunicar de forma ordenada la disposición de los principales elementos resistentes del proyecto. La representación integra ejes, cotas y referencias que permiten comprender la continuidad de las soleras, la implantación de los cimientos y la modulación de las columnas dentro de la planta.
         </p>
 
         <div class="feature-grid">
@@ -721,7 +721,7 @@
             <div class="feature-icon">▦</div>
             <div>
               <h3 data-key="feature_soleras_titulo">Soleras</h3>
-              <p data-key="feature_soleras_desc">Distribución y continuidad de los elementos de amarre estructural.</p>
+              <p data-key="feature_soleras_desc">Lectura de la continuidad y relación de los elementos de amarre que articulan el sistema estructural.</p>
             </div>
           </article>
 
@@ -729,7 +729,7 @@
             <div class="feature-icon">⌂</div>
             <div>
               <h3 data-key="feature_cimientos_titulo">Cimientos</h3>
-              <p data-key="feature_cimientos_desc">Ubicación y relación de los elementos de cimentación dentro de la planta.</p>
+              <p data-key="feature_cimientos_desc">Identificación de la disposición de los elementos de cimentación y su correspondencia con los apoyos de la planta.</p>
             </div>
           </article>
 
@@ -737,7 +737,7 @@
             <div class="feature-icon">I</div>
             <div>
               <h3 data-key="feature_columnas_titulo">Columnas</h3>
-              <p data-key="feature_columnas_desc">Modulación y posición de los apoyos verticales de la estructura.</p>
+              <p data-key="feature_columnas_desc">Modulación de los apoyos verticales y lectura de su posición respecto de ejes, vanos y elementos de cimentación.</p>
             </div>
           </article>
         </div>
@@ -787,23 +787,25 @@
         zoom_hint: "💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano",
 
         info_titulo: "Información del plano",
-        disciplina_label: "Disciplina:",
-        disciplina_valor: "Estructural",
         contenido_label: "Contenido:",
         contenido_valor: "Soleras · Cimientos · Columnas",
-        software_label: "Software:",
-        tipo_label: "Tipo:",
-        tipo_valor: "Planta estructural",
 
         descripcion_titulo: "Descripción",
-        descripcion: "Referencia técnica de un trabajo previamente desarrollado. El plano muestra la organización general de los elementos estructurales y su relación dentro de la propuesta, conservando cotas, ejes y referencias necesarias para su lectura.",
+        descripcion: "Plano estructural desarrollado para comunicar de forma ordenada la disposición de los principales elementos resistentes del proyecto. La representación integra ejes, cotas y referencias que permiten comprender la continuidad de las soleras, la implantación de los cimientos y la modulación de las columnas dentro de la planta.",
 
         feature_soleras_titulo: "Soleras",
-        feature_soleras_desc: "Distribución y continuidad de los elementos de amarre estructural.",
+        feature_soleras_desc: "Lectura de la continuidad y relación de los elementos de amarre que articulan el sistema estructural.",
         feature_cimientos_titulo: "Cimientos",
-        feature_cimientos_desc: "Ubicación y relación de los elementos de cimentación dentro de la planta.",
+        feature_cimientos_desc: "Identificación de la disposición de los elementos de cimentación y su correspondencia con los apoyos de la planta.",
         feature_columnas_titulo: "Columnas",
-        feature_columnas_desc: "Modulación y posición de los apoyos verticales de la estructura.",
+        feature_columnas_desc: "Modulación de los apoyos verticales y lectura de su posición respecto de ejes, vanos y elementos de cimentación.",
+        tag_lectura: "Ejes y cotas",
+        organizacion_label: "Organización:",
+        organizacion_valor: "Ejes estructurales · cotas generales · referencias de modulación",
+        sistema_label: "Sistema representado:",
+        sistema_valor: "Elementos de amarre · cimentación · apoyos verticales",
+        representacion_label: "Representación:",
+        representacion_valor: "Planta estructural coordinada con cotas y referencias técnicas",
 
         btn_volver: "← Volver a referencias",
         footer_rights: "Todos los derechos reservados",
@@ -838,23 +840,25 @@
         zoom_hint: "💡 Tip: Use the mouse wheel to zoom and drag to move around the drawing",
 
         info_titulo: "Drawing information",
-        disciplina_label: "Discipline:",
-        disciplina_valor: "Structural",
         contenido_label: "Content:",
         contenido_valor: "Beams · Foundations · Columns",
-        software_label: "Software:",
-        tipo_label: "Type:",
-        tipo_valor: "Structural plan",
 
         descripcion_titulo: "Description",
-        descripcion: "Technical reference from a previously developed project. The drawing shows the overall organization of the structural elements and their relationship within the proposal, keeping dimensions, axes and references needed for technical reading.",
+        descripcion: "Structural drawing developed to communicate the arrangement of the project’s main load-bearing elements in a clear and orderly manner. The representation integrates axes, dimensions and references that make it possible to understand the continuity of the tie elements, the placement of the foundations and the column grid throughout the plan.",
 
         feature_soleras_titulo: "Beams",
-        feature_soleras_desc: "Distribution and continuity of the structural tie elements.",
+        feature_soleras_desc: "Reading of the continuity and relationship between the tie elements that articulate the structural system.",
         feature_cimientos_titulo: "Foundations",
-        feature_cimientos_desc: "Location and relationship of foundation elements within the plan.",
+        feature_cimientos_desc: "Identification of the foundation layout and its relationship with the supporting elements of the plan.",
         feature_columnas_titulo: "Columns",
-        feature_columnas_desc: "Grid and position of the vertical structural supports.",
+        feature_columnas_desc: "Grid of the vertical supports and their position in relation to axes, openings and foundation elements.",
+        tag_lectura: "Axes and dimensions",
+        organizacion_label: "Organization:",
+        organizacion_valor: "Structural axes · overall dimensions · grid references",
+        sistema_label: "System shown:",
+        sistema_valor: "Tie elements · foundations · vertical supports",
+        representacion_label: "Representation:",
+        representacion_valor: "Coordinated structural plan with dimensions and technical references",
 
         btn_volver: "← Back to references",
         footer_rights: "All rights reserved",
@@ -889,23 +893,25 @@
         zoom_hint: "💡 Dica: Use a roda do mouse para aplicar zoom e arraste para se mover pelo desenho",
 
         info_titulo: "Informações do desenho",
-        disciplina_label: "Disciplina:",
-        disciplina_valor: "Estrutural",
         contenido_label: "Conteúdo:",
         contenido_valor: "Vergas · Fundações · Colunas",
-        software_label: "Software:",
-        tipo_label: "Tipo:",
-        tipo_valor: "Planta estrutural",
 
         descripcion_titulo: "Descrição",
-        descripcion: "Referência técnica de um trabalho previamente desenvolvido. O desenho mostra a organização geral dos elementos estruturais e sua relação dentro da proposta, mantendo cotas, eixos e referências necessárias para a leitura técnica.",
+        descripcion: "Desenho estrutural desenvolvido para comunicar de forma clara e ordenada a disposição dos principais elementos resistentes do projeto. A representação integra eixos, cotas e referências que permitem compreender a continuidade dos elementos de amarração, a implantação das fundações e a modulação das colunas na planta.",
 
         feature_soleras_titulo: "Vergas",
-        feature_soleras_desc: "Distribuição e continuidade dos elementos de amarração estrutural.",
+        feature_soleras_desc: "Leitura da continuidade e da relação dos elementos de amarração que articulam o sistema estrutural.",
         feature_cimientos_titulo: "Fundações",
-        feature_cimientos_desc: "Localização e relação dos elementos de fundação dentro da planta.",
+        feature_cimientos_desc: "Identificação da disposição dos elementos de fundação e de sua correspondência com os apoios da planta.",
         feature_columnas_titulo: "Colunas",
-        feature_columnas_desc: "Modulação e posição dos apoios verticais da estrutura.",
+        feature_columnas_desc: "Modulação dos apoios verticais e leitura de sua posição em relação aos eixos, vãos e elementos de fundação.",
+        tag_lectura: "Eixos e cotas",
+        organizacion_label: "Organização:",
+        organizacion_valor: "Eixos estruturais · cotas gerais · referências de modulação",
+        sistema_label: "Sistema representado:",
+        sistema_valor: "Elementos de amarração · fundações · apoios verticais",
+        representacion_label: "Representação:",
+        representacion_valor: "Planta estrutural coordenada com cotas e referências técnicas",
 
         btn_volver: "← Voltar às referências",
         footer_rights: "Todos os direitos reservados",
