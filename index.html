@@ -3,696 +3,1737 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geotectura · Construcción con excelencia</title>
+    <title>Geotectura · Arquitectura, construcción y territorio</title>
+
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.2s ease;
         }
 
         :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f8f8;
-            --bg-card: #fafafa;
-            --text-primary: #1a1a1a;
-            --text-secondary: #4a4a4a;
-            --border-light: #e8e8e8;
-            --accent: #2c2c2c;
-            --hero-overlay: rgba(0, 0, 0, 0.35);
-            --header-bg: rgba(255, 255, 255, 0.95);
-            --whatsapp: #25D366;
-            --instagram-start: #fdf497;
-            --instagram-mid: #fd5949;
-            --instagram-end: #d6249f;
-            --instagram-deep: #285AEB;
+            --bg-primary: #f6f4ef;
+            --bg-secondary: #ece9e2;
+            --bg-card: #ffffff;
+            --text-primary: #171916;
+            --text-secondary: #687068;
+            --border-light: rgba(23, 25, 22, 0.12);
+            --brand: #b56843;
+            --brand-dark: #8e4d31;
+            --brand-soft: #efe0d7;
+            --accent: #171916;
+            --header-bg: rgba(246, 244, 239, 0.90);
+            --shadow: 0 22px 70px rgba(30, 25, 20, 0.10);
+            --hero-overlay: rgba(13, 13, 12, 0.54);
+            --hero-overlay-2: rgba(13, 13, 12, 0.10);
+            --success: #2f7a4f;
+            --error: #b94141;
         }
 
         body.dark {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #121212;
-            --bg-card: #1e1e1e;
-            --text-primary: #ededed;
-            --text-secondary: #b0b0b0;
-            --border-light: #2a2a2a;
-            --accent: #3a3a3a;
-            --hero-overlay: rgba(0, 0, 0, 0.6);
-            --header-bg: rgba(18, 18, 18, 0.95);
+            --bg-primary: #111210;
+            --bg-secondary: #171815;
+            --bg-card: #1c1e1a;
+            --text-primary: #f1eee8;
+            --text-secondary: #aaa99f;
+            --border-light: rgba(255, 255, 255, 0.11);
+            --brand: #d0825d;
+            --brand-dark: #e39a77;
+            --brand-soft: #35251f;
+            --accent: #f1eee8;
+            --header-bg: rgba(17, 18, 16, 0.90);
+            --shadow: 0 28px 80px rgba(0,0,0,0.28);
+            --hero-overlay: rgba(5, 5, 5, 0.64);
+            --hero-overlay-2: rgba(5, 5, 5, 0.22);
         }
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.5;
+        html {
             scroll-behavior: smooth;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color .3s ease, color .2s ease;
         }
 
-        /* Header */
+        a {
+            color: inherit;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            width: min(1220px, calc(100% - 48px));
+            margin-inline: auto;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--brand);
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 30px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        .section-head {
+            display: grid;
+            grid-template-columns: 1fr minmax(300px, .78fr);
+            gap: 60px;
+            align-items: end;
+            margin-bottom: 48px;
+        }
+
+        .section-head h2,
+        .about-copy h2,
+        .contact-intro h2 {
+            font-size: clamp(2rem, 4.4vw, 4.6rem);
+            line-height: .98;
+            letter-spacing: -.055em;
+            font-weight: 600;
+            margin-top: 18px;
+        }
+
+        .section-head p,
+        .contact-intro > p,
+        .about-copy > p {
+            color: var(--text-secondary);
+            max-width: 620px;
+        }
+
+        /* ================= HEADER ================= */
         header {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--header-bg);
-            backdrop-filter: blur(16px);
+            inset: 0 0 auto 0;
             z-index: 1000;
-            padding: 18px 0;
             border-bottom: 1px solid var(--border-light);
+            background: var(--header-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
         }
 
         .nav-bar {
+            min-height: 72px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            justify-content: space-between;
+            gap: 28px;
         }
 
         .logo a {
-            font-size: 1.4rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
             text-decoration: none;
-            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: -.03em;
+            font-size: 1.05rem;
+            white-space: nowrap;
+        }
+
+        .logo-mark {
+            color: var(--brand);
+            margin-right: 6px;
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 19px;
             list-style: none;
-            flex-wrap: wrap;
             align-items: center;
         }
 
-        .nav-links a {
+        .nav-links > li > a {
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: .78rem;
             font-weight: 500;
+            color: var(--text-secondary);
+            transition: color .2s ease;
+        }
+
+        .nav-links > li > a:hover {
             color: var(--text-primary);
-            transition: opacity 0.2s;
         }
 
-        .nav-links a:hover {
-            opacity: 0.7;
-        }
-
-        /* Dropdown para servicios */
         .dropdown {
             position: relative;
-            display: inline-block;
         }
 
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: var(--bg-card);
-            min-width: 200px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 12px;
+            min-width: 240px;
+            top: calc(100% + 12px);
+            left: -18px;
+            padding: 8px;
+            background: var(--bg-card);
             border: 1px solid var(--border-light);
-            top: 100%;
+            box-shadow: var(--shadow);
+            border-radius: 14px;
+        }
+
+        .dropdown-content::before {
+            content: "";
+            position: absolute;
             left: 0;
-        }
-
-        .dropdown-content a {
-            color: var(--text-primary);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.8rem;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--bg-secondary);
-            opacity: 1;
+            right: 0;
+            top: -14px;
+            height: 14px;
         }
 
         .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        .lang-select {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            padding: 6px 12px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            cursor: pointer;
+        .dropdown-content a {
+            display: block;
+            padding: 11px 12px;
+            text-decoration: none;
+            font-size: .78rem;
+            color: var(--text-secondary);
+            border-radius: 8px;
+        }
+
+        .dropdown-content a:hover {
             color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .lang-select {
+            appearance: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            padding: 8px 30px 8px 12px;
+            border-radius: 9px;
+            font-size: .72rem;
+            cursor: pointer;
+            background-image:
+                linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%),
+                linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+            background-position:
+                calc(100% - 14px) 50%,
+                calc(100% - 10px) 50%;
+            background-size: 4px 4px, 4px 4px;
+            background-repeat: no-repeat;
         }
 
         .darkmode-toggle {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border-light);
             background: var(--accent);
-            border: none;
-            width: 38px;
-            height: 38px;
+            color: var(--bg-primary);
             border-radius: 50%;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
+            display: grid;
+            place-items: center;
+            transition: transform .2s ease;
         }
 
-        /* Hero con blur */
+        .darkmode-toggle:hover {
+            transform: rotate(8deg);
+        }
+
+        /* ================= HERO ================= */
         .hero {
-            min-height: 85vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
             position: relative;
-            margin-top: 70px;
+            min-height: 92vh;
+            margin-top: 72px;
+            display: flex;
+            align-items: flex-end;
+            color: #fff;
+            isolation: isolate;
+            overflow: hidden;
         }
 
         .hero::before {
-            content: '';
+            content: "";
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
+            z-index: -2;
+            background:
+                linear-gradient(90deg, var(--hero-overlay) 0%, rgba(8,8,8,.35) 48%, var(--hero-overlay-2) 100%),
+                url('imagenes/fondo.png') center / cover no-repeat;
+            transform: scale(1.015);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 45%;
+            z-index: -1;
+            background: linear-gradient(to top, rgba(0,0,0,.55), transparent);
+        }
+
+        .hero-inner {
             width: 100%;
-            height: 100%;
-            background-image: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('imagenes/fondo.png');
-            background-size: cover;
-            background-position: center;
-            filter: blur(4px);
-            z-index: 0;
+            padding: 100px 0 58px;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+            align-items: end;
+            gap: 64px;
         }
 
-        .hero-content h1 {
-            font-size: 3.8rem;
+        .hero-kicker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,.76);
+            text-transform: uppercase;
+            letter-spacing: .17em;
+            font-size: .72rem;
             font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 16px;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 22px;
         }
 
-        .hero-content p {
-            font-size: 1.2rem;
-            color: white;
-            font-weight: 300;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        .hero-kicker::before {
+            content: "";
+            width: 42px;
+            height: 1px;
+            background: var(--brand);
         }
 
-        /* Secciones */
-        section {
-            padding: 80px 0;
+        .hero h1 {
+            font-size: clamp(3.2rem, 7.2vw, 7.4rem);
+            line-height: .91;
+            letter-spacing: -.065em;
+            max-width: 880px;
+            font-weight: 600;
+        }
+
+        .hero h1 .accent-word {
+            color: #e8b197;
+        }
+
+        .hero-side {
+            border-left: 1px solid rgba(255,255,255,.25);
+            padding-left: 28px;
+            margin-bottom: 6px;
+        }
+
+        .hero-side p {
+            color: rgba(255,255,255,.78);
+            font-size: .98rem;
+            max-width: 390px;
+        }
+
+        .hero-actions {
+            margin-top: 28px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            min-height: 46px;
+            padding: 0 19px;
+            border-radius: 7px;
+            border: 1px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: .78rem;
+            font-weight: 600;
+            transition: transform .2s ease, background .2s ease, color .2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--brand);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-dark);
+        }
+
+        .btn-ghost {
+            background: rgba(255,255,255,.08);
+            border-color: rgba(255,255,255,.34);
+            color: white;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-meta {
+            margin-top: 58px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,.22);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 720px;
+        }
+
+        .hero-meta-item {
+            padding-right: 24px;
+        }
+
+        .hero-meta-item + .hero-meta-item {
+            border-left: 1px solid rgba(255,255,255,.2);
+            padding-left: 24px;
+        }
+
+        .hero-meta strong {
+            display: block;
+            font-size: 1.35rem;
+            letter-spacing: -.03em;
+        }
+
+        .hero-meta span {
+            color: rgba(255,255,255,.64);
+            font-size: .68rem;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        /* ================= ABOUT ================= */
+        .about {
+            padding: 110px 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 90px;
+            align-items: start;
+        }
+
+        .about-copy > p {
+            margin-top: 26px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .text-link {
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 28px;
+            text-decoration: none;
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--brand);
+        }
+
+        .text-link:hover {
+            gap: 14px;
+        }
+
+        .about-aside {
+            border-top: 1px solid var(--border-light);
+        }
+
+        .about-row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 28px;
+            padding: 25px 0;
             border-bottom: 1px solid var(--border-light);
         }
 
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 500;
-            margin-bottom: 48px;
-            text-align: center;
-            letter-spacing: -0.01em;
+        .about-row small {
+            color: var(--brand);
+            font-size: .68rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            font-weight: 700;
         }
 
-        .grid-2cols, .grid-3cols {
-            display: grid;
-            gap: 32px;
-        }
-
-        .grid-2cols { grid-template-columns: repeat(2, 1fr); }
-        .grid-3cols { grid-template-columns: repeat(3, 1fr); }
-
-        .service-card, .value-card {
-            background: var(--bg-card);
-            padding: 28px;
-            border-radius: 20px;
-            border: 1px solid var(--border-light);
-            transition: transform 0.25s, box-shadow 0.25s;
-            text-decoration: none;
-            display: block;
-            color: inherit;
-        }
-
-        .service-card:hover, .value-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.1);
-        }
-
-        .service-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-        }
-
-        .service-card p {
+        .about-row p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: .9rem;
         }
 
-        .btn-servicio {
-            display: inline-block;
-            margin-top: 16px;
+        /* ================= REFERENCES ================= */
+        .references {
+            padding: 110px 0;
+            background: var(--bg-secondary);
+        }
+
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .reference-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 480px;
+            background: #cbc8c1;
+            text-decoration: none;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .reference-card img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            inset: 0;
+            object-fit: cover;
+            filter: grayscale(.9) contrast(.92);
+            transform: scale(1.01);
+            transition: transform .5s ease, filter .5s ease;
+        }
+
+        .reference-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,.78) 0%, rgba(0,0,0,.08) 65%);
+        }
+
+        .reference-card:hover img {
+            transform: scale(1.055);
+            filter: grayscale(.2) contrast(.96);
+        }
+
+        .reference-content {
+            position: absolute;
+            inset: auto 0 0 0;
+            z-index: 2;
+            padding: 27px;
+        }
+
+        .reference-index {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+            font-size: .7rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.72);
+        }
+
+        .reference-content small {
+            color: #e8b197;
+            text-transform: uppercase;
+            letter-spacing: .13em;
+            font-size: .67rem;
+        }
+
+        .reference-content h3 {
+            margin-top: 8px;
+            font-size: 1.45rem;
+            line-height: 1.15;
+            letter-spacing: -.025em;
+        }
+
+        .reference-content p {
+            margin-top: 10px;
+            color: rgba(255,255,255,.70);
+            font-size: .8rem;
+        }
+
+        /* ================= SERVICES ================= */
+        .services {
+            padding: 110px 0;
+        }
+
+        .service-list {
+            border-top: 1px solid var(--border-light);
+        }
+
+        .service-item {
+            display: grid;
+            grid-template-columns: 80px minmax(220px, .7fr) 1fr 42px;
+            gap: 28px;
+            align-items: center;
+            padding: 30px 4px;
+            border-bottom: 1px solid var(--border-light);
+            text-decoration: none;
+            transition: padding .2s ease, background .2s ease;
+        }
+
+        .service-item:hover {
+            padding-left: 14px;
+            padding-right: 14px;
+            background: var(--bg-card);
+        }
+
+        .service-number {
+            color: var(--brand);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .13em;
+        }
+
+        .service-item h3 {
+            font-size: clamp(1.3rem, 2.2vw, 2rem);
             font-weight: 500;
-            color: var(--accent);
+            letter-spacing: -.035em;
         }
 
-        .valores-list {
+        .service-item p {
+            color: var(--text-secondary);
+            font-size: .86rem;
+            max-width: 520px;
+        }
+
+        .service-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            display: grid;
+            place-items: center;
+            color: var(--brand);
+            transition: background .2s ease, color .2s ease, transform .2s ease;
+        }
+
+        .service-item:hover .service-arrow {
+            background: var(--brand);
+            color: white;
+            transform: translateX(3px);
+        }
+
+        /* ================= PRINCIPLES ================= */
+        .principles {
+            padding: 110px 0;
+            background: var(--bg-secondary);
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .principle-card {
+            min-height: 310px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+        }
+
+        .principle-card .number {
+            color: var(--brand);
+            font-size: .73rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+        }
+
+        .principle-card h3 {
+            font-size: 1.75rem;
+            letter-spacing: -.035em;
+            margin-bottom: 14px;
+            font-weight: 500;
+        }
+
+        .principle-card p {
+            color: var(--text-secondary);
+            font-size: .86rem;
+        }
+
+        .values-wrap {
+            margin-top: 18px;
+        }
+
+        .values-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 30px;
+            gap: 8px;
         }
 
-        .valor-badge {
+        .value-badge {
+            padding: 7px 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-size: .69rem;
+        }
+
+        /* ================= CONTACT ================= */
+        .contact {
+            padding: 110px 0 70px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .contact-intro > p {
+            margin-top: 24px;
+            line-height: 1.8;
+        }
+
+        .contact-details {
+            margin-top: 40px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .contact-row {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 24px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .contact-row small {
+            text-transform: uppercase;
+            color: var(--brand);
+            font-size: .64rem;
+            letter-spacing: .11em;
+            font-weight: 700;
+        }
+
+        .contact-row p,
+        .contact-row a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: .86rem;
+        }
+
+        .contact-row a:hover {
+            color: var(--brand);
+        }
+
+        .contact-form-card {
+            padding: 34px;
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-size: 0.85rem;
+            box-shadow: var(--shadow);
+            border-radius: 4px;
         }
 
-        /* Estilos para el formulario de contacto */
+        .form-title {
+            font-size: 1.65rem;
+            letter-spacing: -.03em;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+        }
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 13px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 14px 18px;
-            border-radius: 40px;
             border: 1px solid var(--border-light);
             background: var(--bg-primary);
             color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.9rem;
+            padding: 14px 15px;
+            border-radius: 5px;
+            outline: none;
         }
 
         .form-group textarea {
-            border-radius: 24px;
             resize: vertical;
+            min-height: 130px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--brand);
         }
 
         .btn-enviar {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 500;
             width: 100%;
-            transition: opacity 0.2s;
+            min-height: 48px;
+            border: 0;
+            border-radius: 5px;
+            background: var(--brand);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
         }
 
         .btn-enviar:hover {
-            opacity: 0.8;
+            background: var(--brand-dark);
         }
 
-        /* Estilos para redes sociales con imágenes PNG */
-        .social-links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-        }
-
-        .social-icon:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .social-img {
-            width: 28px;
-            height: 28px;
-            display: block;
-        }
-
-        /* WhatsApp */
-        .social-whatsapp {
-            background-color: #25D366;
-        }
-
-        .social-whatsapp:hover {
-            background-color: #128C7E;
-        }
-
-        /* Instagram - gradiente oficial */
-        .social-instagram {
-            background: radial-gradient(circle at 30% 110%, 
-                #fdf497 0%, #fdf497 5%, 
-                #fd5949 45%, #d6249f 60%, 
-                #285AEB 90%);
-        }
-
-        /* Bloque de redes sociales al final */
-        .social-block {
+        .form-note {
+            color: var(--text-secondary);
+            font-size: .7rem;
             text-align: center;
-            margin-top: 48px;
-            padding-top: 32px;
-            border-top: 1px solid var(--border-light);
+            margin-top: 14px;
         }
 
-        .social-block h3 {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-
-        /* Mensaje de éxito del formulario */
         .form-message {
-            margin-top: 16px;
-            padding: 12px;
-            border-radius: 12px;
-            text-align: center;
             display: none;
+            margin-top: 14px;
+            padding: 11px 12px;
+            border-radius: 5px;
+            font-size: .78rem;
+            text-align: center;
         }
 
         .form-message.success {
-            background: #4CAF50;
-            color: white;
             display: block;
+            background: var(--success);
+            color: white;
         }
 
         .form-message.error {
-            background: #f44336;
-            color: white;
             display: block;
+            background: var(--error);
+            color: white;
         }
 
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            font-size: 0.8rem;
+        .social-strip {
+            margin-top: 68px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .social-strip p {
             color: var(--text-secondary);
+            font-size: .8rem;
         }
 
-        @media (max-width: 800px) {
-            .grid-2cols, .grid-3cols { grid-template-columns: 1fr; }
-            .hero-content h1 { font-size: 2.2rem; }
-            .nav-links { justify-content: center; }
-            .nav-bar { flex-direction: column; }
-            .dropdown-content { position: static; box-shadow: none; margin-top: 8px; }
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border-light);
+            background: var(--bg-card);
+            border-radius: 50%;
+            transition: transform .2s ease, border-color .2s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-2px);
+            border-color: var(--brand);
+        }
+
+        .social-img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            padding: 30px 0 38px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            color: var(--text-secondary);
+            font-size: .72rem;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 980px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-grid,
+            .about-grid,
+            .section-head,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-side {
+                max-width: 540px;
+                border-left: 0;
+                padding-left: 0;
+            }
+
+            .reference-grid,
+            .principles-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .section-head {
+                gap: 24px;
+            }
+
+            .about-grid,
+            .contact-grid {
+                gap: 50px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                width: min(100% - 30px, 1220px);
+            }
+
+            .nav-bar {
+                min-height: 64px;
+            }
+
+            .hero {
+                margin-top: 64px;
+                min-height: 88vh;
+            }
+
+            .hero-inner {
+                padding: 70px 0 34px;
+            }
+
+            .hero-meta {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin-top: 34px;
+            }
+
+            .hero-meta-item,
+            .hero-meta-item + .hero-meta-item {
+                padding: 0;
+                border: 0;
+            }
+
+            .about,
+            .references,
+            .services,
+            .principles,
+            .contact {
+                padding: 78px 0;
+            }
+
+            .reference-grid,
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reference-card {
+                min-height: 420px;
+            }
+
+            .service-item {
+                grid-template-columns: 52px 1fr 38px;
+                gap: 16px;
+            }
+
+            .service-item p {
+                grid-column: 2 / -1;
+                grid-row: 2;
+            }
+
+            .service-arrow {
+                grid-column: 3;
+                grid-row: 1;
+            }
+
+            .about-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .social-strip,
+            .footer-grid {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .contact-form-card {
+                padding: 24px;
+            }
         }
     </style>
 </head>
+
 <body>
 
 <header>
     <div class="container nav-bar">
-        <div class="logo"><a href="index.html">◈ GEOTECTURA</a></div>
+        <div class="logo">
+            <a href="index.html"><span class="logo-mark">◈</span>GEOTECTURA</a>
+        </div>
+
         <ul class="nav-links">
             <li><a href="#inicio" data-key="nav_inicio">Inicio</a></li>
+
             <li class="dropdown">
-                <a href="#" data-key="nav_servicios">Servicios ▼</a>
+                <a href="#servicios" data-key="nav_servicios">Servicios ↓</a>
                 <div class="dropdown-content">
-                    <a href="servicio-topografia.html" data-key="serv_topografia">📐 Cálculo topografía</a>
-                    <a href="servicio-urbanismo.html" data-key="serv_urbanismo">🏙️ Urbanismo</a>
-                    <a href="servicio-parques.html" data-key="serv_parques">🎢 Parques temáticos</a>
-                    <a href="servicio-direccion.html" data-key="serv_direccion">📊 Dirección obra</a>
-                    <a href="servicio-reformas.html" data-key="serv_reformas">🔄 Reformas integrales</a>
-                    <a href="servicio-asesoria.html" data-key="serv_asesoria">⚙️ Asesoría técnica</a>
+                    <a href="servicio-topografia.html" data-key="serv_topografia">Cálculo topografía</a>
+                    <a href="servicio-urbanismo.html" data-key="serv_urbanismo">Urbanismo</a>
+                    <a href="servicio-parques.html" data-key="serv_parques">Parques temáticos</a>
+                    <a href="servicio-direccion.html" data-key="serv_direccion">Dirección de obra</a>
+                    <a href="servicio-reformas.html" data-key="serv_reformas">Reformas integrales</a>
+                    <a href="servicio-asesoria.html" data-key="serv_asesoria">Asesoría técnica</a>
                 </div>
             </li>
+
             <li><a href="portafolio.html" data-key="nav_proyectos">Referencias</a></li>
             <li><a href="nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
             <li><a href="#contacto" data-key="nav_contacto">Contacto</a></li>
             <li><a href="equipo.html" data-key="nav_equipo">Equipo</a></li>
-            <li><select class="lang-select" id="langSelect"><option value="es">🇪🇸 ES</option><option value="en">🇬🇧 EN</option><option value="pt">🇵🇹 PT</option></select></li>
-            <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
         </ul>
+
+        <div class="nav-controls">
+            <select class="lang-select" id="langSelect" aria-label="Idioma">
+                <option value="es">ES</option>
+                <option value="en">EN</option>
+                <option value="pt">PT</option>
+            </select>
+            <button class="darkmode-toggle" id="darkModeToggle" aria-label="Cambiar tema">◐</button>
+        </div>
     </div>
 </header>
 
 <main>
+
+    <!-- ================= HERO ================= -->
     <section id="inicio" class="hero">
-        <div class="hero-content">
-            <h1 data-key="hero_title">Geotectura</h1>
-            <p data-key="hero_subtitle">Construimos espacios que transforman vidas</p>
+        <div class="hero-inner">
+            <div class="container">
+                <div class="hero-grid">
+                    <div>
+                        <div class="hero-kicker" data-key="hero_kicker">Arquitectura · Construcción · Territorio</div>
+                        <h1>
+                            <span data-key="hero_title_1">Diseñamos espacios.</span><br>
+                            <span class="accent-word" data-key="hero_title_2">Construimos posibilidades.</span>
+                        </h1>
+                    </div>
+
+                    <div class="hero-side">
+                        <p data-key="hero_subtitle">
+                            Soluciones técnicas y arquitectónicas que integran precisión, funcionalidad y una visión contemporánea del espacio.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a href="portafolio.html" class="btn btn-primary" data-key="hero_btn_refs">Ver referencias →</a>
+                            <a href="#contacto" class="btn btn-ghost" data-key="hero_btn_contact">Solicitar asesoría</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-meta">
+                    <div class="hero-meta-item">
+                        <strong>2025</strong>
+                        <span data-key="hero_meta_1">Fundación</span>
+                    </div>
+                    <div class="hero-meta-item">
+                        <strong>06</strong>
+                        <span data-key="hero_meta_2">Áreas de servicio</span>
+                    </div>
+                    <div class="hero-meta-item">
+                        <strong>GT</strong>
+                        <span data-key="hero_meta_3">Guatemala</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Descripción de la empresa -->
-    <section id="empresa">
+    <!-- ================= ABOUT ================= -->
+    <section class="about" id="empresa">
+        <div class="container about-grid">
+            <div class="about-copy">
+                <span class="eyebrow" data-key="about_eyebrow">Sobre Geotectura</span>
+                <h2 data-key="empresa_title">Arquitectura y construcción con criterio técnico.</h2>
+                <p data-key="empresa_desc">
+                    Geotectura es una empresa de proyectos de construcción fundada en 2025. Desarrollamos soluciones para vivienda, edificación, espacios comerciales e infraestructura, integrando calidad, seguridad, planificación y una ejecución responsable.
+                </p>
+                <a href="nosotros.html" class="text-link" data-key="about_link">Conocer Geotectura →</a>
+            </div>
+
+            <div class="about-aside">
+                <div class="about-row">
+                    <small data-key="about_label_1">Enfoque</small>
+                    <p data-key="about_value_1">Diseño funcional, precisión técnica y soluciones claras para cada etapa del proyecto.</p>
+                </div>
+                <div class="about-row">
+                    <small data-key="about_label_2">Compromiso</small>
+                    <p data-key="about_value_2">Calidad, seguridad, cumplimiento y comunicación transparente con cada cliente.</p>
+                </div>
+                <div class="about-row">
+                    <small data-key="about_label_3">Visión</small>
+                    <p data-key="about_value_3">Crear espacios que respondan al contexto, aporten valor y puedan evolucionar con el tiempo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= REFERENCES ================= -->
+    <section class="references">
         <div class="container">
-            <h2 class="section-title" data-key="empresa_title">¿Quiénes somos?</h2>
-            <div style="max-width: 900px; margin: 0 auto; text-align: center; background: var(--bg-card); padding: 48px; border-radius: 32px;">
-                <p style="color: var(--text-secondary); font-size: 1.1rem;" data-key="empresa_desc">
-                    Geotectura es una empresa de proyectos de construcción fundada en 2025. Ofrecemos servicios de construcción de viviendas, edificios, locales comerciales y obras de infraestructura, garantizando calidad, seguridad y cumplimiento de los plazos establecidos. Contamos con un equipo de profesionales capacitados utilizando materiales de alta calidad para satisfacer las necesidades de nuestros clientes. Nuestro compromiso es brindar soluciones innovadoras y eficientes, contribuyendo al desarrollo de las comunidades y al crecimiento del sector de la construcción.
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow" data-key="refs_eyebrow">Trabajo seleccionado</span>
+                    <h2 data-key="refs_title">Referencias técnicas que muestran cómo trabajamos.</h2>
+                </div>
+                <div>
+                    <p data-key="refs_desc">
+                        Una selección de planillas, detalles y fachadas desarrolladas como referencia del criterio gráfico y técnico de Geotectura.
+                    </p>
+                    <a href="portafolio.html" class="text-link" data-key="refs_link">Explorar todas las referencias →</a>
+                </div>
+            </div>
+
+            <div class="reference-grid">
+                <a class="reference-card" href="proyectos/planilla-soleras.html">
+                    <span class="reference-index">01 / 03</span>
+                    <img src="imagenes/planilla-soleras.webp" alt="Detalle de soleras, cimientos y columnas">
+                    <div class="reference-content">
+                        <small data-key="ref1_cat">Estructura</small>
+                        <h3 data-key="ref1_title">Detalle de Soleras, Cimientos y Columnas</h3>
+                        <p data-key="ref1_desc">Planilla estructural con cotas, ejes, secciones y referencias de armado.</p>
+                    </div>
+                </a>
+
+                <a class="reference-card" href="proyectos/planilla-ventanas.html">
+                    <span class="reference-index">02 / 03</span>
+                    <img src="imagenes/planilla-ventanas.webp" alt="Detalle de ventanas">
+                    <div class="reference-content">
+                        <small data-key="ref2_cat">Carpintería</small>
+                        <h3 data-key="ref2_title">Detalle de Ventanas</h3>
+                        <p data-key="ref2_desc">Planilla gráfica de tipologías, dimensiones y especificaciones de ventanas.</p>
+                    </div>
+                </a>
+
+                <a class="reference-card" href="proyectos/fachada-principal.html">
+                    <span class="reference-index">03 / 03</span>
+                    <img src="imagenes/fachada-principal.webp" alt="Fachada principal">
+                    <div class="reference-content">
+                        <small data-key="ref3_cat">Fachada</small>
+                        <h3 data-key="ref3_title">Fachada Principal</h3>
+                        <p data-key="ref3_desc">Elevación arquitectónica con vanos, acabados y lectura general del proyecto.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section class="services" id="servicios">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow" data-key="services_eyebrow">Servicios</span>
+                    <h2 data-key="servicios_title">Del territorio al detalle constructivo.</h2>
+                </div>
+                <p data-key="services_intro">
+                    Nuestro trabajo combina análisis, diseño, coordinación y acompañamiento técnico para resolver proyectos de distintas escalas.
                 </p>
             </div>
-        </div>
-    </section>
 
-    <!-- Misión y Visión -->
-    <section id="mision-vision">
-        <div class="container">
-            <div class="grid-2cols">
-                <div class="service-card">
-                    <h3>🎯 <span data-key="mision_title">Misión</span></h3>
-                    <p style="color: var(--text-secondary);" data-key="mision_text">Brindar servicios de construcción de alta calidad, desarrollando proyectos seguros, innovadores y sostenibles que satisfagan las necesidades de nuestros clientes, mediante el trabajo de un equipo profesional comprometido con la excelencia y la responsabilidad.</p>
-                </div>
-                <div class="service-card">
-                    <h3>👁️ <span data-key="vision_title">Visión</span></h3>
-                    <p style="color: var(--text-secondary);" data-key="vision_text">Ser una empresa líder en el sector de la construcción, reconocida por la calidad de sus obras, la innovación en sus procesos y el compromiso con el desarrollo de las comunidades, contribuyendo al crecimiento del país.</p>
-                </div>
+            <div class="service-list">
+                <a href="servicio-topografia.html" class="service-item">
+                    <span class="service-number">01</span>
+                    <h3 data-key="serv_topografia_titulo">Cálculo topográfico</h3>
+                    <p data-key="serv_topografia_desc">Levantamientos, curvas de nivel y modelos 3D para comprender el terreno antes de proyectar.</p>
+                    <span class="service-arrow">→</span>
+                </a>
+
+                <a href="servicio-urbanismo.html" class="service-item">
+                    <span class="service-number">02</span>
+                    <h3 data-key="serv_urbanismo_titulo">Urbanismo</h3>
+                    <p data-key="serv_urbanismo_desc">Planificación de espacios públicos, plazas y propuestas de regeneración urbana.</p>
+                    <span class="service-arrow">→</span>
+                </a>
+
+                <a href="servicio-parques.html" class="service-item">
+                    <span class="service-number">03</span>
+                    <h3 data-key="serv_parques_titulo">Parques temáticos</h3>
+                    <p data-key="serv_parques_desc">Masterplan, experiencia del visitante, diseño narrativo y paisajismo inmersivo.</p>
+                    <span class="service-arrow">→</span>
+                </a>
+
+                <a href="servicio-direccion.html" class="service-item">
+                    <span class="service-number">04</span>
+                    <h3 data-key="serv_direccion_titulo">Dirección de obra</h3>
+                    <p data-key="serv_direccion_desc">Gestión, presupuestos, coordinación y control de calidad durante la ejecución.</p>
+                    <span class="service-arrow">→</span>
+                </a>
+
+                <a href="servicio-reformas.html" class="service-item">
+                    <span class="service-number">05</span>
+                    <h3 data-key="serv_reformas_titulo">Reformas integrales</h3>
+                    <p data-key="serv_reformas_desc">Transformación de viviendas, locales y espacios existentes con una nueva lógica de uso.</p>
+                    <span class="service-arrow">→</span>
+                </a>
+
+                <a href="servicio-asesoria.html" class="service-item">
+                    <span class="service-number">06</span>
+                    <h3 data-key="serv_asesoria_titulo">Asesoría técnica</h3>
+                    <p data-key="serv_asesoria_desc">Acompañamiento estructural, constructivo y normativo para tomar mejores decisiones.</p>
+                    <span class="service-arrow">→</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Valores -->
-    <section id="valores">
+    <!-- ================= PRINCIPLES ================= -->
+    <section class="principles">
         <div class="container">
-            <h2 class="section-title" data-key="valores_title">Nuestros Valores</h2>
-            <div class="valores-list" id="valoresContainer"></div>
-        </div>
-    </section>
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow" data-key="principles_eyebrow">Nuestra forma de trabajar</span>
+                    <h2 data-key="principles_title">Una base clara para cada proyecto.</h2>
+                </div>
+                <p data-key="principles_intro">
+                    Más que llenar la página de declaraciones, resumimos nuestra filosofía en tres ideas que orientan las decisiones del estudio.
+                </p>
+            </div>
 
-    <!-- Servicios (6 tarjetas) -->
-    <section id="servicios">
-        <div class="container">
-            <h2 class="section-title" data-key="servicios_title">Servicios</h2>
-            <div class="grid-3cols">
-                <a href="servicio-topografia.html" class="service-card"><h3>📐 <span data-key="serv_topografia_titulo">Cálculo topografía</span></h3><p data-key="serv_topografia_desc">Levantamientos, curvas de nivel, modelos 3D de terreno.</p><span class="btn-servicio" data-key="ver_mas">Ver más →</span></a>
-                <a href="servicio-urbanismo.html" class="service-card"><h3>🏙️ <span data-key="serv_urbanismo_titulo">Urbanismo</span></h3><p data-key="serv_urbanismo_desc">Espacios públicos, plazas, regeneración urbana.</p><span class="btn-servicio" data-key="ver_mas">Ver más →</span></a>
-                <a href="servicio-parques.html" class="service-card"><h3>🎢 <span data-key="serv_parques_titulo">Parques temáticos</span></h3><p data-key="serv_parques_desc">Masterplan, diseño narrativo y paisajismo inmersivo.</p><span class="btn-servicio" data-key="ver_mas">Ver más →</span></a>
-                <a href="servicio-direccion.html" class="service-card"><h3>📊 <span data-key="serv_direccion_titulo">Dirección obra</span></h3><p data-key="serv_direccion_desc">Gestión, presupuestos y control de calidad.</p><span class="btn-servicio" data-key="ver_mas">Ver más →</span></a>
-                <a href="servicio-reformas.html" class="service-card"><h3>🔄 <span data-key="serv_reformas_titulo">Reformas integrales</span></h3><p data-key="serv_reformas_desc">Casas, parques, locales: transformamos cualquier espacio.</p><span class="btn-servicio" data-key="ver_mas">Ver más →</span></a>
-                <a href="servicio-asesoria.html" class="service-card"><h3>⚙️ <span data-key="serv_asesoria_titulo">Asesoría técnica</span></h3><p data-key="serv_asesoria_desc">Consultoría estructural y normativa.</p><span class="btn-servicio" data-key="ver_mas">Ver más →</span></a>
+            <div class="principles-grid">
+                <article class="principle-card">
+                    <span class="number">01</span>
+                    <div>
+                        <h3 data-key="mision_title">Misión</h3>
+                        <p data-key="mision_text">Brindar servicios de construcción de alta calidad, desarrollando proyectos seguros, innovadores y sostenibles mediante un trabajo profesional y responsable.</p>
+                    </div>
+                </article>
+
+                <article class="principle-card">
+                    <span class="number">02</span>
+                    <div>
+                        <h3 data-key="vision_title">Visión</h3>
+                        <p data-key="vision_text">Consolidarnos como una empresa reconocida por la calidad de sus obras, la innovación en sus procesos y su aporte al entorno construido.</p>
+                    </div>
+                </article>
+
+                <article class="principle-card">
+                    <span class="number">03</span>
+                    <div>
+                        <h3 data-key="valores_title">Valores</h3>
+                        <div class="values-wrap">
+                            <div class="values-list" id="valoresContainer"></div>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Contacto con formulario funcional y redes sociales -->
-    <section id="contacto">
+    <!-- ================= CONTACT ================= -->
+    <section class="contact" id="contacto">
         <div class="container">
-            <h2 class="section-title" data-key="contacto_title">Contacto</h2>
-            <div class="grid-2cols">
-                <!-- Información de contacto -->
-                <div class="service-card">
-                    <h3>📬 <span data-key="info_contacto">Información de contacto</span></h3>
-                    <p style="margin: 16px 0;">📧 <strong>Email:</strong> <a href="mailto:geotecturagt@gmail.com" style="color: var(--accent);">geotecturagt@gmail.com</a></p>
-                    <p style="margin: 16px 0;">📞 <strong>Teléfono:</strong> <a href="tel:+50220033002" style="color: var(--accent);">+502 2003 3002</a></p>
-                    <p style="margin: 16px 0;">📍 <strong>Ubicación:</strong> Ciudad de Guatemala</p>
-                    <p style="margin: 16px 0;">🕒 <strong data-key="horario">Horario:</strong> Lunes a Viernes · 8am - 6pm</p>
-                </div>
-
-                <!-- Formulario de contacto -->
-                <div class="service-card">
-                    <h3>✉️ <span data-key="formulario_titulo">Escríbenos</span></h3>
-                    <form id="contactForm" action="https://formspree.io/f/xlgkoegw" method="POST">
-                        <div class="form-group">
-                            <input type="text" name="nombre" placeholder="Nombre completo" required data-key="form_nombre">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" placeholder="Correo electrónico" required data-key="form_email">
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" name="telefono" placeholder="Teléfono (opcional)" data-key="form_telefono">
-                        </div>
-                        <div class="form-group">
-                            <textarea name="mensaje" rows="4" placeholder="¿En qué podemos ayudarte?" required data-key="form_mensaje"></textarea>
-                        </div>
-                        <button type="submit" class="btn-enviar" data-key="form_enviar">Enviar mensaje →</button>
-                    </form>
-                    <div id="formMessage" class="form-message"></div>
-                    <p style="font-size: 0.7rem; text-align: center; margin-top: 16px; color: var(--text-secondary);">
-                        📬 <span data-key="form_nota">Tu mensaje nos llegará por correo electrónico. Te responderemos a la brevedad.</span>
+            <div class="contact-grid">
+                <div class="contact-intro">
+                    <span class="eyebrow" data-key="contact_eyebrow">Contacto</span>
+                    <h2 data-key="contacto_title">Conversemos sobre tu próximo proyecto.</h2>
+                    <p data-key="contact_intro">
+                        Cuéntanos qué necesitas. Podemos ayudarte a ordenar el alcance, evaluar posibilidades y definir el siguiente paso técnico.
                     </p>
+
+                    <div class="contact-details">
+                        <div class="contact-row">
+                            <small>Email</small>
+                            <a href="mailto:geotecturagt@gmail.com">geotecturagt@gmail.com</a>
+                        </div>
+                        <div class="contact-row">
+                            <small data-key="contact_phone">Teléfono</small>
+                            <a href="tel:+50220033002">+502 2003 3002</a>
+                        </div>
+                        <div class="contact-row">
+                            <small data-key="contact_location">Ubicación</small>
+                            <p data-key="contact_location_value">Ciudad de Guatemala</p>
+                        </div>
+                        <div class="contact-row">
+                            <small data-key="horario">Horario</small>
+                            <p data-key="contact_schedule">Lunes a viernes · 8:00–18:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-card">
+                    <h3 class="form-title" data-key="formulario_titulo">Cuéntanos sobre tu proyecto</h3>
+
+                    <form id="contactForm" action="https://formspree.io/f/xlgkoegw" method="POST">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <input type="text" name="nombre" placeholder="Nombre completo" required data-key="form_nombre">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Correo electrónico" required data-key="form_email">
+                            </div>
+
+                            <div class="form-group full">
+                                <input type="tel" name="telefono" placeholder="Teléfono (opcional)" data-key="form_telefono">
+                            </div>
+
+                            <div class="form-group full">
+                                <textarea name="mensaje" placeholder="¿En qué podemos ayudarte?" required data-key="form_mensaje"></textarea>
+                            </div>
+
+                            <div class="form-group full">
+                                <button type="submit" class="btn-enviar" data-key="form_enviar">Enviar mensaje →</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div id="formMessage" class="form-message"></div>
+                    <p class="form-note" data-key="form_nota">Tu mensaje llegará directamente a nuestro correo. Te responderemos a la brevedad.</p>
                 </div>
             </div>
 
-            <!-- Redes sociales - Ahora fuera del grid, al final de la sección -->
-            <div class="social-block">
-                <h3>📱 <span data-key="redes_sociales">Síguenos</span></h3>
+            <div class="social-strip">
+                <p data-key="social_text">También puedes contactarnos directamente por WhatsApp o seguir nuestro trabajo en Instagram.</p>
+
                 <div class="social-links">
-                    <a href="https://wa.me/50220033002?text=Hola%20Geotectura,%20me%20interesa%20recibir%20más%20información%20sobre%20sus%20servicios" 
-                       class="social-icon social-whatsapp" 
-                       target="_blank" 
-                       rel="noopener noreferrer">
+                    <a href="https://wa.me/50220033002?text=Hola%20Geotectura,%20me%20interesa%20recibir%20más%20información%20sobre%20sus%20servicios"
+                       class="social-icon"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="WhatsApp">
                         <img src="imagenes/mensajeria.png" alt="WhatsApp" class="social-img">
                     </a>
-                    <a href="https://www.instagram.com/geotecturagt?igsh=MTA4ZmUxbnhibWNseQ==" 
-                       class="social-icon social-instagram" 
-                       target="_blank" 
-                       rel="noopener noreferrer">
+
+                    <a href="https://www.instagram.com/geotecturagt?igsh=MTA4ZmUxbnhibWNseQ=="
+                       class="social-icon"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="Instagram">
                         <img src="imagenes/instagram.png" alt="Instagram" class="social-img">
                     </a>
                 </div>
-                <p style="font-size: 0.75rem; margin-top: 16px; color: var(--text-secondary);">
-                    <span data-key="click_redes">Haz clic en los iconos para contactarnos directamente</span>
-                </p>
             </div>
         </div>
     </section>
+
 </main>
 
 <footer>
-    <div class="container">
-        <p>© 2026 Geotectura · Fundada en 2025</p>
-        <p style="margin-top: 8px;">Construimos calidad, seguridad y desarrollo</p>
+    <div class="container footer-grid">
+        <p>© 2026 GEOTECTURA · Guatemala</p>
+        <p data-key="footer_text">Arquitectura · Construcción · Territorio</p>
     </div>
 </footer>
 
 <script>
-    // Diccionario de textos
     const texts = {
         es: {
-            nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Referencias", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo",
-            serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica",
-            hero_title: "Geotectura", hero_subtitle: "Construimos espacios que transforman vidas",
-            empresa_title: "¿Quiénes somos?",
-            empresa_desc: "Geotectura es una empresa de proyectos de construcción fundada en 2025. Ofrecemos servicios de construcción de viviendas, edificios, locales comerciales y obras de infraestructura, garantizando calidad, seguridad y cumplimiento de los plazos establecidos. Contamos con un equipo de profesionales capacitados utilizando materiales de alta calidad para satisfacer las necesidades de nuestros clientes. Nuestro compromiso es brindar soluciones innovadoras y eficientes, contribuyendo al desarrollo de las comunidades y al crecimiento del sector de la construcción.",
-            mision_title: "Misión", mision_text: "Brindar servicios de construcción de alta calidad, desarrollando proyectos seguros, innovadores y sostenibles que satisfagan las necesidades de nuestros clientes, mediante el trabajo de un equipo profesional comprometido con la excelencia y la responsabilidad.",
-            vision_title: "Visión", vision_text: "Ser una empresa líder en el sector de la construcción, reconocida por la calidad de sus obras, la innovación en sus procesos y el compromiso con el desarrollo de las comunidades, contribuyendo al crecimiento del país.",
-            valores_title: "Nuestros Valores",
-            valores_list: ["Responsabilidad", "Compromiso", "Calidad", "Seguridad", "Trabajo en equipo", "Respeto", "Honestidad", "Innovación", "Sostenibilidad ambiental"],
-            servicios_title: "Servicios",
-            serv_topografia_titulo: "Cálculo topografía", serv_topografia_desc: "Levantamientos, curvas de nivel, modelos 3D de terreno.",
-            serv_urbanismo_titulo: "Urbanismo", serv_urbanismo_desc: "Espacios públicos, plazas, regeneración urbana.",
-            serv_parques_titulo: "Parques temáticos", serv_parques_desc: "Masterplan, diseño narrativo y paisajismo inmersivo.",
-            serv_direccion_titulo: "Dirección obra", serv_direccion_desc: "Gestión, presupuestos y control de calidad.",
-            serv_reformas_titulo: "Reformas integrales", serv_reformas_desc: "Casas, parques, locales: transformamos cualquier espacio.",
-            serv_asesoria_titulo: "Asesoría técnica", serv_asesoria_desc: "Consultoría estructural y normativa.",
-            contacto_title: "Contacto", horario: "Horario", ver_mas: "Ver más →",
-            info_contacto: "Información de contacto", redes_sociales: "Síguenos", click_redes: "Haz clic en los iconos para contactarnos directamente",
-            formulario_titulo: "Escríbenos", form_nombre: "Nombre completo", form_email: "Correo electrónico", form_telefono: "Teléfono (opcional)", form_mensaje: "¿En qué podemos ayudarte?", form_enviar: "Enviar mensaje →", form_nota: "Tu mensaje nos llegará por correo electrónico. Te responderemos a la brevedad."
+            nav_inicio: "Inicio",
+            nav_servicios: "Servicios ↓",
+            nav_proyectos: "Referencias",
+            nav_nosotros: "Nosotros",
+            nav_contacto: "Contacto",
+            nav_equipo: "Equipo",
+
+            serv_topografia: "Cálculo topografía",
+            serv_urbanismo: "Urbanismo",
+            serv_parques: "Parques temáticos",
+            serv_direccion: "Dirección de obra",
+            serv_reformas: "Reformas integrales",
+            serv_asesoria: "Asesoría técnica",
+
+            hero_kicker: "Arquitectura · Construcción · Territorio",
+            hero_title_1: "Diseñamos espacios.",
+            hero_title_2: "Construimos posibilidades.",
+            hero_subtitle: "Soluciones técnicas y arquitectónicas que integran precisión, funcionalidad y una visión contemporánea del espacio.",
+            hero_btn_refs: "Ver referencias →",
+            hero_btn_contact: "Solicitar asesoría",
+            hero_meta_1: "Fundación",
+            hero_meta_2: "Áreas de servicio",
+            hero_meta_3: "Guatemala",
+
+            about_eyebrow: "Sobre Geotectura",
+            empresa_title: "Arquitectura y construcción con criterio técnico.",
+            empresa_desc: "Geotectura es una empresa de proyectos de construcción fundada en 2025. Desarrollamos soluciones para vivienda, edificación, espacios comerciales e infraestructura, integrando calidad, seguridad, planificación y una ejecución responsable.",
+            about_link: "Conocer Geotectura →",
+            about_label_1: "Enfoque",
+            about_value_1: "Diseño funcional, precisión técnica y soluciones claras para cada etapa del proyecto.",
+            about_label_2: "Compromiso",
+            about_value_2: "Calidad, seguridad, cumplimiento y comunicación transparente con cada cliente.",
+            about_label_3: "Visión",
+            about_value_3: "Crear espacios que respondan al contexto, aporten valor y puedan evolucionar con el tiempo.",
+
+            refs_eyebrow: "Trabajo seleccionado",
+            refs_title: "Referencias técnicas que muestran cómo trabajamos.",
+            refs_desc: "Una selección de planillas, detalles y fachadas desarrolladas como referencia del criterio gráfico y técnico de Geotectura.",
+            refs_link: "Explorar todas las referencias →",
+            ref1_cat: "Estructura",
+            ref1_title: "Detalle de Soleras, Cimientos y Columnas",
+            ref1_desc: "Planilla estructural con cotas, ejes, secciones y referencias de armado.",
+            ref2_cat: "Carpintería",
+            ref2_title: "Detalle de Ventanas",
+            ref2_desc: "Planilla gráfica de tipologías, dimensiones y especificaciones de ventanas.",
+            ref3_cat: "Fachada",
+            ref3_title: "Fachada Principal",
+            ref3_desc: "Elevación arquitectónica con vanos, acabados y lectura general del proyecto.",
+
+            services_eyebrow: "Servicios",
+            servicios_title: "Del territorio al detalle constructivo.",
+            services_intro: "Nuestro trabajo combina análisis, diseño, coordinación y acompañamiento técnico para resolver proyectos de distintas escalas.",
+            serv_topografia_titulo: "Cálculo topográfico",
+            serv_topografia_desc: "Levantamientos, curvas de nivel y modelos 3D para comprender el terreno antes de proyectar.",
+            serv_urbanismo_titulo: "Urbanismo",
+            serv_urbanismo_desc: "Planificación de espacios públicos, plazas y propuestas de regeneración urbana.",
+            serv_parques_titulo: "Parques temáticos",
+            serv_parques_desc: "Masterplan, experiencia del visitante, diseño narrativo y paisajismo inmersivo.",
+            serv_direccion_titulo: "Dirección de obra",
+            serv_direccion_desc: "Gestión, presupuestos, coordinación y control de calidad durante la ejecución.",
+            serv_reformas_titulo: "Reformas integrales",
+            serv_reformas_desc: "Transformación de viviendas, locales y espacios existentes con una nueva lógica de uso.",
+            serv_asesoria_titulo: "Asesoría técnica",
+            serv_asesoria_desc: "Acompañamiento estructural, constructivo y normativo para tomar mejores decisiones.",
+
+            principles_eyebrow: "Nuestra forma de trabajar",
+            principles_title: "Una base clara para cada proyecto.",
+            principles_intro: "Más que llenar la página de declaraciones, resumimos nuestra filosofía en tres ideas que orientan las decisiones del estudio.",
+            mision_title: "Misión",
+            mision_text: "Brindar servicios de construcción de alta calidad, desarrollando proyectos seguros, innovadores y sostenibles mediante un trabajo profesional y responsable.",
+            vision_title: "Visión",
+            vision_text: "Consolidarnos como una empresa reconocida por la calidad de sus obras, la innovación en sus procesos y su aporte al entorno construido.",
+            valores_title: "Valores",
+            valores_list: ["Responsabilidad", "Compromiso", "Calidad", "Seguridad", "Trabajo en equipo", "Respeto", "Honestidad", "Innovación", "Sostenibilidad"],
+
+            contact_eyebrow: "Contacto",
+            contacto_title: "Conversemos sobre tu próximo proyecto.",
+            contact_intro: "Cuéntanos qué necesitas. Podemos ayudarte a ordenar el alcance, evaluar posibilidades y definir el siguiente paso técnico.",
+            contact_phone: "Teléfono",
+            contact_location: "Ubicación",
+            contact_location_value: "Ciudad de Guatemala",
+            horario: "Horario",
+            contact_schedule: "Lunes a viernes · 8:00–18:00",
+            formulario_titulo: "Cuéntanos sobre tu proyecto",
+            form_nombre: "Nombre completo",
+            form_email: "Correo electrónico",
+            form_telefono: "Teléfono (opcional)",
+            form_mensaje: "¿En qué podemos ayudarte?",
+            form_enviar: "Enviar mensaje →",
+            form_nota: "Tu mensaje llegará directamente a nuestro correo. Te responderemos a la brevedad.",
+            social_text: "También puedes contactarnos directamente por WhatsApp o seguir nuestro trabajo en Instagram.",
+            footer_text: "Arquitectura · Construcción · Territorio",
+
+            form_success: "Mensaje enviado con éxito. Te contactaremos pronto.",
+            form_error: "Hubo un error al enviar el mensaje. Intenta nuevamente o escríbenos directamente."
         },
+
         en: {
-            nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "References", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
-            serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory",
-            hero_title: "Geotectura", hero_subtitle: "We build spaces that transform lives",
-            empresa_title: "Who we are?",
-            empresa_desc: "Geotectura is a construction project company founded in 2025. We offer construction services for homes, buildings, commercial spaces and infrastructure works, guaranteeing quality, safety and compliance with established deadlines.",
-            mision_title: "Mission", mision_text: "To provide high-quality construction services, developing safe, innovative and sustainable projects that satisfy the needs of our clients.",
-            vision_title: "Vision", vision_text: "To be a leading company in the construction sector, recognized for the quality of its works, innovation in its processes and commitment to community development.",
-            valores_title: "Our Values",
-            valores_list: ["Responsibility", "Commitment", "Quality", "Safety", "Teamwork", "Respect", "Honesty", "Innovation", "Environmental Sustainability"],
-            servicios_title: "Services",
-            serv_topografia_titulo: "Topography calculation", serv_topografia_desc: "Surveys, contour lines, 3D terrain models.",
-            serv_urbanismo_titulo: "Urbanism", serv_urbanismo_desc: "Public spaces, squares, urban regeneration.",
-            serv_parques_titulo: "Theme parks", serv_parques_desc: "Masterplan, narrative design, immersive landscaping.",
-            serv_direccion_titulo: "Construction management", serv_direccion_desc: "Management, budgets, quality control.",
-            serv_reformas_titulo: "Integral renovations", serv_reformas_desc: "Homes, parks, venues: we transform any space.",
-            serv_asesoria_titulo: "Technical advisory", serv_asesoria_desc: "Structural and regulatory consulting.",
-            contacto_title: "Contact", horario: "Schedule", ver_mas: "View more →",
-            info_contacto: "Contact information", redes_sociales: "Follow us", click_redes: "Click on the icons to contact us directly",
-            formulario_titulo: "Write to us", form_nombre: "Full name", form_email: "Email", form_telefono: "Phone (optional)", form_mensaje: "How can we help you?", form_enviar: "Send message →", form_nota: "Your message will be sent by email. We will respond shortly."
+            nav_inicio: "Home",
+            nav_servicios: "Services ↓",
+            nav_proyectos: "References",
+            nav_nosotros: "About",
+            nav_contacto: "Contact",
+            nav_equipo: "Team",
+
+            serv_topografia: "Topography",
+            serv_urbanismo: "Urbanism",
+            serv_parques: "Theme parks",
+            serv_direccion: "Construction management",
+            serv_reformas: "Renovations",
+            serv_asesoria: "Technical advisory",
+
+            hero_kicker: "Architecture · Construction · Territory",
+            hero_title_1: "We design spaces.",
+            hero_title_2: "We build possibilities.",
+            hero_subtitle: "Technical and architectural solutions that combine precision, functionality and a contemporary vision of space.",
+            hero_btn_refs: "View references →",
+            hero_btn_contact: "Request advisory",
+            hero_meta_1: "Founded",
+            hero_meta_2: "Service areas",
+            hero_meta_3: "Guatemala",
+
+            about_eyebrow: "About Geotectura",
+            empresa_title: "Architecture and construction with technical criteria.",
+            empresa_desc: "Geotectura is a construction project company founded in 2025. We develop solutions for housing, buildings, commercial spaces and infrastructure, integrating quality, safety, planning and responsible execution.",
+            about_link: "Discover Geotectura →",
+            about_label_1: "Approach",
+            about_value_1: "Functional design, technical precision and clear solutions for every stage of the project.",
+            about_label_2: "Commitment",
+            about_value_2: "Quality, safety, compliance and transparent communication with every client.",
+            about_label_3: "Vision",
+            about_value_3: "Create spaces that respond to context, add value and can evolve over time.",
+
+            refs_eyebrow: "Selected work",
+            refs_title: "Technical references that show how we work.",
+            refs_desc: "A selection of schedules, details and facades presented as a reference of Geotectura's graphic and technical criteria.",
+            refs_link: "Explore all references →",
+            ref1_cat: "Structure",
+            ref1_title: "Beams, Foundations and Columns Detail",
+            ref1_desc: "Structural schedule with dimensions, axes, sections and reinforcement references.",
+            ref2_cat: "Carpentry",
+            ref2_title: "Window Detail",
+            ref2_desc: "Graphic schedule of window types, dimensions and specifications.",
+            ref3_cat: "Facade",
+            ref3_title: "Main Facade",
+            ref3_desc: "Architectural elevation showing openings, finishes and the general reading of the project.",
+
+            services_eyebrow: "Services",
+            servicios_title: "From territory to construction detail.",
+            services_intro: "Our work combines analysis, design, coordination and technical support to solve projects at different scales.",
+            serv_topografia_titulo: "Topography",
+            serv_topografia_desc: "Surveys, contour lines and 3D models to understand the terrain before designing.",
+            serv_urbanismo_titulo: "Urbanism",
+            serv_urbanismo_desc: "Planning of public spaces, plazas and urban regeneration proposals.",
+            serv_parques_titulo: "Theme parks",
+            serv_parques_desc: "Masterplan, visitor experience, narrative design and immersive landscaping.",
+            serv_direccion_titulo: "Construction management",
+            serv_direccion_desc: "Management, budgets, coordination and quality control during execution.",
+            serv_reformas_titulo: "Renovations",
+            serv_reformas_desc: "Transformation of homes, commercial spaces and existing environments with a new use logic.",
+            serv_asesoria_titulo: "Technical advisory",
+            serv_asesoria_desc: "Structural, construction and regulatory support for better decision-making.",
+
+            principles_eyebrow: "How we work",
+            principles_title: "A clear foundation for every project.",
+            principles_intro: "Rather than filling the page with statements, we summarize our philosophy in three ideas that guide our decisions.",
+            mision_title: "Mission",
+            mision_text: "Provide high-quality construction services through safe, innovative and sustainable projects delivered with professional and responsible work.",
+            vision_title: "Vision",
+            vision_text: "Become a company recognized for the quality of its work, innovation in its processes and contribution to the built environment.",
+            valores_title: "Values",
+            valores_list: ["Responsibility", "Commitment", "Quality", "Safety", "Teamwork", "Respect", "Honesty", "Innovation", "Sustainability"],
+
+            contact_eyebrow: "Contact",
+            contacto_title: "Let's talk about your next project.",
+            contact_intro: "Tell us what you need. We can help organize the scope, evaluate possibilities and define the next technical step.",
+            contact_phone: "Phone",
+            contact_location: "Location",
+            contact_location_value: "Guatemala City",
+            horario: "Schedule",
+            contact_schedule: "Monday to Friday · 8:00–18:00",
+            formulario_titulo: "Tell us about your project",
+            form_nombre: "Full name",
+            form_email: "Email",
+            form_telefono: "Phone (optional)",
+            form_mensaje: "How can we help you?",
+            form_enviar: "Send message →",
+            form_nota: "Your message will arrive directly in our inbox. We will get back to you shortly.",
+            social_text: "You can also contact us directly via WhatsApp or follow our work on Instagram.",
+            footer_text: "Architecture · Construction · Territory",
+
+            form_success: "Message sent successfully. We will contact you soon.",
+            form_error: "There was an error sending your message. Please try again or contact us directly."
         },
+
         pt: {
-            nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Referências", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
-            serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria",
-            hero_title: "Geotectura", hero_subtitle: "Construímos espaços que transformam vidas",
-            empresa_title: "Quem somos?",
-            empresa_desc: "Geotectura é uma empresa de projetos de construção fundada em 2025. Oferecemos serviços de construção de casas, edifícios, espaços comerciais e obras de infraestrutura, garantindo qualidade, segurança e cumprimento dos prazos estabelecidos.",
-            mision_title: "Missão", mision_text: "Oferecer serviços de construção de alta qualidade, desenvolvendo projetos seguros, inovadores e sustentáveis que atendam às necessidades dos nossos clientes.",
-            vision_title: "Visão", vision_text: "Ser uma empresa líder no setor da construção, reconhecida pela qualidade das suas obras, inovação nos seus processos e compromisso com o desenvolvimento das comunidades.",
-            valores_title: "Nossos Valores",
-            valores_list: ["Responsabilidade", "Compromisso", "Qualidade", "Segurança", "Trabalho em equipe", "Respeito", "Honestidade", "Inovação", "Sustentabilidade ambiental"],
-            servicios_title: "Serviços",
-            serv_topografia_titulo: "Cálculo topográfico", serv_topografia_desc: "Levantamentos, curvas de nível, modelos 3D de terreno.",
-            serv_urbanismo_titulo: "Urbanismo", serv_urbanismo_desc: "Espaços públicos, praças, regeneração urbana.",
-            serv_parques_titulo: "Parques temáticos", serv_parques_desc: "Masterplan, design narrativo, paisagismo imersivo.",
-            serv_direccion_titulo: "Gestão de obras", serv_direccion_desc: "Gestão, orçamentos, controle de qualidade.",
-            serv_reformas_titulo: "Reformas integrais", serv_reformas_desc: "Casas, parques, locais: transformamos qualquer espaço.",
-            serv_asesoria_titulo: "Assessoria técnica", serv_asesoria_desc: "Consultoria estrutural e normativa.",
-            contacto_title: "Contato", horario: "Horário", ver_mas: "Ver mais →",
-            info_contacto: "Informações de contato", redes_sociales: "Siga-nos", click_redes: "Clique nos ícones para nos contatar diretamente",
-            formulario_titulo: "Escreva-nos", form_nombre: "Nome completo", form_email: "E-mail", form_telefono: "Telefone (opcional)", form_mensaje: "Como podemos ajudá-lo?", form_enviar: "Enviar mensagem →", form_nota: "Sua mensagem será enviada por e-mail. Responderemos em breve."
+            nav_inicio: "Início",
+            nav_servicios: "Serviços ↓",
+            nav_proyectos: "Referências",
+            nav_nosotros: "Sobre",
+            nav_contacto: "Contato",
+            nav_equipo: "Equipe",
+
+            serv_topografia: "Topografia",
+            serv_urbanismo: "Urbanismo",
+            serv_parques: "Parques temáticos",
+            serv_direccion: "Gestão de obras",
+            serv_reformas: "Reformas integrais",
+            serv_asesoria: "Assessoria técnica",
+
+            hero_kicker: "Arquitetura · Construção · Território",
+            hero_title_1: "Projetamos espaços.",
+            hero_title_2: "Construímos possibilidades.",
+            hero_subtitle: "Soluções técnicas e arquitetônicas que integram precisão, funcionalidade e uma visão contemporânea do espaço.",
+            hero_btn_refs: "Ver referências →",
+            hero_btn_contact: "Solicitar assessoria",
+            hero_meta_1: "Fundação",
+            hero_meta_2: "Áreas de serviço",
+            hero_meta_3: "Guatemala",
+
+            about_eyebrow: "Sobre a Geotectura",
+            empresa_title: "Arquitetura e construção com critério técnico.",
+            empresa_desc: "A Geotectura é uma empresa de projetos de construção fundada em 2025. Desenvolvemos soluções para habitação, edifícios, espaços comerciais e infraestrutura, integrando qualidade, segurança, planejamento e execução responsável.",
+            about_link: "Conhecer a Geotectura →",
+            about_label_1: "Abordagem",
+            about_value_1: "Design funcional, precisão técnica e soluções claras para cada etapa do projeto.",
+            about_label_2: "Compromisso",
+            about_value_2: "Qualidade, segurança, cumprimento e comunicação transparente com cada cliente.",
+            about_label_3: "Visão",
+            about_value_3: "Criar espaços que respondam ao contexto, agreguem valor e possam evoluir ao longo do tempo.",
+
+            refs_eyebrow: "Trabalho selecionado",
+            refs_title: "Referências técnicas que mostram como trabalhamos.",
+            refs_desc: "Uma seleção de planilhas, detalhes e fachadas apresentada como referência do critério gráfico e técnico da Geotectura.",
+            refs_link: "Explorar todas as referências →",
+            ref1_cat: "Estrutura",
+            ref1_title: "Detalhe de Vigas, Fundações e Colunas",
+            ref1_desc: "Planilha estrutural com cotas, eixos, seções e referências de armadura.",
+            ref2_cat: "Esquadrias",
+            ref2_title: "Detalhe de Janelas",
+            ref2_desc: "Planilha gráfica de tipologias, dimensões e especificações de janelas.",
+            ref3_cat: "Fachada",
+            ref3_title: "Fachada Principal",
+            ref3_desc: "Elevação arquitetônica com vãos, acabamentos e leitura geral do projeto.",
+
+            services_eyebrow: "Serviços",
+            servicios_title: "Do território ao detalhe construtivo.",
+            services_intro: "Nosso trabalho combina análise, projeto, coordenação e acompanhamento técnico para resolver projetos em diferentes escalas.",
+            serv_topografia_titulo: "Topografia",
+            serv_topografia_desc: "Levantamentos, curvas de nível e modelos 3D para compreender o terreno antes de projetar.",
+            serv_urbanismo_titulo: "Urbanismo",
+            serv_urbanismo_desc: "Planejamento de espaços públicos, praças e propostas de regeneração urbana.",
+            serv_parques_titulo: "Parques temáticos",
+            serv_parques_desc: "Masterplan, experiência do visitante, design narrativo e paisagismo imersivo.",
+            serv_direccion_titulo: "Gestão de obras",
+            serv_direccion_desc: "Gestão, orçamentos, coordenação e controle de qualidade durante a execução.",
+            serv_reformas_titulo: "Reformas integrais",
+            serv_reformas_desc: "Transformação de residências, espaços comerciais e ambientes existentes com uma nova lógica de uso.",
+            serv_asesoria_titulo: "Assessoria técnica",
+            serv_asesoria_desc: "Acompanhamento estrutural, construtivo e normativo para decisões melhores.",
+
+            principles_eyebrow: "Nossa forma de trabalhar",
+            principles_title: "Uma base clara para cada projeto.",
+            principles_intro: "Em vez de preencher a página com declarações, resumimos nossa filosofia em três ideias que orientam nossas decisões.",
+            mision_title: "Missão",
+            mision_text: "Oferecer serviços de construção de alta qualidade por meio de projetos seguros, inovadores e sustentáveis, desenvolvidos com trabalho profissional e responsável.",
+            vision_title: "Visão",
+            vision_text: "Consolidar-nos como uma empresa reconhecida pela qualidade das obras, inovação nos processos e contribuição ao ambiente construído.",
+            valores_title: "Valores",
+            valores_list: ["Responsabilidade", "Compromisso", "Qualidade", "Segurança", "Trabalho em equipe", "Respeito", "Honestidade", "Inovação", "Sustentabilidade"],
+
+            contact_eyebrow: "Contato",
+            contacto_title: "Vamos conversar sobre seu próximo projeto.",
+            contact_intro: "Conte-nos o que você precisa. Podemos ajudar a organizar o escopo, avaliar possibilidades e definir o próximo passo técnico.",
+            contact_phone: "Telefone",
+            contact_location: "Localização",
+            contact_location_value: "Cidade da Guatemala",
+            horario: "Horário",
+            contact_schedule: "Segunda a sexta · 8:00–18:00",
+            formulario_titulo: "Conte-nos sobre seu projeto",
+            form_nombre: "Nome completo",
+            form_email: "E-mail",
+            form_telefono: "Telefone (opcional)",
+            form_mensaje: "Como podemos ajudá-lo?",
+            form_enviar: "Enviar mensagem →",
+            form_nota: "Sua mensagem chegará diretamente ao nosso e-mail. Responderemos em breve.",
+            social_text: "Você também pode entrar em contato diretamente pelo WhatsApp ou acompanhar nosso trabalho no Instagram.",
+            footer_text: "Arquitetura · Construção · Território",
+
+            form_success: "Mensagem enviada com sucesso. Entraremos em contato em breve.",
+            form_error: "Houve um erro ao enviar sua mensagem. Tente novamente ou entre em contato diretamente."
         }
     };
 
     function changeLanguage(lang) {
         localStorage.setItem('geotectura_lang', lang);
+
+        document.documentElement.lang = lang;
+
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
-            if (texts[lang] && texts[lang][key]) {
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    el.placeholder = texts[lang][key];
-                } else {
-                    el.innerHTML = texts[lang][key];
-                }
+            const value = texts[lang]?.[key];
+
+            if (!value) return;
+
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = value;
+            } else {
+                el.textContent = value;
             }
         });
-        if (texts[lang].valores_list) {
-            const valoresContainer = document.getElementById('valoresContainer');
-            valoresContainer.innerHTML = texts[lang].valores_list.map(v => `<span class="valor-badge">${v}</span>`).join('');
+
+        const valoresContainer = document.getElementById('valoresContainer');
+        if (valoresContainer && texts[lang]?.valores_list) {
+            valoresContainer.innerHTML = texts[lang].valores_list
+                .map(v => `<span class="value-badge">${v}</span>`)
+                .join('');
         }
     }
 
     const savedLang = localStorage.getItem('geotectura_lang') || 'es';
     const langSelect = document.getElementById('langSelect');
+
     if (langSelect) {
         langSelect.value = savedLang;
         changeLanguage(savedLang);
-        langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+        langSelect.addEventListener('change', e => changeLanguage(e.target.value));
     }
 
-    const theme = localStorage.getItem('geotectura_theme');
-    if (theme === 'dark') document.body.classList.add('dark');
+    const savedTheme = localStorage.getItem('geotectura_theme');
     const toggleBtn = document.getElementById('darkModeToggle');
+
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+    }
+
+    function updateThemeIcon() {
+        if (!toggleBtn) return;
+        const dark = document.body.classList.contains('dark');
+        toggleBtn.textContent = dark ? '☀' : '◐';
+        toggleBtn.setAttribute('aria-label', dark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+    }
+
+    updateThemeIcon();
+
     if (toggleBtn) {
-        if (theme === 'dark') toggleBtn.textContent = '☀️';
         toggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark');
-            const isDark = document.body.classList.contains('dark');
-            localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light');
-            toggleBtn.textContent = isDark ? '☀️' : '🌙';
+            const dark = document.body.classList.contains('dark');
+            localStorage.setItem('geotectura_theme', dark ? 'dark' : 'light');
+            updateThemeIcon();
         });
     }
 
-    // Manejo del formulario con Formspree
     const form = document.getElementById('contactForm');
     const formMessage = document.getElementById('formMessage');
 
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
+            const lang = localStorage.getItem('geotectura_lang') || 'es';
             const formData = new FormData(form);
-            
+
             try {
                 const response = await fetch(form.action, {
                     method: 'POST',
@@ -701,23 +1742,24 @@
                         'Accept': 'application/json'
                     }
                 });
-                
-                if (response.ok) {
-                    formMessage.className = 'form-message success';
-                    formMessage.textContent = '✅ ¡Mensaje enviado con éxito! Te contactaremos pronto.';
-                    form.reset();
-                    
-                    setTimeout(() => {
-                        formMessage.className = 'form-message';
-                        formMessage.textContent = '';
-                    }, 5000);
-                } else {
+
+                if (!response.ok) {
                     throw new Error('Error en el envío');
                 }
+
+                formMessage.className = 'form-message success';
+                formMessage.textContent = texts[lang].form_success;
+                form.reset();
+
+                setTimeout(() => {
+                    formMessage.className = 'form-message';
+                    formMessage.textContent = '';
+                }, 5000);
+
             } catch (error) {
                 formMessage.className = 'form-message error';
-                formMessage.textContent = '❌ Hubo un error al enviar el mensaje. Por favor, intenta nuevamente o escríbenos directamente a info@geotectura.com';
-                
+                formMessage.textContent = texts[lang].form_error;
+
                 setTimeout(() => {
                     formMessage.className = 'form-message';
                     formMessage.textContent = '';
@@ -726,5 +1768,6 @@
         });
     }
 </script>
+
 </body>
 </html>
