@@ -308,89 +308,107 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0,1fr));
-            gap: 20px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            align-items: stretch;
         }
 
-        /* NUEVO ESTILO DE CUADROS */
+        /* Tarjeta compacta: imagen controlada + contenido equilibrado */
         .member-card {
+            position: relative;
             display: flex;
             flex-direction: column;
-            min-height: 100%;
+            min-width: 0;
+            min-height: 430px;
+            padding: 22px 22px 24px;
             overflow: hidden;
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            border-radius: 24px;
-            box-shadow: 0 16px 45px rgba(30,25,20,.06);
+            border-radius: 22px;
+            box-shadow: 0 14px 38px rgba(30,25,20,.055);
             transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
         }
 
         .member-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow);
-            border-color: color-mix(in srgb, var(--brand) 35%, var(--border-light));
+            border-color: color-mix(in srgb, var(--brand) 38%, var(--border-light));
         }
 
+        /*
+           La foto ya no ocupa medio cuadro.
+           Se presenta como retrato circular controlado para evitar
+           recortes gigantes y mantener visibles los rostros.
+        */
         .member-photo-wrap {
             position: relative;
-            height: 300px;
+            width: 168px;
+            height: 168px;
+            flex: 0 0 168px;
+            margin: 4px auto 24px;
             overflow: hidden;
+            border-radius: 50%;
             background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-light);
+            border: 1px solid var(--border-light);
         }
 
         .member-photo {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center top;
         }
 
         .member-index {
             position: absolute;
-            top: 16px;
-            left: 16px;
+            top: 18px;
+            left: 18px;
+            z-index: 3;
             min-width: 38px;
             height: 28px;
             padding: 0 10px;
             border-radius: 999px;
-            background: rgba(18,18,18,.72);
-            color: white;
+            background: var(--accent);
+            color: var(--bg-primary);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(8px);
             font-size: .66rem;
             font-weight: 700;
             letter-spacing: .08em;
         }
 
         .member-info {
-            padding: 26px 28px 28px;
             display: flex;
+            flex: 1;
             flex-direction: column;
-            gap: 10px;
+            padding: 0;
+            text-align: left;
         }
 
         .member-role {
             color: var(--brand);
-            font-size: .68rem;
+            font-size: .64rem;
             font-weight: 700;
-            letter-spacing: .12em;
+            line-height: 1.45;
+            letter-spacing: .11em;
             text-transform: uppercase;
+            margin-bottom: 9px;
         }
 
         .member-info h3 {
-            font-size: 1.7rem;
+            font-size: 1.35rem;
             line-height: 1.08;
             letter-spacing: -.035em;
             font-weight: 600;
+            margin-bottom: 12px;
         }
 
         .member-info p {
             color: var(--text-secondary);
-            font-size: .88rem;
-            line-height: 1.78;
-            max-width: 48ch;
+            font-size: .79rem;
+            line-height: 1.68;
+            max-width: none;
         }
 
         /* ================= GROWTH ================= */
@@ -540,7 +558,7 @@
             }
 
             .team-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
             .team-cta-inner {
@@ -567,8 +585,19 @@
                 padding: 78px 0;
             }
 
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .member-card {
+                min-height: 0;
+            }
+
             .member-photo-wrap {
-                height: 260px;
+                width: 150px;
+                height: 150px;
+                flex-basis: 150px;
+                margin-bottom: 20px;
             }
 
             .open-grid {
@@ -1016,4 +1045,3 @@
 
 </body>
 </html>
-
