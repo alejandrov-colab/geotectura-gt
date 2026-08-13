@@ -309,17 +309,18 @@
         .team-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0,1fr));
-            gap: 18px;
+            gap: 20px;
         }
 
+        /* NUEVO ESTILO DE CUADROS */
         .member-card {
-            display: grid;
-            grid-template-columns: 180px 1fr;
-            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
             overflow: hidden;
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            border-radius: 20px;
+            border-radius: 24px;
             box-shadow: 0 16px 45px rgba(30,25,20,.06);
             transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
         }
@@ -332,8 +333,10 @@
 
         .member-photo-wrap {
             position: relative;
-            background: var(--bg-secondary);
+            height: 300px;
             overflow: hidden;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .member-photo {
@@ -362,9 +365,10 @@
         }
 
         .member-info {
-            padding: 28px 28px 26px;
+            padding: 26px 28px 28px;
             display: flex;
             flex-direction: column;
+            gap: 10px;
         }
 
         .member-role {
@@ -373,21 +377,20 @@
             font-weight: 700;
             letter-spacing: .12em;
             text-transform: uppercase;
-            margin-bottom: 10px;
         }
 
         .member-info h3 {
-            font-size: 1.55rem;
+            font-size: 1.7rem;
             line-height: 1.08;
             letter-spacing: -.035em;
             font-weight: 600;
-            margin-bottom: 16px;
         }
 
         .member-info p {
             color: var(--text-secondary);
-            font-size: .86rem;
-            line-height: 1.75;
+            font-size: .88rem;
+            line-height: 1.78;
+            max-width: 48ch;
         }
 
         /* ================= GROWTH ================= */
@@ -564,12 +567,8 @@
                 padding: 78px 0;
             }
 
-            .member-card {
-                grid-template-columns: 1fr;
-            }
-
             .member-photo-wrap {
-                height: 300px;
+                height: 260px;
             }
 
             .open-grid {
@@ -636,7 +635,6 @@
 
 <main>
 
-    <!-- ================= HERO ================= -->
     <section class="team-hero">
         <div class="container hero-grid">
             <div>
@@ -672,7 +670,6 @@
         </div>
     </section>
 
-    <!-- ================= TEAM ================= -->
     <section class="team-section">
         <div class="container">
             <div class="section-head">
@@ -737,7 +734,6 @@
         </div>
     </section>
 
-    <!-- ================= GROWTH ================= -->
     <section class="growth">
         <div class="container growth-grid">
             <div class="growth-copy">
@@ -768,7 +764,6 @@
         </div>
     </section>
 
-    <!-- ================= CTA ================= -->
     <section class="team-cta">
         <div class="container team-cta-inner">
             <div class="cta-copy">
@@ -870,8 +865,8 @@
             serv_asesoria:"Technical advisory",
 
             hero_kicker:"Team / Geotectura",
-            hero_title_1:"Our",
-            hero_title_2:"team.",
+            hero_title_1:"Our team",
+            hero_title_2:"people.",
             hero_text:"Professionals passionate about construction, committed to excellence and to bringing technical judgment to every stage of the project.",
             discipline_1:"Project management",
             discipline_2:"BIM coordination",
@@ -932,8 +927,8 @@
             serv_asesoria:"Assessoria técnica",
 
             hero_kicker:"Equipe / Geotectura",
-            hero_title_1:"Nossa",
-            hero_title_2:"equipe.",
+            hero_title_1:"Nossa equipe",
+            hero_title_2:"humana.",
             hero_text:"Profissionais apaixonados pela construção, comprometidos com a excelência e em aportar critério técnico em cada etapa do projeto.",
             discipline_1:"Gestão de projetos",
             discipline_2:"Coordenação BIM",
