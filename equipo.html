@@ -4,209 +4,1021 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geotectura · Equipo</title>
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.2s ease; }
-        :root { --bg-primary: #ffffff; --bg-secondary: #f8f8f8; --bg-card: #fafafa; --text-primary: #1a1a1a; --text-secondary: #4a4a4a; --border-light: #e8e8e8; --accent: #2c2c2c; --header-bg: rgba(255, 255, 255, 0.95); }
-        body.dark { --bg-primary: #0a0a0a; --bg-secondary: #121212; --bg-card: #1e1e1e; --text-primary: #ededed; --text-secondary: #b0b0b0; --border-light: #2a2a2a; --accent: #3a3a3a; --header-bg: rgba(18, 18, 18, 0.95); }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
         @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        header { position: fixed; top: 0; left: 0; width: 100%; background: var(--header-bg); backdrop-filter: blur(16px); z-index: 1000; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
-        .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-        .logo a { font-size: 1.4rem; font-weight: 600; text-decoration: none; color: var(--text-primary); }
-        .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; align-items: center; }
-        .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--text-primary); transition: opacity 0.2s; }
-        .nav-links a:hover, .nav-links a.active { opacity: 0.7; }
-        .dropdown { position: relative; display: inline-block; }
-        .dropdown-content { display: none; position: absolute; background-color: var(--bg-card); min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 12px; border: 1px solid var(--border-light); top: 100%; left: 0; }
-        .dropdown-content a { color: var(--text-primary); padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; }
-        .dropdown-content a:hover { background-color: var(--bg-secondary); opacity: 1; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f6f4ef;
+            --bg-secondary: #ece9e2;
+            --bg-card: #ffffff;
+            --text-primary: #171916;
+            --text-secondary: #687068;
+            --border-light: rgba(23,25,22,.12);
+            --brand: #b56843;
+            --brand-dark: #8e4d31;
+            --brand-soft: #efe0d7;
+            --accent: #171916;
+            --header-bg: rgba(246,244,239,.92);
+            --shadow: 0 22px 70px rgba(30,25,20,.10);
+        }
+
+        body.dark {
+            --bg-primary: #111210;
+            --bg-secondary: #171815;
+            --bg-card: #1c1e1a;
+            --text-primary: #f1eee8;
+            --text-secondary: #aaa99f;
+            --border-light: rgba(255,255,255,.11);
+            --brand: #d0825d;
+            --brand-dark: #e39a77;
+            --brand-soft: #35251f;
+            --accent: #f1eee8;
+            --header-bg: rgba(17,18,16,.92);
+            --shadow: 0 28px 80px rgba(0,0,0,.28);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color .3s ease, color .2s ease;
+        }
+
+        a { color: inherit; }
+        button, select { font: inherit; }
+        img { display: block; max-width: 100%; }
+
+        .container {
+            width: min(1220px, calc(100% - 48px));
+            margin-inline: auto;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--brand);
+            font-size: .70rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 30px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        /* ================= HEADER ================= */
+        header {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--header-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .nav-bar {
+            min-height: 76px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .logo a {
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            white-space: nowrap;
+        }
+
+        .logo-mark {
+            color: var(--brand);
+            margin-right: 6px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 19px;
+        }
+
+        .nav-links > li > a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: .82rem;
+            font-weight: 500;
+            transition: color .2s ease;
+        }
+
+        .nav-links > li > a:hover,
+        .nav-links > li > a.active {
+            color: var(--text-primary);
+        }
+
+        .dropdown { position: relative; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 12px);
+            left: -18px;
+            min-width: 240px;
+            padding: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+            border-radius: 14px;
+        }
+
+        .dropdown-content::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -14px;
+            height: 14px;
+        }
+
         .dropdown:hover .dropdown-content { display: block; }
-        .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
-        .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
-        .hero-equipo { background: var(--bg-secondary); padding: 140px 0 60px; text-align: center; border-bottom: 1px solid var(--border-light); }
-        .hero-equipo h1 { font-size: 2.8rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
-        .hero-equipo p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
-        .grid-equipo { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 48px; padding: 60px 0; }
-        .miembro-card { text-align: center; background: var(--bg-card); padding: 32px 24px; border-radius: 32px; border: 1px solid var(--border-light); transition: transform 0.3s; }
-        .miembro-card:hover { transform: translateY(-5px); }
-        .miembro-foto { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; background: #d4d4d4; }
-        .miembro-card h3 { font-size: 1.4rem; margin-bottom: 6px; }
-        .miembro-cargo { color: var(--accent); font-weight: 500; font-size: 0.85rem; margin-bottom: 12px; }
-        .miembro-desc { color: var(--text-secondary); font-size: 0.9rem; }
-        footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border-light); color: var(--text-secondary); }
-        @media (max-width: 800px) { .hero-equipo h1 { font-size: 2rem; } .grid-equipo { grid-template-columns: 1fr; } .nav-links { justify-content: center; } .nav-bar { flex-direction: column; } .dropdown-content { position: static; box-shadow: none; margin-top: 8px; } }
+
+        .dropdown-content a {
+            display: block;
+            padding: 11px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: .78rem;
+        }
+
+        .dropdown-content a:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .lang-select {
+            appearance: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            padding: 8px 30px 8px 12px;
+            border-radius: 9px;
+            font-size: .72rem;
+            cursor: pointer;
+            background-image:
+                linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%),
+                linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+            background-position:
+                calc(100% - 14px) 50%,
+                calc(100% - 10px) 50%;
+            background-size: 4px 4px, 4px 4px;
+            background-repeat: no-repeat;
+        }
+
+        .darkmode-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            background: var(--accent);
+            color: var(--bg-primary);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+        }
+
+        /* ================= HERO ================= */
+        .team-hero {
+            margin-top: 76px;
+            padding: 112px 0 84px;
+            background:
+                linear-gradient(90deg, var(--border-light) 1px, transparent 1px) 0 0 / 48px 48px,
+                linear-gradient(var(--border-light) 1px, transparent 1px) 0 0 / 48px 48px,
+                var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.05fr) minmax(320px,.75fr);
+            gap: 80px;
+            align-items: end;
+        }
+
+        .team-hero h1 {
+            margin-top: 22px;
+            font-size: clamp(3.4rem, 7vw, 7rem);
+            line-height: .91;
+            letter-spacing: -.065em;
+            font-weight: 600;
+            max-width: 860px;
+        }
+
+        .team-hero h1 .brand-word {
+            color: var(--brand);
+        }
+
+        .hero-side {
+            border-left: 1px solid var(--border-light);
+            padding-left: 30px;
+        }
+
+        .hero-side > p {
+            color: var(--text-secondary);
+            font-size: .98rem;
+            line-height: 1.8;
+            max-width: 470px;
+        }
+
+        .discipline-list {
+            margin-top: 32px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .discipline-row {
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 18px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .discipline-row strong {
+            color: var(--brand);
+            font-size: .68rem;
+            letter-spacing: .12em;
+        }
+
+        .discipline-row span {
+            color: var(--text-secondary);
+            font-size: .84rem;
+        }
+
+        /* ================= TEAM ================= */
+        .team-section {
+            padding: 104px 0;
+        }
+
+        .section-head {
+            display: grid;
+            grid-template-columns: 1fr minmax(300px,.72fr);
+            gap: 64px;
+            align-items: end;
+            margin-bottom: 46px;
+        }
+
+        .section-head h2,
+        .growth-copy h2,
+        .cta-copy h2 {
+            margin-top: 18px;
+            font-size: clamp(2.2rem, 4.5vw, 4.6rem);
+            line-height: .98;
+            letter-spacing: -.055em;
+            font-weight: 600;
+        }
+
+        .section-head p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 570px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0,1fr));
+            gap: 18px;
+        }
+
+        .member-card {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            min-height: 300px;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            box-shadow: 0 16px 45px rgba(30,25,20,.06);
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: color-mix(in srgb, var(--brand) 35%, var(--border-light));
+        }
+
+        .member-photo-wrap {
+            position: relative;
+            background: var(--bg-secondary);
+            overflow: hidden;
+        }
+
+        .member-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-index {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            min-width: 38px;
+            height: 28px;
+            padding: 0 10px;
+            border-radius: 999px;
+            background: rgba(18,18,18,.72);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            font-size: .66rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+        }
+
+        .member-info {
+            padding: 28px 28px 26px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .member-role {
+            color: var(--brand);
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .member-info h3 {
+            font-size: 1.55rem;
+            line-height: 1.08;
+            letter-spacing: -.035em;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .member-info p {
+            color: var(--text-secondary);
+            font-size: .86rem;
+            line-height: 1.75;
+        }
+
+        /* ================= GROWTH ================= */
+        .growth {
+            padding: 104px 0;
+            background: var(--bg-secondary);
+        }
+
+        .growth-grid {
+            display: grid;
+            grid-template-columns: .72fr 1.28fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .growth-copy p {
+            margin-top: 24px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 520px;
+        }
+
+        .open-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .open-card {
+            min-height: 270px;
+            padding: 26px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .open-index {
+            color: var(--brand);
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .13em;
+        }
+
+        .open-card h3 {
+            font-size: 1.7rem;
+            letter-spacing: -.035em;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .open-card .role {
+            color: var(--brand);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .10em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .open-card p {
+            color: var(--text-secondary);
+            font-size: .84rem;
+            line-height: 1.7;
+        }
+
+        /* ================= CTA ================= */
+        .team-cta {
+            background: var(--brand);
+            color: white;
+        }
+
+        .team-cta-inner {
+            min-height: 350px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .team-cta .eyebrow {
+            color: rgba(255,255,255,.76);
+        }
+
+        .cta-copy p {
+            margin-top: 20px;
+            max-width: 630px;
+            color: rgba(255,255,255,.82);
+        }
+
+        .cta-arrow {
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.48);
+            display: grid;
+            place-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 2rem;
+            transition: background .2s ease, color .2s ease, transform .2s ease;
+        }
+
+        .cta-arrow:hover {
+            background: white;
+            color: var(--brand);
+            transform: translateX(5px);
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            border-top: 1px solid var(--border-light);
+            padding: 30px 0 38px;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            color: var(--text-secondary);
+            font-size: .72rem;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 980px) {
+            .nav-links { display: none; }
+
+            .hero-grid,
+            .section-head,
+            .growth-grid,
+            .team-cta-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-side {
+                border-left: 0;
+                padding-left: 0;
+                border-top: 1px solid var(--border-light);
+                padding-top: 28px;
+            }
+
+            .section-head,
+            .growth-grid {
+                gap: 34px;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-cta-inner {
+                min-height: 420px;
+                padding: 70px 0;
+                gap: 36px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                width: min(100% - 30px, 1220px);
+            }
+
+            .nav-bar { min-height: 66px; }
+
+            .team-hero {
+                margin-top: 66px;
+                padding: 78px 0 60px;
+            }
+
+            .team-section,
+            .growth {
+                padding: 78px 0;
+            }
+
+            .member-card {
+                grid-template-columns: 1fr;
+            }
+
+            .member-photo-wrap {
+                height: 300px;
+            }
+
+            .open-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-cta-inner {
+                min-height: 380px;
+                padding: 64px 0;
+            }
+
+            .cta-arrow {
+                width: 70px;
+                height: 70px;
+            }
+
+            .footer-grid {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
+
 <body>
 
 <header>
     <div class="container nav-bar">
-        <div class="logo"><a href="index.html">◈ GEOTECTURA</a></div>
+        <div class="logo">
+            <a href="index.html"><span class="logo-mark">◈</span>GEOTECTURA</a>
+        </div>
+
         <ul class="nav-links">
             <li><a href="index.html" data-key="nav_inicio">Inicio</a></li>
+
             <li class="dropdown">
-                <a href="#" data-key="nav_servicios">Servicios ▼</a>
+                <a href="#" data-key="nav_servicios">Servicios ↓</a>
                 <div class="dropdown-content">
-                    <a href="servicio-topografia.html" data-key="serv_topografia">📐 Cálculo topografía</a>
-                    <a href="servicio-urbanismo.html" data-key="serv_urbanismo">🏙️ Urbanismo</a>
-                    <a href="servicio-parques.html" data-key="serv_parques">🎢 Parques temáticos</a>
-                    <a href="servicio-direccion.html" data-key="serv_direccion">📊 Dirección obra</a>
-                    <a href="servicio-reformas.html" data-key="serv_reformas">🔄 Reformas integrales</a>
-                    <a href="servicio-asesoria.html" data-key="serv_asesoria">⚙️ Asesoría técnica</a>
+                    <a href="servicio-topografia.html" data-key="serv_topografia">Cálculo topografía</a>
+                    <a href="servicio-urbanismo.html" data-key="serv_urbanismo">Urbanismo</a>
+                    <a href="servicio-parques.html" data-key="serv_parques">Parques temáticos</a>
+                    <a href="servicio-direccion.html" data-key="serv_direccion">Dirección de obra</a>
+                    <a href="servicio-reformas.html" data-key="serv_reformas">Reformas integrales</a>
+                    <a href="servicio-asesoria.html" data-key="serv_asesoria">Asesoría técnica</a>
                 </div>
             </li>
-            <li><a href="portafolio.html" data-key="nav_proyectos">Proyectos</a></li>
+
+            <li><a href="portafolio.html" data-key="nav_proyectos">Referencias</a></li>
             <li><a href="nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
             <li><a href="index.html#contacto" data-key="nav_contacto">Contacto</a></li>
-            <li><a href="equipo.html" data-key="nav_equipo" class="active">Equipo</a></li>
-            <li><select class="lang-select" id="langSelect"><option value="es">🇪🇸 ES</option><option value="en">🇬🇧 EN</option><option value="pt">🇵🇹 PT</option></select></li>
-            <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
+            <li><a href="equipo.html" class="active" data-key="nav_equipo">Equipo</a></li>
         </ul>
+
+        <div class="nav-controls">
+            <select class="lang-select" id="langSelect" aria-label="Idioma">
+                <option value="es">ES</option>
+                <option value="en">EN</option>
+                <option value="pt">PT</option>
+            </select>
+            <button class="darkmode-toggle" id="darkModeToggle" aria-label="Cambiar tema">◐</button>
+        </div>
     </div>
 </header>
 
 <main>
-    <section class="hero-equipo">
-        <div class="container">
-            <h1 data-key="equipo_title">👥 Nuestro equipo humano</h1>
-            <p data-key="equipo_subtitle">Profesionales apasionados por la construcción, comprometidos con la excelencia</p>
+
+    <!-- ================= HERO ================= -->
+    <section class="team-hero">
+        <div class="container hero-grid">
+            <div>
+                <span class="eyebrow" data-key="hero_kicker">Equipo / Geotectura</span>
+                <h1>
+                    <span data-key="hero_title_1">Nuestro equipo</span><br>
+                    <span class="brand-word" data-key="hero_title_2">humano.</span>
+                </h1>
+            </div>
+
+            <div class="hero-side">
+                <p data-key="hero_text">Profesionales apasionados por la construcción, comprometidos con la excelencia y con aportar criterio técnico en cada etapa del proyecto.</p>
+
+                <div class="discipline-list">
+                    <div class="discipline-row">
+                        <strong>01</strong>
+                        <span data-key="discipline_1">Gestión de proyectos</span>
+                    </div>
+                    <div class="discipline-row">
+                        <strong>02</strong>
+                        <span data-key="discipline_2">Coordinación BIM</span>
+                    </div>
+                    <div class="discipline-row">
+                        <strong>03</strong>
+                        <span data-key="discipline_3">Costos y presupuestos</span>
+                    </div>
+                    <div class="discipline-row">
+                        <strong>04</strong>
+                        <span data-key="discipline_4">Diseño y visualización</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <div class="container">
-        <div class="grid-equipo">
-            <!-- Miembro 1: Dana Martínez - Gerente de Proyectos -->
-            <div class="miembro-card">
-                <img src="imagenes/KOWALSKI.jpg" class="miembro-foto" alt="Dana Martínez">
-                <h3 data-key="m1_nombre">Dana Martínez</h3>
-                <div class="miembro-cargo" data-key="m1_cargo">🎯 Gerente de Proyectos</div>
-                <p class="miembro-desc" data-key="m1_desc">Especialista en planificación y ejecución de proyectos de construcción. Asegura el cumplimiento de plazos y presupuestos.</p>
+    <!-- ================= TEAM ================= -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <span class="eyebrow" data-key="team_kicker">Personas detrás del proyecto</span>
+                    <h2 data-key="team_title">Un equipo con perfiles complementarios.</h2>
+                </div>
+                <p data-key="team_intro">La planificación, coordinación, control de costos y diseño se integran para abordar los proyectos desde diferentes perspectivas.</p>
             </div>
-            
-            <!-- Miembro 2: Jeremay Arriga - BIM Manager -->
-            <div class="miembro-card">
-                <img src="imagenes/CABO.jpg" class="miembro-foto" alt="Jeremay Arriga">
-                <h3 data-key="m2_nombre">Jeremay Arriaga</h3>
-                <div class="miembro-cargo" data-key="m2_cargo">🏗️ BIM Manager</div>
-                <p class="miembro-desc" data-key="m2_desc">Experto en modelado BIM y coordinación de proyectos multidisciplinarios en entornos digitales.</p>
-            </div>
-            
-            <!-- Miembro 3: Rodrigo Garcia - Cuantificador y Presupuestador -->
-            <div class="miembro-card">
-                <img src="imagenes/SKIPER.jpg" class="miembro-foto" alt="Rodrigo Garcia">
-                <h3 data-key="m3_nombre">Rodrigo Garcia</h3>
-                <div class="miembro-cargo" data-key="m3_cargo">📊 Cuantificador y Presupuestador</div>
-                <p class="miembro-desc" data-key="m3_desc">Especialista en análisis de costos, cuantificación de materiales y elaboración de presupuestos ejecutivos.</p>
-            </div>
-            
-            <!-- Miembro 4: Nicole Chivalán - Diseñadora -->
-            <div class="miembro-card">
-                <img src="imagenes/RICO.jpg" class="miembro-foto" alt="Nicole Chivalán">
-                <h3 data-key="m4_nombre">Nicole Chivalán</h3>
-                <div class="miembro-cargo" data-key="m4_cargo">🎨 Diseñadora</div>
-                <p class="miembro-desc" data-key="m4_desc">Diseñadora creativa especializada en visualización arquitectónica y diseño de interiores.</p>
-            </div>
-            
-            <!-- Miembro 5: Espacio para futuro miembro -->
-            <div class="miembro-card">
-                <img src="https://placehold.co/400x400/d4d4d4/888888?text=Próximamente" class="miembro-foto" alt="Próximo miembro">
-                <h3 data-key="m5_nombre">Próximamente</h3>
-                <div class="miembro-cargo" data-key="m5_cargo">✨ Nuevo talento</div>
-                <p class="miembro-desc" data-key="m5_desc">Estamos buscando profesionales apasionados para unirse a nuestro equipo.</p>
-            </div>
-            
-            <!-- Miembro 6: Espacio para futuro miembro -->
-            <div class="miembro-card">
-                <img src="https://placehold.co/400x400/d4d4d4/888888?text=Próximamente" class="miembro-foto" alt="Próximo miembro">
-                <h3 data-key="m6_nombre">Próximamente</h3>
-                <div class="miembro-cargo" data-key="m6_cargo">✨ Nuevo talento</div>
-                <p class="miembro-desc" data-key="m6_desc">Únete a nuestro equipo de expertos en construcción.</p>
+
+            <div class="team-grid">
+
+                <article class="member-card">
+                    <div class="member-photo-wrap">
+                        <img src="imagenes/KOWALSKI.jpg" class="member-photo" alt="Dana Martínez">
+                        <span class="member-index">01</span>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role" data-key="m1_cargo">Gerente de Proyectos</div>
+                        <h3 data-key="m1_nombre">Dana Martínez</h3>
+                        <p data-key="m1_desc">Especialista en planificación y ejecución de proyectos de construcción. Asegura el cumplimiento de plazos y presupuestos.</p>
+                    </div>
+                </article>
+
+                <article class="member-card">
+                    <div class="member-photo-wrap">
+                        <img src="imagenes/CABO.jpg" class="member-photo" alt="Jeremay Arriaga">
+                        <span class="member-index">02</span>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role" data-key="m2_cargo">BIM Manager</div>
+                        <h3 data-key="m2_nombre">Jeremay Arriaga</h3>
+                        <p data-key="m2_desc">Experto en modelado BIM y coordinación de proyectos multidisciplinarios en entornos digitales.</p>
+                    </div>
+                </article>
+
+                <article class="member-card">
+                    <div class="member-photo-wrap">
+                        <img src="imagenes/SKIPER.jpg" class="member-photo" alt="Rodrigo Garcia">
+                        <span class="member-index">03</span>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role" data-key="m3_cargo">Cuantificador y Presupuestador</div>
+                        <h3 data-key="m3_nombre">Rodrigo Garcia</h3>
+                        <p data-key="m3_desc">Especialista en análisis de costos, cuantificación de materiales y elaboración de presupuestos ejecutivos.</p>
+                    </div>
+                </article>
+
+                <article class="member-card">
+                    <div class="member-photo-wrap">
+                        <img src="imagenes/RICO.jpg" class="member-photo" alt="Nicole Chivalán">
+                        <span class="member-index">04</span>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-role" data-key="m4_cargo">Diseñadora</div>
+                        <h3 data-key="m4_nombre">Nicole Chivalán</h3>
+                        <p data-key="m4_desc">Diseñadora creativa especializada en visualización arquitectónica y diseño de interiores.</p>
+                    </div>
+                </article>
+
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- ================= GROWTH ================= -->
+    <section class="growth">
+        <div class="container growth-grid">
+            <div class="growth-copy">
+                <span class="eyebrow" data-key="growth_kicker">Equipo en crecimiento</span>
+                <h2 data-key="growth_title">Nuevos perfiles, nuevas capacidades.</h2>
+                <p data-key="growth_text">Geotectura continúa construyendo su equipo y abre espacio para profesionales que quieran aportar a proyectos de arquitectura y construcción.</p>
+            </div>
+
+            <div class="open-grid">
+                <article class="open-card">
+                    <span class="open-index">05</span>
+                    <div>
+                        <div class="role" data-key="m5_cargo">Nuevo talento</div>
+                        <h3 data-key="m5_nombre">Próximamente</h3>
+                        <p data-key="m5_desc">Estamos buscando profesionales apasionados para unirse a nuestro equipo.</p>
+                    </div>
+                </article>
+
+                <article class="open-card">
+                    <span class="open-index">06</span>
+                    <div>
+                        <div class="role" data-key="m6_cargo">Nuevo talento</div>
+                        <h3 data-key="m6_nombre">Próximamente</h3>
+                        <p data-key="m6_desc">Únete a nuestro equipo de expertos en construcción.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="team-cta">
+        <div class="container team-cta-inner">
+            <div class="cta-copy">
+                <span class="eyebrow" data-key="cta_kicker">Crezcamos juntos</span>
+                <h2 data-key="cta_title">¿Te gustaría formar parte de Geotectura?</h2>
+                <p data-key="cta_text">Cuéntanos sobre tu perfil y experiencia. Queremos conocer profesionales interesados en aportar a nuevos proyectos.</p>
+            </div>
+
+            <a href="index.html#contacto" class="cta-arrow" aria-label="Ir a contacto">→</a>
+        </div>
+    </section>
+
 </main>
 
 <footer>
-    <div class="container">
-        <p>© 2026 Geotectura · Construyendo con excelencia</p>
+    <div class="container footer-grid">
+        <p>© 2026 GEOTECTURA · Guatemala</p>
+        <p data-key="footer_text">Construyendo con excelencia</p>
     </div>
 </footer>
 
 <script>
     const texts = {
-        es: { 
-            nav_inicio: "Inicio", nav_servicios: "Servicios ▼", nav_proyectos: "Proyectos", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo",
-            serv_topografia: "📐 Cálculo topografía", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Dirección obra", serv_reformas: "🔄 Reformas integrales", serv_asesoria: "⚙️ Asesoría técnica",
-            equipo_title: "👥 Nuestro equipo humano", 
-            equipo_subtitle: "Profesionales apasionados por la construcción, comprometidos con la excelencia",
-            m1_nombre: "Dana Martínez", m1_cargo: "🎯 Gerente de Proyectos", m1_desc: "Especialista en planificación y ejecución de proyectos de construcción. Asegura el cumplimiento de plazos y presupuestos.",
-            m2_nombre: "Jeremay Arriaga", m2_cargo: "🏗️ BIM Manager", m2_desc: "Experto en modelado BIM y coordinación de proyectos multidisciplinarios en entornos digitales.",
-            m3_nombre: "Rodrigo Garcia", m3_cargo: "📊 Cuantificador y Presupuestador", m3_desc: "Especialista en análisis de costos, cuantificación de materiales y elaboración de presupuestos ejecutivos.",
-            m4_nombre: "Nicole Chivalán", m4_cargo: "🎨 Diseñadora", m4_desc: "Diseñadora creativa especializada en visualización arquitectónica y diseño de interiores.",
-            m5_nombre: "Próximamente", m5_cargo: "✨ Nuevo talento", m5_desc: "Estamos buscando profesionales apasionados para unirse a nuestro equipo.",
-            m6_nombre: "Próximamente", m6_cargo: "✨ Nuevo talento", m6_desc: "Únete a nuestro equipo de expertos en construcción."
+        es: {
+            nav_inicio:"Inicio",
+            nav_servicios:"Servicios ↓",
+            nav_proyectos:"Referencias",
+            nav_nosotros:"Nosotros",
+            nav_contacto:"Contacto",
+            nav_equipo:"Equipo",
+
+            serv_topografia:"Cálculo topografía",
+            serv_urbanismo:"Urbanismo",
+            serv_parques:"Parques temáticos",
+            serv_direccion:"Dirección de obra",
+            serv_reformas:"Reformas integrales",
+            serv_asesoria:"Asesoría técnica",
+
+            hero_kicker:"Equipo / Geotectura",
+            hero_title_1:"Nuestro equipo",
+            hero_title_2:"humano.",
+            hero_text:"Profesionales apasionados por la construcción, comprometidos con la excelencia y con aportar criterio técnico en cada etapa del proyecto.",
+            discipline_1:"Gestión de proyectos",
+            discipline_2:"Coordinación BIM",
+            discipline_3:"Costos y presupuestos",
+            discipline_4:"Diseño y visualización",
+
+            team_kicker:"Personas detrás del proyecto",
+            team_title:"Un equipo con perfiles complementarios.",
+            team_intro:"La planificación, coordinación, control de costos y diseño se integran para abordar los proyectos desde diferentes perspectivas.",
+
+            m1_nombre:"Dana Martínez",
+            m1_cargo:"Gerente de Proyectos",
+            m1_desc:"Especialista en planificación y ejecución de proyectos de construcción. Asegura el cumplimiento de plazos y presupuestos.",
+
+            m2_nombre:"Jeremay Arriaga",
+            m2_cargo:"BIM Manager",
+            m2_desc:"Experto en modelado BIM y coordinación de proyectos multidisciplinarios en entornos digitales.",
+
+            m3_nombre:"Rodrigo Garcia",
+            m3_cargo:"Cuantificador y Presupuestador",
+            m3_desc:"Especialista en análisis de costos, cuantificación de materiales y elaboración de presupuestos ejecutivos.",
+
+            m4_nombre:"Nicole Chivalán",
+            m4_cargo:"Diseñadora",
+            m4_desc:"Diseñadora creativa especializada en visualización arquitectónica y diseño de interiores.",
+
+            growth_kicker:"Equipo en crecimiento",
+            growth_title:"Nuevos perfiles, nuevas capacidades.",
+            growth_text:"Geotectura continúa construyendo su equipo y abre espacio para profesionales que quieran aportar a proyectos de arquitectura y construcción.",
+
+            m5_nombre:"Próximamente",
+            m5_cargo:"Nuevo talento",
+            m5_desc:"Estamos buscando profesionales apasionados para unirse a nuestro equipo.",
+
+            m6_nombre:"Próximamente",
+            m6_cargo:"Nuevo talento",
+            m6_desc:"Únete a nuestro equipo de expertos en construcción.",
+
+            cta_kicker:"Crezcamos juntos",
+            cta_title:"¿Te gustaría formar parte de Geotectura?",
+            cta_text:"Cuéntanos sobre tu perfil y experiencia. Queremos conocer profesionales interesados en aportar a nuevos proyectos.",
+            footer_text:"Construyendo con excelencia"
         },
-        en: { 
-            nav_inicio: "Home", nav_servicios: "Services ▼", nav_proyectos: "Projects", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
-            serv_topografia: "📐 Topography", serv_urbanismo: "🏙️ Urbanism", serv_parques: "🎢 Theme parks", serv_direccion: "📊 Construction mgmt", serv_reformas: "🔄 Renovations", serv_asesoria: "⚙️ Advisory",
-            equipo_title: "👥 Our team", 
-            equipo_subtitle: "Professionals passionate about construction, committed to excellence",
-            m1_nombre: "Dana Martínez", m1_cargo: "🎯 Project Manager", m1_desc: "Specialist in planning and execution of construction projects. Ensures compliance with deadlines and budgets.",
-            m2_nombre: "Jeremay Arriaga", m2_cargo: "🏗️ BIM Manager", m2_desc: "Expert in BIM modeling and coordination of multidisciplinary projects in digital environments.",
-            m3_nombre: "Rodrigo Garcia", m3_cargo: "📊 Quantity Surveyor", m3_desc: "Specialist in cost analysis, material quantification and budget preparation.",
-            m4_nombre: "Nicole Chivalán", m4_cargo: "🎨 Designer", m4_desc: "Creative designer specialized in architectural visualization and interior design.",
-            m5_nombre: "Coming soon", m5_cargo: "✨ New talent", m5_desc: "We are looking for passionate professionals to join our team.",
-            m6_nombre: "Coming soon", m6_cargo: "✨ New talent", m6_desc: "Join our team of construction experts."
+
+        en: {
+            nav_inicio:"Home",
+            nav_servicios:"Services ↓",
+            nav_proyectos:"References",
+            nav_nosotros:"About",
+            nav_contacto:"Contact",
+            nav_equipo:"Team",
+
+            serv_topografia:"Topography",
+            serv_urbanismo:"Urbanism",
+            serv_parques:"Theme parks",
+            serv_direccion:"Construction management",
+            serv_reformas:"Renovations",
+            serv_asesoria:"Technical advisory",
+
+            hero_kicker:"Team / Geotectura",
+            hero_title_1:"Our",
+            hero_title_2:"team.",
+            hero_text:"Professionals passionate about construction, committed to excellence and to bringing technical judgment to every stage of the project.",
+            discipline_1:"Project management",
+            discipline_2:"BIM coordination",
+            discipline_3:"Costs and budgets",
+            discipline_4:"Design and visualization",
+
+            team_kicker:"People behind the project",
+            team_title:"A team with complementary profiles.",
+            team_intro:"Planning, coordination, cost control and design come together to approach projects from different perspectives.",
+
+            m1_nombre:"Dana Martínez",
+            m1_cargo:"Project Manager",
+            m1_desc:"Specialist in planning and execution of construction projects. Ensures compliance with deadlines and budgets.",
+
+            m2_nombre:"Jeremay Arriaga",
+            m2_cargo:"BIM Manager",
+            m2_desc:"Expert in BIM modeling and coordination of multidisciplinary projects in digital environments.",
+
+            m3_nombre:"Rodrigo Garcia",
+            m3_cargo:"Quantity Surveyor",
+            m3_desc:"Specialist in cost analysis, material quantification and executive budget preparation.",
+
+            m4_nombre:"Nicole Chivalán",
+            m4_cargo:"Designer",
+            m4_desc:"Creative designer specialized in architectural visualization and interior design.",
+
+            growth_kicker:"Growing team",
+            growth_title:"New profiles, new capabilities.",
+            growth_text:"Geotectura continues to build its team and opens space for professionals who want to contribute to architecture and construction projects.",
+
+            m5_nombre:"Coming soon",
+            m5_cargo:"New talent",
+            m5_desc:"We are looking for passionate professionals to join our team.",
+
+            m6_nombre:"Coming soon",
+            m6_cargo:"New talent",
+            m6_desc:"Join our team of construction experts.",
+
+            cta_kicker:"Let's grow together",
+            cta_title:"Would you like to join Geotectura?",
+            cta_text:"Tell us about your profile and experience. We want to meet professionals interested in contributing to new projects.",
+            footer_text:"Building with excellence"
         },
-        pt: { 
-            nav_inicio: "Início", nav_servicios: "Serviços ▼", nav_proyectos: "Projetos", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
-            serv_topografia: "📐 Topografia", serv_urbanismo: "🏙️ Urbanismo", serv_parques: "🎢 Parques temáticos", serv_direccion: "📊 Gestão obras", serv_reformas: "🔄 Reformas", serv_asesoria: "⚙️ Consultoria",
-            equipo_title: "👥 Nossa equipe", 
-            equipo_subtitle: "Profissionais apaixonados pela construção, comprometidos com a excelência",
-            m1_nombre: "Dana Martínez", m1_cargo: "🎯 Gerente de Projetos", m1_desc: "Especialista em planejamento e execução de projetos de construção. Garante o cumprimento de prazos e orçamentos.",
-            m2_nombre: "Jeremay Arriaga", m2_cargo: "🏗️ BIM Manager", m2_desc: "Especialista em modelagem BIM e coordenação de projetos multidisciplinares em ambientes digitais.",
-            m3_nombre: "Rodrigo Garcia", m3_cargo: "📊 Quantificador e Orçamentista", m3_desc: "Especialista em análise de custos, quantificação de materiais e elaboração de orçamentos.",
-            m4_nombre: "Nicole Chivalán", m4_cargo: "🎨 Designer", m4_desc: "Designer criativa especializada em visualização arquitetônica e design de interiores.",
-            m5_nombre: "Em breve", m5_cargo: "✨ Novo talento", m5_desc: "Estamos procurando profissionais apaixonados para se juntar à nossa equipe.",
-            m6_nombre: "Em breve", m6_cargo: "✨ Novo talento", m6_desc: "Junte-se à nossa equipe de especialistas em construção."
+
+        pt: {
+            nav_inicio:"Início",
+            nav_servicios:"Serviços ↓",
+            nav_proyectos:"Referências",
+            nav_nosotros:"Sobre",
+            nav_contacto:"Contato",
+            nav_equipo:"Equipe",
+
+            serv_topografia:"Topografia",
+            serv_urbanismo:"Urbanismo",
+            serv_parques:"Parques temáticos",
+            serv_direccion:"Gestão de obras",
+            serv_reformas:"Reformas integrais",
+            serv_asesoria:"Assessoria técnica",
+
+            hero_kicker:"Equipe / Geotectura",
+            hero_title_1:"Nossa",
+            hero_title_2:"equipe.",
+            hero_text:"Profissionais apaixonados pela construção, comprometidos com a excelência e em aportar critério técnico em cada etapa do projeto.",
+            discipline_1:"Gestão de projetos",
+            discipline_2:"Coordenação BIM",
+            discipline_3:"Custos e orçamentos",
+            discipline_4:"Design e visualização",
+
+            team_kicker:"Pessoas por trás do projeto",
+            team_title:"Uma equipe com perfis complementares.",
+            team_intro:"Planejamento, coordenação, controle de custos e design se integram para abordar os projetos de diferentes perspectivas.",
+
+            m1_nombre:"Dana Martínez",
+            m1_cargo:"Gerente de Projetos",
+            m1_desc:"Especialista em planejamento e execução de projetos de construção. Garante o cumprimento de prazos e orçamentos.",
+
+            m2_nombre:"Jeremay Arriaga",
+            m2_cargo:"BIM Manager",
+            m2_desc:"Especialista em modelagem BIM e coordenação de projetos multidisciplinares em ambientes digitais.",
+
+            m3_nombre:"Rodrigo Garcia",
+            m3_cargo:"Quantificador e Orçamentista",
+            m3_desc:"Especialista em análise de custos, quantificação de materiais e elaboração de orçamentos executivos.",
+
+            m4_nombre:"Nicole Chivalán",
+            m4_cargo:"Designer",
+            m4_desc:"Designer criativa especializada em visualização arquitetônica e design de interiores.",
+
+            growth_kicker:"Equipe em crescimento",
+            growth_title:"Novos perfis, novas capacidades.",
+            growth_text:"A Geotectura continua construindo sua equipe e abre espaço para profissionais que desejam contribuir com projetos de arquitetura e construção.",
+
+            m5_nombre:"Em breve",
+            m5_cargo:"Novo talento",
+            m5_desc:"Estamos procurando profissionais apaixonados para se juntar à nossa equipe.",
+
+            m6_nombre:"Em breve",
+            m6_cargo:"Novo talento",
+            m6_desc:"Junte-se à nossa equipe de especialistas em construção.",
+
+            cta_kicker:"Vamos crescer juntos",
+            cta_title:"Gostaria de fazer parte da Geotectura?",
+            cta_text:"Conte-nos sobre seu perfil e experiência. Queremos conhecer profissionais interessados em contribuir com novos projetos.",
+            footer_text:"Construindo com excelência"
         }
     };
 
     function changeLanguage(lang) {
         localStorage.setItem('geotectura_lang', lang);
+        document.documentElement.lang = lang;
+
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
-            if (texts[lang] && texts[lang][key]) {
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    el.placeholder = texts[lang][key];
-                } else {
-                    el.innerHTML = texts[lang][key];
-                }
-            }
+            const value = texts[lang]?.[key];
+            if (value) el.textContent = value;
         });
     }
 
     const savedLang = localStorage.getItem('geotectura_lang') || 'es';
     const langSelect = document.getElementById('langSelect');
-    if (langSelect) {
-        langSelect.value = savedLang;
-        changeLanguage(savedLang);
-        langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+
+    langSelect.value = savedLang;
+    changeLanguage(savedLang);
+    langSelect.addEventListener('change', e => changeLanguage(e.target.value));
+
+    const savedTheme = localStorage.getItem('geotectura_theme');
+    const toggleBtn = document.getElementById('darkModeToggle');
+
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
     }
 
-    const theme = localStorage.getItem('geotectura_theme');
-    if (theme === 'dark') document.body.classList.add('dark');
-    const toggleBtn = document.getElementById('darkModeToggle');
-    if (toggleBtn) {
-        if (theme === 'dark') toggleBtn.textContent = '☀️';
-        toggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            const isDark = document.body.classList.contains('dark');
-            localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light');
-            toggleBtn.textContent = isDark ? '☀️' : '🌙';
-        });
+    function updateThemeIcon() {
+        const dark = document.body.classList.contains('dark');
+        toggleBtn.textContent = dark ? '☀' : '◐';
     }
+
+    updateThemeIcon();
+
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        const dark = document.body.classList.contains('dark');
+        localStorage.setItem('geotectura_theme', dark ? 'dark' : 'light');
+        updateThemeIcon();
+    });
 </script>
+
 </body>
 </html>
+
