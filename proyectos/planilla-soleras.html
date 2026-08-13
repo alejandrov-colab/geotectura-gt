@@ -1,781 +1,980 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Geotectura · Soleras, Cimientos y Columnas</title>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --bg-primary: #ffffff;
-      --bg-secondary: #f8f8f8;
-      --bg-card: #fafafa;
-      --text-primary: #1a1a1a;
-      --text-secondary: #4a4a4a;
-      --border-light: #e8e8e8;
-      --header-bg: rgba(255,255,255,.95);
-
-      --bg: #ffffff;
-      --surface: #ffffff;
-      --surface-soft: #fafafa;
-      --surface-muted: #f6f6f6;
-      --text: #161616;
-      --text-soft: #666666;
-      --border: #e7e7e7;
-      --accent: #252525;
-      --accent-hover: #111111;
-      --header-bg: rgba(255,255,255,.94);
-      --shadow: 0 10px 30px rgba(0,0,0,.07);
-      --chip: #f4f4f4;
-      --chip-text: #404040;
-      --plan-bg: #ffffff;
-      --viewer-toolbar: #fbfbfb;
-    }
-
-    body.dark {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #121212;
-      --bg-card: #1e1e1e;
-      --text-primary: #ededed;
-      --text-secondary: #b0b0b0;
-      --border-light: #2a2a2a;
-      --header-bg: rgba(18,18,18,.95);
-
-      --bg: #0b0b0c;
-      --surface: #141416;
-      --surface-soft: #18181a;
-      --surface-muted: #111113;
-      --text: #f2f2f2;
-      --text-soft: #a9a9ad;
-      --border: #2a2a2e;
-      --accent: #f0f0f0;
-      --accent-hover: #ffffff;
-      --header-bg: rgba(11,11,12,.94);
-      --shadow: 0 10px 34px rgba(0,0,0,.32);
-      --chip: #202024;
-      --chip-text: #d7d7da;
-      --viewer-toolbar: #18181a;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      overflow-x: hidden;
-      transition: background-color .25s ease, color .25s ease;
-    }
-
-    button, select, a {
-      font: inherit;
-    }
-
-    .container {
-      width: min(1120px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    
-    /* ===================== HEADER ORIGINAL ===================== */
-    header { position: fixed; top: 0; left: 0; width: 100%; background: var(--header-bg); backdrop-filter: blur(16px); z-index: 1000; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
-    .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-    .logo a { font-size: 1.4rem; font-weight: 600; text-decoration: none; color: var(--text-primary); }
-    .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; align-items: center; }
-    .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--text-primary); transition: opacity 0.2s; }
-    .nav-links a:hover { opacity: 0.7; }
-    .dropdown { position: relative; display: inline-block; }
-    .dropdown-content { display: none; position: absolute; background-color: var(--bg-card); min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 12px; border: 1px solid var(--border-light); top: 100%; left: 0; }
-    .dropdown-content a { color: var(--text-primary); padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; }
-    .dropdown-content a:hover { background-color: var(--bg-secondary); opacity: 1; }
-    .dropdown:hover .dropdown-content { display: block; }
-    .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
-    .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
-
-
-    /* ===================== HERO ===================== */
-    .reference-hero {
-      padding: 118px 20px 26px;
-      text-align: center;
-      background:
-        linear-gradient(180deg, var(--surface-muted) 0%, var(--surface-soft) 100%);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-soft);
-      font-size: .82rem;
-      margin-bottom: 5px;
-    }
-
-    .eyebrow-icon {
-      width: 20px;
-      height: 20px;
-      border-radius: 5px;
-      display: inline-grid;
-      place-items: center;
-      background: linear-gradient(135deg, #9b86ff, #64d5ff 50%, #6be4a8);
-      color: #fff;
-      font-size: .7rem;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
-    }
-
-    .reference-hero h1 {
-      font-size: clamp(1.8rem, 3vw, 2.45rem);
-      line-height: 1.12;
-      letter-spacing: -.035em;
-      font-weight: 700;
-      margin-bottom: 13px;
-    }
-
-    .hero-tags {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 9px;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 28px;
-      padding: 0 15px;
-      border-radius: 999px;
-      background: var(--chip);
-      color: var(--chip-text);
-      border: 1px solid var(--border);
-      font-size: .69rem;
-      font-weight: 500;
-    }
-
-    /* ===================== MAIN ===================== */
-    main {
-      padding-bottom: 36px;
-    }
-
-    .viewer-card {
-      margin: 22px auto 12px;
-      padding: 14px;
-      border-radius: 17px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-    }
-
-    .viewer-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-      padding: 0 3px;
-    }
-
-    .viewer-left,
-    .viewer-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .viewer-badge {
-      background: #242424;
-      color: #fff;
-      border-radius: 999px;
-      padding: 5px 12px;
-      font-size: .64rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    body.dark .viewer-badge {
-      background: #ededed;
-      color: #111;
-    }
-
-    .zoom-info {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 56px;
-      height: 25px;
-      padding: 0 9px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--surface-soft);
-      color: var(--text-soft);
-      font-size: .66rem;
-      font-weight: 600;
-      font-variant-numeric: tabular-nums;
-      white-space: nowrap;
-    }
-
-    .viewer-btn {
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 7px 13px;
-      font-size: .68rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
-      white-space: nowrap;
-    }
-
-    .viewer-btn:hover {
-      background: var(--accent);
-      color: var(--bg);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    body.dark .viewer-btn:hover {
-      color: #111;
-    }
-
-    .plan-wrapper {
-      position: relative;
-      width: 100%;
-      height: clamp(390px, 43vw, 590px);
-      background: var(--plan-bg);
-      border: 1px solid #e5e5e5;
-      border-radius: 13px;
-      overflow: hidden;
-      cursor: grab;
-      touch-action: none;
-      user-select: none;
-    }
-
-    .plan-wrapper:active {
-      cursor: grabbing;
-    }
-
-    .plan-img-container {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-
-      /* IMPORTANTE:
-         El contenedor ya NO se amplía con scale().
-         Su ancho/alto cambian realmente con JavaScript para obligar
-         al navegador a volver a renderizar el SVG como vector. */
-      transform: translate(-50%, -50%);
-      transform-origin: center center;
-    }
-
-    .plan-img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      max-width: none;
-      max-height: none;
-      object-fit: fill;
-
-      pointer-events: none;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-
-    .plan-watermark {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-22deg);
-      font-size: clamp(1.5rem, 3.5vw, 3.2rem);
-      font-weight: 700;
-      letter-spacing: .18em;
-      color: #000;
-      opacity: .075;
-      pointer-events: none;
-      white-space: nowrap;
-      z-index: 3;
-    }
-
-    .zoom-hint {
-      text-align: center;
-      margin-top: 10px;
-      color: var(--text-soft);
-      font-size: .68rem;
-      font-weight: 500;
-      line-height: 1.45;
-    }
-
-    /* Fullscreen viewer */
-    .viewer-card:fullscreen {
-      width: 100vw;
-      height: 100vh;
-      margin: 0;
-      border-radius: 0;
-      padding: 14px;
-      background: var(--surface);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .viewer-card:fullscreen .plan-wrapper {
-      flex: 1;
-      height: auto;
-    }
-
-    /* ===================== INFO ===================== */
-    .content-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 15px 20px;
-      margin: 9px 0;
-      box-shadow: 0 5px 18px rgba(0,0,0,.025);
-    }
-
-    .card-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: .97rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .small-icon {
-      opacity: .85;
-      font-size: .9rem;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: minmax(160px, .78fr) 1.35fr;
-    }
-
-    .info-row {
-      display: contents;
-    }
-
-    .info-label,
-    .info-value {
-      padding: 4px 0;
-      border-top: 1px solid var(--border);
-      font-size: .68rem;
-    }
-
-    .info-label {
-      font-weight: 600;
-      padding-right: 20px;
-    }
-
-    .info-value {
-      color: var(--text-soft);
-    }
-
-    .description-text {
-      color: var(--text-soft);
-      font-size: .70rem;
-      line-height: 1.58;
-      max-width: 1040px;
-      margin-bottom: 13px;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .feature-card {
-      display: grid;
-      grid-template-columns: 40px 1fr;
-      gap: 10px;
-      align-items: center;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      padding: 12px 13px;
-      min-height: 78px;
-      background: var(--surface);
-    }
-
-    .feature-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 9px;
-      display: grid;
-      place-items: center;
-      font-size: 1rem;
-      font-weight: 700;
-    }
-
-    .feature-card:nth-child(1) .feature-icon {
-      background: rgba(137, 92, 246, .12);
-      color: #7b4ce3;
-    }
-
-    .feature-card:nth-child(2) .feature-icon {
-      background: rgba(72, 190, 118, .13);
-      color: #2ba564;
-    }
-
-    .feature-card:nth-child(3) .feature-icon {
-      background: rgba(61, 155, 235, .13);
-      color: #2386d2;
-    }
-
-    .feature-card h3 {
-      font-size: .73rem;
-      margin-bottom: 2px;
-    }
-
-    .feature-card p {
-      color: var(--text-soft);
-      font-size: .62rem;
-      line-height: 1.42;
-    }
-
-    .back-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: 16px;
-    }
-
-    .btn-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      color: #fff;
-      background: #252525;
-      text-decoration: none;
-      border-radius: 999px;
-      padding: 10px 18px;
-      font-size: .72rem;
-      font-weight: 600;
-      transition: transform .2s ease, opacity .2s ease;
-    }
-
-    body.dark .btn-back {
-      color: #111;
-      background: #f0f0f0;
-    }
-
-    .btn-back:hover {
-      transform: translateY(-1px);
-      opacity: .9;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      color: var(--text-soft);
-      text-align: center;
-      padding: 24px 20px 30px;
-      font-size: .66rem;
-    }
-
-    footer p + p {
-      margin-top: 4px;
-      font-size: .6rem;
-    }
-
-    /* ===================== RESPONSIVE ===================== */
-    @media (max-width: 900px) {
-      .container {
-        width: min(100% - 28px, 1120px);
-      }
-
-      .nav-bar {
-        padding: 10px 0;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .nav-links {
-        justify-content: center;
-        gap: 11px;
-      }
-
-      .reference-hero {
-        padding-top: 150px;
-      }
-
-      .viewer-toolbar {
-        align-items: flex-start;
-      }
-
-      .viewer-controls {
-        width: 100%;
-      }
-
-      .plan-wrapper {
-        height: 56vw;
-        min-height: 340px;
-        max-height: 560px;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .info-label,
-      .info-value {
-        border-top: 0;
-      }
-
-      .info-label {
-        padding-bottom: 0;
-        margin-top: 8px;
-      }
-
-      .info-value {
-        border-bottom: 1px solid var(--border);
-        padding-top: 2px;
-        padding-bottom: 8px;
-      }
-
-      .viewer-controls {
-        gap: 7px;
-      }
-
-      .viewer-btn {
-        padding: 7px 10px;
-      }
-    }
-
-    @media (max-width: 540px) {
-      .nav-links > li:nth-child(-n+6) {
-        display: none;
-      }
-
-      .reference-hero {
-        padding-top: 118px;
-      }
-
-      .reference-hero h1 {
-        font-size: 1.65rem;
-      }
-
-      .viewer-card {
-        padding: 10px;
-        border-radius: 14px;
-      }
-
-      .plan-wrapper {
-        min-height: 300px;
-      }
-
-      .viewer-btn .btn-text {
-        display: none;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Geotectura · Soleras, Cimientos y Columnas</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f6f4ef;
+            --bg-secondary: #ece9e2;
+            --bg-card: #ffffff;
+            --text-primary: #171916;
+            --text-secondary: #687068;
+            --text-muted: #8a8f86;
+            --border-light: rgba(23,25,22,.12);
+            --brand: #b56843;
+            --brand-dark: #8e4d31;
+            --brand-soft: #efe0d7;
+            --accent: #171916;
+            --header-bg: rgba(246,244,239,.92);
+            --shadow: 0 22px 70px rgba(30,25,20,.10);
+            --plan-bg: #ffffff;
+        }
+
+        body.dark {
+            --bg-primary: #111210;
+            --bg-secondary: #171815;
+            --bg-card: #1c1e1a;
+            --text-primary: #f1eee8;
+            --text-secondary: #aaa99f;
+            --text-muted: #7f8179;
+            --border-light: rgba(255,255,255,.11);
+            --brand: #d0825d;
+            --brand-dark: #e39a77;
+            --brand-soft: #35251f;
+            --accent: #f1eee8;
+            --header-bg: rgba(17,18,16,.92);
+            --shadow: 0 28px 80px rgba(0,0,0,.28);
+            --plan-bg: #ffffff;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color .3s ease, color .2s ease;
+        }
+
+        a { color: inherit; }
+        button, select { font: inherit; }
+
+        .container {
+            width: min(1220px, calc(100% - 48px));
+            margin-inline: auto;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--brand);
+            font-size: .70rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 30px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        /* ================= HEADER ================= */
+        header {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--header-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .nav-bar {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+        }
+
+        .logo a {
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            white-space: nowrap;
+        }
+
+        .logo-mark {
+            color: var(--brand);
+            margin-right: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 19px;
+            list-style: none;
+        }
+
+        .nav-links > li > a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: .82rem;
+            font-weight: 500;
+            transition: color .2s ease;
+        }
+
+        .nav-links > li > a:hover,
+        .nav-links > li > a.active {
+            color: var(--text-primary);
+        }
+
+        .dropdown { position: relative; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 12px);
+            left: -18px;
+            min-width: 240px;
+            padding: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+            border-radius: 14px;
+        }
+
+        .dropdown-content::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -14px;
+            height: 14px;
+        }
+
+        .dropdown:hover .dropdown-content { display: block; }
+
+        .dropdown-content a {
+            display: block;
+            padding: 11px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: .78rem;
+        }
+
+        .dropdown-content a:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .lang-select {
+            appearance: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            padding: 8px 30px 8px 12px;
+            border-radius: 9px;
+            font-size: .72rem;
+            cursor: pointer;
+            background-image:
+                linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%),
+                linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+            background-position:
+                calc(100% - 14px) 50%,
+                calc(100% - 10px) 50%;
+            background-size: 4px 4px, 4px 4px;
+            background-repeat: no-repeat;
+        }
+
+        .darkmode-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            background: var(--accent);
+            color: var(--bg-primary);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: transform .2s ease;
+        }
+
+        .darkmode-toggle:hover { transform: rotate(8deg); }
+
+        /* ================= HERO ================= */
+        .reference-hero {
+            margin-top: 76px;
+            padding: 102px 0 0;
+            background:
+                linear-gradient(90deg, var(--border-light) 1px, transparent 1px) 0 0 / 48px 48px,
+                linear-gradient(var(--border-light) 1px, transparent 1px) 0 0 / 48px 48px,
+                var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, .7fr);
+            gap: 72px;
+            align-items: end;
+            padding-bottom: 64px;
+        }
+
+        .reference-hero h1 {
+            margin-top: 20px;
+            max-width: 860px;
+            font-size: clamp(3rem, 6vw, 6.2rem);
+            line-height: .92;
+            letter-spacing: -.06em;
+            font-weight: 600;
+        }
+
+        .reference-hero h1 .accent-word {
+            color: var(--brand);
+        }
+
+        .hero-side {
+            border-left: 1px solid var(--border-light);
+            padding-left: 30px;
+        }
+
+        .hero-side p {
+            color: var(--text-secondary);
+            font-size: .95rem;
+            line-height: 1.8;
+            max-width: 460px;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 26px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            min-height: 32px;
+            padding: 0 13px;
+            border-radius: 999px;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            background: color-mix(in srgb, var(--bg-card) 72%, transparent);
+            font-size: .68rem;
+            font-weight: 600;
+        }
+
+        .meta-strip {
+            border-top: 1px solid var(--border-light);
+            background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .meta-item {
+            padding: 23px 24px 23px 0;
+        }
+
+        .meta-item + .meta-item {
+            padding-left: 24px;
+            border-left: 1px solid var(--border-light);
+        }
+
+        .meta-item strong {
+            display: block;
+            color: var(--brand);
+            font-size: .68rem;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+        }
+
+        .meta-item span {
+            display: block;
+            margin-top: 5px;
+            color: var(--text-secondary);
+            font-size: .76rem;
+        }
+
+        /* ================= VIEWER ================= */
+        .viewer-section {
+            padding: 88px 0 38px;
+        }
+
+        .viewer-head {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 32px;
+            align-items: end;
+            margin-bottom: 24px;
+        }
+
+        .viewer-head h2 {
+            margin-top: 15px;
+            font-size: clamp(2rem, 4vw, 4rem);
+            line-height: .98;
+            letter-spacing: -.05em;
+            font-weight: 600;
+        }
+
+        .viewer-head p {
+            max-width: 500px;
+            color: var(--text-secondary);
+            font-size: .84rem;
+        }
+
+        .viewer-card {
+            padding: 14px;
+            border-radius: 22px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+        }
+
+        .viewer-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 11px;
+            padding: 1px 3px;
+        }
+
+        .viewer-left,
+        .viewer-controls {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        .viewer-badge {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: .64rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .zoom-info {
+            min-width: 56px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 9px;
+            border-radius: 999px;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            font-size: .66rem;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .viewer-btn {
+            min-height: 34px;
+            padding: 0 13px;
+            border-radius: 999px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: .68rem;
+            font-weight: 600;
+            transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+        }
+
+        .viewer-btn:hover {
+            transform: translateY(-1px);
+            background: var(--brand);
+            border-color: var(--brand);
+            color: white;
+        }
+
+        .plan-wrapper {
+            position: relative;
+            width: 100%;
+            height: clamp(430px, 49vw, 690px);
+            background: var(--plan-bg);
+            border: 1px solid #dedede;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: grab;
+            touch-action: none;
+            user-select: none;
+        }
+
+        .plan-wrapper:active { cursor: grabbing; }
+
+        .plan-img-container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transform-origin: center center;
+        }
+
+        .plan-img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            max-height: none;
+            object-fit: fill;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .plan-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 3;
+            transform: translate(-50%,-50%) rotate(-22deg);
+            color: #000;
+            opacity: .06;
+            font-size: clamp(1.7rem, 4vw, 4rem);
+            font-weight: 700;
+            letter-spacing: .18em;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .zoom-hint {
+            margin-top: 12px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: .69rem;
+        }
+
+        .viewer-card:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            border-radius: 0;
+            padding: 14px;
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .viewer-card:fullscreen .plan-wrapper {
+            flex: 1;
+            height: auto;
+        }
+
+        /* ================= TECHNICAL CONTENT ================= */
+        .technical-content {
+            padding: 56px 0 96px;
+        }
+
+        .technical-grid {
+            display: grid;
+            grid-template-columns: .75fr 1.25fr;
+            gap: 72px;
+            align-items: start;
+        }
+
+        .technical-copy h2 {
+            margin-top: 17px;
+            font-size: clamp(2.1rem, 4vw, 4rem);
+            line-height: .98;
+            letter-spacing: -.05em;
+            font-weight: 600;
+        }
+
+        .technical-copy > p {
+            margin-top: 22px;
+            color: var(--text-secondary);
+            font-size: .9rem;
+            line-height: 1.8;
+        }
+
+        .info-table {
+            border-top: 1px solid var(--border-light);
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 170px 1fr;
+            gap: 28px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .info-label {
+            color: var(--brand);
+            font-size: .66rem;
+            font-weight: 700;
+            letter-spacing: .10em;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            color: var(--text-secondary);
+            font-size: .84rem;
+        }
+
+        .feature-section {
+            padding: 0 0 96px;
+        }
+
+        .feature-head {
+            margin-bottom: 30px;
+        }
+
+        .feature-head h2 {
+            margin-top: 16px;
+            font-size: clamp(2rem, 4vw, 3.8rem);
+            line-height: .98;
+            letter-spacing: -.05em;
+            font-weight: 600;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .feature-card {
+            min-height: 230px;
+            padding: 26px;
+            border-radius: 18px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .feature-number {
+            color: var(--brand);
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .13em;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+            letter-spacing: -.035em;
+            font-weight: 500;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: .82rem;
+            line-height: 1.7;
+        }
+
+        /* ================= BACK / FOOTER ================= */
+        .back-section {
+            padding: 0 0 74px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--brand);
+            text-decoration: none;
+            font-size: .78rem;
+            font-weight: 700;
+        }
+
+        .btn-back:hover { gap: 13px; }
+
+        footer {
+            border-top: 1px solid var(--border-light);
+            padding: 30px 0 38px;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            color: var(--text-secondary);
+            font-size: .72rem;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 980px) {
+            .nav-links { display: none; }
+
+            .hero-grid,
+            .viewer-head,
+            .technical-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-side {
+                border-left: 0;
+                padding-left: 0;
+                border-top: 1px solid var(--border-light);
+                padding-top: 28px;
+            }
+
+            .meta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .meta-item:nth-child(3) {
+                border-left: 0;
+                padding-left: 0;
+                border-top: 1px solid var(--border-light);
+            }
+
+            .meta-item:nth-child(4) {
+                border-top: 1px solid var(--border-light);
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                width: min(100% - 30px, 1220px);
+            }
+
+            .nav-bar { min-height: 66px; }
+
+            .reference-hero {
+                margin-top: 66px;
+                padding-top: 76px;
+            }
+
+            .hero-grid { padding-bottom: 48px; }
+
+            .viewer-section {
+                padding-top: 64px;
+            }
+
+            .viewer-controls {
+                width: 100%;
+            }
+
+            .plan-wrapper {
+                height: 65vw;
+                min-height: 330px;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            .footer-grid {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .viewer-card {
+                padding: 10px;
+                border-radius: 16px;
+            }
+
+            .viewer-btn {
+                padding-inline: 10px;
+            }
+
+            .viewer-btn .btn-text {
+                display: none;
+            }
+
+            .plan-wrapper {
+                min-height: 300px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <header>
+
+<header>
     <div class="container nav-bar">
-      <div class="logo"><a href="../index.html">◈ GEOTECTURA</a></div>
-      <ul class="nav-links">
-        <li><a href="../index.html" data-key="nav_inicio">Inicio</a></li>
-        <li class="dropdown">
-          <a href="#" data-key="nav_servicios">Servicios ▼</a>
-          <div class="dropdown-content">
-            <a href="../servicio-topografia.html" data-key="serv_topografia">📐 Cálculo topografía</a>
-            <a href="../servicio-urbanismo.html" data-key="serv_urbanismo">🏙️ Urbanismo</a>
-            <a href="../servicio-parques.html" data-key="serv_parques">🎢 Parques temáticos</a>
-            <a href="../servicio-direccion.html" data-key="serv_direccion">📊 Dirección obra</a>
-            <a href="../servicio-reformas.html" data-key="serv_reformas">🔄 Reformas integrales</a>
-            <a href="../servicio-asesoria.html" data-key="serv_asesoria">⚙️ Asesoría técnica</a>
-          </div>
-        </li>
-        <li><a href="../portafolio.html" data-key="nav_proyectos">Referencias</a></li>
-        <li><a href="../nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
-        <li><a href="../index.html#contacto" data-key="nav_contacto">Contacto</a></li>
-        <li><a href="../equipo.html" data-key="nav_equipo">Equipo</a></li>
-        <li><select class="lang-select" id="langSelect"><option value="es">🇪🇸 ES</option><option value="en">🇬🇧 EN</option><option value="pt">🇵🇹 PT</option></select></li>
-        <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
-      </ul>
+        <div class="logo">
+            <a href="../index.html"><span class="logo-mark">◈</span>GEOTECTURA</a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="../index.html" data-key="nav_inicio">Inicio</a></li>
+
+            <li class="dropdown">
+                <a href="#" data-key="nav_servicios">Servicios ↓</a>
+                <div class="dropdown-content">
+                    <a href="../servicio-topografia.html" data-key="serv_topografia">Cálculo topografía</a>
+                    <a href="../servicio-urbanismo.html" data-key="serv_urbanismo">Urbanismo</a>
+                    <a href="../servicio-parques.html" data-key="serv_parques">Parques temáticos</a>
+                    <a href="../servicio-direccion.html" data-key="serv_direccion">Dirección de obra</a>
+                    <a href="../servicio-reformas.html" data-key="serv_reformas">Reformas integrales</a>
+                    <a href="../servicio-asesoria.html" data-key="serv_asesoria">Asesoría técnica</a>
+                </div>
+            </li>
+
+            <li><a href="../portafolio.html" class="active" data-key="nav_proyectos">Referencias</a></li>
+            <li><a href="../nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
+            <li><a href="../index.html#contacto" data-key="nav_contacto">Contacto</a></li>
+            <li><a href="../equipo.html" data-key="nav_equipo">Equipo</a></li>
+        </ul>
+
+        <div class="nav-controls">
+            <select class="lang-select" id="langSelect" aria-label="Idioma">
+                <option value="es">ES</option>
+                <option value="en">EN</option>
+                <option value="pt">PT</option>
+            </select>
+            <button class="darkmode-toggle" id="darkModeToggle" aria-label="Cambiar tema">◐</button>
+        </div>
     </div>
-  </header>
+</header>
 
-  <main>
+<main>
+
+    <!-- ================= HERO ================= -->
     <section class="reference-hero">
-      <div class="eyebrow">
-        <span class="eyebrow-icon">▥</span>
-        <span data-key="plano_tipo_superior">Plano estructural</span>
-      </div>
+        <div class="container hero-grid">
+            <div>
+                <span class="eyebrow" data-key="plano_tipo_superior">Plano estructural</span>
 
-      <h1 data-key="titulo">Soleras, Cimientos y Columnas</h1>
+                <h1>
+                    <span data-key="titulo_1">Soleras,</span><br>
+                    <span class="accent-word" data-key="titulo_2">Cimientos y Columnas.</span>
+                </h1>
+            </div>
 
-      <div class="hero-tags">
-        <span class="tag" data-key="tag_planta">Planta</span>
-        <span class="tag" data-key="tag_lectura">Ejes y cotas</span>
-        <span class="tag">AutoCAD</span>
-      </div>
+            <div class="hero-side">
+                <p data-key="descripcion">
+                    Plano estructural desarrollado para comunicar de forma ordenada la disposición de los principales elementos resistentes del proyecto. La representación integra ejes, cotas y referencias que permiten comprender la continuidad de las soleras, la implantación de los cimientos y la modulación de las columnas dentro de la planta.
+                </p>
+
+                <div class="hero-tags">
+                    <span class="tag" data-key="tag_planta">Planta</span>
+                    <span class="tag" data-key="tag_lectura">Ejes y cotas</span>
+                    <span class="tag">AutoCAD</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="meta-strip">
+            <div class="container meta-grid">
+                <div class="meta-item">
+                    <strong>01</strong>
+                    <span data-key="feature_soleras_titulo">Soleras</span>
+                </div>
+                <div class="meta-item">
+                    <strong>02</strong>
+                    <span data-key="feature_cimientos_titulo">Cimientos</span>
+                </div>
+                <div class="meta-item">
+                    <strong>03</strong>
+                    <span data-key="feature_columnas_titulo">Columnas</span>
+                </div>
+                <div class="meta-item">
+                    <strong>04</strong>
+                    <span data-key="tag_lectura">Ejes y cotas</span>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <div class="container">
-      <section class="viewer-card" id="viewerCard">
-        <div class="viewer-toolbar">
-          <div class="viewer-left">
-            <span class="viewer-badge" data-key="visor_badge">Plano técnico</span>
-            <span class="zoom-info" id="zoomInfo">100%</span>
-          </div>
-
-          <div class="viewer-controls">
-            <button class="viewer-btn" id="zoomInBtn" type="button">
-              ＋ <span class="btn-text" data-key="zoom_in">Acercar</span>
-            </button>
-
-            <button class="viewer-btn" id="zoomOutBtn" type="button">
-              − <span class="btn-text" data-key="zoom_out">Alejar</span>
-            </button>
-
-            <button class="viewer-btn" id="fullscreenBtn" type="button">
-              ⛶ <span class="btn-text" data-key="fullscreen">Pantalla completa</span>
-            </button>
-
-            <button class="viewer-btn" id="resetZoomBtn" type="button">
-              ⟳ <span class="btn-text" data-key="reset_zoom">Restablecer</span>
-            </button>
-          </div>
-        </div>
-
-       <div class="plan-wrapper" id="planWrapper">
-          <div class="plan-img-container" id="planContainer">
-            <img
-              src="../imagenes/COTAS.svg"
-              class="plan-img"
-              alt="Plano estructural de soleras, cimientos y columnas"
-              id="planImage"
-              draggable="false"
-              onerror="this.src='https://placehold.co/1800x950/ffffff/777777?text=Plano+estructural+sin+cajetin'">
-            <div class="plan-watermark">GEOTECTURA GT</div>
-          </div>
-        </div>
-
-
-        <div class="zoom-hint" data-key="zoom_hint">
-          💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano
-        </div>
-      </section>
-
-      <section class="content-card">
-        <h2 class="card-title">
-          <span class="small-icon">📋</span>
-          <span data-key="info_titulo">Información del plano</span>
-        </h2>
-
-        <div class="info-grid">
-          <div class="info-row">
-            <div class="info-label" data-key="contenido_label">Contenido:</div>
-            <div class="info-value" data-key="contenido_valor">Soleras · Cimientos · Columnas</div>
-          </div>
-
-          <div class="info-row">
-            <div class="info-label" data-key="organizacion_label">Organización:</div>
-            <div class="info-value" data-key="organizacion_valor">Ejes estructurales · cotas generales · referencias de modulación</div>
-          </div>
-
-          <div class="info-row">
-            <div class="info-label" data-key="sistema_label">Sistema representado:</div>
-            <div class="info-value" data-key="sistema_valor">Elementos de amarre · cimentación · apoyos verticales</div>
-          </div>
-
-          <div class="info-row">
-            <div class="info-label" data-key="representacion_label">Representación:</div>
-            <div class="info-value" data-key="representacion_valor">Planta estructural coordinada con cotas y referencias técnicas</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="content-card">
-        <h2 class="card-title">
-          <span class="small-icon">▧</span>
-          <span data-key="descripcion_titulo">Descripción</span>
-        </h2>
-
-        <p class="description-text" data-key="descripcion">
-          Plano estructural desarrollado para comunicar de forma ordenada la disposición de los principales elementos resistentes del proyecto. La representación integra ejes, cotas y referencias que permiten comprender la continuidad de las soleras, la implantación de los cimientos y la modulación de las columnas dentro de la planta.
-        </p>
-
-        <div class="feature-grid">
-          <article class="feature-card">
-            <div class="feature-icon">▦</div>
-            <div>
-              <h3 data-key="feature_soleras_titulo">Soleras</h3>
-              <p data-key="feature_soleras_desc">Lectura de la continuidad y relación de los elementos de amarre que articulan el sistema estructural.</p>
+    <!-- ================= VIEWER ================= -->
+    <section class="viewer-section">
+        <div class="container">
+            <div class="viewer-head">
+                <div>
+                    <span class="eyebrow" data-key="visor_badge">Plano técnico</span>
+                    <h2 data-key="info_titulo">Información del plano</h2>
+                </div>
+                <p data-key="zoom_hint">Usa la rueda del mouse para hacer zoom y arrastra para desplazarte por el plano.</p>
             </div>
-          </article>
 
-          <article class="feature-card">
-            <div class="feature-icon">⌂</div>
-            <div>
-              <h3 data-key="feature_cimientos_titulo">Cimientos</h3>
-              <p data-key="feature_cimientos_desc">Identificación de la disposición de los elementos de cimentación y su correspondencia con los apoyos de la planta.</p>
-            </div>
-          </article>
+            <section class="viewer-card" id="viewerCard">
+                <div class="viewer-toolbar">
+                    <div class="viewer-left">
+                        <span class="viewer-badge" data-key="visor_badge">Plano técnico</span>
+                        <span class="zoom-info" id="zoomInfo">100%</span>
+                    </div>
 
-          <article class="feature-card">
-            <div class="feature-icon">I</div>
-            <div>
-              <h3 data-key="feature_columnas_titulo">Columnas</h3>
-              <p data-key="feature_columnas_desc">Modulación de los apoyos verticales y lectura de su posición respecto de ejes, vanos y elementos de cimentación.</p>
-            </div>
-          </article>
+                    <div class="viewer-controls">
+                        <button class="viewer-btn" id="zoomInBtn" type="button">
+                            ＋ <span class="btn-text" data-key="zoom_in">Acercar</span>
+                        </button>
+
+                        <button class="viewer-btn" id="zoomOutBtn" type="button">
+                            − <span class="btn-text" data-key="zoom_out">Alejar</span>
+                        </button>
+
+                        <button class="viewer-btn" id="fullscreenBtn" type="button">
+                            ⛶ <span class="btn-text" data-key="fullscreen">Pantalla completa</span>
+                        </button>
+
+                        <button class="viewer-btn" id="resetZoomBtn" type="button">
+                            ⟳ <span class="btn-text" data-key="reset_zoom">Restablecer</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plan-wrapper" id="planWrapper">
+                    <div class="plan-img-container" id="planContainer">
+                        <img
+                            src="../imagenes/COTAS.svg"
+                            class="plan-img"
+                            alt="Plano estructural de soleras, cimientos y columnas"
+                            id="planImage"
+                            draggable="false"
+                            onerror="this.src='https://placehold.co/1800x950/ffffff/777777?text=Plano+estructural+sin+cajetin'">
+                        <div class="plan-watermark">GEOTECTURA GT</div>
+                    </div>
+                </div>
+
+                <div class="zoom-hint" data-key="zoom_hint">
+                    Usa la rueda del mouse para hacer zoom y arrastra para desplazarte por el plano.
+                </div>
+            </section>
         </div>
-      </section>
+    </section>
 
-      <div class="back-wrap">
-        <a href="../portafolio.html" class="btn-back" data-key="btn_volver">← Volver a referencias</a>
-      </div>
+    <!-- ================= TECHNICAL CONTENT ================= -->
+    <section class="technical-content">
+        <div class="container technical-grid">
+            <div class="technical-copy">
+                <span class="eyebrow" data-key="descripcion_titulo">Descripción</span>
+                <h2 data-key="technical_title">Lectura técnica del plano.</h2>
+                <p data-key="descripcion">
+                    Plano estructural desarrollado para comunicar de forma ordenada la disposición de los principales elementos resistentes del proyecto. La representación integra ejes, cotas y referencias que permiten comprender la continuidad de las soleras, la implantación de los cimientos y la modulación de las columnas dentro de la planta.
+                </p>
+            </div>
+
+            <div class="info-table">
+                <div class="info-row">
+                    <div class="info-label" data-key="contenido_label">Contenido</div>
+                    <div class="info-value" data-key="contenido_valor">Soleras · Cimientos · Columnas</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label" data-key="organizacion_label">Organización</div>
+                    <div class="info-value" data-key="organizacion_valor">Ejes estructurales · cotas generales · referencias de modulación</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label" data-key="sistema_label">Sistema representado</div>
+                    <div class="info-value" data-key="sistema_valor">Elementos de amarre · cimentación · apoyos verticales</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label" data-key="representacion_label">Representación</div>
+                    <div class="info-value" data-key="representacion_valor">Planta estructural coordinada con cotas y referencias técnicas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+    <section class="feature-section">
+        <div class="container">
+            <div class="feature-head">
+                <span class="eyebrow" data-key="features_kicker">Elementos representados</span>
+                <h2 data-key="features_title">La estructura, leída por componentes.</h2>
+            </div>
+
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <span class="feature-number">01</span>
+                    <div>
+                        <h3 data-key="feature_soleras_titulo">Soleras</h3>
+                        <p data-key="feature_soleras_desc">Lectura de la continuidad y relación de los elementos de amarre que articulan el sistema estructural.</p>
+                    </div>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-number">02</span>
+                    <div>
+                        <h3 data-key="feature_cimientos_titulo">Cimientos</h3>
+                        <p data-key="feature_cimientos_desc">Identificación de la disposición de los elementos de cimentación y su correspondencia con los apoyos de la planta.</p>
+                    </div>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-number">03</span>
+                    <div>
+                        <h3 data-key="feature_columnas_titulo">Columnas</h3>
+                        <p data-key="feature_columnas_desc">Modulación de los apoyos verticales y lectura de su posición respecto de ejes, vanos y elementos de cimentación.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="back-section">
+        <div class="container">
+            <a href="../portafolio.html" class="btn-back" data-key="btn_volver">← Volver a referencias</a>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="container footer-grid">
+        <p>© 2026 GEOTECTURA · Guatemala</p>
+        <p data-key="footer_sub">Planos, planillas y detalles constructivos</p>
     </div>
-  </main>
+</footer>
 
-  <footer>
-    <div class="container">
-      <p>© 2026 Geotectura · <span data-key="footer_rights">Todos los derechos reservados</span></p>
-      <p data-key="footer_sub">Planos, planillas y detalles constructivos</p>
-    </div>
-  </footer>
+<script>
 
-  <script>
     /* ===================== IDIOMAS ===================== */
     const texts = {
       es: {
         nav_inicio: "Inicio",
-        nav_servicios: "Servicios ▼",
+        nav_servicios: "Servicios ↓",
         nav_proyectos: "Referencias",
         nav_nosotros: "Nosotros",
         nav_contacto: "Contacto",
         nav_equipo: "Equipo",
 
-        serv_topografia: "📐 Cálculo topografía",
-        serv_urbanismo: "🏙️ Urbanismo",
-        serv_parques: "🎢 Parques temáticos",
-        serv_direccion: "📊 Dirección obra",
-        serv_reformas: "🔄 Reformas integrales",
-        serv_asesoria: "⚙️ Asesoría técnica",
+        serv_topografia: "Cálculo topografía",
+        serv_urbanismo: "Urbanismo",
+        serv_parques: "Parques temáticos",
+        serv_direccion: "Dirección de obra",
+        serv_reformas: "Reformas integrales",
+        serv_asesoria: "Asesoría técnica",
 
         plano_tipo_superior: "Plano estructural",
         titulo: "Soleras, Cimientos y Columnas",
+        titulo_1: "Soleras,",
+        titulo_2: "Cimientos y Columnas.",
+        technical_title: "Lectura técnica del plano.",
+        features_kicker: "Elementos representados",
+        features_title: "La estructura, leída por componentes.",
         tag_estructural: "Estructural",
         tag_planta: "Planta",
 
@@ -784,7 +983,7 @@
         zoom_out: "Alejar",
         fullscreen: "Pantalla completa",
         reset_zoom: "Restablecer",
-        zoom_hint: "💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano",
+        zoom_hint: "Usa la rueda del mouse para hacer zoom y arrastra para desplazarte por el plano.",
 
         info_titulo: "Información del plano",
         contenido_label: "Contenido:",
@@ -814,21 +1013,26 @@
 
       en: {
         nav_inicio: "Home",
-        nav_servicios: "Services ▼",
+        nav_servicios: "Services ↓",
         nav_proyectos: "References",
         nav_nosotros: "About",
         nav_contacto: "Contact",
         nav_equipo: "Team",
 
-        serv_topografia: "📐 Topography",
-        serv_urbanismo: "🏙️ Urbanism",
-        serv_parques: "🎢 Theme parks",
-        serv_direccion: "📊 Construction mgmt",
-        serv_reformas: "🔄 Renovations",
-        serv_asesoria: "⚙️ Technical advisory",
+        serv_topografia: "Topography",
+        serv_urbanismo: "Urbanism",
+        serv_parques: "Theme parks",
+        serv_direccion: "Construction management",
+        serv_reformas: "Renovations",
+        serv_asesoria: "Technical advisory",
 
         plano_tipo_superior: "Structural drawing",
         titulo: "Beams, Foundations and Columns",
+        titulo_1: "Beams,",
+        titulo_2: "Foundations and Columns.",
+        technical_title: "Technical reading of the drawing.",
+        features_kicker: "Represented elements",
+        features_title: "The structure, read by components.",
         tag_estructural: "Structural",
         tag_planta: "Plan",
 
@@ -837,7 +1041,7 @@
         zoom_out: "Zoom out",
         fullscreen: "Full screen",
         reset_zoom: "Reset",
-        zoom_hint: "💡 Tip: Use the mouse wheel to zoom and drag to move around the drawing",
+        zoom_hint: "Use the mouse wheel to zoom and drag to move around the drawing.",
 
         info_titulo: "Drawing information",
         contenido_label: "Content:",
@@ -867,21 +1071,26 @@
 
       pt: {
         nav_inicio: "Início",
-        nav_servicios: "Serviços ▼",
+        nav_servicios: "Serviços ↓",
         nav_proyectos: "Referências",
         nav_nosotros: "Sobre",
         nav_contacto: "Contato",
         nav_equipo: "Equipe",
 
-        serv_topografia: "📐 Topografia",
-        serv_urbanismo: "🏙️ Urbanismo",
-        serv_parques: "🎢 Parques temáticos",
-        serv_direccion: "📊 Gestão de obras",
-        serv_reformas: "🔄 Reformas",
-        serv_asesoria: "⚙️ Assessoria técnica",
+        serv_topografia: "Topografia",
+        serv_urbanismo: "Urbanismo",
+        serv_parques: "Parques temáticos",
+        serv_direccion: "Gestão de obras",
+        serv_reformas: "Reformas integrais",
+        serv_asesoria: "Assessoria técnica",
 
         plano_tipo_superior: "Desenho estrutural",
         titulo: "Vergas, Fundações e Colunas",
+        titulo_1: "Vergas,",
+        titulo_2: "Fundações e Colunas.",
+        technical_title: "Leitura técnica do desenho.",
+        features_kicker: "Elementos representados",
+        features_title: "A estrutura, lida por componentes.",
         tag_estructural: "Estrutural",
         tag_planta: "Planta",
 
@@ -890,7 +1099,7 @@
         zoom_out: "Afastar",
         fullscreen: "Tela cheia",
         reset_zoom: "Restaurar",
-        zoom_hint: "💡 Dica: Use a roda do mouse para aplicar zoom e arraste para se mover pelo desenho",
+        zoom_hint: "Use a roda do mouse para aplicar zoom e arraste para se mover pelo desenho.",
 
         info_titulo: "Informações do desenho",
         contenido_label: "Conteúdo:",
@@ -943,7 +1152,7 @@
 
     if (savedTheme === "dark") {
       document.body.classList.add("dark");
-      darkModeToggle.textContent = "☀️";
+      darkModeToggle.textContent = "☀";
     }
 
     darkModeToggle.addEventListener("click", () => {
@@ -951,7 +1160,7 @@
 
       const isDark = document.body.classList.contains("dark");
       localStorage.setItem("geotectura_theme", isDark ? "dark" : "light");
-      darkModeToggle.textContent = isDark ? "☀️" : "🌙";
+      darkModeToggle.textContent = isDark ? "☀" : "◐";
     });
 
     /* ===================== VISOR INTERACTIVO SVG NÍTIDO ===================== */
@@ -1159,7 +1368,9 @@
       img.setAttribute("draggable", "false");
     });
 
-  </script>
+  
+</script>
+
 </body>
 </html>
 
