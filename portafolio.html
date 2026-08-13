@@ -15,465 +15,458 @@
         }
 
         :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f6f7f8;
+            /* EXACTAMENTE LA MISMA PALETA DE INICIO / SERVICIOS */
+            --bg-primary: #f6f4ef;
+            --bg-secondary: #ece9e2;
             --bg-card: #ffffff;
-            --bg-soft: #f1f3f5;
-            --text-primary: #171717;
-            --text-secondary: #62666d;
-            --text-muted: #8a8f98;
-            --border-light: #e5e7eb;
-            --accent: #222222;
-            --accent-contrast: #ffffff;
-            --header-bg: rgba(255, 255, 255, 0.94);
-            --shadow-soft: 0 18px 45px rgba(18, 24, 40, 0.08);
-            --shadow-hover: 0 26px 60px rgba(18, 24, 40, 0.14);
+            --text-primary: #171916;
+            --text-secondary: #687068;
+            --border-light: rgba(23,25,22,.12);
+            --brand: #b56843;
+            --brand-dark: #8e4d31;
+            --brand-soft: #efe0d7;
+            --accent: #171916;
+            --header-bg: rgba(246,244,239,.92);
+            --shadow: 0 22px 70px rgba(30,25,20,.10);
         }
 
         body.dark {
-            --bg-primary: #0b0c0e;
-            --bg-secondary: #101215;
-            --bg-card: #16191d;
-            --bg-soft: #1c2025;
-            --text-primary: #f1f3f5;
-            --text-secondary: #b4bac3;
-            --text-muted: #818894;
-            --border-light: #262b32;
-            --accent: #f2f2f2;
-            --accent-contrast: #111111;
-            --header-bg: rgba(12, 13, 15, 0.94);
-            --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.22);
-            --shadow-hover: 0 26px 60px rgba(0, 0, 0, 0.34);
+            --bg-primary: #111210;
+            --bg-secondary: #171815;
+            --bg-card: #1c1e1a;
+            --text-primary: #f1eee8;
+            --text-secondary: #aaa99f;
+            --border-light: rgba(255,255,255,.11);
+            --brand: #d0825d;
+            --brand-dark: #e39a77;
+            --brand-soft: #35251f;
+            --accent: #f1eee8;
+            --header-bg: rgba(17,18,16,.92);
+            --shadow: 0 28px 80px rgba(0,0,0,.28);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.5;
-            transition: background-color 0.3s ease, color 0.2s ease;
+            line-height: 1.6;
+            transition: background-color .3s ease, color .2s ease;
         }
 
+        a { color: inherit; }
+        button, select { font: inherit; }
+        img { max-width: 100%; display: block; }
+
         .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
+            width: min(1220px, calc(100% - 48px));
+            margin-inline: auto;
         }
 
         /* =========================================================
-           ENCABEZADO — CONSERVADO
+           HEADER — COPIADO DEL SISTEMA VISUAL DE TOPOGRAFÍA
         ========================================================= */
         header {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--header-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            inset: 0 0 auto 0;
             z-index: 1000;
-            padding: 18px 0;
             border-bottom: 1px solid var(--border-light);
+            background: var(--header-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
         }
 
         .nav-bar {
+            min-height: 76px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            gap: 28px;
         }
 
         .logo a {
-            font-size: 1.4rem;
-            font-weight: 600;
             text-decoration: none;
-            color: var(--text-primary);
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            white-space: nowrap;
+        }
+
+        .logo-mark {
+            color: var(--brand);
+            margin-right: 6px;
         }
 
         .nav-links {
-            display: flex;
-            gap: 20px;
             list-style: none;
-            flex-wrap: wrap;
+            display: flex;
             align-items: center;
+            gap: 19px;
         }
 
-        .nav-links a {
+        .nav-links > li > a {
             text-decoration: none;
-            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-size: .82rem;
             font-weight: 500;
+            transition: color .2s ease;
+        }
+
+        .nav-links > li > a:hover,
+        .nav-links > li > a.active {
             color: var(--text-primary);
-            transition: opacity 0.2s;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            opacity: 0.7;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+        .dropdown { position: relative; }
 
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: var(--bg-card);
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            top: 100%;
-            left: 0;
-            overflow: hidden;
-        }
-
-        .dropdown-content a {
-            color: var(--text-primary);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.8rem;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--bg-secondary);
-            opacity: 1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .lang-select {
+            top: calc(100% + 12px);
+            left: -18px;
+            min-width: 240px;
+            padding: 8px;
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            padding: 6px 12px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            border-radius: 14px;
         }
 
-        .darkmode-toggle {
-            background: #2c2c2c;
-            border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        body.dark .darkmode-toggle {
-            background: #ededed;
-            color: #111;
-        }
-
-        /* =========================================================
-           HERO REDISEÑADO
-        ========================================================= */
-        .hero-portafolio {
-            position: relative;
-            overflow: hidden;
-            padding: 150px 0 72px;
-            background:
-                linear-gradient(90deg, var(--border-light) 1px, transparent 1px) 0 0 / 48px 48px,
-                linear-gradient(var(--border-light) 1px, transparent 1px) 0 0 / 48px 48px,
-                var(--bg-secondary);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .hero-portafolio::after {
+        .dropdown-content::before {
             content: "";
             position: absolute;
-            width: 430px;
-            height: 430px;
-            right: -150px;
-            top: -170px;
-            border: 1px solid var(--border-light);
-            border-radius: 50%;
-            box-shadow: 0 0 0 55px rgba(127, 127, 127, 0.025),
-                        0 0 0 110px rgba(127, 127, 127, 0.018);
-            pointer-events: none;
+            left: 0;
+            right: 0;
+            top: -14px;
+            height: 14px;
         }
 
-        .hero-grid {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr);
-            gap: 52px;
-            align-items: end;
-        }
+        .dropdown:hover .dropdown-content { display: block; }
 
-        .hero-kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 18px;
-            padding: 7px 11px;
-            border: 1px solid var(--border-light);
-            border-radius: 999px;
-            background: color-mix(in srgb, var(--bg-card) 88%, transparent);
-            color: var(--text-secondary);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-        }
-
-        .hero-kicker::before {
-            content: "";
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #5f8cff;
-        }
-
-        .hero-portafolio h1 {
-            max-width: 760px;
-            font-size: clamp(2.6rem, 6vw, 5.2rem);
-            line-height: .97;
-            font-weight: 600;
-            letter-spacing: -0.055em;
-            margin-bottom: 22px;
-        }
-
-        .hero-portafolio p {
-            max-width: 680px;
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        .hero-summary {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .summary-card {
-            min-height: 105px;
-            padding: 18px;
-            border: 1px solid var(--border-light);
-            border-radius: 18px;
-            background: color-mix(in srgb, var(--bg-card) 90%, transparent);
-            backdrop-filter: blur(10px);
-        }
-
-        .summary-number {
+        .dropdown-content a {
             display: block;
-            font-size: 1.6rem;
-            line-height: 1;
-            font-weight: 650;
-            letter-spacing: -0.04em;
-            margin-bottom: 10px;
-        }
-
-        .summary-label {
+            padding: 11px 12px;
+            border-radius: 8px;
+            text-decoration: none;
             color: var(--text-secondary);
-            font-size: .76rem;
-        }
-
-        /* =========================================================
-           CONTENIDO / FILTROS
-        ========================================================= */
-        .portfolio-shell {
-            padding: 34px 0 70px;
-        }
-
-        .toolbar {
-            display: flex;
-            justify-content: space-between;
-            gap: 22px;
-            align-items: center;
-            margin-bottom: 28px;
-        }
-
-        .toolbar-copy h2 {
-            font-size: 1.05rem;
-            font-weight: 650;
-            letter-spacing: -0.02em;
-            margin-bottom: 4px;
-        }
-
-        .toolbar-copy p {
-            color: var(--text-muted);
             font-size: .78rem;
         }
 
-        .filtros {
-            display: flex;
-            justify-content: flex-end;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .filtro-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            padding: 8px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.76rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            transition: transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
-        }
-
-        .filtro-btn:hover {
-            transform: translateY(-1px);
+        .dropdown-content a:hover {
             color: var(--text-primary);
+            background: var(--bg-secondary);
         }
 
-        .filtro-btn.active {
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .lang-select {
+            appearance: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            padding: 8px 30px 8px 12px;
+            border-radius: 9px;
+            font-size: .72rem;
+            cursor: pointer;
+            background-image:
+                linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%),
+                linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+            background-position:
+                calc(100% - 14px) 50%,
+                calc(100% - 10px) 50%;
+            background-size: 4px 4px, 4px 4px;
+            background-repeat: no-repeat;
+        }
+
+        .darkmode-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
             background: var(--accent);
-            color: var(--accent-contrast);
-            border-color: var(--accent);
+            color: var(--bg-primary);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
         }
 
         /* =========================================================
-           GRID / TARJETAS
+           HERO — MISMA PALETA CREMA + TERRACOTA
         ========================================================= */
-        .grid-proyectos {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 22px;
-        }
-
-        .proyecto-card {
-            --card-accent: #7c8aa5;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: var(--shadow-soft);
-            transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
-        }
-
-        .proyecto-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
-            border-color: color-mix(in srgb, var(--card-accent) 42%, var(--border-light));
-        }
-
-        .proyecto-card[data-accent="estructura"] { --card-accent: #c98246; }
-        .proyecto-card[data-accent="ventanas"]   { --card-accent: #4d8fd3; }
-        .proyecto-card[data-accent="fachada"]    { --card-accent: #8a72c8; }
-        .proyecto-card[data-accent="puertas"]    { --card-accent: #4a9c78; }
-        .proyecto-card[data-accent="planta"]     { --card-accent: #4c9ca6; }
-        .proyecto-card[data-accent="cortes"]     { --card-accent: #c66d69; }
-
-        .plan-wrapper {
-            position: relative;
-            overflow: hidden;
-            height: 224px;
-            background: var(--bg-soft);
+        .hero {
+            margin-top: 76px;
+            padding: 104px 0 0;
+            background:
+                linear-gradient(90deg, var(--border-light) 1px, transparent 1px) 0 0 / 48px 48px,
+                linear-gradient(var(--border-light) 1px, transparent 1px) 0 0 / 48px 48px,
+                var(--bg-primary);
             border-bottom: 1px solid var(--border-light);
         }
 
-        .plan-wrapper::before {
+        .hero-copy {
+            max-width: 860px;
+            padding-bottom: 68px;
+        }
+
+        .hero-kicker,
+        .section-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--brand);
+            font-size: .70rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .hero-kicker::before,
+        .section-kicker::before {
+            content: "";
+            width: 30px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        .hero h1 {
+            margin-top: 24px;
+            font-size: clamp(3.2rem, 7vw, 7rem);
+            line-height: .91;
+            letter-spacing: -.065em;
+            font-weight: 600;
+            max-width: 900px;
+        }
+
+        .hero h1 .brand-word { color: var(--brand); }
+
+        .hero-copy > p {
+            margin-top: 26px;
+            max-width: 720px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .summary-strip {
+            border-top: 1px solid var(--border-light);
+            background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .summary-item {
+            padding: 24px 24px 24px 0;
+        }
+
+        .summary-item + .summary-item {
+            padding-left: 24px;
+            border-left: 1px solid var(--border-light);
+        }
+
+        .summary-item strong {
+            display: block;
+            font-size: 1.25rem;
+            line-height: 1;
+            letter-spacing: -.03em;
+        }
+
+        .summary-item span {
+            display: block;
+            margin-top: 7px;
+            color: var(--text-secondary);
+            font-size: .65rem;
+            text-transform: uppercase;
+            letter-spacing: .11em;
+        }
+
+        /* =========================================================
+           DOCUMENTACIÓN
+        ========================================================= */
+        .portfolio-section {
+            padding: 100px 0 94px;
+        }
+
+        .portfolio-head {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 60px;
+            align-items: end;
+            margin-bottom: 42px;
+        }
+
+        .portfolio-head h2 {
+            margin-top: 18px;
+            font-size: clamp(2.25rem, 4.5vw, 4.6rem);
+            line-height: .98;
+            letter-spacing: -.055em;
+            font-weight: 600;
+        }
+
+        .portfolio-head p {
+            margin-top: 18px;
+            max-width: 580px;
+            color: var(--text-secondary);
+            font-size: .88rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 14px;
+            border-radius: 7px;
+            border: 1px solid var(--border-light);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: .73rem;
+            font-weight: 600;
+            transition: background .2s ease, color .2s ease, transform .2s ease;
+        }
+
+        .filter-btn:hover {
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 20px;
+        }
+
+        .reference-card {
+            --card-accent: var(--brand);
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-card);
+            text-decoration: none;
+            box-shadow: 0 16px 45px rgba(30,25,20,.07);
+            transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+        }
+
+        .reference-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow);
+            border-color: color-mix(in srgb, var(--card-accent) 45%, var(--border-light));
+        }
+
+        .reference-card[data-accent="estructura"] { --card-accent: #c98246; }
+        .reference-card[data-accent="ventanas"]   { --card-accent: #4d8fd3; }
+        .reference-card[data-accent="fachada"]    { --card-accent: #8a72c8; }
+        .reference-card[data-accent="puertas"]    { --card-accent: #4a9c78; }
+        .reference-card[data-accent="planta"]     { --card-accent: #4c9ca6; }
+        .reference-card[data-accent="cortes"]     { --card-accent: #c66d69; }
+
+        .preview {
+            position: relative;
+            height: 255px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .preview::before {
             content: "";
             position: absolute;
-            z-index: 3;
+            z-index: 5;
             inset: 0 auto 0 0;
             width: 5px;
             background: var(--card-accent);
         }
 
-        .proyecto-img {
+        .preview img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
-            background: var(--bg-secondary);
-            filter: grayscale(1) contrast(.92);
+            filter: grayscale(.40) contrast(.97);
             transform: scale(1.01);
             transition: transform .45s ease, filter .35s ease;
         }
 
-        .proyecto-card:hover .proyecto-img {
-            transform: scale(1.035);
-            filter: grayscale(.18) contrast(.98);
+        .reference-card:hover .preview img {
+            transform: scale(1.04);
+            filter: grayscale(0) contrast(1);
         }
 
-        .plan-watermark {
+        .watermark {
             position: absolute;
+            z-index: 4;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) rotate(-18deg);
-            font-size: 1.1rem;
-            font-weight: 700;
-            white-space: nowrap;
-            opacity: 0.075;
-            pointer-events: none;
-            user-select: none;
-            z-index: 4;
+            transform: translate(-50%,-50%) rotate(-18deg);
             font-family: monospace;
+            font-size: 1rem;
+            font-weight: 700;
             letter-spacing: 4px;
-            color: #111;
+            color: var(--text-primary);
+            opacity: .055;
+            pointer-events: none;
+            white-space: nowrap;
         }
 
-        body.dark .plan-watermark {
-            color: #fff;
-            opacity: .08;
-        }
-
-        .card-number {
+        .ref-number {
             position: absolute;
-            z-index: 5;
+            z-index: 6;
             top: 14px;
             right: 14px;
             min-width: 38px;
             height: 28px;
+            padding: 0 10px;
+            border-radius: 999px;
+            background: rgba(18,18,18,.72);
+            color: white;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0 10px;
-            border-radius: 999px;
-            color: #fff;
-            background: rgba(18, 18, 18, .72);
             backdrop-filter: blur(8px);
-            font-size: .68rem;
+            font-size: .67rem;
             font-weight: 700;
             letter-spacing: .08em;
         }
 
-        .proyecto-info {
+        .reference-info {
             display: flex;
-            flex-direction: column;
             flex: 1;
-            padding: 20px 20px 18px;
+            flex-direction: column;
+            padding: 23px 22px 22px;
         }
 
-        .proyecto-categoria {
+        .reference-category {
             display: flex;
             align-items: center;
             gap: 8px;
+            margin-bottom: 11px;
             color: var(--text-secondary);
-            font-size: 0.69rem;
-            text-transform: uppercase;
-            letter-spacing: .1em;
+            font-size: .66rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: .11em;
         }
 
-        .proyecto-categoria::before {
+        .reference-category::before {
             content: "";
             width: 8px;
             height: 8px;
@@ -481,792 +474,656 @@
             background: var(--card-accent);
         }
 
-        .proyecto-info h3 {
-            font-size: 1.12rem;
-            line-height: 1.22;
-            letter-spacing: -0.025em;
-            margin-bottom: 11px;
+        .reference-info h3 {
+            font-size: 1.19rem;
+            line-height: 1.18;
+            letter-spacing: -.03em;
+            font-weight: 600;
+            margin-bottom: 10px;
         }
 
-        .proyecto-meta {
+        .meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 13px;
-        }
-
-        .proyecto-meta span {
-            padding: 5px 8px;
-            border: 1px solid var(--border-light);
-            border-radius: 7px;
-            background: var(--bg-secondary);
-            font-size: 0.64rem;
+            margin-bottom: 15px;
             color: var(--text-secondary);
-        }
-
-        .proyecto-info p {
-            flex: 1;
-            color: var(--text-secondary);
-            font-size: 0.79rem;
-            margin-bottom: 18px;
-            line-height: 1.55;
-        }
-
-        .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .card-type {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            min-width: 0;
-            color: var(--text-muted);
             font-size: .66rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .07em;
         }
 
-        .card-type::before {
-            content: "PDF";
-            padding: 3px 5px;
-            border-radius: 5px;
+        .meta span + span::before {
+            content: "·";
+            margin: 0 7px;
             color: var(--card-accent);
-            background: color-mix(in srgb, var(--card-accent) 12%, transparent);
-            font-size: .58rem;
-            letter-spacing: .04em;
         }
 
-        .btn-proyecto {
-            display: inline-flex;
+        .reference-info p {
+            flex: 1;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            font-size: .79rem;
+            line-height: 1.65;
+        }
+
+        .view-link {
+            display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 9px 13px;
-            border-radius: 9px;
-            background: var(--accent);
-            color: var(--accent-contrast);
-            font-size: 0.72rem;
-            font-weight: 650;
-            text-decoration: none;
-            white-space: nowrap;
-            transition: transform .2s ease, opacity .2s ease;
+            gap: 8px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-light);
+            color: var(--brand);
+            font-size: .74rem;
+            font-weight: 700;
         }
 
-        .btn-proyecto:hover {
-            transform: translateX(2px);
-            opacity: .9;
+        .view-link b {
+            font-weight: inherit;
+            transition: transform .2s ease;
+        }
+
+        .reference-card:hover .view-link b {
+            transform: translateX(4px);
         }
 
         /* =========================================================
-           AVISO LEGAL / FOOTER
+           AVISO LEGAL + FOOTER
         ========================================================= */
-        .copyright-section {
-            padding: 34px 20px;
-            text-align: center;
-            background: var(--bg-secondary);
+        .legal {
             border-top: 1px solid var(--border-light);
             border-bottom: 1px solid var(--border-light);
+            background: var(--bg-secondary);
+        }
+
+        .legal-inner {
+            display: grid;
+            grid-template-columns: 170px 1fr;
+            gap: 36px;
+            padding: 28px 0;
+            align-items: start;
+        }
+
+        .legal-label {
+            color: var(--brand);
+            font-size: .67rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .legal-copy {
             color: var(--text-secondary);
-        }
-
-        .copyright-section h3 {
-            margin-bottom: 10px;
-            font-size: .9rem;
-            color: var(--text-primary);
-        }
-
-        .copyright-section p {
-            font-size: 0.7rem;
-            margin: 6px 0;
+            font-size: .75rem;
         }
 
         footer {
-            text-align: center;
-            padding: 34px 0 42px;
-            font-size: 0.75rem;
+            padding: 30px 0 38px;
+        }
+
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
             color: var(--text-secondary);
+            font-size: .72rem;
         }
 
-        /* =========================================================
-           RESPONSIVE
-        ========================================================= */
-        @media (max-width: 1040px) {
-            .hero-grid {
+        @media (max-width: 980px) {
+            .nav-links { display: none; }
+
+            .portfolio-head {
                 grid-template-columns: 1fr;
-                gap: 32px;
+                gap: 26px;
             }
 
-            .hero-summary {
-                max-width: 560px;
-            }
+            .filters { justify-content: flex-start; }
 
-            .grid-proyectos {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
+            .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
         }
 
-        @media (max-width: 800px) {
-            header {
-                position: static;
-            }
-
-            .hero-portafolio {
-                padding: 62px 0 54px;
-            }
-
-            .nav-links {
-                justify-content: center;
-            }
-
-            .nav-bar {
-                flex-direction: column;
-            }
-
-            .dropdown-content {
-                position: static;
-                box-shadow: none;
-                margin-top: 8px;
-            }
-
-            .toolbar {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .filtros {
-                justify-content: flex-start;
-            }
-        }
-
-        @media (max-width: 620px) {
+        @media (max-width: 720px) {
             .container {
-                padding: 0 16px;
+                width: min(100% - 30px, 1220px);
             }
 
-            .hero-portafolio h1 {
-                font-size: 2.7rem;
+            .nav-bar { min-height: 66px; }
+
+            .hero {
+                margin-top: 66px;
+                padding-top: 72px;
             }
 
-            .hero-summary {
-                grid-template-columns: 1fr 1fr;
+            .summary-grid { grid-template-columns: 1fr 1fr; }
+
+            .summary-item:nth-child(3) {
+                border-left: 0;
+                padding-left: 0;
+                border-top: 1px solid var(--border-light);
             }
 
-            .grid-proyectos {
+            .summary-item:nth-child(4) {
+                border-top: 1px solid var(--border-light);
+            }
+
+            .portfolio-section { padding: 76px 0; }
+            .grid { grid-template-columns: 1fr; }
+            .preview { height: 235px; }
+
+            .legal-inner {
                 grid-template-columns: 1fr;
+                gap: 8px;
             }
 
-            .plan-wrapper {
-                height: 215px;
+            .footer-grid {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
+
 <body>
 
-<!-- =========================================================
-     ENCABEZADO ORIGINAL — NO SE CAMBIA LA ESTRUCTURA
-========================================================= -->
 <header>
     <div class="container nav-bar">
-        <div class="logo"><a href="index.html">◈ GEOTECTURA</a></div>
+        <div class="logo">
+            <a href="index.html"><span class="logo-mark">◈</span>GEOTECTURA</a>
+        </div>
+
         <ul class="nav-links">
             <li><a href="index.html" data-key="nav_inicio">Inicio</a></li>
+
             <li class="dropdown">
-                <a href="#" data-key="nav_servicios">Servicios ▼</a>
+                <a href="#" data-key="nav_servicios">Servicios ↓</a>
                 <div class="dropdown-content">
-                    <a href="servicio-topografia.html" data-key="serv_topografia">📐 Cálculo topografía</a>
-                    <a href="servicio-urbanismo.html" data-key="serv_urbanismo">🏙️ Urbanismo</a>
-                    <a href="servicio-parques.html" data-key="serv_parques">🎢 Parques temáticos</a>
-                    <a href="servicio-direccion.html" data-key="serv_direccion">📊 Dirección obra</a>
-                    <a href="servicio-reformas.html" data-key="serv_reformas">🔄 Reformas integrales</a>
-                    <a href="servicio-asesoria.html" data-key="serv_asesoria">⚙️ Asesoría técnica</a>
+                    <a href="servicio-topografia.html" data-key="serv_topografia">Cálculo topografía</a>
+                    <a href="servicio-urbanismo.html" data-key="serv_urbanismo">Urbanismo</a>
+                    <a href="servicio-parques.html" data-key="serv_parques">Parques temáticos</a>
+                    <a href="servicio-direccion.html" data-key="serv_direccion">Dirección de obra</a>
+                    <a href="servicio-reformas.html" data-key="serv_reformas">Reformas integrales</a>
+                    <a href="servicio-asesoria.html" data-key="serv_asesoria">Asesoría técnica</a>
                 </div>
             </li>
-            <li><a href="portafolio.html" data-key="nav_proyectos" class="active">Referencias</a></li>
+
+            <li><a href="portafolio.html" class="active" data-key="nav_proyectos">Referencias</a></li>
             <li><a href="nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
             <li><a href="index.html#contacto" data-key="nav_contacto">Contacto</a></li>
             <li><a href="equipo.html" data-key="nav_equipo">Equipo</a></li>
-            <li>
-                <select class="lang-select" id="langSelect" aria-label="Idioma">
-                    <option value="es">🇪🇸 ES</option>
-                    <option value="en">🇬🇧 EN</option>
-                    <option value="pt">🇵🇹 PT</option>
-                </select>
-            </li>
-            <li><button class="darkmode-toggle" id="darkModeToggle" aria-label="Cambiar modo de color">🌙</button></li>
         </ul>
+
+        <div class="nav-controls">
+            <select class="lang-select" id="langSelect" aria-label="Idioma">
+                <option value="es">ES</option>
+                <option value="en">EN</option>
+                <option value="pt">PT</option>
+            </select>
+            <button class="darkmode-toggle" id="darkModeToggle" aria-label="Cambiar tema">◐</button>
+        </div>
     </div>
 </header>
 
 <main>
-    <section class="hero-portafolio">
-        <div class="container hero-grid">
-            <div>
-                <div class="hero-kicker" data-key="hero_kicker">Biblioteca de documentación</div>
-                <h1 data-key="portafolio_title">Referencias técnicas</h1>
-                <p data-key="portafolio_subtitle">
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-copy">
+                <span class="hero-kicker" data-key="hero_kicker">Biblioteca de documentación</span>
+
+                <h1>
+                    <span data-key="hero_title_1">Referencias</span><br>
+                    <span class="brand-word" data-key="hero_title_2">técnicas.</span>
+                </h1>
+
+                <p data-key="hero_text">
                     Una selección de planos, planillas, fachadas y secciones técnicas desarrolladas en AutoCAD, organizadas como referencia visual de documentación arquitectónica.
                 </p>
             </div>
+        </div>
 
-            <div class="hero-summary" aria-label="Resumen de referencias">
-                <div class="summary-card">
-                    <span class="summary-number">06</span>
-                    <span class="summary-label" data-key="summary_referencias">referencias seleccionadas</span>
+        <div class="summary-strip">
+            <div class="container summary-grid">
+                <div class="summary-item">
+                    <strong>06</strong>
+                    <span data-key="summary_1">Referencias seleccionadas</span>
                 </div>
-                <div class="summary-card">
-                    <span class="summary-number">03</span>
-                    <span class="summary-label" data-key="summary_planillas">planillas técnicas</span>
+                <div class="summary-item">
+                    <strong>03</strong>
+                    <span data-key="summary_2">Planillas técnicas</span>
                 </div>
-                <div class="summary-card">
-                    <span class="summary-number">01</span>
-                    <span class="summary-label" data-key="summary_planta">planta arquitectónica</span>
+                <div class="summary-item">
+                    <strong>01</strong>
+                    <span data-key="summary_3">Planta arquitectónica</span>
                 </div>
-                <div class="summary-card">
-                    <span class="summary-number">02</span>
-                    <span class="summary-label" data-key="summary_vistas">láminas de fachadas y cortes</span>
+                <div class="summary-item">
+                    <strong>02</strong>
+                    <span data-key="summary_4">Fachadas y cortes</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="portfolio-shell">
+    <section class="portfolio-section">
         <div class="container">
-            <div class="toolbar">
-                <div class="toolbar-copy">
-                    <h2 data-key="catalogo_title">Catálogo técnico</h2>
-                    <p data-key="catalogo_subtitle">Filtra las referencias según el tipo de documentación.</p>
+            <div class="portfolio-head">
+                <div>
+                    <span class="section-kicker" data-key="section_kicker">Trabajo seleccionado</span>
+                    <h2 data-key="section_title">Documentación técnica</h2>
+                    <p data-key="section_text">Explora las referencias y filtra la colección según el tipo de documentación.</p>
                 </div>
 
-                <div class="filtros">
-                    <button class="filtro-btn active" data-filter="todos" data-key="filtro_todos">Todos</button>
-                    <button class="filtro-btn" data-filter="planillas" data-key="filtro_planillas">Planillas</button>
-                    <button class="filtro-btn" data-filter="fachadas" data-key="filtro_fachadas">Fachadas</button>
-                    <button class="filtro-btn" data-filter="cortes" data-key="filtro_cortes">Cortes</button>
-                    <button class="filtro-btn" data-filter="planos" data-key="filtro_planos">Planos</button>
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="todos" data-key="filter_all">Todos</button>
+                    <button class="filter-btn" data-filter="planillas" data-key="filter_schedules">Planillas</button>
+                    <button class="filter-btn" data-filter="fachadas" data-key="filter_facades">Fachadas</button>
+                    <button class="filter-btn" data-filter="cortes" data-key="filter_sections">Cortes</button>
+                    <button class="filter-btn" data-filter="planos" data-key="filter_plans">Planos</button>
                 </div>
             </div>
 
-            <div class="grid-proyectos" id="proyectosGrid">
+            <div class="grid">
 
-                <!-- =====================================================
-                     REFERENCIA 01 — SE MANTIENE
-                     PDF FUENTE: DISEÑO PROPIO 3 (1)(4).pdf
-                     Vista: planilla de soleras, cimientos y columnas
-                ====================================================== -->
-                <article class="proyecto-card" data-categoria="planillas" data-accent="estructura">
-                    <div class="plan-wrapper">
-                        <img src="imagenes/planilla-soleras.webp" class="proyecto-img" alt="Detalle de Soleras, Cimientos y Columnas" onerror="this.src='https://placehold.co/900x600/e2e2e2/767676?text=Detalle+estructural'">
-                        <div class="plan-watermark">GEOTECTURA GT</div>
-                        <span class="card-number">01</span>
+                <a href="proyectos/planilla-soleras.html" class="reference-card" data-category="planillas" data-accent="estructura">
+                    <div class="preview">
+                        <img src="imagenes/planilla-soleras.webp" alt="Detalle de Soleras, Cimientos y Columnas">
+                        <div class="watermark">GEOTECTURA GT</div>
+                        <span class="ref-number">01</span>
                     </div>
-
-                    <div class="proyecto-info">
-                        <div class="proyecto-categoria" data-key="cat_detalle_estructural">Detalle estructural</div>
-                        <h3 data-key="titulo_detalle_estructural">Detalle de Soleras, Cimientos y Columnas</h3>
-
-                        <div class="proyecto-meta">
-                            <span data-key="meta_estructura">Estructura</span>
-                            <span data-key="meta_planilla">Planilla</span>
-                            <span>AutoCAD</span>
-                        </div>
-
-                        <p data-key="desc_detalle_estructural">
-                            Plano estructural con planillas de soleras, cimientos y columnas, secciones, refuerzo longitudinal y estribos.
-                        </p>
-
-                        <div class="card-footer">
-                            <span class="card-type" data-key="fuente_estructural">Detalle estructural</span>
-                            <a href="proyectos/planilla-soleras.html" class="btn-proyecto" data-key="btn_ver">Ver referencia →</a>
-                        </div>
+                    <div class="reference-info">
+                        <div class="reference-category" data-key="cat_1">Detalle estructural</div>
+                        <h3 data-key="title_1">Detalle de Soleras, Cimientos y Columnas</h3>
+                        <div class="meta"><span data-key="meta_1a">Estructura</span><span data-key="meta_1b">Planilla</span></div>
+                        <p data-key="desc_1">Plano estructural con planillas de soleras, cimientos y columnas, secciones, refuerzo longitudinal y estribos.</p>
+                        <div class="view-link"><span data-key="view_ref">Ver referencia</span><b>→</b></div>
                     </div>
-                </article>
+                </a>
 
-                <!-- =====================================================
-                     REFERENCIA 02 — SE MANTIENE
-                     PDF FUENTE: PLANILLA DE VENTANAS (1)(3).pdf
-                     Vista: V-1 a V-10 / escala 1:25
-                ====================================================== -->
-                <article class="proyecto-card" data-categoria="planillas" data-accent="ventanas">
-                    <div class="plan-wrapper">
-                        <img src="imagenes/planilla-ventanas.webp" class="proyecto-img" alt="Detalle de Ventanas" onerror="this.src='https://placehold.co/900x600/e2e2e2/767676?text=Planilla+de+ventanas'">
-                        <div class="plan-watermark">GEOTECTURA GT</div>
-                        <span class="card-number">02</span>
+                <a href="proyectos/planilla-ventanas.html" class="reference-card" data-category="planillas" data-accent="ventanas">
+                    <div class="preview">
+                        <img src="imagenes/planilla-ventanas.webp" alt="Detalle de Ventanas">
+                        <div class="watermark">GEOTECTURA GT</div>
+                        <span class="ref-number">02</span>
                     </div>
-
-                    <div class="proyecto-info">
-                        <div class="proyecto-categoria" data-key="cat_detalle_carpinteria">Detalle de carpintería</div>
-                        <h3 data-key="titulo_detalle_ventanas">Detalle de Ventanas</h3>
-
-                        <div class="proyecto-meta">
-                            <span data-key="meta_carpinteria">Carpintería</span>
-                            <span data-key="meta_escala_25">Escala 1:25</span>
-                            <span>AutoCAD</span>
-                        </div>
-
-                        <p data-key="desc_detalle_ventanas">
-                            Planilla con diez tipologías de ventana, cotas y especificaciones de marcos de aluminio con vidrio polarizado, nevado y claro.
-                        </p>
-
-                        <div class="card-footer">
-                            <span class="card-type" data-key="fuente_ventanas">Planilla de ventanas</span>
-                            <a href="proyectos/planilla-ventanas.html" class="btn-proyecto" data-key="btn_ver">Ver referencia →</a>
-                        </div>
+                    <div class="reference-info">
+                        <div class="reference-category" data-key="cat_2">Detalle de carpintería</div>
+                        <h3 data-key="title_2">Detalle de Ventanas</h3>
+                        <div class="meta"><span data-key="meta_2a">Carpintería</span><span data-key="meta_2b">Escala 1:25</span></div>
+                        <p data-key="desc_2">Planilla con diez tipologías de ventana, cotas y especificaciones de marcos de aluminio con vidrio polarizado, nevado y claro.</p>
+                        <div class="view-link"><span data-key="view_ref">Ver referencia</span><b>→</b></div>
                     </div>
-                </article>
+                </a>
 
-                <!-- =====================================================
-                     REFERENCIA 03 — SE MANTIENE
-                     PDF FUENTE: FACHADAS 1 (1).pdf
-                     Vista sugerida: elevación principal de la lámina
-                ====================================================== -->
-                <article class="proyecto-card" data-categoria="fachadas" data-accent="fachada">
-                    <div class="plan-wrapper">
-                        <img src="imagenes/fachada-principal.webp" class="proyecto-img" alt="Fachada Principal" onerror="this.src='https://placehold.co/900x600/e2e2e2/767676?text=Fachada+principal'">
-                        <div class="plan-watermark">GEOTECTURA GT</div>
-                        <span class="card-number">03</span>
+                <a href="proyectos/fachada-principal.html" class="reference-card" data-category="fachadas" data-accent="fachada">
+                    <div class="preview">
+                        <img src="imagenes/fachada-principal.webp" alt="Fachada Principal">
+                        <div class="watermark">GEOTECTURA GT</div>
+                        <span class="ref-number">03</span>
                     </div>
-
-                    <div class="proyecto-info">
-                        <div class="proyecto-categoria" data-key="cat_fachada">Fachada</div>
-                        <h3 data-key="titulo_fachada_principal">Fachada Principal</h3>
-
-                        <div class="proyecto-meta">
-                            <span data-key="meta_alzado">Alzado frontal</span>
-                            <span data-key="meta_escala_50">Escala 1:50</span>
-                            <span>AutoCAD</span>
-                        </div>
-
-                        <p data-key="desc_fachada_principal">
-                            Elevación arquitectónica con composición de vanos y acabados. La lámina de origen también incluye una segunda fachada y un corte transversal.
-                        </p>
-
-                        <div class="card-footer">
-                            <span class="card-type" data-key="fuente_fachada">Lámina de fachadas</span>
-                            <a href="proyectos/fachada-principal.html" class="btn-proyecto" data-key="btn_ver">Ver referencia →</a>
-                        </div>
+                    <div class="reference-info">
+                        <div class="reference-category" data-key="cat_3">Fachada</div>
+                        <h3 data-key="title_3">Fachada Principal</h3>
+                        <div class="meta"><span data-key="meta_3a">Alzado frontal</span><span data-key="meta_3b">Escala 1:50</span></div>
+                        <p data-key="desc_3">Elevación arquitectónica con composición de vanos y acabados. La lámina de origen también incluye una segunda fachada y un corte transversal.</p>
+                        <div class="view-link"><span data-key="view_ref">Ver referencia</span><b>→</b></div>
                     </div>
-                </article>
+                </a>
 
-                <!-- =====================================================
-                     REFERENCIA 04 — NUEVA
-                     PDF FUENTE: PUERTAS PLANILLA (1).pdf
-                     Vista: P-1 a P-6 / escala 1:25
-                ====================================================== -->
-                <article class="proyecto-card" data-categoria="planillas" data-accent="puertas">
-                    <div class="plan-wrapper">
-                        <img src="imagenes/planilla-puertas.webp" class="proyecto-img" alt="Planilla de Puertas" onerror="this.src='https://placehold.co/900x600/e2e2e2/767676?text=Planilla+de+puertas'">
-                        <div class="plan-watermark">GEOTECTURA GT</div>
-                        <span class="card-number">04</span>
+                <a href="proyectos/planilla-puertas.html" class="reference-card" data-category="planillas" data-accent="puertas">
+                    <div class="preview">
+                        <img src="imagenes/planilla-puertas.webp" alt="Planilla de Puertas">
+                        <div class="watermark">GEOTECTURA GT</div>
+                        <span class="ref-number">04</span>
                     </div>
-
-                    <div class="proyecto-info">
-                        <div class="proyecto-categoria" data-key="cat_puertas">Detalle de carpintería</div>
-                        <h3 data-key="titulo_puertas">Planilla de Puertas</h3>
-
-                        <div class="proyecto-meta">
-                            <span data-key="meta_puertas">Puertas</span>
-                            <span data-key="meta_escala_25">Escala 1:25</span>
-                            <span>AutoCAD</span>
-                        </div>
-
-                        <p data-key="desc_puertas">
-                            Serie P-1 a P-6 con portones y puertas de metal, madera y cristal, incluyendo dimensiones y especificaciones de marcos y herrajes.
-                        </p>
-
-                        <div class="card-footer">
-                            <span class="card-type" data-key="fuente_puertas">Planilla de puertas</span>
-                            <a href="proyectos/planilla-puertas.html" class="btn-proyecto" data-key="btn_ver">Ver referencia →</a>
-                        </div>
+                    <div class="reference-info">
+                        <div class="reference-category" data-key="cat_4">Detalle de carpintería</div>
+                        <h3 data-key="title_4">Planilla de Puertas</h3>
+                        <div class="meta"><span data-key="meta_4a">Puertas</span><span data-key="meta_4b">Escala 1:25</span></div>
+                        <p data-key="desc_4">Serie P-1 a P-6 con portones y puertas de metal, madera y cristal, incluyendo dimensiones y especificaciones de marcos y herrajes.</p>
+                        <div class="view-link"><span data-key="view_ref">Ver referencia</span><b>→</b></div>
                     </div>
-                </article>
+                </a>
 
-                <!-- =====================================================
-                     REFERENCIA 05 — NUEVA
-                     PDF FUENTE: Plano maqueta Nicole Chivalán.pdf
-                     Vista: plano amoblado / escala 1:50
-                ====================================================== -->
-                <article class="proyecto-card" data-categoria="planos" data-accent="planta">
-                    <div class="plan-wrapper">
-                        <img src="imagenes/plano-amoblado.webp" class="proyecto-img" alt="Plano Arquitectónico Amoblado" onerror="this.src='https://placehold.co/900x600/e2e2e2/767676?text=Plano+amoblado'">
-                        <div class="plan-watermark">GEOTECTURA GT</div>
-                        <span class="card-number">05</span>
+                <a href="proyectos/plano-amoblado.html" class="reference-card" data-category="planos" data-accent="planta">
+                    <div class="preview">
+                        <img src="imagenes/plano-amoblado.webp" alt="Plano Arquitectónico Amoblado">
+                        <div class="watermark">GEOTECTURA GT</div>
+                        <span class="ref-number">05</span>
                     </div>
-
-                    <div class="proyecto-info">
-                        <div class="proyecto-categoria" data-key="cat_planta">Planta arquitectónica</div>
-                        <h3 data-key="titulo_plano_amoblado">Plano Arquitectónico Amoblado</h3>
-
-                        <div class="proyecto-meta">
-                            <span data-key="meta_distribucion">Distribución</span>
-                            <span data-key="meta_escala_50">Escala 1:50</span>
-                            <span>AutoCAD</span>
-                        </div>
-
-                        <p data-key="desc_plano_amoblado">
-                            Planta general con ejes, cotas y distribución de mobiliario, útil para comprender organización espacial, circulaciones y relación entre ambientes.
-                        </p>
-
-                        <div class="card-footer">
-                            <span class="card-type" data-key="fuente_planta">Plano amoblado</span>
-                            <a href="proyectos/plano-amoblado.html" class="btn-proyecto" data-key="btn_ver">Ver referencia →</a>
-                        </div>
+                    <div class="reference-info">
+                        <div class="reference-category" data-key="cat_5">Planta arquitectónica</div>
+                        <h3 data-key="title_5">Plano Arquitectónico Amoblado</h3>
+                        <div class="meta"><span data-key="meta_5a">Distribución</span><span data-key="meta_5b">Escala 1:50</span></div>
+                        <p data-key="desc_5">Planta general con ejes, cotas y distribución de mobiliario, útil para comprender organización espacial, circulaciones y relación entre ambientes.</p>
+                        <div class="view-link"><span data-key="view_ref">Ver referencia</span><b>→</b></div>
                     </div>
-                </article>
+                </a>
 
-                <!-- =====================================================
-                     REFERENCIA 06 — NUEVA
-                     PDF FUENTE: FACHADAS 2 (2).pdf
-                     Vista sugerida: cortes longitudinales / escala 1:50
-                ====================================================== -->
-                <article class="proyecto-card" data-categoria="cortes" data-accent="cortes">
-                    <div class="plan-wrapper">
-                        <img src="imagenes/corte-longitudinal.webp" class="proyecto-img" alt="Cortes Longitudinales" onerror="this.src='https://placehold.co/900x600/e2e2e2/767676?text=Cortes+longitudinales'">
-                        <div class="plan-watermark">GEOTECTURA GT</div>
-                        <span class="card-number">06</span>
+                <a href="proyectos/corte-longitudinal.html" class="reference-card" data-category="cortes" data-accent="cortes">
+                    <div class="preview">
+                        <img src="imagenes/corte-longitudinal.webp" alt="Cortes Longitudinales">
+                        <div class="watermark">GEOTECTURA GT</div>
+                        <span class="ref-number">06</span>
                     </div>
-
-                    <div class="proyecto-info">
-                        <div class="proyecto-categoria" data-key="cat_corte">Corte arquitectónico</div>
-                        <h3 data-key="titulo_cortes_longitudinales">Cortes Longitudinales y Acabados</h3>
-
-                        <div class="proyecto-meta">
-                            <span data-key="meta_seccion">Sección</span>
-                            <span data-key="meta_escala_50">Escala 1:50</span>
-                            <span>AutoCAD</span>
-                        </div>
-
-                        <p data-key="desc_cortes_longitudinales">
-                            Lámina con dos cortes longitudinales y una fachada complementaria, mostrando niveles, vanos y acabados como blanqueado y azulejo.
-                        </p>
-
-                        <div class="card-footer">
-                            <span class="card-type" data-key="fuente_cortes">Lámina de cortes</span>
-                            <a href="proyectos/corte-longitudinal.html" class="btn-proyecto" data-key="btn_ver">Ver referencia →</a>
-                        </div>
+                    <div class="reference-info">
+                        <div class="reference-category" data-key="cat_6">Corte arquitectónico</div>
+                        <h3 data-key="title_6">Cortes Longitudinales y Acabados</h3>
+                        <div class="meta"><span data-key="meta_6a">Sección</span><span data-key="meta_6b">Escala 1:50</span></div>
+                        <p data-key="desc_6">Lámina con dos cortes longitudinales y una fachada complementaria, mostrando niveles, vanos y acabados como blanqueado y azulejo.</p>
+                        <div class="view-link"><span data-key="view_ref">Ver referencia</span><b>→</b></div>
                     </div>
-                </article>
+                </a>
+
             </div>
         </div>
     </section>
+
 </main>
 
-<!-- ===== AVISO LEGAL ===== -->
-<section class="copyright-section">
-    <div class="container">
-        <h3 data-key="copyright_titulo">📜 Propiedad Intelectual</h3>
-        <p data-key="copyright_p1">Todos los planos, planillas, fachadas y cortes presentados son propiedad intelectual de GEOTECTURA GT.</p>
-        <p data-key="copyright_p2">Prohibida su reproducción total o parcial sin autorización expresa.</p>
+<section class="legal">
+    <div class="container legal-inner">
+        <div class="legal-label" data-key="legal_title">Propiedad intelectual</div>
+        <div class="legal-copy">
+            <p data-key="legal_text_1">Todos los planos, planillas, fachadas y cortes presentados son propiedad intelectual de GEOTECTURA GT.</p>
+            <p data-key="legal_text_2">Prohibida su reproducción total o parcial sin autorización expresa.</p>
+        </div>
     </div>
 </section>
 
 <footer>
-    <div class="container">
-        <p>© 2026 Geotectura · Referencias técnicas en AutoCAD</p>
-        <p style="margin-top: 8px; font-size: 0.72rem;" data-key="footer_sub">Planos, planillas y detalles constructivos</p>
+    <div class="container footer-grid">
+        <p>© 2026 GEOTECTURA · Guatemala</p>
+        <p data-key="footer_text">Planos, planillas y detalles constructivos</p>
     </div>
 </footer>
 
 <script>
     const texts = {
         es: {
-            nav_inicio: "Inicio",
-            nav_servicios: "Servicios ▼",
-            nav_proyectos: "Referencias",
-            nav_nosotros: "Nosotros",
-            nav_contacto: "Contacto",
-            nav_equipo: "Equipo",
+            nav_inicio:"Inicio",
+            nav_servicios:"Servicios ↓",
+            nav_proyectos:"Referencias",
+            nav_nosotros:"Nosotros",
+            nav_contacto:"Contacto",
+            nav_equipo:"Equipo",
+            serv_topografia:"Cálculo topografía",
+            serv_urbanismo:"Urbanismo",
+            serv_parques:"Parques temáticos",
+            serv_direccion:"Dirección de obra",
+            serv_reformas:"Reformas integrales",
+            serv_asesoria:"Asesoría técnica",
 
-            serv_topografia: "📐 Cálculo topografía",
-            serv_urbanismo: "🏙️ Urbanismo",
-            serv_parques: "🎢 Parques temáticos",
-            serv_direccion: "📊 Dirección obra",
-            serv_reformas: "🔄 Reformas integrales",
-            serv_asesoria: "⚙️ Asesoría técnica",
+            hero_kicker:"Biblioteca de documentación",
+            hero_title_1:"Referencias",
+            hero_title_2:"técnicas.",
+            hero_text:"Una selección de planos, planillas, fachadas y secciones técnicas desarrolladas en AutoCAD, organizadas como referencia visual de documentación arquitectónica.",
+            summary_1:"Referencias seleccionadas",
+            summary_2:"Planillas técnicas",
+            summary_3:"Planta arquitectónica",
+            summary_4:"Fachadas y cortes",
 
-            hero_kicker: "Biblioteca de documentación",
-            portafolio_title: "Referencias técnicas",
-            portafolio_subtitle: "Una selección de planos, planillas, fachadas y secciones técnicas desarrolladas en AutoCAD, organizadas como referencia visual de documentación arquitectónica.",
-            summary_referencias: "referencias seleccionadas",
-            summary_planillas: "planillas técnicas",
-            summary_planta: "planta arquitectónica",
-            summary_vistas: "láminas de fachadas y cortes",
+            section_kicker:"Trabajo seleccionado",
+            section_title:"Documentación técnica",
+            section_text:"Explora las referencias y filtra la colección según el tipo de documentación.",
+            filter_all:"Todos",
+            filter_schedules:"Planillas",
+            filter_facades:"Fachadas",
+            filter_sections:"Cortes",
+            filter_plans:"Planos",
 
-            catalogo_title: "Catálogo técnico",
-            catalogo_subtitle: "Filtra las referencias según el tipo de documentación.",
-            filtro_todos: "Todos",
-            filtro_planillas: "Planillas",
-            filtro_fachadas: "Fachadas",
-            filtro_cortes: "Cortes",
-            filtro_planos: "Planos",
+            cat_1:"Detalle estructural",
+            title_1:"Detalle de Soleras, Cimientos y Columnas",
+            meta_1a:"Estructura",
+            meta_1b:"Planilla",
+            desc_1:"Plano estructural con planillas de soleras, cimientos y columnas, secciones, refuerzo longitudinal y estribos.",
 
-            cat_detalle_estructural: "Detalle estructural",
-            titulo_detalle_estructural: "Detalle de Soleras, Cimientos y Columnas",
-            meta_estructura: "Estructura",
-            meta_planilla: "Planilla",
-            desc_detalle_estructural: "Plano estructural con planillas de soleras, cimientos y columnas, secciones, refuerzo longitudinal y estribos.",
-            fuente_estructural: "Detalle estructural",
+            cat_2:"Detalle de carpintería",
+            title_2:"Detalle de Ventanas",
+            meta_2a:"Carpintería",
+            meta_2b:"Escala 1:25",
+            desc_2:"Planilla con diez tipologías de ventana, cotas y especificaciones de marcos de aluminio con vidrio polarizado, nevado y claro.",
 
-            cat_detalle_carpinteria: "Detalle de carpintería",
-            titulo_detalle_ventanas: "Detalle de Ventanas",
-            meta_carpinteria: "Carpintería",
-            meta_escala_25: "Escala 1:25",
-            desc_detalle_ventanas: "Planilla con diez tipologías de ventana, cotas y especificaciones de marcos de aluminio con vidrio polarizado, nevado y claro.",
-            fuente_ventanas: "Planilla de ventanas",
+            cat_3:"Fachada",
+            title_3:"Fachada Principal",
+            meta_3a:"Alzado frontal",
+            meta_3b:"Escala 1:50",
+            desc_3:"Elevación arquitectónica con composición de vanos y acabados. La lámina de origen también incluye una segunda fachada y un corte transversal.",
 
-            cat_fachada: "Fachada",
-            titulo_fachada_principal: "Fachada Principal",
-            meta_alzado: "Alzado frontal",
-            meta_escala_50: "Escala 1:50",
-            desc_fachada_principal: "Elevación arquitectónica con composición de vanos y acabados. La lámina de origen también incluye una segunda fachada y un corte transversal.",
-            fuente_fachada: "Lámina de fachadas",
+            cat_4:"Detalle de carpintería",
+            title_4:"Planilla de Puertas",
+            meta_4a:"Puertas",
+            meta_4b:"Escala 1:25",
+            desc_4:"Serie P-1 a P-6 con portones y puertas de metal, madera y cristal, incluyendo dimensiones y especificaciones de marcos y herrajes.",
 
-            cat_puertas: "Detalle de carpintería",
-            titulo_puertas: "Planilla de Puertas",
-            meta_puertas: "Puertas",
-            desc_puertas: "Serie P-1 a P-6 con portones y puertas de metal, madera y cristal, incluyendo dimensiones y especificaciones de marcos y herrajes.",
-            fuente_puertas: "Planilla de puertas",
+            cat_5:"Planta arquitectónica",
+            title_5:"Plano Arquitectónico Amoblado",
+            meta_5a:"Distribución",
+            meta_5b:"Escala 1:50",
+            desc_5:"Planta general con ejes, cotas y distribución de mobiliario, útil para comprender organización espacial, circulaciones y relación entre ambientes.",
 
-            cat_planta: "Planta arquitectónica",
-            titulo_plano_amoblado: "Plano Arquitectónico Amoblado",
-            meta_distribucion: "Distribución",
-            desc_plano_amoblado: "Planta general con ejes, cotas y distribución de mobiliario, útil para comprender organización espacial, circulaciones y relación entre ambientes.",
-            fuente_planta: "Plano amoblado",
+            cat_6:"Corte arquitectónico",
+            title_6:"Cortes Longitudinales y Acabados",
+            meta_6a:"Sección",
+            meta_6b:"Escala 1:50",
+            desc_6:"Lámina con dos cortes longitudinales y una fachada complementaria, mostrando niveles, vanos y acabados como blanqueado y azulejo.",
 
-            cat_corte: "Corte arquitectónico",
-            titulo_cortes_longitudinales: "Cortes Longitudinales y Acabados",
-            meta_seccion: "Sección",
-            desc_cortes_longitudinales: "Lámina con dos cortes longitudinales y una fachada complementaria, mostrando niveles, vanos y acabados como blanqueado y azulejo.",
-            fuente_cortes: "Lámina de cortes",
-
-            btn_ver: "Ver referencia →",
-            copyright_titulo: "📜 Propiedad Intelectual",
-            copyright_p1: "Todos los planos, planillas, fachadas y cortes presentados son propiedad intelectual de GEOTECTURA GT.",
-            copyright_p2: "Prohibida su reproducción total o parcial sin autorización expresa.",
-            footer_sub: "Planos, planillas y detalles constructivos"
+            view_ref:"Ver referencia",
+            legal_title:"Propiedad intelectual",
+            legal_text_1:"Todos los planos, planillas, fachadas y cortes presentados son propiedad intelectual de GEOTECTURA GT.",
+            legal_text_2:"Prohibida su reproducción total o parcial sin autorización expresa.",
+            footer_text:"Planos, planillas y detalles constructivos"
         },
 
         en: {
-            nav_inicio: "Home",
-            nav_servicios: "Services ▼",
-            nav_proyectos: "References",
-            nav_nosotros: "About",
-            nav_contacto: "Contact",
-            nav_equipo: "Team",
+            nav_inicio:"Home",
+            nav_servicios:"Services ↓",
+            nav_proyectos:"References",
+            nav_nosotros:"About",
+            nav_contacto:"Contact",
+            nav_equipo:"Team",
+            serv_topografia:"Topography",
+            serv_urbanismo:"Urbanism",
+            serv_parques:"Theme parks",
+            serv_direccion:"Construction management",
+            serv_reformas:"Renovations",
+            serv_asesoria:"Technical advisory",
 
-            serv_topografia: "📐 Topography",
-            serv_urbanismo: "🏙️ Urbanism",
-            serv_parques: "🎢 Theme parks",
-            serv_direccion: "📊 Construction mgmt",
-            serv_reformas: "🔄 Renovations",
-            serv_asesoria: "⚙️ Advisory",
+            hero_kicker:"Documentation library",
+            hero_title_1:"Technical",
+            hero_title_2:"references.",
+            hero_text:"A selection of drawings, schedules, elevations and technical sections developed in AutoCAD and organized as visual references for architectural documentation.",
+            summary_1:"Selected references",
+            summary_2:"Technical schedules",
+            summary_3:"Architectural plan",
+            summary_4:"Facades and sections",
 
-            hero_kicker: "Documentation library",
-            portafolio_title: "Technical references",
-            portafolio_subtitle: "A selection of drawings, schedules, elevations and technical sections developed in AutoCAD and organized as visual references for architectural documentation.",
-            summary_referencias: "selected references",
-            summary_planillas: "technical schedules",
-            summary_planta: "architectural floor plan",
-            summary_vistas: "elevation and section sheets",
+            section_kicker:"Selected work",
+            section_title:"Technical documentation",
+            section_text:"Explore the references and filter the collection by documentation type.",
+            filter_all:"All",
+            filter_schedules:"Schedules",
+            filter_facades:"Facades",
+            filter_sections:"Sections",
+            filter_plans:"Plans",
 
-            catalogo_title: "Technical catalog",
-            catalogo_subtitle: "Filter references by documentation type.",
-            filtro_todos: "All",
-            filtro_planillas: "Schedules",
-            filtro_fachadas: "Facades",
-            filtro_cortes: "Sections",
-            filtro_planos: "Plans",
+            cat_1:"Structural detail",
+            title_1:"Beams, Foundations and Columns Detail",
+            meta_1a:"Structure",
+            meta_1b:"Schedule",
+            desc_1:"Structural drawing with beam, foundation and column schedules, sections, longitudinal reinforcement and stirrups.",
 
-            cat_detalle_estructural: "Structural detail",
-            titulo_detalle_estructural: "Beams, Foundations and Columns Detail",
-            meta_estructura: "Structure",
-            meta_planilla: "Schedule",
-            desc_detalle_estructural: "Structural drawing with beam, foundation and column schedules, sections, longitudinal reinforcement and stirrups.",
-            fuente_estructural: "Structural detail",
+            cat_2:"Carpentry detail",
+            title_2:"Window Details",
+            meta_2a:"Carpentry",
+            meta_2b:"Scale 1:25",
+            desc_2:"Schedule with ten window types, dimensions and aluminum-frame specifications using tinted, frosted and clear glass.",
 
-            cat_detalle_carpinteria: "Carpentry detail",
-            titulo_detalle_ventanas: "Window Details",
-            meta_carpinteria: "Carpentry",
-            meta_escala_25: "Scale 1:25",
-            desc_detalle_ventanas: "Schedule with ten window types, dimensions and aluminum-frame specifications using tinted, frosted and clear glass.",
-            fuente_ventanas: "Window schedule",
+            cat_3:"Facade",
+            title_3:"Main Facade",
+            meta_3a:"Front elevation",
+            meta_3b:"Scale 1:50",
+            desc_3:"Architectural elevation showing opening composition and finishes. The source sheet also includes a second facade and a cross section.",
 
-            cat_fachada: "Facade",
-            titulo_fachada_principal: "Main Facade",
-            meta_alzado: "Front elevation",
-            meta_escala_50: "Scale 1:50",
-            desc_fachada_principal: "Architectural elevation showing opening composition and finishes. The source sheet also includes a second facade and a cross section.",
-            fuente_fachada: "Facade sheet",
+            cat_4:"Carpentry detail",
+            title_4:"Door Schedule",
+            meta_4a:"Doors",
+            meta_4b:"Scale 1:25",
+            desc_4:"P-1 to P-6 series with metal, timber and glass gates and doors, including dimensions, frames and hardware specifications.",
 
-            cat_puertas: "Carpentry detail",
-            titulo_puertas: "Door Schedule",
-            meta_puertas: "Doors",
-            desc_puertas: "P-1 to P-6 series with metal, timber and glass gates and doors, including dimensions, frames and hardware specifications.",
-            fuente_puertas: "Door schedule",
+            cat_5:"Architectural plan",
+            title_5:"Furnished Architectural Plan",
+            meta_5a:"Layout",
+            meta_5b:"Scale 1:50",
+            desc_5:"General floor plan with grid axes, dimensions and furniture layout, useful for reading spatial organization, circulation and room relationships.",
 
-            cat_planta: "Architectural plan",
-            titulo_plano_amoblado: "Furnished Architectural Plan",
-            meta_distribucion: "Layout",
-            desc_plano_amoblado: "General floor plan with grid axes, dimensions and furniture layout, useful for reading spatial organization, circulation and room relationships.",
-            fuente_planta: "Furnished plan",
+            cat_6:"Architectural section",
+            title_6:"Longitudinal Sections and Finishes",
+            meta_6a:"Section",
+            meta_6b:"Scale 1:50",
+            desc_6:"Sheet with two longitudinal sections and one complementary facade, showing levels, openings and finishes such as plaster and tile.",
 
-            cat_corte: "Architectural section",
-            titulo_cortes_longitudinales: "Longitudinal Sections and Finishes",
-            meta_seccion: "Section",
-            desc_cortes_longitudinales: "Sheet with two longitudinal sections and one complementary facade, showing levels, openings and finishes such as plaster and tile.",
-            fuente_cortes: "Section sheet",
-
-            btn_ver: "View reference →",
-            copyright_titulo: "📜 Intellectual Property",
-            copyright_p1: "All drawings, schedules, facades and sections presented are intellectual property of GEOTECTURA GT.",
-            copyright_p2: "Total or partial reproduction without express authorization is prohibited.",
-            footer_sub: "Drawings, schedules and construction details"
+            view_ref:"View reference",
+            legal_title:"Intellectual property",
+            legal_text_1:"All drawings, schedules, facades and sections presented are intellectual property of GEOTECTURA GT.",
+            legal_text_2:"Total or partial reproduction without express authorization is prohibited.",
+            footer_text:"Drawings, schedules and construction details"
         },
 
         pt: {
-            nav_inicio: "Início",
-            nav_servicios: "Serviços ▼",
-            nav_proyectos: "Referências",
-            nav_nosotros: "Sobre",
-            nav_contacto: "Contato",
-            nav_equipo: "Equipe",
+            nav_inicio:"Início",
+            nav_servicios:"Serviços ↓",
+            nav_proyectos:"Referências",
+            nav_nosotros:"Sobre",
+            nav_contacto:"Contato",
+            nav_equipo:"Equipe",
+            serv_topografia:"Topografia",
+            serv_urbanismo:"Urbanismo",
+            serv_parques:"Parques temáticos",
+            serv_direccion:"Gestão de obras",
+            serv_reformas:"Reformas integrais",
+            serv_asesoria:"Assessoria técnica",
 
-            serv_topografia: "📐 Topografia",
-            serv_urbanismo: "🏙️ Urbanismo",
-            serv_parques: "🎢 Parques temáticos",
-            serv_direccion: "📊 Gestão de obras",
-            serv_reformas: "🔄 Reformas",
-            serv_asesoria: "⚙️ Consultoria",
+            hero_kicker:"Biblioteca de documentação",
+            hero_title_1:"Referências",
+            hero_title_2:"técnicas.",
+            hero_text:"Uma seleção de desenhos, planilhas, fachadas e cortes técnicos desenvolvidos em AutoCAD e organizados como referências visuais de documentação arquitetônica.",
+            summary_1:"Referências selecionadas",
+            summary_2:"Planilhas técnicas",
+            summary_3:"Planta arquitetônica",
+            summary_4:"Fachadas e cortes",
 
-            hero_kicker: "Biblioteca de documentação",
-            portafolio_title: "Referências técnicas",
-            portafolio_subtitle: "Uma seleção de desenhos, planilhas, fachadas e cortes técnicos desenvolvidos em AutoCAD e organizados como referências visuais de documentação arquitetônica.",
-            summary_referencias: "referências selecionadas",
-            summary_planillas: "planilhas técnicas",
-            summary_planta: "planta arquitetônica",
-            summary_vistas: "pranchas de fachadas e cortes",
+            section_kicker:"Trabalho selecionado",
+            section_title:"Documentação técnica",
+            section_text:"Explore as referências e filtre a coleção pelo tipo de documentação.",
+            filter_all:"Todos",
+            filter_schedules:"Planilhas",
+            filter_facades:"Fachadas",
+            filter_sections:"Cortes",
+            filter_plans:"Plantas",
 
-            catalogo_title: "Catálogo técnico",
-            catalogo_subtitle: "Filtre as referências por tipo de documentação.",
-            filtro_todos: "Todos",
-            filtro_planillas: "Planilhas",
-            filtro_fachadas: "Fachadas",
-            filtro_cortes: "Cortes",
-            filtro_planos: "Plantas",
+            cat_1:"Detalhe estrutural",
+            title_1:"Detalhe de Vergas, Fundações e Colunas",
+            meta_1a:"Estrutura",
+            meta_1b:"Planilha",
+            desc_1:"Desenho estrutural com planilhas de vergas, fundações e colunas, seções, armadura longitudinal e estribos.",
 
-            cat_detalle_estructural: "Detalhe estrutural",
-            titulo_detalle_estructural: "Detalhe de Vergas, Fundações e Colunas",
-            meta_estructura: "Estrutura",
-            meta_planilla: "Planilha",
-            desc_detalle_estructural: "Desenho estrutural com planilhas de vergas, fundações e colunas, seções, armadura longitudinal e estribos.",
-            fuente_estructural: "Detalhe estrutural",
+            cat_2:"Detalhe de esquadrias",
+            title_2:"Detalhe de Janelas",
+            meta_2a:"Esquadrias",
+            meta_2b:"Escala 1:25",
+            desc_2:"Planilha com dez tipologias de janela, cotas e especificações de caixilhos de alumínio com vidro polarizado, fosco e transparente.",
 
-            cat_detalle_carpinteria: "Detalhe de esquadrias",
-            titulo_detalle_ventanas: "Detalhe de Janelas",
-            meta_carpinteria: "Esquadrias",
-            meta_escala_25: "Escala 1:25",
-            desc_detalle_ventanas: "Planilha com dez tipologias de janela, cotas e especificações de caixilhos de alumínio com vidro polarizado, fosco e transparente.",
-            fuente_ventanas: "Planilha de janelas",
+            cat_3:"Fachada",
+            title_3:"Fachada Principal",
+            meta_3a:"Elevação frontal",
+            meta_3b:"Escala 1:50",
+            desc_3:"Elevação arquitetônica com composição de vãos e acabamentos. A prancha de origem também inclui uma segunda fachada e um corte transversal.",
 
-            cat_fachada: "Fachada",
-            titulo_fachada_principal: "Fachada Principal",
-            meta_alzado: "Elevação frontal",
-            meta_escala_50: "Escala 1:50",
-            desc_fachada_principal: "Elevação arquitetônica com composição de vãos e acabamentos. A prancha de origem também inclui uma segunda fachada e um corte transversal.",
-            fuente_fachada: "Prancha de fachadas",
+            cat_4:"Detalhe de esquadrias",
+            title_4:"Planilha de Portas",
+            meta_4a:"Portas",
+            meta_4b:"Escala 1:25",
+            desc_4:"Série P-1 a P-6 com portões e portas de metal, madeira e vidro, incluindo dimensões e especificações de marcos e ferragens.",
 
-            cat_puertas: "Detalhe de esquadrias",
-            titulo_puertas: "Planilha de Portas",
-            meta_puertas: "Portas",
-            desc_puertas: "Série P-1 a P-6 com portões e portas de metal, madeira e vidro, incluindo dimensões e especificações de marcos e ferragens.",
-            fuente_puertas: "Planilha de portas",
+            cat_5:"Planta arquitetônica",
+            title_5:"Planta Arquitetônica Mobiliada",
+            meta_5a:"Distribuição",
+            meta_5b:"Escala 1:50",
+            desc_5:"Planta geral com eixos, cotas e distribuição de mobiliário, útil para compreender organização espacial, circulação e relação entre ambientes.",
 
-            cat_planta: "Planta arquitetônica",
-            titulo_plano_amoblado: "Planta Arquitetônica Mobiliada",
-            meta_distribucion: "Distribuição",
-            desc_plano_amoblado: "Planta geral com eixos, cotas e distribuição de mobiliário, útil para compreender organização espacial, circulação e relação entre ambientes.",
-            fuente_planta: "Planta mobiliada",
+            cat_6:"Corte arquitetônico",
+            title_6:"Cortes Longitudinais e Acabamentos",
+            meta_6a:"Seção",
+            meta_6b:"Escala 1:50",
+            desc_6:"Prancha com dois cortes longitudinais e uma fachada complementar, mostrando níveis, vãos e acabamentos como reboco e azulejo.",
 
-            cat_corte: "Corte arquitetônico",
-            titulo_cortes_longitudinales: "Cortes Longitudinais e Acabamentos",
-            meta_seccion: "Seção",
-            desc_cortes_longitudinales: "Prancha com dois cortes longitudinais e uma fachada complementar, mostrando níveis, vãos e acabamentos como reboco e azulejo.",
-            fuente_cortes: "Prancha de cortes",
-
-            btn_ver: "Ver referência →",
-            copyright_titulo: "📜 Propriedade Intelectual",
-            copyright_p1: "Todos os desenhos, planilhas, fachadas e cortes apresentados são propriedade intelectual da GEOTECTURA GT.",
-            copyright_p2: "Proibida a reprodução total ou parcial sem autorização expressa.",
-            footer_sub: "Desenhos, planilhas e detalhes construtivos"
+            view_ref:"Ver referência",
+            legal_title:"Propriedade intelectual",
+            legal_text_1:"Todos os desenhos, planilhas, fachadas e cortes apresentados são propriedade intelectual da GEOTECTURA GT.",
+            legal_text_2:"Proibida a reprodução total ou parcial sem autorização expressa.",
+            footer_text:"Desenhos, planilhas e detalhes construtivos"
         }
     };
 
     function changeLanguage(lang) {
         localStorage.setItem('geotectura_lang', lang);
-
         document.documentElement.lang = lang;
 
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
-            if (texts[lang] && texts[lang][key]) {
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    el.placeholder = texts[lang][key];
-                } else {
-                    el.textContent = texts[lang][key];
-                }
-            }
+            const value = texts[lang]?.[key];
+            if (value) el.textContent = value;
         });
     }
 
     const savedLang = localStorage.getItem('geotectura_lang') || 'es';
     const langSelect = document.getElementById('langSelect');
 
-    if (langSelect) {
-        langSelect.value = savedLang;
-        changeLanguage(savedLang);
-        langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
-    }
+    langSelect.value = savedLang;
+    changeLanguage(savedLang);
+    langSelect.addEventListener('change', e => changeLanguage(e.target.value));
 
-    const theme = localStorage.getItem('geotectura_theme');
-    if (theme === 'dark') document.body.classList.add('dark');
-
+    const savedTheme = localStorage.getItem('geotectura_theme');
     const toggleBtn = document.getElementById('darkModeToggle');
-    if (toggleBtn) {
-        if (theme === 'dark') toggleBtn.textContent = '☀️';
 
-        toggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            const isDark = document.body.classList.contains('dark');
-            localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light');
-            toggleBtn.textContent = isDark ? '☀️' : '🌙';
-        });
+    if (savedTheme === 'dark') document.body.classList.add('dark');
+
+    function updateThemeIcon() {
+        const dark = document.body.classList.contains('dark');
+        toggleBtn.textContent = dark ? '☀' : '◐';
     }
 
-    // FILTROS
-    const filtros = document.querySelectorAll('.filtro-btn');
-    const proyectos = document.querySelectorAll('.proyecto-card');
+    updateThemeIcon();
 
-    filtros.forEach(filtro => {
-        filtro.addEventListener('click', () => {
-            filtros.forEach(f => f.classList.remove('active'));
-            filtro.classList.add('active');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        const dark = document.body.classList.contains('dark');
+        localStorage.setItem('geotectura_theme', dark ? 'dark' : 'light');
+        updateThemeIcon();
+    });
 
-            const categoria = filtro.getAttribute('data-filter');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.reference-card');
 
-            proyectos.forEach(proyecto => {
-                const visible = categoria === 'todos' || proyecto.getAttribute('data-categoria') === categoria;
-                proyecto.style.display = visible ? 'flex' : 'none';
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.dataset.filter;
+
+            cards.forEach(card => {
+                card.style.display =
+                    filter === 'todos' || card.dataset.category === filter
+                    ? 'flex'
+                    : 'none';
             });
         });
     });
 
-    // PROTECCIÓN BÁSICA DE IMÁGENES
-    document.addEventListener('contextmenu', (e) => e.preventDefault());
-    document.querySelectorAll('img').forEach(img => img.setAttribute('draggable', 'false'));
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.querySelectorAll('img').forEach(img => img.setAttribute('draggable','false'));
 </script>
+
 </body>
 </html>
+
