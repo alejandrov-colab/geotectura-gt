@@ -3,273 +3,1016 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geotectura · Fachada Principal</title>
+    <title>Geotectura · Cortes Estéticos</title>
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.2s ease; }
-        :root { --bg-primary: #ffffff; --bg-secondary: #f8f8f8; --bg-card: #fafafa; --text-primary: #1a1a1a; --text-secondary: #4a4a4a; --border-light: #e8e8e8; --accent: #2c2c2c; --header-bg: rgba(255, 255, 255, 0.95); }
-        body.dark { --bg-primary: #0a0a0a; --bg-secondary: #121212; --bg-card: #1e1e1e; --text-primary: #ededed; --text-secondary: #b0b0b0; --border-light: #2a2a2a; --accent: #3a3a3a; --header-bg: rgba(18, 18, 18, 0.95); }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.5; }
         @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap');
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-        header { position: fixed; top: 0; left: 0; width: 100%; background: var(--header-bg); backdrop-filter: blur(16px); z-index: 1000; padding: 18px 0; border-bottom: 1px solid var(--border-light); }
-        .nav-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-        .logo a { font-size: 1.4rem; font-weight: 600; text-decoration: none; color: var(--text-primary); }
-        .nav-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; align-items: center; }
-        .nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--text-primary); transition: opacity 0.2s; }
-        .nav-links a:hover { opacity: 0.7; }
-        .dropdown { position: relative; display: inline-block; }
-        .dropdown-content { display: none; position: absolute; background-color: var(--bg-card); min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 12px; border: 1px solid var(--border-light); top: 100%; left: 0; }
-        .dropdown-content a { color: var(--text-primary); padding: 12px 16px; text-decoration: none; display: block; font-size: 0.8rem; }
-        .dropdown-content a:hover { background-color: var(--bg-secondary); opacity: 1; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #f6f4ef;
+            --bg-secondary: #ece9e2;
+            --bg-card: #ffffff;
+            --text-primary: #171916;
+            --text-secondary: #687068;
+            --text-muted: #8a8f86;
+            --border-light: rgba(23,25,22,.12);
+            --brand: #b56843;
+            --brand-dark: #8e4d31;
+            --accent: #171916;
+            --header-bg: rgba(246,244,239,.92);
+            --shadow: 0 22px 70px rgba(30,25,20,.10);
+            --plan-bg: #ffffff;
+        }
+
+        body.dark {
+            --bg-primary: #111210;
+            --bg-secondary: #171815;
+            --bg-card: #1c1e1a;
+            --text-primary: #f1eee8;
+            --text-secondary: #aaa99f;
+            --text-muted: #7f8179;
+            --border-light: rgba(255,255,255,.11);
+            --brand: #d0825d;
+            --brand-dark: #e39a77;
+            --accent: #f1eee8;
+            --header-bg: rgba(17,18,16,.92);
+            --shadow: 0 28px 80px rgba(0,0,0,.28);
+            --plan-bg: #ffffff;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color .3s ease, color .2s ease;
+        }
+
+        a { color: inherit; }
+        button, select { font: inherit; }
+
+        .container {
+            width: min(1220px, calc(100% - 48px));
+            margin-inline: auto;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--brand);
+            font-size: .70rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 30px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        /* ================= HEADER ================= */
+        header {
+            position: fixed;
+            inset: 0 0 auto 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--header-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .nav-bar {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+        }
+
+        .logo a {
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            white-space: nowrap;
+        }
+
+        .logo-mark { color: var(--brand); margin-right: 6px; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 19px;
+            list-style: none;
+        }
+
+        .nav-links > li > a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: .82rem;
+            font-weight: 500;
+            transition: color .2s ease;
+        }
+
+        .nav-links > li > a:hover,
+        .nav-links > li > a.active {
+            color: var(--text-primary);
+        }
+
+        .dropdown { position: relative; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 12px);
+            left: -18px;
+            min-width: 240px;
+            padding: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+            border-radius: 14px;
+        }
+
+        .dropdown-content::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -14px;
+            height: 14px;
+        }
+
         .dropdown:hover .dropdown-content { display: block; }
-        .lang-select { background: var(--bg-card); border: 1px solid var(--border-light); padding: 6px 12px; border-radius: 30px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
-        .darkmode-toggle { background: var(--accent); border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; }
 
-        .referencia-hero { background: var(--bg-secondary); padding: 118px 0 34px; text-align: center; border-bottom: 1px solid var(--border-light); }
-        .referencia-hero h1 { font-size: clamp(2rem,3.2vw,2.7rem); font-weight: 700; letter-spacing: -.035em; line-height: 1.12; margin-bottom: 8px; }
-        .referencia-hero p { color: var(--text-secondary); max-width: 650px; margin: 0 auto; font-size: .9rem; }
-        .hero-tags { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin-top:16px; }
-        .hero-tag { display:inline-flex; align-items:center; justify-content:center; min-height:28px; padding:0 14px; border:1px solid var(--border-light); border-radius:999px; background:var(--bg-card); color:var(--text-secondary); font-size:.7rem; font-weight:500; }
+        .dropdown-content a {
+            display: block;
+            padding: 11px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: .78rem;
+        }
 
-        .viewer-card { margin:22px 0 12px; padding:14px; border:1px solid var(--border-light); border-radius:18px; background:var(--bg-card); box-shadow:0 8px 26px rgba(0,0,0,.055); }
-        .viewer-toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:10px; padding:0 3px; }
-        .viewer-left,.viewer-controls { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-        .viewer-badge { display:inline-flex; align-items:center; justify-content:center; min-height:24px; padding:0 10px; border-radius:999px; background:#242424; color:#fff; font-size:.64rem; font-weight:600; white-space:nowrap; }
-        body.dark .viewer-badge { background:#ededed; color:#111; }
-        .zoom-info { display:inline-flex; align-items:center; justify-content:center; min-width:46px; height:24px; padding:0 9px; border:1px solid var(--border-light); border-radius:999px; color:var(--text-secondary); background:var(--bg-primary); font-size:.66rem; font-weight:500; font-variant-numeric:tabular-nums; white-space:nowrap; }
-        .viewer-btn { border:1px solid var(--border-light); background:var(--bg-primary); color:var(--text-primary); border-radius:999px; padding:7px 13px; min-height:31px; display:inline-flex; align-items:center; justify-content:center; gap:6px; font-size:.68rem; font-weight:500; cursor:pointer; white-space:nowrap; transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
-        .viewer-btn:hover { background:var(--accent); color:var(--bg-primary); border-color:var(--accent); transform:translateY(-1px); }
-        body.dark .viewer-btn:hover { color:#111; }
-        .plan-wrapper { position:relative; width:100%; height:clamp(440px,50vw,690px); border:1px solid var(--border-light); border-radius:14px; overflow:hidden; margin:0; background:#fff; box-shadow:none; cursor:grab; user-select:none; touch-action:none; }
-        .plan-wrapper:active { cursor:grabbing; }
+        .dropdown-content a:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
 
-        /* SVG real en el DOM: el zoom se hace con viewBox, NO con transform: scale(). */
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .lang-select {
+            appearance: none;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            padding: 8px 30px 8px 12px;
+            border-radius: 9px;
+            font-size: .72rem;
+            cursor: pointer;
+            background-image:
+                linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%),
+                linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+            background-position:
+                calc(100% - 14px) 50%,
+                calc(100% - 10px) 50%;
+            background-size: 4px 4px, 4px 4px;
+            background-repeat: no-repeat;
+        }
+
+        .darkmode-toggle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            background: var(--accent);
+            color: var(--bg-primary);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+        }
+
+        /* ================= HERO ================= */
+        .reference-hero {
+            margin-top: 76px;
+            padding: 102px 0 0;
+            background:
+                linear-gradient(90deg, var(--border-light) 1px, transparent 1px) 0 0 / 48px 48px,
+                linear-gradient(var(--border-light) 1px, transparent 1px) 0 0 / 48px 48px,
+                var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, .7fr);
+            gap: 72px;
+            align-items: end;
+            padding-bottom: 64px;
+        }
+
+        .reference-hero h1 {
+            margin-top: 20px;
+            max-width: 850px;
+            font-size: clamp(3rem, 6vw, 6.2rem);
+            line-height: .92;
+            letter-spacing: -.06em;
+            font-weight: 600;
+        }
+
+        .reference-hero h1 .accent-word { color: var(--brand); }
+
+        .hero-side {
+            border-left: 1px solid var(--border-light);
+            padding-left: 30px;
+        }
+
+        .hero-side p {
+            color: var(--text-secondary);
+            font-size: .95rem;
+            line-height: 1.8;
+            max-width: 470px;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 26px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            min-height: 32px;
+            padding: 0 13px;
+            border-radius: 999px;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            background: color-mix(in srgb, var(--bg-card) 72%, transparent);
+            font-size: .68rem;
+            font-weight: 600;
+        }
+
+        .meta-strip {
+            border-top: 1px solid var(--border-light);
+            background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .meta-item {
+            padding: 23px 24px 23px 0;
+        }
+
+        .meta-item + .meta-item {
+            padding-left: 24px;
+            border-left: 1px solid var(--border-light);
+        }
+
+        .meta-item strong {
+            display: block;
+            color: var(--brand);
+            font-size: .68rem;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+        }
+
+        .meta-item span {
+            display: block;
+            margin-top: 5px;
+            color: var(--text-secondary);
+            font-size: .76rem;
+        }
+
+        /* ================= VIEWER ================= */
+        .viewer-section {
+            padding: 88px 0 38px;
+        }
+
+        .viewer-head {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 32px;
+            align-items: end;
+            margin-bottom: 24px;
+        }
+
+        .viewer-head h2 {
+            margin-top: 15px;
+            font-size: clamp(2rem, 4vw, 4rem);
+            line-height: .98;
+            letter-spacing: -.05em;
+            font-weight: 600;
+        }
+
+        .viewer-head p {
+            max-width: 500px;
+            color: var(--text-secondary);
+            font-size: .84rem;
+        }
+
+        .viewer-card {
+            padding: 14px;
+            border-radius: 22px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+        }
+
+        .viewer-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 11px;
+            padding: 1px 3px;
+        }
+
+        .viewer-left,
+        .viewer-controls {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        .viewer-badge {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: .64rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .zoom-info {
+            min-width: 56px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 9px;
+            border-radius: 999px;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            font-size: .66rem;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .viewer-btn {
+            min-height: 34px;
+            padding: 0 13px;
+            border-radius: 999px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: .68rem;
+            font-weight: 600;
+            transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+        }
+
+        .viewer-btn:hover {
+            transform: translateY(-1px);
+            background: var(--brand);
+            border-color: var(--brand);
+            color: white;
+        }
+
+        .plan-wrapper {
+            position: relative;
+            width: 100%;
+            height: clamp(470px, 54vw, 760px);
+            border: 1px solid #dedede;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--plan-bg);
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .plan-wrapper:active { cursor: grabbing; }
+
         .plan-svg-host {
-            position:absolute;
-            inset:0;
-            overflow:hidden;
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
         }
 
         .plan-svg-host > svg {
-            display:block;
-            width:100%;
-            height:100%;
-            max-width:none;
-            max-height:none;
-            user-select:none;
-            pointer-events:none;
-            shape-rendering:geometricPrecision;
-            text-rendering:geometricPrecision;
+            display: block;
+            width: 100%;
+            height: 100%;
+            user-select: none;
+            pointer-events: none;
+            shape-rendering: geometricPrecision;
+            text-rendering: geometricPrecision;
         }
 
-        .plan-watermark { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-25deg); font-size:clamp(1.7rem,3.6vw,3.4rem); font-weight:700; white-space:nowrap; opacity:.08; pointer-events:none; user-select:none; z-index:2; font-family:monospace; letter-spacing:4px; color:#111; }
-        .viewer-note { text-align:center; color:var(--text-secondary); font-size:.64rem; line-height:1.45; margin-top:8px; }
-        .viewer-card:fullscreen { width:100vw; height:100vh; padding:14px; margin:0; border-radius:0; background:var(--bg-card); display:flex; flex-direction:column; }
-        .viewer-card:fullscreen .plan-wrapper { flex:1; height:auto; }
+        .plan-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 3;
+            transform: translate(-50%,-50%) rotate(-22deg);
+            color: #000;
+            opacity: .06;
+            font-size: clamp(1.7rem, 4vw, 4rem);
+            font-weight: 700;
+            letter-spacing: .18em;
+            white-space: nowrap;
+            pointer-events: none;
+        }
 
-        .info-card,.descripcion { background:var(--bg-card); padding:15px 20px; border-radius:15px; border:1px solid var(--border-light); margin:9px 0; }
-        .info-card h2,.descripcion h2 { font-size:.96rem; margin-bottom:7px; font-weight:700; }
-        .info-list { list-style:none; }
-        .info-list li { padding:5px 0; border-top:1px solid var(--border-light); display:grid; grid-template-columns:minmax(160px,.9fr) 1.25fr; gap:20px; align-items:center; font-size:.72rem; }
-        .info-label { font-weight:600; }
-        .info-value { color:var(--text-secondary); }
-        .descripcion>p { color:var(--text-secondary); line-height:1.55; font-size:.70rem; margin:0; max-width:1060px; }
-        .feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px; }
+        .viewer-note {
+            margin-top: 12px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: .69rem;
+        }
+
+        .viewer-card:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            border-radius: 0;
+            padding: 14px;
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .viewer-card:fullscreen .plan-wrapper {
+            flex: 1;
+            height: auto;
+        }
+
+        /* ================= TECHNICAL CONTENT ================= */
+        .technical-content {
+            padding: 56px 0 96px;
+        }
+
+        .technical-grid {
+            display: grid;
+            grid-template-columns: .75fr 1.25fr;
+            gap: 72px;
+            align-items: start;
+        }
+
+        .technical-copy h2,
+        .feature-head h2 {
+            margin-top: 17px;
+            font-size: clamp(2.1rem, 4vw, 4rem);
+            line-height: .98;
+            letter-spacing: -.05em;
+            font-weight: 600;
+        }
+
+        .technical-copy > p {
+            margin-top: 22px;
+            color: var(--text-secondary);
+            font-size: .9rem;
+            line-height: 1.8;
+        }
+
+        .info-table {
+            border-top: 1px solid var(--border-light);
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 170px 1fr;
+            gap: 28px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .info-label {
+            color: var(--brand);
+            font-size: .66rem;
+            font-weight: 700;
+            letter-spacing: .10em;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            color: var(--text-secondary);
+            font-size: .84rem;
+        }
+
+        .feature-section {
+            padding: 0 0 96px;
+        }
+
+        .feature-head {
+            margin-bottom: 30px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
         .feature-card {
-            display:grid;
-            grid-template-columns:40px 1fr;
-            gap:11px;
-            align-items:center;
-            min-height:82px;
-            padding:12px 14px;
-            border:1px solid var(--border-light);
-            border-radius:12px;
-            background:var(--bg-primary);
-        }
-        .feature-icon {
-            width:36px;
-            height:36px;
-            border-radius:9px;
-            display:grid;
-            place-items:center;
-            border:1px solid transparent;
-            font-size:.95rem;
-            font-weight:700;
+            min-height: 230px;
+            padding: 26px;
+            border-radius: 18px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        /* Acentos visuales por categoría */
-        .feature-card:nth-child(1) .feature-icon {
-            background:rgba(137,92,246,.12);
-            color:#7b4ce3;
-            border-color:rgba(137,92,246,.10);
+        .feature-number {
+            color: var(--brand);
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .13em;
         }
 
-        .feature-card:nth-child(2) .feature-icon {
-            background:rgba(72,190,118,.13);
-            color:#2ba564;
-            border-color:rgba(72,190,118,.10);
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+            letter-spacing: -.035em;
+            font-weight: 500;
         }
 
-        .feature-card:nth-child(3) .feature-icon {
-            background:rgba(61,155,235,.13);
-            color:#2386d2;
-            border-color:rgba(61,155,235,.10);
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: .82rem;
+            line-height: 1.7;
         }
 
-        body.dark .feature-card:nth-child(1) .feature-icon {
-            background:rgba(137,92,246,.18);
-            color:#b8a7ff;
+        .back-section { padding: 0 0 74px; }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--brand);
+            text-decoration: none;
+            font-size: .78rem;
+            font-weight: 700;
         }
 
-        body.dark .feature-card:nth-child(2) .feature-icon {
-            background:rgba(72,190,118,.18);
-            color:#7ed9a3;
+        footer {
+            border-top: 1px solid var(--border-light);
+            padding: 30px 0 38px;
         }
 
-        body.dark .feature-card:nth-child(3) .feature-icon {
-            background:rgba(61,155,235,.18);
-            color:#82c4f4;
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            color: var(--text-secondary);
+            font-size: .72rem;
         }
-        .feature-card h3 { margin:0 0 3px; font-size:.75rem; font-weight:700; }
-        .feature-card p { margin:0; color:var(--text-secondary); font-size:.62rem; line-height:1.42; }
-        .btn-wrap { text-align:center; margin-top:18px; }
-        .btn-volver { display:inline-block; padding:10px 19px; background:var(--accent); color:white; text-decoration:none; border-radius:40px; font-size:.75rem; font-weight:600; transition:opacity .2s ease,transform .2s ease; }
-        .btn-volver:hover { opacity:.85; transform:translateY(-1px); }
-        footer { text-align:center; padding:30px 0; border-top:1px solid var(--border-light); color:var(--text-secondary); margin-top:30px; }
-        @media (max-width:800px) { .referencia-hero{padding-top:150px}.referencia-hero h1{font-size:1.8rem}.nav-links{justify-content:center}.nav-bar{flex-direction:column}.plan-wrapper{height:58vw;min-height:330px;max-height:540px}.info-list li{grid-template-columns:1fr;gap:2px;padding:7px 0}.feature-grid{grid-template-columns:1fr} }
-        @media (max-width:540px) { .viewer-card{padding:10px;border-radius:14px}.viewer-toolbar{align-items:flex-start}.viewer-controls{width:100%;gap:7px}.viewer-btn .btn-text{display:none}.plan-wrapper{min-height:300px}.info-card,.descripcion{padding:16px} }
+
+        @media (max-width: 980px) {
+            .nav-links { display: none; }
+
+            .hero-grid,
+            .viewer-head,
+            .technical-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-side {
+                border-left: 0;
+                padding-left: 0;
+                border-top: 1px solid var(--border-light);
+                padding-top: 28px;
+            }
+
+            .meta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .meta-item:nth-child(3) {
+                border-left: 0;
+                padding-left: 0;
+                border-top: 1px solid var(--border-light);
+            }
+
+            .meta-item:nth-child(4) {
+                border-top: 1px solid var(--border-light);
+            }
+
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 720px) {
+            .container { width: min(100% - 30px, 1220px); }
+
+            .nav-bar { min-height: 66px; }
+
+            .reference-hero {
+                margin-top: 66px;
+                padding-top: 76px;
+            }
+
+            .hero-grid { padding-bottom: 48px; }
+
+            .viewer-section { padding-top: 64px; }
+
+            .viewer-controls { width: 100%; }
+
+            .plan-wrapper {
+                height: 68vw;
+                min-height: 330px;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            .footer-grid {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .viewer-card {
+                padding: 10px;
+                border-radius: 16px;
+            }
+
+            .viewer-btn { padding-inline: 10px; }
+
+            .viewer-btn .btn-text { display: none; }
+
+            .plan-wrapper { min-height: 300px; }
+        }
     </style>
 </head>
+
 <body>
 
 <header>
     <div class="container nav-bar">
-        <div class="logo"><a href="../index.html">◈ GEOTECTURA</a></div>
+        <div class="logo">
+            <a href="../index.html"><span class="logo-mark">◈</span>GEOTECTURA</a>
+        </div>
+
         <ul class="nav-links">
             <li><a href="../index.html" data-key="nav_inicio">Inicio</a></li>
             <li class="dropdown">
-                <a href="#" data-key="nav_servicios">Servicios ▼</a>
+                <a href="#" data-key="nav_servicios">Servicios ↓</a>
                 <div class="dropdown-content">
-                    <a href="../servicio-topografia.html" data-key="serv_topografia">📐 Cálculo topografía</a>
-                    <a href="../servicio-urbanismo.html" data-key="serv_urbanismo">🏙️ Urbanismo</a>
-                    <a href="../servicio-parques.html" data-key="serv_parques">🎢 Parques temáticos</a>
-                    <a href="../servicio-direccion.html" data-key="serv_direccion">📊 Dirección obra</a>
-                    <a href="../servicio-reformas.html" data-key="serv_reformas">🔄 Reformas integrales</a>
-                    <a href="../servicio-asesoria.html" data-key="serv_asesoria">⚙️ Asesoría técnica</a>
+                    <a href="../servicio-topografia.html" data-key="serv_topografia">Cálculo topografía</a>
+                    <a href="../servicio-urbanismo.html" data-key="serv_urbanismo">Urbanismo</a>
+                    <a href="../servicio-parques.html" data-key="serv_parques">Parques temáticos</a>
+                    <a href="../servicio-direccion.html" data-key="serv_direccion">Dirección de obra</a>
+                    <a href="../servicio-reformas.html" data-key="serv_reformas">Reformas integrales</a>
+                    <a href="../servicio-asesoria.html" data-key="serv_asesoria">Asesoría técnica</a>
                 </div>
             </li>
-            <li><a href="../portafolio.html" data-key="nav_proyectos">Referencias</a></li>
+            <li><a href="../portafolio.html" class="active" data-key="nav_proyectos">Referencias</a></li>
             <li><a href="../nosotros.html" data-key="nav_nosotros">Nosotros</a></li>
             <li><a href="../index.html#contacto" data-key="nav_contacto">Contacto</a></li>
             <li><a href="../equipo.html" data-key="nav_equipo">Equipo</a></li>
-            <li><select class="lang-select" id="langSelect"><option value="es">🇪🇸 ES</option><option value="en">🇬🇧 EN</option><option value="pt">🇵🇹 PT</option></select></li>
-            <li><button class="darkmode-toggle" id="darkModeToggle">🌙</button></li>
         </ul>
+
+        <div class="nav-controls">
+            <select class="lang-select" id="langSelect" aria-label="Idioma">
+                <option value="es">ES</option>
+                <option value="en">EN</option>
+                <option value="pt">PT</option>
+            </select>
+            <button class="darkmode-toggle" id="darkModeToggle" aria-label="Cambiar tema">◐</button>
+        </div>
     </div>
 </header>
 
 <main>
-    <section class="referencia-hero">
-        <div class="container">
-            <h1 data-key="titulo">🏛️ Fachada Principal</h1>
-            <p data-key="subtitulo">Elevación arquitectónica del frente principal</p>
-            <div class="hero-tags">
-                <span class="hero-tag" data-key="hero_tag_tipo">Fachada principal</span>
-                <span class="hero-tag" data-key="hero_tag_escala">Escala 1:50</span>
-                <span class="hero-tag">AutoCAD</span>
+
+    <section class="reference-hero">
+        <div class="container hero-grid">
+            <div>
+                <span class="eyebrow" data-key="subtitulo">Representación arquitectónica / elevaciones</span>
+                <h1>
+                    <span data-key="titulo_1">Cortes</span><br>
+                    <span class="accent-word" data-key="titulo_2">Estéticos.</span>
+                </h1>
+            </div>
+
+            <div class="hero-side">
+                <p data-key="desc_p1">
+                    Lámina gráfica compuesta por tres elevaciones arquitectónicas que presentan el proyecto desde distintas lecturas exteriores. La representación incorpora cubiertas, vanos, vegetación, mobiliario y elementos de ambientación para comunicar con claridad la proporción, composición y carácter visual del conjunto.
+                </p>
+
+                <div class="hero-tags">
+                    <span class="tag" data-key="hero_tag_tipo">Tres elevaciones</span>
+                    <span class="tag" data-key="hero_tag_escala">Lectura exterior</span>
+                    <span class="tag">AutoCAD</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="meta-strip">
+            <div class="container meta-grid">
+                <div class="meta-item">
+                    <strong>01</strong>
+                    <span data-key="feature_ventanas_titulo">Elevación 01</span>
+                </div>
+                <div class="meta-item">
+                    <strong>02</strong>
+                    <span data-key="feature_vidrios_titulo">Elevación 02</span>
+                </div>
+                <div class="meta-item">
+                    <strong>03</strong>
+                    <span data-key="feature_perfiles_titulo">Elevación 03</span>
+                </div>
+                <div class="meta-item">
+                    <strong>04</strong>
+                    <span data-key="hero_tag_escala">Lectura exterior</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <div class="container">
-        <section class="viewer-card" id="viewerCard">
-            <div class="viewer-toolbar">
-                <div class="viewer-left">
-                    <span class="viewer-badge" data-key="visor_badge">Plano técnico</span>
-                    <span class="zoom-info" id="zoomInfo">100%</span>
+    <section class="viewer-section">
+        <div class="container">
+            <div class="viewer-head">
+                <div>
+                    <span class="eyebrow" data-key="visor_badge">Lámina técnica</span>
+                    <h2 data-key="info_titulo">Cortes estéticos</h2>
                 </div>
-                <div class="viewer-controls">
-                    <button class="viewer-btn" id="zoomInBtn" type="button"><span aria-hidden="true">⌕</span><span class="btn-text" data-key="zoom_in">Acercar</span></button>
-                    <button class="viewer-btn" id="zoomOutBtn" type="button"><span aria-hidden="true">⌕</span><span class="btn-text" data-key="zoom_out">Alejar</span></button>
-                    <button class="viewer-btn" id="fullscreenBtn" type="button"><span aria-hidden="true">⛶</span><span class="btn-text" data-key="fullscreen">Pantalla completa</span></button>
-                    <button class="viewer-btn" id="resetZoomBtn" type="button"><span aria-hidden="true">⟳</span><span class="btn-text" data-key="reset_zoom">Restablecer</span></button>
+                <p data-key="zoom_hint">Usa la rueda del mouse para hacer zoom y arrastra para desplazarte por el plano.</p>
+            </div>
+
+            <section class="viewer-card" id="viewerCard">
+                <div class="viewer-toolbar">
+                    <div class="viewer-left">
+                        <span class="viewer-badge" data-key="visor_badge">Lámina técnica</span>
+                        <span class="zoom-info" id="zoomInfo">100%</span>
+                    </div>
+
+                    <div class="viewer-controls">
+                        <button class="viewer-btn" id="zoomInBtn" type="button">
+                            ＋ <span class="btn-text" data-key="zoom_in">Acercar</span>
+                        </button>
+                        <button class="viewer-btn" id="zoomOutBtn" type="button">
+                            − <span class="btn-text" data-key="zoom_out">Alejar</span>
+                        </button>
+                        <button class="viewer-btn" id="fullscreenBtn" type="button">
+                            ⛶ <span class="btn-text" data-key="fullscreen">Pantalla completa</span>
+                        </button>
+                        <button class="viewer-btn" id="resetZoomBtn" type="button">
+                            ⟳ <span class="btn-text" data-key="reset_zoom">Restablecer</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="plan-wrapper" id="planWrapper">
+                    <div
+                        class="plan-svg-host"
+                        id="planSvgHost"
+                        data-src="../imagenes/ELEVACIONES.svg"
+                        role="img"
+                        aria-label="Cortes Estéticos - tres elevaciones arquitectónicas">
+                    </div>
+                    <div class="plan-watermark">GEOTECTURA GT</div>
+                </div>
+
+                <div class="viewer-note" data-key="zoom_hint">
+                    Usa la rueda del mouse para hacer zoom y arrastra para desplazarte por el plano.
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <section class="technical-content">
+        <div class="container technical-grid">
+            <div class="technical-copy">
+                <span class="eyebrow" data-key="descripcion_titulo">Descripción</span>
+                <h2 data-key="technical_title">Lectura gráfica del conjunto.</h2>
+                <p data-key="desc_p1">
+                    Lámina gráfica compuesta por tres elevaciones arquitectónicas que presentan el proyecto desde distintas lecturas exteriores. La representación incorpora cubiertas, vanos, vegetación, mobiliario y elementos de ambientación para comunicar con claridad la proporción, composición y carácter visual del conjunto.
+                </p>
+            </div>
+
+            <div class="info-table">
+                <div class="info-row">
+                    <div class="info-label" data-key="contenido_label">Contenido</div>
+                    <div class="info-value" data-key="contenido_valor">Tres elevaciones arquitectónicas del proyecto</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label" data-key="ambientes_label">Lectura</div>
+                    <div class="info-value" data-key="ambientes_valor">Composición exterior · proporción · relación entre volúmenes</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label" data-key="material_label">Elementos gráficos</div>
+                    <div class="info-value" data-key="material_valor">Cubiertas · vanos · vegetación · mobiliario · elementos exteriores</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label" data-key="representacion_label">Representación</div>
+                    <div class="info-value" data-key="representacion_valor">Elevaciones ambientadas para comunicar el carácter visual del proyecto</div>
                 </div>
             </div>
-            <div class="plan-wrapper" id="planWrapper">
-                <div
-                    class="plan-svg-host"
-                    id="planSvgHost"
-                    data-src="../imagenes/FACHADAS.svg"
-                    role="img"
-                    aria-label="Fachada Principal">
-                </div>
-                <div class="plan-watermark">GEOTECTURA GT</div>
+        </div>
+    </section>
+
+    <section class="feature-section">
+        <div class="container">
+            <div class="feature-head">
+                <span class="eyebrow" data-key="features_kicker">Lectura arquitectónica</span>
+                <h2 data-key="features_title">Tres vistas, una misma identidad.</h2>
             </div>
-            <div class="viewer-note" data-key="zoom_hint">💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano</div>
-        </section>
 
-        <section class="info-card">
-            <h2 data-key="info_titulo">📋 Información del plano</h2>
-            <ul class="info-list">
-                <li><span class="info-label" data-key="contenido_label">Contenido:</span><span class="info-value" data-key="contenido_valor">Elevación frontal · Fachada principal</span></li>
-                <li><span class="info-label" data-key="aberturas_label">Aberturas:</span><span class="info-value" data-key="aberturas_valor">Ventanas V-3 y V-5 · vanos acotados</span></li>
-                <li><span class="info-label" data-key="acabados_label">Acabados:</span><span class="info-value" data-key="acabados_valor">Blanqueado · Azulejo · especificaciones R+C</span></li>
-                <li><span class="info-label" data-key="representacion_label">Representación:</span><span class="info-value" data-key="representacion_valor">Cotas horizontales y verticales · detalles de remate y cubierta</span></li>
-            </ul>
-        </section>
-
-        <section class="descripcion">
-            <h2><span aria-hidden="true">▧</span> <span data-key="descripcion_titulo">Descripción</span></h2>
-            <p data-key="desc_p1">Elevación principal desarrollada para documentar la composición del frente arquitectónico con una lectura clara de proporciones, vanos, materiales y remates. El dibujo integra cotas y especificaciones gráficas que permiten reconocer la relación entre los elementos de fachada y su expresión constructiva.</p>
             <div class="feature-grid">
-                <article class="feature-card"><div class="feature-icon">▥</div><div><h3 data-key="feature_composicion_titulo">Composición</h3><p data-key="feature_composicion_desc">La elevación organiza llenos, vanos y líneas de remate para establecer una lectura equilibrada y coherente del frente principal.</p></div></article>
-                <article class="feature-card"><div class="feature-icon">◇</div><div><h3 data-key="feature_acabados_titulo">Acabados</h3><p data-key="feature_acabados_desc">El plano diferencia superficies con blanqueado y azulejo, vinculando cada acabado con su ubicación dentro de la fachada.</p></div></article>
-                <article class="feature-card"><div class="feature-icon">⌂</div><div><h3 data-key="feature_detalles_titulo">Detalles constructivos</h3><p data-key="feature_detalles_desc">Se incorporan referencias de zócalo, cornisas, cubierta y sistema R+C para complementar la interpretación técnica del alzado.</p></div></article>
-            </div>
-        </section>
+                <article class="feature-card">
+                    <span class="feature-number">01</span>
+                    <div>
+                        <h3 data-key="feature_ventanas_titulo">Elevación 01</h3>
+                        <p data-key="feature_ventanas_desc">Vista general de mayor extensión, útil para leer la composición horizontal, la relación entre volúmenes y la incorporación de elementos de ambientación.</p>
+                    </div>
+                </article>
 
-        <div class="btn-wrap"><a href="../portafolio.html" class="btn-volver" data-key="btn_volver">← Volver a referencias</a></div>
-    </div>
+                <article class="feature-card">
+                    <span class="feature-number">02</span>
+                    <div>
+                        <h3 data-key="feature_vidrios_titulo">Elevación 02</h3>
+                        <p data-key="feature_vidrios_desc">Representación complementaria que enfatiza la escala del espacio, el mobiliario, la vegetación y la lectura de los elementos exteriores.</p>
+                    </div>
+                </article>
+
+                <article class="feature-card">
+                    <span class="feature-number">03</span>
+                    <div>
+                        <h3 data-key="feature_perfiles_titulo">Elevación 03</h3>
+                        <p data-key="feature_perfiles_desc">Vista de acceso que incorpora vehículo, vanos y cubierta para reforzar la escala humana y la lectura visual del frente representado.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="back-section">
+        <div class="container">
+            <a href="../portafolio.html" class="btn-back" data-key="btn_volver">← Volver a referencias</a>
+        </div>
+    </section>
+
 </main>
 
 <footer>
-    <div class="container">
-        <p>© 2026 Geotectura · Todos los derechos reservados</p>
-        <p style="margin-top: 8px; font-size: 0.7rem;">Planos, planillas y detalles constructivos</p>
+    <div class="container footer-grid">
+        <p>© 2026 GEOTECTURA · Guatemala</p>
+        <p>Planos, planillas y detalles constructivos</p>
     </div>
 </footer>
 
 <script>
+
     const texts = {
         es: {
-            nav_inicio:"Inicio", nav_servicios:"Servicios ▼", nav_proyectos:"Referencias", nav_nosotros:"Nosotros", nav_contacto:"Contacto", nav_equipo:"Equipo",
-            serv_topografia:"📐 Cálculo topografía", serv_urbanismo:"🏙️ Urbanismo", serv_parques:"🎢 Parques temáticos", serv_direccion:"📊 Dirección obra", serv_reformas:"🔄 Reformas integrales", serv_asesoria:"⚙️ Asesoría técnica",
-            titulo:"🏛️ Fachada Principal", subtitulo:"Elevación arquitectónica del frente principal", hero_tag_tipo:"Fachada principal", hero_tag_escala:"Escala 1:50",
-            visor_badge:"Plano técnico", zoom_in:"Acercar", zoom_out:"Alejar", fullscreen:"Pantalla completa", reset_zoom:"Restablecer", zoom_hint:"💡 Sugerencia: Usa la rueda del mouse para hacer zoom y arrastra para moverte por el plano",
-            info_titulo:"📋 Información del plano", contenido_label:"Contenido:", contenido_valor:"Elevación frontal · Fachada principal", aberturas_label:"Aberturas:", aberturas_valor:"Ventanas V-3 y V-5 · vanos acotados", acabados_label:"Acabados:", acabados_valor:"Blanqueado · Azulejo · especificaciones R+C", representacion_label:"Representación:", representacion_valor:"Cotas horizontales y verticales · detalles de remate y cubierta",
-            descripcion_titulo:"Descripción", desc_p1:"Elevación principal desarrollada para documentar la composición del frente arquitectónico con una lectura clara de proporciones, vanos, materiales y remates. El dibujo integra cotas y especificaciones gráficas que permiten reconocer la relación entre los elementos de fachada y su expresión constructiva.",
-            feature_composicion_titulo:"Composición", feature_composicion_desc:"La elevación organiza llenos, vanos y líneas de remate para establecer una lectura equilibrada y coherente del frente principal.", feature_acabados_titulo:"Acabados", feature_acabados_desc:"El plano diferencia superficies con blanqueado y azulejo, vinculando cada acabado con su ubicación dentro de la fachada.", feature_detalles_titulo:"Detalles constructivos", feature_detalles_desc:"Se incorporan referencias de zócalo, cornisas, cubierta y sistema R+C para complementar la interpretación técnica del alzado.",
-            btn_volver:"← Volver a referencias"
+            nav_inicio: "Inicio", nav_servicios: "Servicios ↓", nav_proyectos: "Referencias", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_equipo: "Equipo",
+            serv_topografia: "Cálculo topografía", serv_urbanismo: "Urbanismo", serv_parques: "Parques temáticos", serv_direccion: "Dirección de obra", serv_reformas: "Reformas integrales", serv_asesoria: "Asesoría técnica",
+
+            titulo: "Cortes Estéticos", titulo_1: "Cortes", titulo_2: "Estéticos.",
+            subtitulo: "Representación arquitectónica / elevaciones",
+            technical_title: "Lectura gráfica del conjunto.",
+            features_kicker: "Lectura arquitectónica",
+            features_title: "Tres vistas, una misma identidad.",
+
+            info_titulo: "Cortes estéticos",
+            contenido_label: "Contenido", contenido_valor: "Tres elevaciones arquitectónicas del proyecto",
+            descripcion_titulo: "Descripción",
+            desc_p1: "Lámina gráfica compuesta por tres elevaciones arquitectónicas que presentan el proyecto desde distintas lecturas exteriores. La representación incorpora cubiertas, vanos, vegetación, mobiliario y elementos de ambientación para comunicar con claridad la proporción, composición y carácter visual del conjunto.",
+
+            hero_tag_tipo: "Tres elevaciones",
+            hero_tag_escala: "Lectura exterior",
+
+            ambientes_label: "Lectura",
+            ambientes_valor: "Composición exterior · proporción · relación entre volúmenes",
+            material_label: "Elementos gráficos",
+            material_valor: "Cubiertas · vanos · vegetación · mobiliario · elementos exteriores",
+            representacion_label: "Representación",
+            representacion_valor: "Elevaciones ambientadas para comunicar el carácter visual del proyecto",
+
+            feature_ventanas_titulo: "Elevación 01",
+            feature_ventanas_desc: "Vista general de mayor extensión, útil para leer la composición horizontal, la relación entre volúmenes y la incorporación de elementos de ambientación.",
+            feature_vidrios_titulo: "Elevación 02",
+            feature_vidrios_desc: "Representación complementaria que enfatiza la escala del espacio, el mobiliario, la vegetación y la lectura de los elementos exteriores.",
+            feature_perfiles_titulo: "Elevación 03",
+            feature_perfiles_desc: "Vista de acceso que incorpora vehículo, vanos y cubierta para reforzar la escala humana y la lectura visual del frente representado.",
+
+            visor_badge: "Lámina técnica",
+            zoom_in: "Acercar",
+            zoom_out: "Alejar",
+            fullscreen: "Pantalla completa",
+            reset_zoom: "Restablecer",
+            zoom_hint: "Usa la rueda del mouse para hacer zoom y arrastra para desplazarte por la lámina.",
+            btn_volver: "← Volver a referencias"
         },
+
         en: {
-            nav_inicio:"Home", nav_servicios:"Services ▼", nav_proyectos:"References", nav_nosotros:"About", nav_contacto:"Contact", nav_equipo:"Team",
-            serv_topografia:"📐 Topography", serv_urbanismo:"🏙️ Urbanism", serv_parques:"🎢 Theme parks", serv_direccion:"📊 Construction mgmt", serv_reformas:"🔄 Renovations", serv_asesoria:"⚙️ Advisory",
-            titulo:"🏛️ Main Facade", subtitulo:"Architectural elevation of the main frontage", hero_tag_tipo:"Main facade", hero_tag_escala:"Scale 1:50",
-            visor_badge:"Technical drawing", zoom_in:"Zoom in", zoom_out:"Zoom out", fullscreen:"Full screen", reset_zoom:"Reset", zoom_hint:"💡 Tip: Use the mouse wheel to zoom and drag to move around the drawing",
-            info_titulo:"📋 Drawing information", contenido_label:"Content:", contenido_valor:"Front elevation · Main facade", aberturas_label:"Openings:", aberturas_valor:"Windows V-3 and V-5 · dimensioned openings", acabados_label:"Finishes:", acabados_valor:"Whitewash · Tile · R+C specifications", representacion_label:"Representation:", representacion_valor:"Horizontal and vertical dimensions · edge and roof details",
-            descripcion_titulo:"Description", desc_p1:"Main elevation developed to document the architectural frontage with a clear reading of proportions, openings, materials and finishing elements. The drawing integrates dimensions and graphic specifications that make it possible to understand the relationship between the facade components and their constructive expression.",
-            feature_composicion_titulo:"Composition", feature_composicion_desc:"The elevation organizes solid areas, openings and finishing lines to establish a balanced and coherent reading of the main frontage.", feature_acabados_titulo:"Finishes", feature_acabados_desc:"The drawing differentiates whitewashed and tiled surfaces, linking each finish to its corresponding position on the facade.", feature_detalles_titulo:"Construction details", feature_detalles_desc:"References to the baseboard, cornices, roof and R+C system complement the technical interpretation of the elevation.",
-            btn_volver:"← Back to references"
+            nav_inicio: "Home", nav_servicios: "Services ↓", nav_proyectos: "References", nav_nosotros: "About", nav_contacto: "Contact", nav_equipo: "Team",
+            serv_topografia: "Topography", serv_urbanismo: "Urbanism", serv_parques: "Theme parks", serv_direccion: "Construction management", serv_reformas: "Renovations", serv_asesoria: "Technical advisory",
+
+            titulo: "Aesthetic Sections", titulo_1: "Aesthetic", titulo_2: "Sections.",
+            subtitulo: "Architectural representation / elevations",
+            technical_title: "Graphic reading of the project.",
+            features_kicker: "Architectural reading",
+            features_title: "Three views, one visual identity.",
+
+            info_titulo: "Aesthetic sections",
+            contenido_label: "Content", contenido_valor: "Three architectural elevations of the project",
+            descripcion_titulo: "Description",
+            desc_p1: "Graphic sheet composed of three architectural elevations presenting the project through different exterior readings. The representation incorporates roofs, openings, vegetation, furniture and setting elements to clearly communicate the proportions, composition and visual character of the project.",
+
+            hero_tag_tipo: "Three elevations",
+            hero_tag_escala: "Exterior reading",
+
+            ambientes_label: "Reading",
+            ambientes_valor: "Exterior composition · proportions · relationship between volumes",
+            material_label: "Graphic elements",
+            material_valor: "Roofs · openings · vegetation · furniture · exterior elements",
+            representacion_label: "Representation",
+            representacion_valor: "Set elevations designed to communicate the visual character of the project",
+
+            feature_ventanas_titulo: "Elevation 01",
+            feature_ventanas_desc: "The broadest overall view, useful for reading the horizontal composition, relationship between volumes and integration of setting elements.",
+            feature_vidrios_titulo: "Elevation 02",
+            feature_vidrios_desc: "A complementary representation emphasizing spatial scale, furniture, vegetation and the reading of exterior elements.",
+            feature_perfiles_titulo: "Elevation 03",
+            feature_perfiles_desc: "An entrance view incorporating a vehicle, openings and roof geometry to reinforce human scale and the visual reading of the represented front.",
+
+            visor_badge: "Technical sheet",
+            zoom_in: "Zoom in",
+            zoom_out: "Zoom out",
+            fullscreen: "Full screen",
+            reset_zoom: "Reset",
+            zoom_hint: "Use the mouse wheel to zoom and drag to move around the sheet.",
+            btn_volver: "← Back to references"
         },
+
         pt: {
-            nav_inicio:"Início", nav_servicios:"Serviços ▼", nav_proyectos:"Referências", nav_nosotros:"Sobre", nav_contacto:"Contato", nav_equipo:"Equipe",
-            serv_topografia:"📐 Topografia", serv_urbanismo:"🏙️ Urbanismo", serv_parques:"🎢 Parques temáticos", serv_direccion:"📊 Gestão obras", serv_reformas:"🔄 Reformas", serv_asesoria:"⚙️ Consultoria",
-            titulo:"🏛️ Fachada Principal", subtitulo:"Elevação arquitetônica da frente principal", hero_tag_tipo:"Fachada principal", hero_tag_escala:"Escala 1:50",
-            visor_badge:"Desenho técnico", zoom_in:"Aproximar", zoom_out:"Afastar", fullscreen:"Tela cheia", reset_zoom:"Restaurar", zoom_hint:"💡 Dica: Use a roda do mouse para aplicar zoom e arraste para se mover pelo desenho",
-            info_titulo:"📋 Informações do desenho", contenido_label:"Conteúdo:", contenido_valor:"Elevação frontal · Fachada principal", aberturas_label:"Aberturas:", aberturas_valor:"Janelas V-3 e V-5 · vãos cotados", acabados_label:"Acabamentos:", acabados_valor:"Caiação · Azulejo · especificações R+C", representacion_label:"Representação:", representacion_valor:"Cotas horizontais e verticais · detalhes de remate e cobertura",
-            descripcion_titulo:"Descrição", desc_p1:"Elevação principal desenvolvida para documentar a composição da frente arquitetônica com uma leitura clara de proporções, vãos, materiais e remates. O desenho integra cotas e especificações gráficas que permitem compreender a relação entre os elementos da fachada e sua expressão construtiva.",
-            feature_composicion_titulo:"Composição", feature_composicion_desc:"A elevação organiza cheios, vãos e linhas de remate para estabelecer uma leitura equilibrada e coerente da frente principal.", feature_acabados_titulo:"Acabamentos", feature_acabados_desc:"O desenho diferencia superfícies com caiação e azulejo, relacionando cada acabamento à sua posição na fachada.", feature_detalles_titulo:"Detalhes construtivos", feature_detalles_desc:"Referências de rodapé, cornijas, cobertura e sistema R+C complementam a interpretação técnica da elevação.",
-            btn_volver:"← Voltar às referências"
+            nav_inicio: "Início", nav_servicios: "Serviços ↓", nav_proyectos: "Referências", nav_nosotros: "Sobre", nav_contacto: "Contato", nav_equipo: "Equipe",
+            serv_topografia: "Topografia", serv_urbanismo: "Urbanismo", serv_parques: "Parques temáticos", serv_direccion: "Gestão de obras", serv_reformas: "Reformas integrais", serv_asesoria: "Assessoria técnica",
+
+            titulo: "Cortes Estéticos", titulo_1: "Cortes", titulo_2: "Estéticos.",
+            subtitulo: "Representação arquitetônica / elevações",
+            technical_title: "Leitura gráfica do conjunto.",
+            features_kicker: "Leitura arquitetônica",
+            features_title: "Três vistas, uma mesma identidade.",
+
+            info_titulo: "Cortes estéticos",
+            contenido_label: "Conteúdo", contenido_valor: "Três elevações arquitetônicas do projeto",
+            descripcion_titulo: "Descrição",
+            desc_p1: "Prancha gráfica composta por três elevações arquitetônicas que apresentam o projeto a partir de diferentes leituras exteriores. A representação incorpora coberturas, vãos, vegetação, mobiliário e elementos de ambientação para comunicar com clareza a proporção, composição e caráter visual do conjunto.",
+
+            hero_tag_tipo: "Três elevações",
+            hero_tag_escala: "Leitura exterior",
+
+            ambientes_label: "Leitura",
+            ambientes_valor: "Composição exterior · proporção · relação entre volumes",
+            material_label: "Elementos gráficos",
+            material_valor: "Coberturas · vãos · vegetação · mobiliário · elementos externos",
+            representacion_label: "Representação",
+            representacion_valor: "Elevações ambientadas para comunicar o caráter visual do projeto",
+
+            feature_ventanas_titulo: "Elevação 01",
+            feature_ventanas_desc: "Vista geral de maior extensão, útil para ler a composição horizontal, a relação entre volumes e a incorporação de elementos de ambientação.",
+            feature_vidrios_titulo: "Elevação 02",
+            feature_vidrios_desc: "Representação complementar que enfatiza a escala do espaço, o mobiliário, a vegetação e a leitura dos elementos externos.",
+            feature_perfiles_titulo: "Elevação 03",
+            feature_perfiles_desc: "Vista de acesso que incorpora veículo, vãos e cobertura para reforçar a escala humana e a leitura visual da frente representada.",
+
+            visor_badge: "Prancha técnica",
+            zoom_in: "Aproximar",
+            zoom_out: "Afastar",
+            fullscreen: "Tela cheia",
+            reset_zoom: "Restaurar",
+            zoom_hint: "Use a roda do mouse para aplicar zoom e arraste para se mover pela prancha.",
+            btn_volver: "← Voltar às referências"
         }
     };
 
@@ -277,7 +1020,13 @@
         localStorage.setItem('geotectura_lang', lang);
         document.querySelectorAll('[data-key]').forEach(el => {
             const key = el.getAttribute('data-key');
-            if (texts[lang] && texts[lang][key]) el.innerHTML = texts[lang][key];
+            if (texts[lang] && texts[lang][key]) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = texts[lang][key];
+                } else {
+                    el.innerHTML = texts[lang][key];
+                }
+            }
         });
     }
 
@@ -293,14 +1042,15 @@
     if (theme === 'dark') document.body.classList.add('dark');
     const toggleBtn = document.getElementById('darkModeToggle');
     if (toggleBtn) {
-        if (theme === 'dark') toggleBtn.textContent = '☀️';
+        if (theme === 'dark') toggleBtn.textContent = '☀';
         toggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark');
             const isDark = document.body.classList.contains('dark');
             localStorage.setItem('geotectura_theme', isDark ? 'dark' : 'light');
-            toggleBtn.textContent = isDark ? '☀️' : '🌙';
+            toggleBtn.textContent = isDark ? '☀' : '◐';
         });
     }
+
 
     /* ===================== VISOR SVG VECTORIAL ===================== */
     const viewerCard = document.getElementById('viewerCard');
@@ -309,30 +1059,32 @@
     const zoomInfo = document.getElementById('zoomInfo');
     const zoomInBtn = document.getElementById('zoomInBtn');
     const zoomOutBtn = document.getElementById('zoomOutBtn');
-    const fullscreenBtn = document.getElementById('fullscreenBtn');
     const resetZoomBtn = document.getElementById('resetZoomBtn');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
 
     let planSvg = null;
 
+    /* ViewBox original del archivo */
     let originalViewBox = null;
+
+    /* ViewBox que se muestra actualmente */
     let currentViewBox = null;
+
     let viewerScale = 1;
 
     const MIN_ZOOM = 1;
     const MAX_ZOOM = 8;
 
-    let isDragging = false;
+    let dragging = false;
     let dragStartClientX = 0;
     let dragStartClientY = 0;
     let dragStartViewBox = null;
     let dragStartCTM = null;
 
-    function clamp(value, min, max) {
-        return Math.min(max, Math.max(min, value));
-    }
 
-    /* Carga FACHADAS.svg como SVG real dentro del DOM.
-       Tu archivo es vectorial (paths/text, sin <image> raster incrustado). */
+    /* ---------------------------------------------------------
+       CARGAR EL SVG COMO VECTOR REAL
+       --------------------------------------------------------- */
     async function loadPlanSvg() {
         const src = planSvgHost.dataset.src;
 
@@ -345,13 +1097,13 @@
 
             const svgText = await response.text();
             const parser = new DOMParser();
-            const svgDocument = parser.parseFromString(svgText, 'image/svg+xml');
+            const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
 
-            if (svgDocument.querySelector('parsererror')) {
+            if (svgDoc.querySelector('parsererror')) {
                 throw new Error('El archivo SVG no pudo interpretarse.');
             }
 
-            const loadedSvg = svgDocument.documentElement;
+            const loadedSvg = svgDoc.documentElement;
 
             if (
                 !loadedSvg ||
@@ -360,10 +1112,13 @@
                 throw new Error('El archivo cargado no es un SVG válido.');
             }
 
-            /* El SVG adjunto tiene width/height físicos; los quitamos para que
-               el visor controle el tamaño y preserve el viewBox vectorial. */
+            /*
+             * Quitamos width/height físicos del archivo.
+             * El tamaño visual lo controla el visor.
+             */
             loadedSvg.removeAttribute('width');
             loadedSvg.removeAttribute('height');
+
             loadedSvg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
             loadedSvg.setAttribute('focusable', 'false');
             loadedSvg.setAttribute('aria-hidden', 'true');
@@ -374,6 +1129,13 @@
 
             planSvg = planSvgHost.querySelector('svg');
 
+            /*
+             * Tu VENTANAS.svg ya trae:
+             * viewBox="0 0 1684 1191"
+             *
+             * De todos modos lo leemos dinámicamente para que el
+             * visor siga funcionando si reemplazas el archivo.
+             */
             const vb = planSvg.viewBox.baseVal;
 
             if (vb && vb.width > 0 && vb.height > 0) {
@@ -384,6 +1146,9 @@
                     height: vb.height
                 };
             } else {
+                /*
+                 * Respaldo para SVG sin viewBox.
+                 */
                 const bbox = planSvg.getBBox();
 
                 originalViewBox = {
@@ -402,7 +1167,7 @@
             resetViewer();
 
         } catch (error) {
-            console.error('No fue posible cargar FACHADAS.svg:', error);
+            console.error('No fue posible cargar VENTANAS.svg:', error);
 
             planSvgHost.innerHTML = `
                 <div style="
@@ -412,15 +1177,23 @@
                     place-items:center;
                     padding:24px;
                     text-align:center;
-                    color:#777;
+                    color:var(--text-secondary);
                     font-size:.78rem;
                 ">
-                    No fue posible cargar FACHADAS.svg.<br>
-                    Si abriste el HTML con file://, pruébalo con Live Server o GitHub Pages.
+                    No fue posible cargar el plano SVG.
                 </div>
             `;
         }
     }
+
+
+    /* ---------------------------------------------------------
+       UTILIDADES
+       --------------------------------------------------------- */
+    function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+    }
+
 
     function applyViewBox() {
         if (!planSvg || !currentViewBox) return;
@@ -430,9 +1203,15 @@
             `${currentViewBox.x} ${currentViewBox.y} ${currentViewBox.width} ${currentViewBox.height}`
         );
 
-        zoomInfo.textContent = `${Math.round(viewerScale * 100)}%`;
+        zoomInfo.textContent =
+            `${Math.round(viewerScale * 100)}%`;
     }
 
+
+    /*
+     * Impide que el plano se arrastre completamente fuera de
+     * los límites del SVG original.
+     */
     function clampViewBox(box) {
         if (!originalViewBox) return box;
 
@@ -461,6 +1240,10 @@
         return box;
     }
 
+
+    /* ---------------------------------------------------------
+       RESTABLECER
+       --------------------------------------------------------- */
     function resetViewer() {
         if (!originalViewBox) return;
 
@@ -473,18 +1256,28 @@
         applyViewBox();
     }
 
+
+    /* ---------------------------------------------------------
+       OBTENER PUNTO REAL DENTRO DEL SVG
+       --------------------------------------------------------- */
     function clientToSvgPoint(clientX, clientY) {
         if (!planSvg) return null;
 
         const ctm = planSvg.getScreenCTM();
+
         if (!ctm) return null;
 
-        return new DOMPoint(clientX, clientY)
-            .matrixTransform(ctm.inverse());
+        const point = new DOMPoint(clientX, clientY);
+
+        return point.matrixTransform(
+            ctm.inverse()
+        );
     }
 
-    /* Zoom vectorial real:
-       en vez de escalar una capa con CSS, reducimos el área visible del viewBox. */
+
+    /* ---------------------------------------------------------
+       ZOOM NATIVO MEDIANTE viewBox
+       --------------------------------------------------------- */
     function setZoom(nextZoom, clientX = null, clientY = null) {
         if (!planSvg || !originalViewBox || !currentViewBox) return;
 
@@ -494,7 +1287,12 @@
             return;
         }
 
-        let focus = null;
+        /*
+         * Punto alrededor del cual se hará el zoom.
+         * Si viene de la rueda del mouse, usamos el cursor.
+         * Si viene de los botones, usamos el centro visible.
+         */
+        let focus;
 
         if (clientX !== null && clientY !== null) {
             focus = clientToSvgPoint(clientX, clientY);
@@ -515,6 +1313,9 @@
         const newHeight =
             originalViewBox.height / nextZoom;
 
+        /*
+         * Conserva el punto del cursor en la misma posición relativa.
+         */
         const relativeX =
             (focus.x - oldBox.x) / oldBox.width;
 
@@ -529,11 +1330,16 @@
         };
 
         currentViewBox = clampViewBox(currentViewBox);
+
         viewerScale = nextZoom;
 
         applyViewBox();
     }
 
+
+    /* ---------------------------------------------------------
+       BOTONES
+       --------------------------------------------------------- */
     zoomInBtn.addEventListener(
         'click',
         () => setZoom(viewerScale * 1.25)
@@ -549,7 +1355,10 @@
         resetViewer
     );
 
-    /* Zoom con rueda, centrado en el cursor */
+
+    /* ---------------------------------------------------------
+       RUEDA DEL MOUSE
+       --------------------------------------------------------- */
     planWrapper.addEventListener(
         'wheel',
         (e) => {
@@ -571,7 +1380,10 @@
         { passive: false }
     );
 
-    /* Arrastre dentro del viewBox */
+
+    /* ---------------------------------------------------------
+       ARRASTRE
+       --------------------------------------------------------- */
     planWrapper.addEventListener(
         'pointerdown',
         (e) => {
@@ -584,9 +1396,10 @@
             }
 
             const ctm = planSvg.getScreenCTM();
+
             if (!ctm) return;
 
-            isDragging = true;
+            dragging = true;
 
             dragStartClientX = e.clientX;
             dragStartClientY = e.clientY;
@@ -595,23 +1408,34 @@
                 ...currentViewBox
             };
 
+            /*
+             * Guardamos la matriz del momento exacto en que empieza
+             * el arrastre. Así el movimiento no "salta".
+             */
             dragStartCTM = ctm;
 
-            planWrapper.setPointerCapture?.(e.pointerId);
+            planWrapper.setPointerCapture?.(
+                e.pointerId
+            );
         }
     );
+
 
     planWrapper.addEventListener(
         'pointermove',
         (e) => {
             if (
-                !isDragging ||
+                !dragging ||
                 !dragStartViewBox ||
                 !dragStartCTM
             ) {
                 return;
             }
 
+            /*
+             * La escala de la CTM convierte unidades del SVG a
+             * píxeles de pantalla.
+             */
             const scaleX =
                 Math.hypot(
                     dragStartCTM.a,
@@ -639,25 +1463,39 @@
                 height: dragStartViewBox.height
             };
 
-            currentViewBox = clampViewBox(currentViewBox);
+            currentViewBox = clampViewBox(
+                currentViewBox
+            );
+
             applyViewBox();
         }
     );
 
-    function stopDragging(e) {
-        isDragging = false;
+
+    function stopDrag(e) {
+        dragging = false;
         dragStartViewBox = null;
         dragStartCTM = null;
 
         try {
-            planWrapper.releasePointerCapture?.(e.pointerId);
+            planWrapper.releasePointerCapture?.(
+                e.pointerId
+            );
         } catch (_) {}
     }
 
-    planWrapper.addEventListener('pointerup', stopDragging);
-    planWrapper.addEventListener('pointercancel', stopDragging);
+    planWrapper.addEventListener(
+        'pointerup',
+        stopDrag
+    );
 
-    /* Doble clic: 200% / restablecer */
+    planWrapper.addEventListener(
+        'pointercancel',
+        stopDrag
+    );
+
+
+    /* Doble clic: zoom rápido / restablecer */
     planWrapper.addEventListener(
         'dblclick',
         (e) => {
@@ -673,6 +1511,10 @@
         }
     );
 
+
+    /* ---------------------------------------------------------
+       PANTALLA COMPLETA
+       --------------------------------------------------------- */
     fullscreenBtn.addEventListener(
         'click',
         async () => {
@@ -682,30 +1524,39 @@
                 } else {
                     await document.exitFullscreen();
                 }
-            } catch (err) {
+            } catch (error) {
                 console.warn(
-                    'No fue posible activar pantalla completa:',
-                    err
+                    'No fue posible cambiar a pantalla completa:',
+                    error
                 );
             }
         }
     );
 
+
+    /*
+     * No hace falta recalcular el SVG al cambiar de tamaño:
+     * el viewBox es independiente de la resolución de pantalla.
+     */
     document.addEventListener(
         'fullscreenchange',
         () => {
-            /* El viewBox sigue siendo válido al cambiar el tamaño.
-               Al salir de fullscreen restablecemos la vista, igual que tu código original. */
             if (!document.fullscreenElement) {
                 resetViewer();
             }
         }
     );
 
+
+    /* Cargar plano */
     loadPlanSvg();
 
 
     document.addEventListener("contextmenu", (e) => { e.preventDefault(); });
+    document.querySelectorAll("img").forEach(img => { img.setAttribute("draggable", "false"); });
+
 </script>
+
 </body>
 </html>
+
